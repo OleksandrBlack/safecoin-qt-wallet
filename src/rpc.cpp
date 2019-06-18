@@ -74,7 +74,7 @@ RPC::~RPC() {
     delete conn;
 }
 
-void RPC::setEZcashd(QProcess* p) {
+void RPC::setEZcashd(std::shared_ptr<QProcess> p) {
     ezcashd = p;
 
     if ((ezcashd && ui->tabWidget->widget(4) == nullptr) && (ezcashd && ui->tabWidget->widget(5) == nullptr)) {
