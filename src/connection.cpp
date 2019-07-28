@@ -352,25 +352,28 @@ bool ConnectionLoader::startEmbeddedZcashd() {
     // Finally, start safecoind    
     QDir appPath(QCoreApplication::applicationDirPath());
 #ifdef Q_OS_LINUX
-    auto zcashdProgram = appPath.absoluteFilePath("safecoind");
-    if (!QFile(zcashdProgram).exists()) {
-        zcashdProgram = appPath.absoluteFilePath("safecoind");
+    auto safecoindProgram = appPath.absoluteFilePath("safecoind");
+    if (!QFile(hushdProgram).exists()) {
+        hushdProgram = appPath.absoluteFilePath("safcoind");
     }
 #elif defined(Q_OS_DARWIN)
-    auto zcashdProgram = appPath.absoluteFilePath("safecoind");
+    auto safecoindProgram = appPath.absoluteFilePath("safecoind");
+#elif defined(Q_OS_WIN64)
+    auto safecoindProgram = appPath.absoluteFilePath("safecoind.bat");
 #else
-    auto zcashdProgram = appPath.absoluteFilePath("safecoind.exe");
+    //TODO: Not Linux + not darwin DOES NOT EQUAL windows!!!
+    auto safecoindProgram = appPath.absoluteFilePath("safecoind");
 #endif
     
-    if (!QFile::exists(zcashdProgram)) {
-        qDebug() << "Can't find safecoind at " << zcashdProgram;
-        main->logger->write("Can't find safecoind at " + zcashdProgram); 
+    if (!QFile(hushdProgram).exists()) {
+        qDebug() << "Can't find safecoind at " << hushdProgram;
+        main->logger->write("Can't find safecoind at " + hushdProgram); 
         return false;
     }
 
-    ezcashd = new QProcess(main);    
-    QObject::connect(ezcashd, &QProcess::started, [=] () {
-        //qDebug() << "safecoind started";
+    ezcashd = std::shared_ptr<QProcess>(new QProcess(main));
+    QObject::connect(ezcashd.get(), &QProcess::started, [=] () {
+        qDebug() << "Embedded safecoind started via " + hushdProgram;
     });
 
     QObject::connect(ezcashd, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
@@ -378,8 +381,8 @@ bool ConnectionLoader::startEmbeddedZcashd() {
         //qDebug() << "safecoind finished with code " << exitCode << "," << exitStatus;    
     });
 
-    QObject::connect(ezcashd, &QProcess::errorOccurred, [&] (auto) {
-        //qDebug() << "Couldn't start safecoind: " << error;
+    QObject::connect(ezcashd.get(), &QProcess::errorOccurred, [&] (QProcess::ProcessError error) {
+        qDebug() << "Couldn't start safecoind at " + safecoindProgram << error;
     });
 
     QObject::connect(ezcashd, &QProcess::readyReadStandardError, [=]() {
@@ -389,12 +392,12 @@ bool ConnectionLoader::startEmbeddedZcashd() {
     });
 
 #ifdef Q_OS_LINUX
-    ezcashd->start(zcashdProgram);
+    ezcashd->start(safecoindProgram);
 #elif defined(Q_OS_DARWIN)
-    ezcashd->start(zcashdProgram);
+    ezcashd->start(safecoindProgram);
 #else
     ezcashd->setWorkingDirectory(appPath.absolutePath());
-    ezcashd->start("safecoind.exe");
+    ezcashd->start(safecoindProgram);
 #endif // Q_OS_LINUX
 
 
