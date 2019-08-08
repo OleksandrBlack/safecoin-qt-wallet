@@ -205,15 +205,15 @@ void RPC::importTPrivKey(QString privkey, bool rescan, const std::function<void(
 
     // If privkey starts with 5, K or L, use old-style Hush params, same as BTC+ZEC
     if( privkey.startsWith("5") || privkey.startsWith("K") || privkey.startsWith("L") ) {
-        qDebug() << "Detected old-style HUSH WIF";
+        qDebug() << "Detected old-style SAFECOIN WIF";
         payload = {
             {"jsonrpc", "1.0"},
             {"id", "someid"},
             {"method", "importprivkey"},
-            {"params", { privkey.toStdString(), "", "false", "0", "128" }},
+            {"params", { privkey.toStdString(), "" }},
         };
     } else {
-        qDebug() << "Detected new-style HUSH WIF";
+        qDebug() << "Detected new-style SAFECOIN WIF";
         payload = {
             {"jsonrpc", "1.0"},
             {"id", "someid"},

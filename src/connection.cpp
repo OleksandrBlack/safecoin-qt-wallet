@@ -353,8 +353,8 @@ bool ConnectionLoader::startEmbeddedZcashd() {
     QDir appPath(QCoreApplication::applicationDirPath());
 #ifdef Q_OS_LINUX
     auto safecoindProgram = appPath.absoluteFilePath("safecoind");
-    if (!QFile(hushdProgram).exists()) {
-        hushdProgram = appPath.absoluteFilePath("safcoind");
+    if (!QFile(safecoindProgram).exists()) {
+        safecoindProgram = appPath.absoluteFilePath("safcoind");
     }
 #elif defined(Q_OS_DARWIN)
     auto safecoindProgram = appPath.absoluteFilePath("safecoind");
@@ -365,15 +365,15 @@ bool ConnectionLoader::startEmbeddedZcashd() {
     auto safecoindProgram = appPath.absoluteFilePath("safecoind");
 #endif
     
-    if (!QFile(hushdProgram).exists()) {
-        qDebug() << "Can't find safecoind at " << hushdProgram;
-        main->logger->write("Can't find safecoind at " + hushdProgram); 
+    if (!QFile(safecoindProgram).exists()) {
+        qDebug() << "Can't find safecoind at " << safecoindProgram;
+        main->logger->write("Can't find safecoind at " + safecoindProgram); 
         return false;
     }
 
     ezcashd = std::shared_ptr<QProcess>(new QProcess(main));
     QObject::connect(ezcashd.get(), &QProcess::started, [=] () {
-        qDebug() << "Embedded safecoind started via " + hushdProgram;
+        qDebug() << "Embedded safecoind started via " + safecoindProgram;
     });
 
     QObject::connect(ezcashd, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
@@ -587,68 +587,34 @@ QString ConnectionLoader::zcashParamsDir() {
 bool ConnectionLoader::verifyParams() {
     QDir paramsDir(zcashParamsDir());
 
-    // TODO: better error reporting if only 1 file exists or is missing
-    qDebug() << "Verifying param files exist";
+    qDebug() << "Verifying sapling param files exist";
 
 
-    // This list of locations to look must be kept in sync with the list in safecoind
-    if( QFile( QDir(".").filePath("sapling-output.params") ).exists() && 
-		QFile( QDir(".").filePath("sapling-spend.params") ).exists() && 
-		QFile( QDir(".").filePath("sprout-proving.key") ).exists() && 
-		QFile( QDir(".").filePath("sprout-verifying.key") ).exists() && 
-		QFile( QDir(".").filePath("sprout-groth16.params") ).exists() ) {
+    if( QFile( QDir(".").filePath("sapling-output.params") ).exists() && QFile( QDir(".").filePath("sapling-output.params") ).exists() ) {
+
         qDebug() << "Found params in .";
         return true;
     }
 
-    if( QFile( QDir("..").filePath("sapling-output.params") ).exists() && 
-		QFile( QDir("..").filePath("sapling-spend.params") ).exists() && 
-		QFile( QDir("..").filePath("sprout-proving.key") ).exists() && 
-		QFile( QDir("..").filePath("sprout-verifying.key") ).exists() && 
-		QFile( QDir("..").filePath("sprout-groth16.params") ).exists() ) {
+    if( QFile( QDir("..").filePath("sapling-output.params") ).exists() && QFile( QDir("..").filePath("sapling-output.params") ).exists() ) {
+
         qDebug() << "Found params in ..";
         return true;
     }
 
-    if( QFile( QDir("..").filePath("safecoin/sapling-output.params") ).exists() && 
-		QFile( QDir("..").filePath("safecoin/sapling-spend.params") ).exists() && 
-		QFile( QDir("..").filePath("safecoin/sprout-proving.key") ).exists() &&
-		QFile( QDir("..").filePath("safecoin/sprout-verifying.key") ).exists() &&
-		QFile( QDir("..").filePath("safecoin/sprout-groth16.params") ).exists() ) {
+
+    if( QFile( QDir("..").filePath("safecoin/sapling-output.params") ).exists() && QFile( QDir("..").filePath("safecoin/sapling-output.params") ).exists() ) {
         qDebug() << "Found params in ../safecoin";
         return true;
     }
 
-    // this is to support SD on mac in /Applications1
-    if( QFile( QDir("/Applications").filePath("safecoinwallet.app/Contents/MacOS/sapling-output.params") ).exists() && 
-		QFile( QDir("/Applications").filePath("./safecoinwallet.app/Contents/MacOS/sapling-spend.params") ).exists() && 
-		QFile( QDir("/Applications").filePath("safecoinwallet.app/Contents/MacOS/sprout-proving.key") ).exists() &&
-		QFile( QDir("/Applications").filePath("safecoinwallet.app/Contents/MacOS/sprout-verifying.key") ).exists() &&
-		QFile( QDir("/Applications").filePath("safecoinwallet.app/Contents/MacOS/sprout-groth16.params") ).exists() ) {
-        qDebug() << "Found params in /Applications/safecoinwallet.app/Contents/MacOS";
-        return true;
-    }
+    if (QFile(paramsDir.filePath("sapling-output.params")).exists() && QFile(paramsDir.filePath("sapling-spend.params")).exists()) {
 
-    // this is to support SD on mac inside a DMG
-    if( QFile( QDir("./").filePath("safecoinwallet.app/Contents/MacOS/sapling-output.params") ).exists() && 
-		QFile( QDir("./").filePath("./safecoinwallet.app/Contents/MacOS/sapling-spend.params") ).exists() && 
-		QFile( QDir("./").filePath("safecoinwallet.app/Contents/MacOS/sprout-proving.key") ).exists() && 
-		QFile( QDir("./").filePath("safecoinwallet.app/Contents/MacOS/sprout-verifying.key") ).exists() && 
-		QFile( QDir("./").filePath("safecoinwallet.app/Contents/MacOS/sprout-groth16.params") ).exists() ) {
-        qDebug() << "Found params in ./safecoinwallet.app/Contents/MacOS";
-        return true;
-    }
-
-    if (QFile(paramsDir.filePath("sapling-output.params")).exists() && 
-		QFile(paramsDir.filePath("sapling-spend.params")).exists() && 
-		QFile(paramsDir.filePath("sprout-proving.key")).exists() && 
-		QFile(paramsDir.filePath("sprout-verifying.key")).exists() && 
-		QFile(paramsDir.filePath("sprout-groth16.params")).exists() ) {
         qDebug() << "Found params in " << paramsDir;
         return true;
     }
 
-    qDebug() << "Did not find params!";
+    qDebug() << "Did not find Sapling params!";
     return false;
 }
 

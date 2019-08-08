@@ -977,11 +977,11 @@ doesn&apos;t look like a z-address</source>
         <location filename="../src/connection.cpp" line="77"/>
         <source>You have safecoind set to start as a daemon, which can cause problems with SlientDragon
 
-.Please remove the following line from your HUSH3.conf and restart SlientDragon
+.Please remove the following line from your SAFECOIN.conf and restart Safewallet
 daemon=1</source>
-        <translation>你已经将safecoind设置为守护进程启动，这可能会导致SlientDragon出现问题
+        <translation>你已经将safecoind设置为守护进程启动，这可能会导致Safewallet出现问题
 
-。请从HUSH3.conf中删除以下行并重新启动SlientDragon
+。请从SAFECOIN.conf中删除以下行并重新启动Safewallet
 daemon=1</translation>
     </message>
     <message>
@@ -990,14 +990,14 @@ daemon=1</translation>
 
 Please try restarting.
 
-If you previously started safecoind with custom arguments, you might need to reset HUSH3.conf.
+If you previously started safecoind with custom arguments, you might need to reset SAFECOIN.conf.
 
 If all else fails, please run safecoind manually.</source>
         <translation>无法启动内嵌的safecoind。
 
 请尝试重新启动。
 
-如果您之前使用自定义参数启动了safecoind，则可能需要重置HUSH3.conf。
+如果您之前使用自定义参数启动了safecoind，则可能需要重置SAFECOIN.conf。
 
 如果所有其他方法都失败了，请手动运行safecoind。</translation>
     </message>
@@ -1008,10 +1008,10 @@ If all else fails, please run safecoind manually.</source>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="93"/>
-        <source>Couldn&apos;t connect to safecoind configured in HUSH3.conf.
+        <source>Couldn&apos;t connect to safecoind configured in SAFECOIN.conf.
 
 Not starting embedded safecoind because --no-embedded was passed</source>
-        <translation>无法连接到HUSH3.conf中配置的safecoind。
+        <translation>无法连接到SAFECOIN.conf中配置的safecoind。
 
 没有启动内嵌的safecoind，因为已经传了--no-embedded参数</translation>
     </message>
@@ -1155,8 +1155,8 @@ Please set the host/port and user/password in the Edit-&gt;Settings menu.</sourc
     </message>
     <message>
         <location filename="../src/recurring.cpp" line="469"/>
-        <source>No HUSH price was available to convert from USD</source>
-        <translation>HUSH的美元价格无法获取</translation>
+        <source>No SAFECOIN price was available to convert from USD</source>
+        <translation>SAFECOIN的美元价格无法获取</translation>
     </message>
     <message>
         <location filename="../src/recurring.cpp" line="518"/>
@@ -1573,7 +1573,7 @@ You either have unconfirmed funds or the balance is too low for an automatic mig
     </message>
     <message>
         <location filename="../src/requestdialog.ui" line="219"/>
-        <source>Request payment from a Sapling address. You&apos;ll send a HUSH 0.0001 transaction to the address with a safecoin payment URI. The memo will be included in the transaction when the address pays you.</source>
+        <source>Request payment from a Sapling address. You&apos;ll send a SAFE 0.0001 transaction to the address with a safecoin payment URI. The memo will be included in the transaction when the address pays you.</source>
         <translation>要求从树苗地址付款。 您将使用safecoin支付URI将ZEC 0.0001交易发送到该地址。 当地址付款时，备注将包含在交易中。</translation>
     </message>
     <message>
