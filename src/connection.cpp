@@ -591,25 +591,21 @@ bool ConnectionLoader::verifyParams() {
 
 
     if( QFile( QDir(".").filePath("sapling-output.params") ).exists() && QFile( QDir(".").filePath("sapling-output.params") ).exists() ) {
-
         qDebug() << "Found params in .";
         return true;
     }
 
     if( QFile( QDir("..").filePath("sapling-output.params") ).exists() && QFile( QDir("..").filePath("sapling-output.params") ).exists() ) {
-
         qDebug() << "Found params in ..";
         return true;
     }
 
-
-    if( QFile( QDir("..").filePath("safecoin/sapling-output.params") ).exists() && QFile( QDir("..").filePath("safecoin/sapling-output.params") ).exists() ) {
-        qDebug() << "Found params in ../safecoin";
+    if( QFile( QDir("..").filePath("hush3/sapling-output.params") ).exists() && QFile( QDir("..").filePath("hush3/sapling-output.params") ).exists() ) {
+        qDebug() << "Found params in ../hush3";
         return true;
     }
 
     if (QFile(paramsDir.filePath("sapling-output.params")).exists() && QFile(paramsDir.filePath("sapling-spend.params")).exists()) {
-
         qDebug() << "Found params in " << paramsDir;
         return true;
     }
