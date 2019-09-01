@@ -14,6 +14,7 @@
         <file>res/safenode.png</file>
     </qresource>
     <qresource prefix="/translations">
+        <file>res/zec_qt_wallet_de.qm</file>
         <file>res/safe_qt_wallet_es.qm</file>
         <file>res/safe_qt_wallet_fr.qm</file>
         <file>res/safe_qt_wallet_pt.qm</file>
