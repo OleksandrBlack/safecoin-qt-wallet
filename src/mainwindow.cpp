@@ -1227,6 +1227,7 @@ std::function<void(bool)> MainWindow::addZAddrsToComboList(bool sapling) {
 void MainWindow::setupReceiveTab() {
     auto addNewTAddr = [=] () {
         rpc->newTaddr([=] (json reply) {
+            qDebug() << "New addr button clicked";
             QString addr = QString::fromStdString(reply.get<json::string_t>());
             // Make sure the RPC class reloads the t-addrs for future use
             rpc->refreshAddresses();
@@ -1243,8 +1244,7 @@ void MainWindow::setupReceiveTab() {
 
     // Connect t-addr radio button
     QObject::connect(ui->rdioTAddr, &QRadioButton::toggled, [=] (bool checked) { 
-        // Whenever the t-address is selected, we generate a new address, because we don't
-        // want to reuse t-addrs
+        qDebug() << "taddr radio toggled";
         if (checked && this->rpc->getUTXOs() != nullptr) { 
             updateTAddrCombo(checked);
         } 
