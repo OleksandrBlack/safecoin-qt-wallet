@@ -112,6 +112,7 @@ FORMS += \
     src/recurringmultiple.ui
 
 
+
 TRANSLATIONS = res/safe_qt_wallet_es.ts \
                res/safe_qt_wallet_fr.ts \
                res/safe_qt_wallet_pt.ts \
