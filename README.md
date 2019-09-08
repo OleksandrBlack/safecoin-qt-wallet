@@ -21,8 +21,10 @@ safecoinwallet is written in C++ 14, and can be compiled with g++/clang++/visual
 
 ### Building on Linux
 
+
 ```
-sudo apt-get install qt5-default qt5-qmake libqt5websockets5-dev
+
+sudo apt-get install qt5-default qt5-qmake libqt5websockets5-dev qtcreator
 git clone https://github.com/Fair-Exchange/safecoinwallet.git
 cd safecoinwallet
 qmake safe-qt-wallet.pro CONFIG+=debug
@@ -50,7 +52,9 @@ c:\Qt5\bin\qmake.exe safe-qt-wallet.pro -tp vc CONFIG+=debug
 ```
 
 ### Building on macOS
+
 You need to install the Xcode app or the Xcode command line tools first, and then install Qt. 
+
 
 ```
 git clone https://github.com/Fair-Exchange/safecoinwallet.git
