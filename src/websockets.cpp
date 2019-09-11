@@ -142,10 +142,11 @@ void WormholeClient::connect() {
         m_webSocket->open(wormhole);
         qDebug() << "Opened connection to " << wormhole;
         //TODO: use env var to over-ride
-        //m_webSocket->open(QUrl("ws://127.0.0.1:7070"));
+        m_webSocket->open(QUrl("ws://wormhole.safecoin.org:443"));
     } else {
         qDebug() << "Invalid websocket object!";
     }
+
 
 }
 
