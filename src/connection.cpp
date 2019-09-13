@@ -350,6 +350,7 @@ bool ConnectionLoader::startEmbeddedZcashd() {
         }        
     }
 
+
     // Finally, start safecoind    
     QDir appPath(QCoreApplication::applicationDirPath());
 #ifdef Q_OS_LINUX
@@ -360,10 +361,11 @@ bool ConnectionLoader::startEmbeddedZcashd() {
 #elif defined(Q_OS_DARWIN)
     auto safecoindProgram = appPath.absoluteFilePath("safecoind");
 #elif defined(Q_OS_WIN64)
-    auto safecoindProgram = appPath.absoluteFilePath("safecoind.exe");
+    // we use the CLI directly
+    auto safecoinProgram = appPath.absoluteFilePath("safecoind");
 #else
-    //TODO: Not Linux + not darwin DOES NOT EQUAL windows!!!
-    auto safecoindProgram = appPath.absoluteFilePath("safecoind");
+    main->logger->write("Unknown OS!");
+    auto safecoinProgram = appPath.absoluteFilePath("safecoind");
 #endif
     
 
@@ -398,13 +400,26 @@ bool ConnectionLoader::startEmbeddedZcashd() {
         processStdErrOutput.append(output);
     });
 
+
+    // This string should be the exact arg list seperated by single spaces
+    QString params = "-ac_name=HUSH3 -ac_sapling=1 -ac_reward=0,1125000000,562500000 -ac_halving=129,340000,840000 -ac_end=128,340000,5422111 -ac_eras=3 -ac_blocktime=150 -ac_cc=2 -ac_ccenable=228,234,235,236,241 -ac_founders=1 -ac_supply=6178674 -ac_perc=11111111 -clientname=GoldenSandtrout -addnode=188.165.212.101 -addnode=136.243.227.142 -addnode=5.9.224.250 -ac_cclib=hush3 -ac_script=76a9145eb10cf64f2bab1b457f1f25e658526155928fac88ac";
+    QStringList arguments = params.split(" ");
+    // Finally, actually start the full node
+
 #ifdef Q_OS_LINUX
+    main->logger->write("Starting on Linux");
     ezcashd->start(safecoindProgram);
 #elif defined(Q_OS_DARWIN)
+    main->logger->write("Starting on Darwin");
     ezcashd->start(safecoindProgram);
-#else
+#elif defined(Q_OS_WIN64)
+    main->logger->write("Starting on Win64 with params " + params);
     ezcashd->setWorkingDirectory(appPath.absolutePath());
-    ezcashd->start(safecoindProgram);
+    ezcashd->start(safecoindProgram, arguments);
+#else
+    main->logger->write("Starting on Unknown OS with params " + params);
+    ezcashd->setWorkingDirectory(appPath.absolutePath());
+    ezcashd->start(safecoindProgram, arguments);
 #endif // Q_OS_LINUX
 
 
