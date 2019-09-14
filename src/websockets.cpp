@@ -154,11 +154,11 @@ void WormholeClient::connect() {
 void WormholeClient::retryConnect() {
     QTimer::singleShot(5 * 1000 * pow(2, retryCount), [=]() {
         if (retryCount < 10) {
-            qDebug() << "Retrying websocket connection, count=" << this->retryCount;
             this->retryCount++;
+            qDebug() << "Retrying websocket connection, retrycount=" << this->retryCount;
             connect();
         } else {
-            qDebug() << "Retry count exceeded, will not attempt retry any more";
+            qDebug() << "Retry count of " << retryCount << " exceeded, will not attempt retry any more";
         }
     });
 }
@@ -195,40 +195,32 @@ void WormholeClient::closed() {
 
 void WormholeClient::onConnected()
 {
+    qDebug() << "WebSocket connected";
     retryCount = 0;
-    qDebug() << "WebSocket connected, retryCount=" << retryCount;
 
-    QObject::connect(m_webSocket, &QWebSocket::textMessageReceived, this, &WormholeClient::onTextMessageReceived);
+    QObject::connect(m_webSocket, &QWebSocket::textMessageReceived,
+                        this, &WormholeClient::onTextMessageReceived);
 
-    auto payload = QJsonDocument( QJsonObject { {"register", code} }).toJson();
+    auto payload = QJsonDocument( QJsonObject {
+        {"register", code}
+    }).toJson();
 
-    qDebug() << "Sending register";
-    if (m_webSocket && m_webSocket->isValid()) {
-        m_webSocket->sendTextMessage(payload);
-        qDebug() << "Sent registration message with code=" << code;
+    m_webSocket->sendTextMessage(payload);
 
-        // On connected, we'll also create a timer to ping it every 4 minutes, since the websocket 
-        // will timeout after 5 minutes
-        timer = new QTimer(parent);
-        qDebug() << "Created QTimer";
-        QObject::connect(timer, &QTimer::timeout, [=]() {
-            qDebug() << "Timer timeout!";
-            try {
-                if (!shuttingDown && m_webSocket && m_webSocket->isValid()) {
-                    auto payload = QJsonDocument(QJsonObject { {"ping", "ping"} }).toJson();
-                    qint64 bytes = m_webSocket->sendTextMessage(payload);
-                    qDebug() << "Sent ping, " << bytes << " bytes";
-                }
-            } catch (...) {
-                qDebug() << "Websocket is invalid, no ping sent!";
-            }
-        });
-        unsigned int interval = 1*60*1000; // 1 minute
-        timer->start(interval);
-        qDebug() << "Started timer with interval=" << interval;
-    } else {
-        qDebug() << "Invalid websocket object onConnected!";
-    }
+    // On connected, we'll also create a timer to ping it every 4 minutes, since the websocket 
+    // will timeout after 5 minutes
+    timer = new QTimer(parent);
+    QObject::connect(timer, &QTimer::timeout, [=]() {
+        if (!shuttingDown && m_webSocket->isValid()) {
+            auto payload = QJsonDocument(QJsonObject {
+                {"ping", "ping"}
+            }).toJson();
+	    qDebug() << "Sending Ping";
+            m_webSocket->sendTextMessage(payload);
+        }
+    });
+    qDebug() << "Starting timer";
+    timer->start(4 * 60 * 1000); // 4 minutes
 }
 
 void WormholeClient::onTextMessageReceived(QString message)
@@ -265,7 +257,11 @@ QString AppDataServer::getWormholeCode(QString secretHex) {
     delete[] out1;
     delete[] secret;
 
+<<<<<<< HEAD
     qDebug() << "Created wormhole secretHex=" << wmcodehex;
+=======
+	qDebug() << "Created wormhole secretHex";
+>>>>>>> 14387c3... Improve websocket logging
     return wmcodehex;
 }
 
@@ -395,9 +391,15 @@ void AppDataServer::updateUIWithNewQRCode(MainWindow* mainwindow) {
 
     if (ipv4Addr.isEmpty())
         return;
+<<<<<<< HEAD
 
     QString uri = "ws://" + ipv4Addr + ":8787";  //Safecoin port
     qDebug() << "Websocket URI: " << uri;
+=======
+    
+    QString uri = "ws://" + ipv4Addr + ":8777";
+	qDebug() << "Websocket URI: " << uri;
+>>>>>>> 14387c3... Improve websocket logging
 
     // Get a new secret
     unsigned char* secretBin = new unsigned char[crypto_secretbox_KEYBYTES];
@@ -420,7 +422,11 @@ void AppDataServer::updateUIWithNewQRCode(MainWindow* mainwindow) {
 }
 
 void AppDataServer::registerNewTempSecret(QString tmpSecretHex, bool allowInternet, MainWindow* main) {
+<<<<<<< HEAD
     qDebug() << "Registering new tempSecret, allowInternet=" << allowInternet;	
+=======
+	qDebug() << "Registering new tempSecret, allowInternet=" << allowInternet;	
+>>>>>>> 14387c3... Improve websocket logging
     tempSecret = tmpSecretHex;
 
     delete tempWormholeClient;
@@ -428,8 +434,13 @@ void AppDataServer::registerNewTempSecret(QString tmpSecretHex, bool allowIntern
 
     if (allowInternet) {
         tempWormholeClient = new WormholeClient(main, getWormholeCode(tempSecret));
+<<<<<<< HEAD
         qDebug() << "Created new wormhole client";
     }
+=======
+		qDebug() << "Created new wormhole client";
+	}
+>>>>>>> 14387c3... Improve websocket logging
 }
 
 QString AppDataServer::connDesc(AppConnectionType t) {
