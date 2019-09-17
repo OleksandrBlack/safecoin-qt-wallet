@@ -5,8 +5,8 @@
 
 Settings* Settings::instance = nullptr;
 
-Settings* Settings::init() {    
-    if (instance == nullptr) 
+Settings* Settings::init() {
+    if (instance == nullptr)
         instance = new Settings();
 
     return instance;
@@ -35,11 +35,12 @@ void Settings::setAllowFetchPrices(bool allow) {
 Explorer Settings::getExplorer() {
     // Load from the QT Settings.
     QSettings s;
-    //TODO: make it easy for people to use other explorers like komodod.com
-    QString explorer = "https://explorer.myhush.org";
 
-    auto txExplorerUrl                = s.value("explorer/txExplorerUrl", explorer + "/tx/").toString();
-    auto addressExplorerUrl           = s.value("explorer/addressExplorerUrl", explorer + "/address/").toString();
+    //TODO: make it easy for people to use other explorers like komodod.com
+    QString explorer = "https://explorer.safecoin.org";
+
+    auto txExplorerUrl                = s.value("explorer/txExplorerUrl").toString();
+    auto addressExplorerUrl           = s.value("explorer/addressExplorerUrl").toString();
     auto testnetTxExplorerUrl         = s.value("explorer/testnetTxExplorerUrl").toString();
     auto testnetAddressExplorerUrl    = s.value("explorer/testnetAddressExplorerUrl").toString();
 
@@ -53,16 +54,15 @@ void Settings::saveExplorer(const QString& txExplorerUrl, const QString& address
     s.setValue("explorer/testnetTxExplorerUrl", testnetTxExplorerUrl);
     s.setValue("explorer/testnetAddressExplorerUrl", testnetAddressExplorerUrl);
 }
->>>>>>> 6c62b00... This should work
 
 Config Settings::getSettings() {
-    // Load from the QT Settings. 
+    // Load from the QT Settings.
     QSettings s;
-    
+
     auto host        = s.value("connection/host").toString();
     auto port        = s.value("connection/port").toString();
     auto username    = s.value("connection/rpcuser").toString();
-    auto password    = s.value("connection/rpcpassword").toString();    
+    auto password    = s.value("connection/rpcpassword").toString();
 
     return Config{host, port, username, password};
 }
@@ -105,22 +105,22 @@ bool Settings::isSaplingAddress(QString addr) {
 bool Settings::isSproutAddress(QString addr) {
     if (!isValidAddress(addr))
         return false;
-        
+
     return isZAddress(addr) && !isSaplingAddress(addr);
 }
 
 bool Settings::isZAddress(QString addr) {
     if (!isValidAddress(addr))
         return false;
-        
     return addr.startsWith("safe");
+
 }
 
 bool Settings::isTAddress(QString addr) {
     if (!isValidAddress(addr))
         return false;
-
     return addr.startsWith("R");
+
 }
 
 int Settings::getZcashdVersion() {
@@ -152,10 +152,6 @@ bool Settings::isSaplingActive() {
 			(!isTestnet() && getBlockNumber() > 547422);
 }
 
-
-double Settings::getZECPrice() {
-    return zecPrice;
-}
 
 double Settings::get_price(std::string currency) {
     std::for_each(currency.begin(), currency.end(), [](char & c){ c = ::tolower(c); });
@@ -218,6 +214,10 @@ unsigned int Settings::getBTCPrice() {
     // in satoshis
     return btcPrice;
 
+=======
+double Settings::getZECPrice() {
+    return zecPrice;
+>>>>>>> cbdd74a... Add advanced explorer settings
 }
 
 bool Settings::getAutoShield() {
@@ -231,7 +231,7 @@ void Settings::setAutoShield(bool allow) {
 
 
 bool Settings::getAllowCustomFees() {
-    // Load from the QT Settings. 
+    // Load from the QT Settings.
     return QSettings().value("options/customfees", false).toBool();
 }
 
@@ -249,7 +249,7 @@ void Settings::set_theme_name(QString theme_name) {
 }
 
 bool Settings::getSaveZtxs() {
-    // Load from the QT Settings. 
+    // Load from the QT Settings.
     return QSettings().value("options/savesenttx", true).toBool();
 }
 
@@ -358,7 +358,7 @@ bool Settings::addToZcashConf(QString confLocation, QString line) {
     QFile file(confLocation);
     if (!file.open(QIODevice::ReadWrite | QIODevice::Append))
         return false;
-    
+
 
     QTextStream out(&file);
     out << line << "\n";
@@ -383,9 +383,9 @@ bool Settings::removeFromZcashConf(QString confLocation, QString option) {
 
     // To remove an option, we'll create a new file, and copy over everything but the option.
     QFile file(confLocation);
-    if (!file.open(QIODevice::ReadOnly)) 
+    if (!file.open(QIODevice::ReadOnly))
         return false;
-    
+
     QList<QString> lines;
     QTextStream in(&file);
     while (!in.atEnd()) {
@@ -395,9 +395,9 @@ bool Settings::removeFromZcashConf(QString confLocation, QString option) {
         if (name != option) {
             lines.append(line);
         }
-    }    
+    }
     file.close();
-    
+
     QFile newfile(confLocation);
     if (!newfile.open(QIODevice::ReadWrite | QIODevice::Truncate))
         return false;
@@ -438,7 +438,7 @@ bool Settings::isValidAddress(QString addr) {
 
 // Get a pretty string representation of this Payment URI
 QString Settings::paymentURIPretty(PaymentURI uri) {
-  return QString() + "Payment Request\n" + "Pay: " + uri.addr + "\nAmount: " + getDisplayFormat(uri.amt.toDouble())
+    return QString() + "Payment Request\n" + "Pay: " + uri.addr + "\nAmount: " + getZECDisplayFormat(uri.amt.toDouble())
         + "\nMemo:" + QUrl::fromPercentEncoding(uri.memo.toUtf8());
 }
 
@@ -451,8 +451,8 @@ PaymentURI Settings::parseURI(QString uri) {
         return ans;
     }
 
+
     uri = uri.right(uri.length() - QString("safecoin:").length());
-    
     QRegExp re("([a-zA-Z0-9]+)");
     int pos;
     if ( (pos = re.indexIn(uri)) == -1 ) {

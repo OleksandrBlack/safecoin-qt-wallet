@@ -14,6 +14,13 @@ struct Config {
     QString rpcpassword;
 };
 
+struct Explorer {
+    QString txExplorerUrl;
+    QString addressExplorerUrl;
+    QString testnetTxExplorerUrl;
+    QString testnetAddressExplorerUrl;
+};
+
 struct ToFields;
 struct Tx;
 
@@ -32,15 +39,18 @@ public:
     static  Settings* init();
     static  Settings* getInstance();
 
+    Explorer  getExplorer();
+    void    saveExplorer(const QString& txExplorerUrl, const QString& addressExplorerUrl, const QString& testnetTxExplorerUrl, const QString& testnetAddressExplorerUrl);
+
     Config  getSettings();
     void    saveSettings(const QString& host, const QString& port, const QString& username, const QString& password);
 
     bool    isTestnet();
     void    setTestnet(bool isTestnet);
-            
+
     bool    isSaplingAddress(QString addr);
     bool    isSproutAddress(QString addr);
-            
+
     bool    isValidSaplingPrivateKey(QString pk);
 
     bool    isSyncing();
@@ -48,7 +58,7 @@ public:
 
     int     getZcashdVersion();
     void    setZcashdVersion(int version);
-    
+
     void    setUseEmbedded(bool r) { _useEmbedded = r; }
     bool    useEmbedded() { return _useEmbedded; }
 
@@ -57,7 +67,7 @@ public:
 
     int     getBlockNumber();
     void    setBlockNumber(int number);
-            
+
     bool    getSaveZtxs();
     void    setSaveZtxs(bool save);
 
@@ -102,10 +112,10 @@ public:
 
     void    setPeers(int peers);
     int     getPeers();
-       
+
     // Static stuff
     static const QString txidStatusMessage;
-    
+
     static void saveRestore(QDialog* d);
     static void saveRestoreTableHeader(QTableView* table, QDialog* d, QString tablename) ;
 
@@ -132,7 +142,7 @@ public:
     static QString getZboardAddr();
 
     static int     getMaxMobileAppTxns() { return 30; }
-    
+
     static bool    isValidAddress(QString addr);
 
     static bool    addToZcashConf(QString confLocation, QString line);
@@ -160,7 +170,7 @@ private:
     bool    _useEmbedded      = false;
     bool    _headless         = false;
     int     _peerConnections  = 0;
-    
+
     double  zecPrice          = 0.0;
     double  fiat_price        = 0.0;
     unsigned int  btcPrice    = 0;
