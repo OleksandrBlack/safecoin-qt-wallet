@@ -236,7 +236,7 @@ void MainWindow::setupStatusBar() {
     // Status Bar
     loadingLabel = new QLabel();
     loadingMovie = new QMovie(":/icons/res/loading.gif");
-    loadingMovie->setScaledSize(QSize(32, 16));
+    loadingMovie->setScaledSize(QSize(24, 24));
     loadingMovie->start();
     loadingLabel->setAttribute(Qt::WA_NoSystemBackground);
     loadingLabel->setMovie(loadingMovie);
