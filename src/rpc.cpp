@@ -178,12 +178,12 @@ void RPC::newTaddr(const std::function<void(json)>& cb) {
 }
 
 void RPC::getZPrivKey(QString addr, const std::function<void(json)>& cb) {
-    std::string method = "z_exportkey";
+	std::string method = "z_exportkey";
     conn->doRPCWithDefaultErrorHandling(makePayload(method, addr.toStdString()), cb);
 }
 
 void RPC::getTPrivKey(QString addr, const std::function<void(json)>& cb) {
-    std::string method = "dumpprivkey";
+	std::string method = "dumpprivkey";
     conn->doRPCWithDefaultErrorHandling(makePayload(method, addr.toStdString()), cb);
 }
 
@@ -228,8 +228,7 @@ void RPC::importTPrivKey(QString privkey, bool rescan, const std::function<void(
 }
 
 void RPC::validateAddress(QString address, const std::function<void(json)>& cb) {
-    QString method = Settings::isZAddress(address) ? "z_validateaddress" : "validateaddress";
-    
+    QString method = address.startsWith("s") ? "z_validateaddress" : "validateaddress";
     conn->doRPCWithDefaultErrorHandling(makePayload(method.toStdString(), address.toStdString()), cb);
 }
 
@@ -245,7 +244,7 @@ void RPC::getBalance(const std::function<void(json)>& cb) {
 }
 
 void RPC::getTransactions(const std::function<void(json)>& cb) {
-    std::string method = "listtransactions";
+	std::string method = "listtransactions";
     conn->doRPCWithDefaultErrorHandling(makePayload(method), cb);
 }
 
@@ -549,9 +548,7 @@ void RPC::getInfoThenRefresh(bool force) {
         return noConnection();
 
     static bool prevCallSucceeded = false;
-	
-    std::string method = "getinfo";
-	
+	std::string method = "getinfo";
     conn->doRPC(makePayload(method), [=] (const json& reply) {   
         prevCallSucceeded = true;
         // Testnet?
@@ -623,7 +620,9 @@ void RPC::getInfoThenRefresh(bool force) {
             {"method", "getnetworksolps"}
         };
 
-            conn->doRPCIgnoreError(payload, [=](const json& reply) {
+
+        std::string method = "getnetworksolps";
+        conn->doRPCIgnoreError(makePayload(method), [=](const json& reply) {
                 qint64 solrate = reply.get<json::number_unsigned_t>();
 
                 ui->numconnections->setText(QString::number(connections));
@@ -666,6 +665,7 @@ void RPC::getInfoThenRefresh(bool force) {
 				ui->collateral_total->setText("addressindex not enabled");
 				ui->collateral_total_usd->setText("addressindex not enabled");
 		}
+
 
         });
 
@@ -817,13 +817,9 @@ void RPC::getInfoThenRefresh(bool force) {
             ui->localservices->setText(localservices);
         });
 
-        payload = {
-            {"jsonrpc", "1.0"},
-            {"id", "someid"},
-            {"method", "getwalletinfo"}
-        };
 
-        conn->doRPCIgnoreError(payload, [=](const json& reply) {
+		std::string method2 = "getwalletinfo";
+        conn->doRPCIgnoreError(makePayload(method2), [=](const json& reply) {
             int  txcount = reply["txcount"].get<json::number_integer_t>();
             ui->txcount->setText(QString::number(txcount));
         });
@@ -1413,7 +1409,7 @@ void RPC::shutdownZcashd() {
         return;
     }
 
-    std::string method = "stop";
+	std::string method = "stop";
     conn->doRPCWithDefaultErrorHandling(makePayload(method), [=](auto) {});
     conn->shutdown();
 
