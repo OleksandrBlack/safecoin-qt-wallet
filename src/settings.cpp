@@ -95,7 +95,7 @@ bool Settings::isZAddress(QString addr) {
 bool Settings::isTAddress(QString addr) {
     if (!isValidAddress(addr))
         return false;
-        
+
     return addr.startsWith("R");
 }
 
