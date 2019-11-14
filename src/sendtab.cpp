@@ -1,5 +1,7 @@
+
 // Copyright 2019-2020 The Hush developers
 // Copyright 2020 Safecoin developers
+
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -814,8 +816,8 @@ void MainWindow::sendButton() {
         clearSendForm();
 
         // And send the Tx
-        rpc->executeTransaction(tx, 
-            // Submitted
+        rpc->executeTransaction(tx,
+
             [=] (QString opid) {
                 ui->statusBar->showMessage(tr("Computing transaction: ") % opid);
                 qDebug() << "Computing opid: " << opid;
@@ -838,6 +840,7 @@ void MainWindow::sendButton() {
                 if (!opid.isEmpty())
                     errStr = QObject::tr("The transaction with id ") % opid % QObject::tr(" failed. The error was") + ":\n\n" + errStr; 
 
+
                 // If this was a recurring payment, update the payment with the failure
                 if (!recurringPaymentHash.isEmpty()) {
                     // Since this is the send button payment, this is the first payment
@@ -848,7 +851,7 @@ void MainWindow::sendButton() {
                 QMessageBox::critical(this, QObject::tr("Transaction Error"), errStr, QMessageBox::Ok);            
             }
         );
-    }        
+    }
 }
 
 QString MainWindow::doSendTxValidations(Tx tx) {
