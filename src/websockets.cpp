@@ -1,5 +1,7 @@
+
 // Copyright 2019-2020 Hush developers
 // Copyright 2020 Safecoin developers
+
 #include "websockets.h"
 
 #include "rpc.h"
@@ -111,6 +113,7 @@ WormholeClient::~WormholeClient() {
         timer->stop();
     }
 
+
     qDebug() << "Wormhole client destroyed";
     delete timer;
     qDebug() << "Wormhole timer deleted";
@@ -128,10 +131,15 @@ void WormholeClient::sslerrors(const QList<QSslError> &)
 
 }
 
+void ws_error() {
+    qDebug() << "websocket error!";
+}
+
 void WormholeClient::connect() {
     qDebug() << "Wormhole::connect";
     delete m_webSocket;
     m_webSocket = new QWebSocket();
+
     QUrl wormhole = QUrl("wss://wormhole.safecoin.org:443"); //TODO
 
     if (m_webSocket) {
@@ -210,11 +218,11 @@ void WormholeClient::onConnected()
     QObject::connect(m_webSocket, &QWebSocket::textMessageReceived,
                         this, &WormholeClient::onTextMessageReceived);
 
-    auto payload = QJsonDocument( QJsonObject {
-        {"register", code}
-    }).toJson();
+    auto payload = QJsonDocument( QJsonObject { {"register", code} }).toJson();
 
+    qDebug() << "Sending register";
     m_webSocket->sendTextMessage(payload);
+    qDebug() << "Sent registration message with code=" << code;
 
     // On connected, we'll also create a timer to ping it every 4 minutes, since the websocket 
     // will timeout after 5 minutes
