@@ -150,6 +150,7 @@ MainWindow::MainWindow(QWidget *parent) :
     SafeNodesTab();
 
     rpc = new RPC(this);
+    qDebug() << "Created RPC";
 
     restoreSavedStates();
 
@@ -160,7 +161,8 @@ MainWindow::MainWindow(QWidget *parent) :
         if (ads->getAllowInternetConnection())
             wormholecode = ads->getWormholeCode(ads->getSecretHex());
 
-        qDebug() << "MainWindow: createWebsocket with wormholecode=" << wormholecode;
+
+        qDebug() << "MainWindow: createWebsocket with wormholcode=" << wormholecode;
         createWebsocket(wormholecode);
     }
 }

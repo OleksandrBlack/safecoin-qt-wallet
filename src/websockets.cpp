@@ -126,16 +126,15 @@ void ws_error() {
 void WormholeClient::sslerrors(const QList<QSslError> &)
 {
     qDebug() << "SSL errors occurred!";
-    //TODO: don't do this in prod
-    //m_webSocket->ignoreSslErrors();
+    m_webSocket->ignoreSslErrors();
 
 }
-
 
 void WormholeClient::connect() {
     qDebug() << "Wormhole::connect";
     delete m_webSocket;
     m_webSocket = new QWebSocket();
+
 
     QUrl wormhole = QUrl("wss://wormhole.safecoin.org:443"); //TODO
 
@@ -175,6 +174,20 @@ void WormholeClient::retryConnect() {
         qDebug() << "Invalid retryCount=" << retryCount << " detected!";
     }
 
+}
+
+/*
+void WormholeClient::retryConnect() {
+    QTimer::singleShot(5 * 1000 * pow(2, retryCount), [=]() {
+        if (retryCount < 10) {
+            qDebug() << "Retrying websocket connection, count=" << this->retryCount;
+            this->retryCount++;
+            connect();
+        }
+        else {
+            qDebug() << "Retry count exceeded, will not attempt retry any more";
+        }
+    });
 }
 
 /*
@@ -269,7 +282,8 @@ QString AppDataServer::getWormholeCode(QString secretHex) {
     delete[] out1;
     delete[] secret;
 
-	qDebug() << "Created wormhole secretHex";
+
+    qDebug() << "Created wormhole secretHex=" << wmcodehex;
 
     return wmcodehex;
 }
