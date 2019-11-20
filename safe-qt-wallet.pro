@@ -113,8 +113,10 @@ FORMS += \
 
 
 
+
 TRANSLATIONS = res/safe_qt_wallet_es.ts \
                res/safe_qt_wallet_fr.ts \
+               res/zec_qt_wallet_fi.ts \
                res/safe_qt_wallet_pt.ts \
                res/safe_qt_wallet_it.ts \
                res/safe_qt_wallet_zh.ts \
