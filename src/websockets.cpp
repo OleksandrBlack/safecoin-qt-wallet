@@ -103,7 +103,7 @@ WormholeClient::~WormholeClient() {
     qDebug() << "WormholeClient destructor";
     shuttingDown = true;
 
-    if (m_webSocket->isValid()) {
+    if (m_webSocket && m_webSocket->isValid()) {
         qDebug() << "Wormhole closing!";
         m_webSocket->close();
     }
@@ -139,15 +139,16 @@ void WormholeClient::connect() {
 
     QUrl wormhole = QUrl("wss://wormhole.safecoin.org:443"); //TODO
 
+
     if (m_webSocket) {
         QObject::connect(m_webSocket, &QWebSocket::connected, this, &WormholeClient::onConnected);
         QObject::connect(m_webSocket, &QWebSocket::disconnected, this, &WormholeClient::closed);
         QObject::connect(m_webSocket, QOverload<const QList<QSslError>&>::of(&QWebSocket::sslErrors), this, &WormholeClient::sslerrors);
-        qDebug() << "Opening connection to the SafecoinWalletWormhole";
+        qDebug() << "Opening connection to the SafeWalletWormhole";
         m_webSocket->open(wormhole);
         qDebug() << "Opened connection to " << wormhole;
         //TODO: use env var to over-ride
-        m_webSocket->open(QUrl("ws://wormhole.safecoin.org:443"));
+        //m_webSocket->open(QUrl("ws://127.0.0.1:7070"));
     } else {
         qDebug() << "Invalid websocket object!";
     }
@@ -184,8 +185,7 @@ void WormholeClient::retryConnect() {
             qDebug() << "Retrying websocket connection, count=" << this->retryCount;
             this->retryCount++;
             connect();
-        }
-        else {
+        } else {
             qDebug() << "Retry count exceeded, will not attempt retry any more";
         }
     });
@@ -231,24 +231,28 @@ void WormholeClient::onConnected()
     auto payload = QJsonDocument( QJsonObject { {"register", code} }).toJson();
 
     qDebug() << "Sending register";
-    m_webSocket->sendTextMessage(payload);
-    qDebug() << "Sent registration message with code=" << code;
+    if (m_webSocket && m_webSocket->isValid()) {
+        m_webSocket->sendTextMessage(payload);
+        qDebug() << "Sent registration message with code=" << code;
 
-    // On connected, we'll also create a timer to ping it every 4 minutes, since the websocket 
-    // will timeout after 5 minutes
-    timer = new QTimer(parent);
-    qDebug() << "Created QTimer";
-    QObject::connect(timer, &QTimer::timeout, [=]() {
-        qDebug() << "Timer timout!";
-        if (!shuttingDown && m_webSocket && m_webSocket->isValid()) {
-            auto payload = QJsonDocument(QJsonObject { {"ping", "ping"} }).toJson();
-            qint64 bytes = m_webSocket->sendTextMessage(payload);
-            qDebug() << "Sent ping, " << bytes << " bytes";
-        }
-    });
-    unsigned int interval = 4*60*1000;
-    timer->start(interval); // 4 minutes
-    qDebug() << "Started timer with interval=" << interval;
+        // On connected, we'll also create a timer to ping it every 4 minutes, since the websocket 
+        // will timeout after 5 minutes
+        timer = new QTimer(parent);
+        qDebug() << "Created QTimer";
+        QObject::connect(timer, &QTimer::timeout, [=]() {
+            qDebug() << "Timer timeout!";
+            if (!shuttingDown && m_webSocket && m_webSocket->isValid()) {
+                auto payload = QJsonDocument(QJsonObject { {"ping", "ping"} }).toJson();
+                qint64 bytes = m_webSocket->sendTextMessage(payload);
+                qDebug() << "Sent ping, " << bytes << " bytes";
+            }
+        });
+        unsigned int interval = 4*60*1000;
+        timer->start(interval); // 4 minutes
+        qDebug() << "Started timer with interval=" << interval;
+    } else {
+        qDebug() << "Invalid websocket object onConnected!";
+    }
 }
 
 void WormholeClient::onTextMessageReceived(QString message)
