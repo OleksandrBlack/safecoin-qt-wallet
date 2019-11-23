@@ -241,14 +241,18 @@ void WormholeClient::onConnected()
         qDebug() << "Created QTimer";
         QObject::connect(timer, &QTimer::timeout, [=]() {
             qDebug() << "Timer timeout!";
-            if (!shuttingDown && m_webSocket && m_webSocket->isValid()) {
-                auto payload = QJsonDocument(QJsonObject { {"ping", "ping"} }).toJson();
-                qint64 bytes = m_webSocket->sendTextMessage(payload);
-                qDebug() << "Sent ping, " << bytes << " bytes";
+            try {
+                if (!shuttingDown && m_webSocket && m_webSocket->isValid()) {
+                    auto payload = QJsonDocument(QJsonObject { {"ping", "ping"} }).toJson();
+                    qint64 bytes = m_webSocket->sendTextMessage(payload);
+                    qDebug() << "Sent ping, " << bytes << " bytes";
+                }
+            } catch (...) {
+                qDebug() << "Websocket is invalid, no ping sent!";
             }
         });
-        unsigned int interval = 4*60*1000;
-        timer->start(interval); // 4 minutes
+        unsigned int interval = 1*60*1000; // 1 minute
+        timer->start(interval);
         qDebug() << "Started timer with interval=" << interval;
     } else {
         qDebug() << "Invalid websocket object onConnected!";
