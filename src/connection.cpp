@@ -614,8 +614,6 @@ bool ConnectionLoader::verifyParams() {
     QDir paramsDir(zcashParamsDir());
 
     // TODO: better error reporting if only 1 file exists or is missing
-    // TODO: do a basic size check, to filter out partial downloads and corrupt
-    // files from full HD's and other weird stuff
     qDebug() << "Verifying sapling param files exist";
 
 
@@ -637,8 +635,8 @@ bool ConnectionLoader::verifyParams() {
     }
 
     // this is to support hushd inside a .dmg file, where the binaries are not at the root directory, but they are executed from the root dir of the .dmg
-    if( QFile( QDir("..").filePath("Contents/MacOS/sapling-output.params") ).exists() && QFile( QDir("..").filePath("Contents/MacOS/hush3/sapling-spend.params") ).exists() ) {
-        qDebug() << "Found params in ../Contents/MacOS";
+    if( QFile( QDir("..").filePath("./silentdragon.app/Contents/MacOS/sapling-output.params") ).exists() && QFile( QDir("..").filePath("./silentdragon.app/Contents/MacOS/hush3/sapling-spend.params") ).exists() ) {
+        qDebug() << "Found params in ../silentdragon.app/Contents/MacOS";
         return true;
     }
 
