@@ -373,7 +373,6 @@ PaymentURI Settings::parseURI(QString uri) {
 
     uri = uri.right(uri.length() - ans.addr.length()-1);  // swallow '?'
     QUrlQuery query(uri);
-
     // parse out amt / amount
     if (query.hasQueryItem("amt")) {
         ans.amt  = query.queryItemValue("amt");
