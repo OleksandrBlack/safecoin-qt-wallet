@@ -1045,8 +1045,53 @@
           </property>
          </widget>
         </item>
+       </layout>
+      </widget>
+
+      <widget class="QWidget" name="tab_6">
+       <attribute name="title">
+        <string>Market</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_7">
+         <item>
+            <layout class="QGridLayout" name="gridLayout_5">
+             <item row="5" column="0" colspan="3">
+              <widget class="QLabel" name="volumelabel">
+               <property name="text">
+                <string>0</string>
+               </property>
+              </widget>
+            </item>
+            </layout>
+         </item>
+
+
+       </layout>
+      </widget>
+
+      <widget class="QWidget" name="tab_5">
+       <attribute name="title">
+        <string>safecoind</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_7">
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_17">
+ <item>
+           <widget class="FilledIconLabel" name="safelogo">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="scaledContents">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
           <item>
            <widget class="QGroupBox" name="groupBox_5">
             <property name="title">
@@ -2252,6 +2297,7 @@
     </item>
    </layout>
   </widget>
+
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>

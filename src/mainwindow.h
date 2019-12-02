@@ -93,8 +93,10 @@ private:
     void setupTransactionsTab();
     void setupReceiveTab();
     void setupBalancesTab();
-    void setupZcashdTab();
     void SafeNodesTab();
+    void setupSafeTab();
+    void setupMarketTab();
+
 
     void slot_change_theme(const QString& themeName);
     void setupTurnstileDialog();

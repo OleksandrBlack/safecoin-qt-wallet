@@ -1359,8 +1359,12 @@ void RPC::refreshZECPrice() {
     if  (conn == nullptr)
         return noConnection();
 
-    QUrl cmcURL("https://api.coinpaprika.com/v1/ticker/safe-safecoin");
 
+    //    QUrl cmcURL("https://api.coinpaprika.com/v1/ticker/safe-safecoin");
+
+    // TODO: use/render all this data
+    QString price_feed = "https://api.coingecko.com/api/v3/simple/price?ids=safe-coin-2&vs_currencies=btc%2Cusd%2Ceur%2Ceth%2Cgbp%2Ccny%2Cjpy%2Crub%2Ccad%2Csgd%2Cchf%2Cinr%2Caud%2Cinr&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true";
+    QUrl cmcURL(price_feed);
     QNetworkRequest req;
     req.setUrl(cmcURL);
 
@@ -1386,6 +1390,26 @@ void RPC::refreshZECPrice() {
             auto parsed = json::parse(all, nullptr, false);
             if (parsed.is_discarded()) {
                 Settings::getInstance()->setZECPrice(0);
+                Settings::getInstance()->setBTCPrice(0);
+                return;
+            }
+
+            qDebug() << "Parsed JSON";
+
+            const json& item  = parsed.get<json::object_t>();
+            const json& safe  = item["safe-con-2"].get<json::object_t>();
+
+            if (safe["usd"] >= 0) {
+                qDebug() << "Found safe key in price json";
+                // TODO: support BTC/EUR prices as well
+                //QString price = QString::fromStdString(hush["usd"].get<json::string_t>());
+                qDebug() << "SAFE = $" << QString::number((double)safe["usd"]);
+                qDebug() << "SAFE = " << QString::number((double)safe["eur"]) << " EUR";
+                qDebug() << "SAFE = " << QString::number((int) 100000000 * (double) safe["btc"]) << " sat ";
+                //TODO: based on current fiat selection, store that fiat price
+                Settings::getInstance()->setZECPrice( safe["usd"] );
+                Settings::getInstance()->setBTCPrice( (unsigned int) 100000000 * (double)safe["btc"] );
+
                 return;
             } else {
                 QString price = QString::fromStdString(parsed["price_usd"].get<json::string_t>());

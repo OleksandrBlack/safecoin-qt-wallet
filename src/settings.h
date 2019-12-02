@@ -85,6 +85,9 @@ public:
     void    setZECPrice(double p) { zecPrice = p; }
     double  getZECPrice();
 
+    void    setBTCPrice(double p) { btcPrice = p; }
+    double  getBTCPrice();
+    
     void    setPeers(int peers);
     int     getPeers();
        
@@ -148,6 +151,9 @@ private:
     int     _peerConnections  = 0;
     
     double  zecPrice          = 0.0;
+    unsigned int  btcPrice    = 0;
+
+    
 };
 
 #endif // SETTINGS_H

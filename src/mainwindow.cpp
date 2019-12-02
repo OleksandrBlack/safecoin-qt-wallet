@@ -146,8 +146,10 @@ MainWindow::MainWindow(QWidget *parent) :
     setupTransactionsTab();
     setupReceiveTab();
     setupBalancesTab();
-    setupZcashdTab();
     SafeNodesTab();
+    setupSafeTab();
+    setupMarketTab();
+
 
     rpc = new RPC(this);
     qDebug() << "Created RPC";
@@ -1073,12 +1075,17 @@ void MainWindow::setupBalancesTab() {
     });
 }
 
-void MainWindow::setupZcashdTab() {
-    ui->safecoinlogo->setPixmap(QPixmap(":/img/res/safecoindlogo.gif").scaled(256, 256, Qt::KeepAspectRatio, Qt::SmoothTransformation));
-}
 
 void MainWindow::SafeNodesTab() {
     ui->safenodelogo->setPixmap(QPixmap(":/img/res/safenode.png").scaled(128, 128, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+}
+
+void MainWindow::setupSafeTab() {
+    ui->safelogo->setBasePixmap(QPixmap(":/img/res/zcashdlogo.gif"));
+}
+
+void MainWindow::setupMarketTab() {
+    qDebug() << "Setting up market tab";
 }
 
 void MainWindow::setupTransactionsTab() {
