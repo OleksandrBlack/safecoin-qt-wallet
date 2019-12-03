@@ -73,21 +73,28 @@ public:
     bool    getCheckForUpdates();
     void    setCheckForUpdates(bool allow);
 
+    bool    isSaplingActive();
+    
     QString get_theme_name();
     void set_theme_name(QString theme_name);
 
+    QString get_currency_name();
+    void set_currency_name(QString currency_name);
 
-    bool    isSaplingActive();
 
     void    setUsingZcashConf(QString confLocation);
     const   QString& getZcashdConfLocation() { return _confLocation; }
 
-    void    setZECPrice(double p) { zecPrice = p; }
-    double  getZECPrice();
 
-    void    setBTCPrice(double p) { btcPrice = p; }
-    double  getBTCPrice();
-    
+    void    setZECPrice(double p)       { zecPrice = p;   }
+    void    set_fiat_price(double p)    { fiat_price = p; }
+    void    setBTCPrice(unsigned int p) { btcPrice = p;   }
+    double  getZECPrice();
+    double  get_fiat_price();
+    unsigned int  getBTCPrice();
+    double get_price(std::string currency);
+
+
     void    setPeers(int peers);
     int     getPeers();
        
@@ -107,10 +114,9 @@ public:
     static bool    isTAddress(QString addr);
 
     static QString getDecimalString(double amt);
-    static QString getUSDFormat(double usdAmt);
+    static QString getUSDFormat(double bal);
+    static QString getDisplayFormat(double bal);
 
-    static QString getUSDFromZecAmount(double bal);
-    static QString getZECDisplayFormat(double bal);
     static QString getZECUSDDisplayFormat(double bal);
 
     static QString getTokenName();
@@ -151,9 +157,11 @@ private:
     int     _peerConnections  = 0;
     
     double  zecPrice          = 0.0;
+    double  fiat_price        = 0.0;
     unsigned int  btcPrice    = 0;
+    std::map<std::string, double> prices;
 
-    
+
 };
 
 #endif // SETTINGS_H

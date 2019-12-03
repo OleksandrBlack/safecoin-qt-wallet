@@ -652,10 +652,10 @@ void RPC::getInfoThenRefresh(bool force) {
             ui->tier_1_count->setText(QString::number(tier_1_count));
             ui->tier_2_count->setText(QString::number(tier_2_count));
             ui->tier_3_count->setText(QString::number(tier_3_count));
-            ui->collateral_total->setToolTip(Settings::getZECDisplayFormat(collateral_total));
-            ui->collateral_total->setText(Settings::getZECDisplayFormat(collateral_total));
-            ui->collateral_total_usd->setToolTip(Settings::getUSDFromZecAmount(collateral_total));
-            ui->collateral_total_usd->setText(Settings::getUSDFromZecAmount(collateral_total));
+            ui->collateral_total->setToolTip(Settings::getDisplayFormat(collateral_total));
+            ui->collateral_total->setText(Settings::getDisplayFormat(collateral_total));
+            ui->collateral_total_usd->setToolTip(Settings::getUSDFormat(collateral_total));
+            ui->collateral_total_usd->setText(Settings::getUSDFormat(collateral_total));
 
 		} else {
 				ui->tier_0_count->setText("addressindex not enabled");
@@ -690,10 +690,10 @@ void RPC::getInfoThenRefresh(bool force) {
 			{
 				balance = reply["balance"].get<json::number_float_t>();
 				
-				ui->balance->setToolTip(Settings::getZECDisplayFormat(balance));
-				ui->balance->setText(Settings::getZECDisplayFormat(balance));
-				ui->balance_usd->setToolTip(Settings::getUSDFromZecAmount(balance));
-				ui->balance_usd->setText(Settings::getUSDFromZecAmount(balance));
+				ui->balance->setToolTip(Settings::getDisplayFormat(balance));
+				ui->balance->setText(Settings::getDisplayFormat(balance));
+				ui->balance_usd->setToolTip(Settings::getUSDFormat(balance));
+				ui->balance_usd->setText(Settings::getUSDFormat(balance));
 			}
 			catch (...)
 			{
@@ -704,10 +704,10 @@ void RPC::getInfoThenRefresh(bool force) {
 			{
 				collateral = reply["collateral"].get<json::number_float_t>();
 				
-				ui->collateral->setToolTip(Settings::getZECDisplayFormat(collateral));
-				ui->collateral->setText(Settings::getZECDisplayFormat(collateral));
-				ui->collateral_usd->setToolTip(Settings::getUSDFromZecAmount(collateral));
-				ui->collateral_usd->setText(Settings::getUSDFromZecAmount(collateral));
+				ui->collateral->setToolTip(Settings::getDisplayFormat(collateral));
+				ui->collateral->setText(Settings::getDisplayFormat(collateral));
+				ui->collateral_usd->setToolTip(Settings::getUSDFormat(collateral));
+				ui->collateral_usd->setText(Settings::getUSDFormat(collateral));
 			}
 			catch (...)
 			{
@@ -884,7 +884,7 @@ void RPC::getInfoThenRefresh(bool force) {
             ui->lblSyncWarning->setVisible(isSyncing);
             ui->lblSyncWarningReceive->setVisible(isSyncing);
 
-            auto zecPrice = Settings::getInstance()->getUSDFromZecAmount(1);
+            auto zecPrice = Settings::getInstance()->getUSDFormat(1);
             QString tooltip;
             if (connections > 0) {
                 tooltip = QObject::tr("Connected to safecoind");
@@ -1046,17 +1046,17 @@ void RPC::refreshBalances() {
 
         AppDataModel::getInstance()->setBalances(balT, balZ);
 
-        ui->balSheilded   ->setText(Settings::getZECDisplayFormat(balZ));
-        ui->balTransparent->setText(Settings::getZECDisplayFormat(balT));
-        ui->balTotal      ->setText(Settings::getZECDisplayFormat(balTotal));
+        ui->balSheilded   ->setText(Settings::getDisplayFormat(balZ));
+        ui->balTransparent->setText(Settings::getDisplayFormat(balT));
+        ui->balTotal      ->setText(Settings::getDisplayFormat(balTotal));
 
 
-        ui->balSheilded   ->setToolTip(Settings::getZECDisplayFormat(balZ));
-        ui->balTransparent->setToolTip(Settings::getZECDisplayFormat(balT));
-        ui->balTotal      ->setToolTip(Settings::getZECDisplayFormat(balTotal));
+        ui->balSheilded   ->setToolTip(Settings::getDisplayFormat(balZ));
+        ui->balTransparent->setToolTip(Settings::getDisplayFormat(balT));
+        ui->balTotal      ->setToolTip(Settings::getDisplayFormat(balTotal));
 
-        ui->balUSDTotal      ->setText(Settings::getUSDFromZecAmount(balTotal));
-        ui->balUSDTotal      ->setToolTip(Settings::getUSDFromZecAmount(balTotal));
+        ui->balUSDTotal      ->setText(Settings::getUSDFormat(balTotal));
+        ui->balUSDTotal      ->setToolTip(Settings::getUSDFormat(balTotal));
     });
 
     // 2. Get the UTXOs

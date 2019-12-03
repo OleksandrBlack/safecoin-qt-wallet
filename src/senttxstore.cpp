@@ -90,7 +90,7 @@ void SentTxStore::addToSentTx(Tx tx, QString txid) {
     } else {
         // Concatenate all the toAddresses
         for (auto a : tx.toAddrs) {
-            toAddresses += a.addr % "(" % Settings::getZECDisplayFormat(a.amount) % ")  ";
+            toAddresses += a.addr % "(" % Settings::getDisplayFormat(a.amount) % ")  ";
         }
     }
 

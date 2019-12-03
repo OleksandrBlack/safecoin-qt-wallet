@@ -81,7 +81,7 @@ QJsonObject RecurringPaymentInfo::toJson() {
 }
 
 QString RecurringPaymentInfo::getAmountPretty() const {
-    return currency == "USD" ? Settings::getUSDFormat(amt) : Settings::getZECDisplayFormat(amt);
+    return currency == "USD" ? Settings::getUSDFormat(amt) : Settings::getDisplayFormat(amt);
 }
 
 QString RecurringPaymentInfo::getScheduleDescription() const {
@@ -135,7 +135,7 @@ RecurringPaymentInfo* Recurring::getNewRecurringFromTx(QWidget* parent, MainWind
         ui.lblTo->setText(tx.toAddrs[0].addr);
 
         // Default is USD
-        ui.lblAmt->setText(Settings::getUSDFromZecAmount(tx.toAddrs[0].amount));
+        ui.lblAmt->setText(Settings::getUSDFormat(tx.toAddrs[0].amount));
 
         ui.txtMemo->setPlainText(tx.toAddrs[0].txtMemo);
         ui.txtMemo->setEnabled(false);
@@ -147,7 +147,7 @@ RecurringPaymentInfo* Recurring::getNewRecurringFromTx(QWidget* parent, MainWind
             return;
 
         if (c == "USD") {
-            ui.lblAmt->setText(Settings::getUSDFromZecAmount(tx.toAddrs[0].amount));
+            ui.lblAmt->setText(Settings::getUSDFormat(tx.toAddrs[0].amount));
         }
         else {
             ui.lblAmt->setText(Settings::getDecimalString(tx.toAddrs[0].amount));
