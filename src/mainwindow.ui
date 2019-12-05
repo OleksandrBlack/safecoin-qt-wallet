@@ -1052,7 +1052,7 @@
        <attribute name="title">
         <string>Market</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_7">
+          <layout class="QGridLayout" name="gridLayout_5">
            <item row="11" column="0" colspan="3">
             <widget class="QLabel" name="label_24">
              <property name="font">
@@ -1079,48 +1079,60 @@
              </property>
             </widget>
            </item>
+
            <item row="13" column="1">
-            <widget class="QLabel" name="label_11">
-             <property name="text">
-              <string>|</string>
-             </property>
-            </widget>
-           </item>
-           <item row="13" column="2">
-            <widget class="QLabel" name="marketcapTab">
+            <widget class="QLabel" name="marketcap">
              <property name="text">
               <string>Loading...</string>
              </property>
             </widget>
            </item>
+
+           <item row="13" column="2">
+            <widget class="QLabel" name="marketcapLocal">
+             <property name="text">
+              <string>Loading...</string>
+             </property>
+            </widget>
+           </item>
+
+           <item row="13" column="3">
+            <widget class="QLabel" name="marketcapBTC">
+             <property name="text">
+              <string>Loading...</string>
+             </property>
+            </widget>
+           </item>
+
            <item row="14" column="0">
-            <widget class="QLabel" name="label_12">
+            <widget class="QLabel" name="volumeLabel">
              <property name="text">
               <string>Volume on Exchanges</string>
              </property>
             </widget>
            </item>
            <item row="14" column="1">
-            <widget class="QLabel" name="label_9">
-             <property name="text">
-              <string>|</string>
-             </property>
-            </widget>
-           </item>
-           <item row="14" column="2">
             <widget class="QLabel" name="volumeExchange">
              <property name="text">
               <string>Loading...</string>
              </property>
             </widget>
            </item>
-           <item row="15" column="0" colspan="3">
-            <widget class="Line" name="line_4">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
+           <item row="14" column="2">
+            <widget class="QLabel" name="volumeExchangeLocal">
+             <property name="text">
+              <string>Loading...</string>
              </property>
             </widget>
            </item>
+           <item row="14" column="3">
+            <widget class="QLabel" name="volumeExchangeBTC">
+             <property name="text">
+              <string>Loading...</string>
+             </property>
+            </widget>
+           </item>
+
 
        </layout>
       </widget>
