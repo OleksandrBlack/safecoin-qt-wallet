@@ -875,7 +875,7 @@ void RPC::getInfoThenRefresh(bool force) {
                 (isSyncing ? ("/" % QString::number(progress*100, 'f', 2) % "%") : QString()) %
                 ") " %
                 " Lag: " % QString::number(blockNumber - notarized) %
-                ", " % "SAFE" % "/" % QString::fromStdString(ticker) % "=" % QString::number( (double) s->get_price(ticker) ) % " " % QString::fromStdString(ticker) %
+                ", " % "SAFE" % "=" % QString::number( (double) s->get_price(ticker) ) % " " % QString::fromStdString(ticker) %
                 " " % QString::number( s->getBTCPrice() ) % "sat";
             main->statusLabel->setText(statusText);
 
@@ -1401,8 +1401,9 @@ void RPC::refreshPrice() {
             const json& safe  = item["safe-coin-2"].get<json::object_t>();
             auto  ticker      = s->get_currency_name();
 
+            //TODO: better check for valid json response
             if (safe["usd"] >= 0) {
-                qDebug() << "Found safe key in price json";
+                qDebug() << "Found hush key in price json";
                 // TODO: support BTC/EUR prices as well
                 //QString price = QString::fromStdString(hush["usd"].get<json::string_t>());
                 qDebug() << "SAFE = $" << QString::number((double)safe["usd"]);
@@ -1413,9 +1414,10 @@ void RPC::refreshPrice() {
                 s->setBTCPrice( (unsigned int) 100000000 * (double)safe["btc"] );
 
                 // convert ticker to upper case
-                //std::for_each(ticker.begin(), ticker.end(), [](char & c){ c = ::toupper(c); });
+                std::for_each(ticker.begin(), ticker.end(), [](char & c){ c = ::tolower(c); });
+                qDebug() << "ticker=" << QString::fromStdString(ticker);
                 s->set_price(ticker, safe[ticker]);
-
+                refresh(true);
                 return;
             } else {
                 QString price = QString::fromStdString(parsed["price_usd"].get<json::string_t>());

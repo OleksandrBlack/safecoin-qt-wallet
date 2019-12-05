@@ -136,6 +136,7 @@ double Settings::getZECPrice() {
 }
 
 double Settings::get_price(std::string currency) {
+    std::for_each(currency.begin(), currency.end(), [](char & c){ c = ::tolower(c); });
     QString ticker = QString::fromStdString(currency);
     auto search = prices.find(currency);
     if (search != prices.end()) {
@@ -151,7 +152,7 @@ void Settings::set_price(std::string curr, double price) {
     QString ticker = QString::fromStdString(curr);
     qDebug() << "Setting price of " << ticker << "=" << QString::number(price);
     // prices[curr] = price;
-    //auto it = prices.insert( std::make_pair(ticker, price) );
+    auto it = prices.insert( std::make_pair(curr, price) );
 }
 
 unsigned int Settings::getBTCPrice() {
