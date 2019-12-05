@@ -138,10 +138,14 @@ double Settings::getZECPrice() {
 double Settings::get_price(std::string currency) {
     auto search = prices.find(currency);
     if (search != prices.end()) {
+        qDebug() << "Found price of " << currency << " = " << search->second;
         return search->second;
     } else {
         return -1.0;
     }
+}
+
+void Settings::set_price(std::string ticker, double price) {
 }
 
 unsigned int Settings::getBTCPrice() {
@@ -302,8 +306,12 @@ QString Settings::get_currency_name() {
     return QSettings().value("options/currency_name", false).toString();
 }
 
-void Settings::set_currency_name(QString currency_name) {
-    QSettings().setValue("options/currency_name", currency_name);
+void Settings::set_currency_name(std::string currency_name) {
+    QSettings().setValue("options/currency_name", QString::fromStdString(currency_name));
+}
+
+double Settings::getVolume(QString ticker) {
+    return 0.0;
 }
 
 bool Settings::removeFromZcashConf(QString confLocation, QString option) {

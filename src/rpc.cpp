@@ -32,8 +32,7 @@ RPC::RPC(MainWindow* main) {
     // Set up timer to refresh Price
     priceTimer = new QTimer(main);
     QObject::connect(priceTimer, &QTimer::timeout, [=]() {
-        if (Settings::getInstance()->getAllowFetchPrices())
-            refreshZECPrice();
+        refreshPrice();
     });
     priceTimer->start(Settings::priceRefreshSpeed);  // Every hour
 
@@ -96,13 +95,9 @@ void RPC::setConnection(Connection* c) {
     Settings::removeFromZcashConf(zcashConfLocation, "rescan");
     Settings::removeFromZcashConf(zcashConfLocation, "reindex");
 
-    // If we're allowed to get the Zec Price, get the prices
-    if (Settings::getInstance()->getAllowFetchPrices())
-        refreshZECPrice();
-
-    // If we're allowed to check for updates, check for a new release
-    if (Settings::getInstance()->getCheckForUpdates())
-        checkForUpdate();
+    // Refresh the UI
+    refreshPrice();
+    checkForUpdate();
 
     // Force update, because this might be coming from a settings update
     // where we need to immediately refresh
@@ -534,6 +529,7 @@ void RPC::refreshReceivedZTrans(QList<QString> zaddrs) {
     );
 } 
 
+
 /// This will refresh all the balance data from safecoind
 void RPC::refresh(bool force) {
     if  (conn == nullptr) 
@@ -556,10 +552,7 @@ void RPC::getInfoThenRefresh(bool force) {
             Settings::getInstance()->setTestnet(reply["testnet"].get<json::boolean_t>());
         };
 
-        // Recurring pamynets are testnet only
-        if (!Settings::getInstance()->isTestnet())
-            main->disableRecurring();
-
+        // TODO: checkmark only when getinfo.synced == true!
         // Connected, so display checkmark.
         QIcon i(":/icons/res/connected.gif");
         main->statusIcon->setPixmap(i.pixmap(16, 16));
@@ -834,6 +827,7 @@ void RPC::getInfoThenRefresh(bool force) {
 
         conn->doRPCIgnoreError(payload, [=](const json& reply) {
             auto progress    = reply["verificationprogress"].get<double>();
+            // TODO: use getinfo.synced
             bool isSyncing   = progress < 0.9999; // 99.99%
             int  blockNumber = reply["blocks"].get<json::number_unsigned_t>();
 
@@ -842,8 +836,10 @@ void RPC::getInfoThenRefresh(bool force) {
                 estimatedheight = reply["estimatedheight"].get<json::number_unsigned_t>();
             }
 
-            Settings::getInstance()->setSyncing(isSyncing);
-            Settings::getInstance()->setBlockNumber(blockNumber);
+            auto s = Settings::getInstance();
+            s->setSyncing(isSyncing);
+            s->setBlockNumber(blockNumber);
+            std::string ticker = s->get_currency_name();
 
             // Update safecoind tab if it exists
                 if (isSyncing) {
@@ -868,17 +864,21 @@ void RPC::getInfoThenRefresh(bool force) {
 
                     ui->blockheight->setText(QString::number(blockNumber));
                     ui->heightLabel->setText(QObject::tr("Block height"));
-                }
+		}
 
             // Update the status bar
             QString statusText = QString() %
                 (isSyncing ? QObject::tr("Syncing") : QObject::tr("Connected")) %
                 " (" %
-                (Settings::getInstance()->isTestnet() ? QObject::tr("testnet:") : "") %
+                (s->isTestnet() ? QObject::tr("testnet:") : "") %
                 QString::number(blockNumber) %
                 (isSyncing ? ("/" % QString::number(progress*100, 'f', 2) % "%") : QString()) %
-                ") SAFE=$" % QString::number( (double) Settings::getInstance()->getZECPrice() );
-            main->statusLabel->setText(statusText);   
+                ") " %
+                " Lag: " % QString::number(blockNumber - notarized) %
+                ", " % "SAFE" % "/" % QString::fromStdString(ticker) % "=" % QString::number( (double) s->get_price(ticker) ) % " " % QString::fromStdString(ticker) %
+                " " % QString::number( s->getBTCPrice() ) % "sat";
+            main->statusLabel->setText(statusText);
+
 
             // Update the balances view to show a warning if the node is still syncing
             ui->lblSyncWarning->setVisible(isSyncing);
@@ -892,7 +892,7 @@ void RPC::getInfoThenRefresh(bool force) {
             else {
                 tooltip = QObject::tr("safecoind has no peer connections");
             }
-            tooltip = tooltip % "(v " % QString::number(Settings::getInstance()->getZcashdVersion()) % ")";
+            tooltip = tooltip % "(v" % QString::number(Settings::getInstance()->getZcashdVersion()) % ")";
 
             if (!zecPrice.isEmpty()) {
                 tooltip = "1 " % Settings::getTokenName() % " = " % zecPrice % "\n" % tooltip;
@@ -1353,9 +1353,8 @@ void RPC::checkForUpdate(bool silent) {
     });
 }
 
-// Get the SAFE->USD price from api.coinpaprika.com using their API
-
-void RPC::refreshZECPrice() {
+// Get the SAFE prices
+void RPC::refreshPrice() {
     if  (conn == nullptr)
         return noConnection();
 
@@ -1369,6 +1368,7 @@ void RPC::refreshZECPrice() {
     req.setUrl(cmcURL);
 
     QNetworkReply *reply = conn->restclient->get(req);
+    auto s = Settings::getInstance();
 
     QObject::connect(reply, &QNetworkReply::finished, [=] {
         reply->deleteLater();
@@ -1381,7 +1381,8 @@ void RPC::refreshZECPrice() {
                 } else {
                     qDebug() << reply->errorString();
                 }
-                Settings::getInstance()->setZECPrice(0);
+                s->setZECPrice(0);
+                s->setBTCPrice(0);
                 return;
             }
 
@@ -1389,15 +1390,16 @@ void RPC::refreshZECPrice() {
 
             auto parsed = json::parse(all, nullptr, false);
             if (parsed.is_discarded()) {
-                Settings::getInstance()->setZECPrice(0);
-                Settings::getInstance()->setBTCPrice(0);
+                s->setZECPrice(0);
+                s->setBTCPrice(0);
                 return;
             }
 
             qDebug() << "Parsed JSON";
 
             const json& item  = parsed.get<json::object_t>();
-            const json& safe  = item["safe-con-2"].get<json::object_t>();
+            const json& safe  = item["safe-coin-2"].get<json::object_t>();
+            auto  ticker      = s->get_currency_name();
 
             if (safe["usd"] >= 0) {
                 qDebug() << "Found safe key in price json";
@@ -1407,8 +1409,12 @@ void RPC::refreshZECPrice() {
                 qDebug() << "SAFE = " << QString::number((double)safe["eur"]) << " EUR";
                 qDebug() << "SAFE = " << QString::number((int) 100000000 * (double) safe["btc"]) << " sat ";
                 //TODO: based on current fiat selection, store that fiat price
-                Settings::getInstance()->setZECPrice( safe["usd"] );
-                Settings::getInstance()->setBTCPrice( (unsigned int) 100000000 * (double)safe["btc"] );
+                s->setZECPrice( hush["usd"] );
+                s->setBTCPrice( (unsigned int) 100000000 * (double)hush["btc"] );
+
+                // convert ticker to upper case
+                //std::for_each(ticker.begin(), ticker.end(), [](char & c){ c = ::toupper(c); });
+                s->set_price(ticker, hush[ticker]);
 
                 return;
             } else {

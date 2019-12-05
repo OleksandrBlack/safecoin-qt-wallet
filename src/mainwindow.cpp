@@ -153,6 +153,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setupMarketTab();
 
 
+
     rpc = new RPC(this);
     qDebug() << "Created RPC";
 
@@ -295,7 +296,7 @@ void MainWindow::setupSettingsModal() {
             Settings::getInstance()->setSaveZtxs(checked);
         });
 
-        QString currency_name;
+        std::string currency_name;
         try {
             currency_name = Settings::getInstance()->get_currency_name();
         } catch (...) {
@@ -1108,6 +1109,12 @@ void MainWindow::setupSafeTab() {
 
 void MainWindow::setupMarketTab() {
     qDebug() << "Setting up market tab";
+    auto s      = Settings::getInstance();
+    auto ticker = s->get_currency_name();
+
+    ui->volumeExchange->setText(QString::number((double)       s->getVolume("HUSH") ,'f',8) + " HUSH");
+    ui->volumeExchangeLocal->setText(QString::number((double)  s->getVolume(ticker) ,'f',8) + " " + ticker);
+    ui->volumeExchangeBTC->setText(QString::number((double)    s->getVolume("BTC") ,'f',8) + " BTC");
 }
 
 void MainWindow::setupTransactionsTab() {
@@ -1474,12 +1481,12 @@ void MainWindow::updateLabels() {
     updateLabelsAutoComplete();
 }
 
-void MainWindow::slot_change_currency(const QString& currency_name)
+void MainWindow::slot_change_currency(const std::string& currency_name)
 {
     Settings::getInstance()->set_currency_name(currency_name);
 
     // Include currency
-    QString saved_currency_name;
+    std::string saved_currency_name;
     try {
        saved_currency_name = Settings::getInstance()->get_currency_name();
     } catch (const std::exception& e) {

@@ -78,8 +78,8 @@ public:
     QString get_theme_name();
     void set_theme_name(QString theme_name);
 
-    QString get_currency_name();
-    void set_currency_name(QString currency_name);
+    std::string get_currency_name();
+    void set_currency_name(std::string currency_name);
 
 
     void    setUsingZcashConf(QString confLocation);
@@ -93,6 +93,8 @@ public:
     double  get_fiat_price();
     unsigned int  getBTCPrice();
     double get_price(std::string currency);
+    void   set_price(std::string currency, double price);
+    double getVolume(QString ticker);
 
 
     void    setPeers(int peers);
