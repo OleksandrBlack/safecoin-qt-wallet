@@ -94,7 +94,7 @@ public:
     unsigned int  getBTCPrice();
     double get_price(std::string currency);
     void   set_price(std::string currency, double price);
-    double getVolume(QString ticker);
+    double getVolume(std::string ticker);
 
 
     void    setPeers(int peers);

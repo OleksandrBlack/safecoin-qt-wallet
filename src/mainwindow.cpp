@@ -328,9 +328,10 @@ void MainWindow::setupSettingsModal() {
         });
 
         // Get Currency Data
-        int currency_index = settings.comboBoxCurrency->findText(Settings::getInstance()->get_currency_name(), Qt::MatchExactly);
+        QString ticker = QString::fromStdString( Settings::getInstance()->get_currency_name() );
+        int currency_index = settings.comboBoxCurrency->findText(ticker, Qt::MatchExactly);
         settings.comboBoxCurrency->setCurrentIndex(currency_index);
-        QObject::connect(settings.comboBoxCurrency, &QComboBox::currentTextChanged, [=] (QString currency_name) {
+        QObject::connect(settings.comboBoxCurrency, &QComboBox::currentTextChanged, [=] (QString ticker) {
             this->slot_change_currency(currency_name);
             rpc->refresh(true);
             QMessageBox::information(this, tr("Currency Change"), tr("This change can take a few seconds."), QMessageBox::Ok);
@@ -1113,7 +1114,7 @@ void MainWindow::setupMarketTab() {
     auto ticker = s->get_currency_name();
 
     ui->volumeExchange->setText(QString::number((double)       s->getVolume("HUSH") ,'f',8) + " HUSH");
-    ui->volumeExchangeLocal->setText(QString::number((double)  s->getVolume(ticker) ,'f',8) + " " + ticker);
+    ui->volumeExchangeLocal->setText(QString::number((double)  s->getVolume(ticker) ,'f',8) + " " + QString::fromStdString(ticker));
     ui->volumeExchangeBTC->setText(QString::number((double)    s->getVolume("BTC") ,'f',8) + " BTC");
 }
 

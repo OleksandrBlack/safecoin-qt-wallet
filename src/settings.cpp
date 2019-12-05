@@ -136,16 +136,22 @@ double Settings::getZECPrice() {
 }
 
 double Settings::get_price(std::string currency) {
+    QString ticker = QString::fromStdString(currency);
     auto search = prices.find(currency);
     if (search != prices.end()) {
-        qDebug() << "Found price of " << currency << " = " << search->second;
+        qDebug() << "Found price of " << ticker << " = " << search->second;
         return search->second;
     } else {
+        qDebug() << "Could not find price of" << ticker << "!!!";
         return -1.0;
     }
 }
 
-void Settings::set_price(std::string ticker, double price) {
+void Settings::set_price(std::string curr, double price) {
+    QString ticker = QString::fromStdString(curr);
+    qDebug() << "Setting price of " << ticker << "=" << QString::number(price);
+    // prices[curr] = price;
+    //auto it = prices.insert( std::make_pair(ticker, price) );
 }
 
 unsigned int Settings::getBTCPrice() {
@@ -301,16 +307,16 @@ bool Settings::addToZcashConf(QString confLocation, QString line) {
     return true;
 }
 
-QString Settings::get_currency_name() {
+std::string Settings::get_currency_name() {
     // Load from the QT Settings.
-    return QSettings().value("options/currency_name", false).toString();
+    return QSettings().value("options/currency_name", false).toString().toStdString();
 }
 
 void Settings::set_currency_name(std::string currency_name) {
     QSettings().setValue("options/currency_name", QString::fromStdString(currency_name));
 }
 
-double Settings::getVolume(QString ticker) {
+double Settings::getVolume(std::string ticker) {
     return 0.0;
 }
 

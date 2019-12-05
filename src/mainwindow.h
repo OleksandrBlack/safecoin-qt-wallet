@@ -99,7 +99,7 @@ private:
 
 
     void slot_change_theme(const QString& themeName);
-    void slot_change_currency(std::string& currencyName);
+    void slot_change_currency(const std::string& currencyName);
     void setupTurnstileDialog();
     void setupSettingsModal();
     void setupStatusBar();
