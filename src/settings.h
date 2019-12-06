@@ -93,9 +93,11 @@ public:
     double  get_fiat_price();
     unsigned int  getBTCPrice();
     double get_price(std::string currency);
-    double get_marketcap(std::string currency);
     void   set_price(std::string currency, double price);
     double get_volume(std::string ticker);
+    void   set_volume(std::string curr, double volume);
+    double get_marketcap(std::string curr);
+    void   set_marketcap(std::string curr, double marketcap);
 
 
     void    setPeers(int peers);
