@@ -1416,7 +1416,17 @@ void RPC::refreshPrice() {
                 // convert ticker to upper case
                 std::for_each(ticker.begin(), ticker.end(), [](char & c){ c = ::tolower(c); });
                 qDebug() << "ticker=" << QString::fromStdString(ticker);
-                s->set_price(ticker, safe[ticker]);
+                // TODO: update all stats and prevent coredumps!
+                auto price = safe[ticker];
+                auto vol   = safe[ticker + "_24h_vol"];
+                auto mcap  = safe[ticker + "_market_cap"];
+                s->set_price(ticker, price);
+                s->set_volume(ticker, vol);
+                //s->set_marketcap(ticker, mcap);
+                //ui->marketcap = QString::number(mcap);
+                ui->volume    = QString::number((double) vol);
+
+
                 refresh(true);
                 return;
             } else {

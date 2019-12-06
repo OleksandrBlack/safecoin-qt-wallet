@@ -93,8 +93,9 @@ public:
     double  get_fiat_price();
     unsigned int  getBTCPrice();
     double get_price(std::string currency);
+    double get_marketcap(std::string currency);
     void   set_price(std::string currency, double price);
-    double getVolume(std::string ticker);
+    double get_volume(std::string ticker);
 
 
     void    setPeers(int peers);
@@ -162,8 +163,8 @@ private:
     double  fiat_price        = 0.0;
     unsigned int  btcPrice    = 0;
     std::map<std::string, double> prices;
-
-
+    std::map<std::string, double> volumes;
+    std::map<std::string, double> marketcaps;
 };
 
 #endif // SETTINGS_H

@@ -1113,9 +1113,9 @@ void MainWindow::setupMarketTab() {
     auto s      = Settings::getInstance();
     auto ticker = s->get_currency_name();
 
-    ui->volumeExchange->setText(QString::number((double)       s->getVolume("HUSH") ,'f',8) + " HUSH");
-    ui->volumeExchangeLocal->setText(QString::number((double)  s->getVolume(ticker) ,'f',8) + " " + QString::fromStdString(ticker));
-    ui->volumeExchangeBTC->setText(QString::number((double)    s->getVolume("BTC") ,'f',8) + " BTC");
+    ui->volume->setText(QString::number((double)       s->get_volume("HUSH") ,'f',8) + " HUSH");
+    ui->volumeLocal->setText(QString::number((double)  s->get_volume(ticker) ,'f',8) + " " + QString::fromStdString(ticker));
+    ui->volumeBTC->setText(QString::number((double)    s->get_volume("BTC") ,'f',8) + " BTC");
 }
 
 void MainWindow::setupTransactionsTab() {

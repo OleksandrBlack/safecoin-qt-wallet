@@ -1112,21 +1112,21 @@
             </widget>
            </item>
            <item row="14" column="1">
-            <widget class="QLabel" name="volumeExchange">
+            <widget class="QLabel" name="volume">
              <property name="text">
               <string>Loading...</string>
              </property>
             </widget>
            </item>
            <item row="14" column="2">
-            <widget class="QLabel" name="volumeExchangeLocal">
+            <widget class="QLabel" name="volumeLocal">
              <property name="text">
               <string>Loading...</string>
              </property>
             </widget>
            </item>
            <item row="14" column="3">
-            <widget class="QLabel" name="volumeExchangeBTC">
+            <widget class="QLabel" name="volumeBTC">
              <property name="text">
               <string>Loading...</string>
              </property>

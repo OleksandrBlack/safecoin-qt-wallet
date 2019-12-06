@@ -151,8 +151,45 @@ double Settings::get_price(std::string currency) {
 void Settings::set_price(std::string curr, double price) {
     QString ticker = QString::fromStdString(curr);
     qDebug() << "Setting price of " << ticker << "=" << QString::number(price);
-    // prices[curr] = price;
     auto it = prices.insert( std::make_pair(curr, price) );
+}
+
+void Settings::set_volume(std::string curr, double volume) {
+    QString ticker = QString::fromStdString(curr);
+    qDebug() << "Setting volume of " << ticker << "=" << QString::number(volume);
+    auto it = volumes.insert( std::make_pair(curr, volume) );
+}
+
+double Settings::get_volume(std::string currency) {
+    std::for_each(currency.begin(), currency.end(), [](char & c){ c = ::tolower(c); });
+    QString ticker = QString::fromStdString(currency);
+    auto search = volumes.find(currency);
+    if (search != volumes.end()) {
+        qDebug() << "Found volume of " << ticker << " = " << search->second;
+        return search->second;
+    } else {
+        qDebug() << "Could not find volume of" << ticker << "!!!";
+        return -1.0;
+    }
+}
+
+void Settings::set_marketcap(std::string curr, double marketcap) {
+    QString ticker = QString::fromStdString(curr);
+    qDebug() << "Setting marketcap of " << ticker << "=" << QString::number(marketcap);
+    auto it = marketcaps.insert( std::make_pair(curr, marketcap) );
+}
+
+double Settings::get_marketcap(std::string currency) {
+    std::for_each(currency.begin(), currency.end(), [](char & c){ c = ::tolower(c); });
+    QString ticker = QString::fromStdString(currency);
+    auto search = marketcaps.find(currency);
+    if (search != marketcaps.end()) {
+        qDebug() << "Found marketcap of " << ticker << " = " << search->second;
+        return search->second;
+    } else {
+        qDebug() << "Could not find marketcap of" << ticker << "!!!";
+        return -1.0;
+    }
 }
 
 unsigned int Settings::getBTCPrice() {
@@ -317,9 +354,6 @@ void Settings::set_currency_name(std::string currency_name) {
     QSettings().setValue("options/currency_name", QString::fromStdString(currency_name));
 }
 
-double Settings::getVolume(std::string ticker) {
-    return 0.0;
-}
 
 bool Settings::removeFromZcashConf(QString confLocation, QString option) {
     if (confLocation.isEmpty())
