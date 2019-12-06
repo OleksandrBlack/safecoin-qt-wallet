@@ -1439,7 +1439,7 @@ void RPC::refreshPrice() {
                 ui->marketcapBTC->setText( QString::number((double) btcmcap) + " BTC" );
                 std::for_each(ticker.begin(), ticker.end(), [](char & c){ c = ::toupper(c); });
                 ui->marketcapLocal->setText( QString::number((double) mcap * (double) price) + " " + QString::fromStdString(ticker) );
->>>>>>> 02a2995... Volume and marketcap stuff
+
 
                 refresh(true);
                 return;

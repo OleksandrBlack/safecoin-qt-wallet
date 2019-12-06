@@ -32,6 +32,28 @@ void Settings::setAllowFetchPrices(bool allow) {
      QSettings().setValue("options/allowfetchprices", allow);
 }
 
+Explorer Settings::getExplorer() {
+    // Load from the QT Settings.
+    QSettings s;
+    //TODO: make it easy for people to use other explorers like komodod.com
+    QString explorer = "https://explorer.myhush.org";
+
+    auto txExplorerUrl                = s.value("explorer/txExplorerUrl", explorer + "/tx/").toString();
+    auto addressExplorerUrl           = s.value("explorer/addressExplorerUrl", explorer + "/address/").toString();
+    auto testnetTxExplorerUrl         = s.value("explorer/testnetTxExplorerUrl").toString();
+    auto testnetAddressExplorerUrl    = s.value("explorer/testnetAddressExplorerUrl").toString();
+
+    return Explorer{txExplorerUrl, addressExplorerUrl, testnetTxExplorerUrl, testnetAddressExplorerUrl};
+}
+
+void Settings::saveExplorer(const QString& txExplorerUrl, const QString& addressExplorerUrl, const QString& testnetTxExplorerUrl, const QString& testnetAddressExplorerUrl) {
+    QSettings s;
+    s.setValue("explorer/txExplorerUrl", txExplorerUrl);
+    s.setValue("explorer/addressExplorerUrl", addressExplorerUrl);
+    s.setValue("explorer/testnetTxExplorerUrl", testnetTxExplorerUrl);
+    s.setValue("explorer/testnetAddressExplorerUrl", testnetAddressExplorerUrl);
+}
+>>>>>>> 6c62b00... This should work
 
 Config Settings::getSettings() {
     // Load from the QT Settings. 
