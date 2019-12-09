@@ -110,10 +110,15 @@ echo -n "Deploying.............."
 mkdir artifacts >/dev/null 2>&1
 rm -f artifcats/safecoinwallet.dmg >/dev/null 2>&1
 rm -f artifacts/rw* >/dev/null 2>&1
-cp $SAFECOIN_DIR/src/safecoind safecoinwallet.app/Contents/MacOS/
-cp $SAFECOIN_DIR/src/safecoin-cli safecoinwallet.app/Contents/MacOS/
-$QT_PATH/bin/macdeployqt safecoinwallet.app 
-codesign --deep --force --verify --verbose -s "$CERTIFICATE" --options runtime --timestamp safecoinwallet.app
+cp $SAFE_DIR/src/safecoind safewallet.app/Contents/MacOS/
+cp $SAFE_DIR/src/safecoin-cli safewallet.app/Contents/MacOS/
+cp $SAFE_DIR/src/safecoind safewallet.app/Contents/MacOS/
+cp $SAFE_DIR/src/safecoin-cli safewallet.app/Contents/MacOS/
+cp $SAFE_DIR/sapling-output.params safewallet.app/Contents/MacOS/
+cp $SAFE_DIR/sapling-spend.params safewallet.app/Contents/MacOS/
+$QT_PATH/bin/macdeployqt safewallet.app 
+codesign --deep --force --verify --verbose -s "$CERTIFICATE" --options runtime --timestamp safewallet.app
+
 echo "[OK]"
 
 # Code Signing Note:
@@ -121,9 +126,8 @@ echo "[OK]"
 #
 
 echo -n "Building dmg..........."
-mv safewallet.app safewallet.app
 create-dmg --volname "safewallet-v$APP_VERSION" --volicon "res/logo.icns" --window-pos 200 120 --icon "safewallet.app" 200 190  --app-drop-link 600 185 --hide-extension "safewallet.app"  --window-size 800 400 --hdiutil-quiet --background res/dmgbg.png  artifacts/macOS-safewallet-v$APP_VERSION.dmg safewallet.app >/dev/null 2>&1
-if [ ! -f artifacts/macOS-silentdragon-v$APP_VERSION.dmg ]; then
+if [ ! -f artifacts/macOS-safewallet-v$APP_VERSION.dmg ]; then
     echo "[ERROR]"
     exit 1
 fi
