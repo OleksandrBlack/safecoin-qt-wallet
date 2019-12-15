@@ -156,12 +156,12 @@ void RPC::getZUnspent(const std::function<void(json)>& cb) {
     conn->doRPCWithDefaultErrorHandling(payload, cb);
 }
 
-void RPC::newZaddr(bool sapling, const std::function<void(json)>& cb) {
+void RPC::newZaddr(const std::function<void(json)>& cb) {
     json payload = {
         {"jsonrpc", "1.0"},
         {"id", "someid"},
         {"method", "z_getnewaddress"},
-        {"params", { sapling ? "sapling" : "sprout" }},
+        {"params", { "sapling" }},
     };
     
     conn->doRPCWithDefaultErrorHandling(payload, cb);

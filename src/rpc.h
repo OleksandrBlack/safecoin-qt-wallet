@@ -79,7 +79,7 @@ public:
     const QMap<QString, double>*      getAllBalances()       { return allBalances; }
     const QMap<QString, bool>*        getUsedAddresses()     { return usedAddresses; }
 
-    void newZaddr(bool sapling, const std::function<void(json)>& cb);
+    void newZaddr(const std::function<void(json)>& cb);
     void newTaddr(const std::function<void(json)>& cb);
 
     void getZPrivKey(QString addr, const std::function<void(json)>& cb);

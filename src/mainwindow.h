@@ -123,7 +123,7 @@ private:
     void addressChanged(int number, const QString& text);
     void amountChanged (int number, const QString& text);
 
-    void addNewZaddr(bool sapling);
+    void addNewZaddr();
     std::function<void(bool)> addZAddrsToComboList(bool sapling);
 
     void memoButtonClicked(int number, bool includeReplyTo = false);
