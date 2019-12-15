@@ -21,7 +21,8 @@ ConnectionLoader::ConnectionLoader(MainWindow* main, RPC* rpc) {
     connD = new Ui_ConnectionDialog();
     connD->setupUi(d);
     QPixmap logo(":/img/res/logobig.gif");
-    connD->topIcon->setPixmap(logo.scaled(128, 128, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    connD->topIcon->setBasePixmap(logo.scaled(512, 512, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    //main->logger->write("set topIcon");
 }
 
 ConnectionLoader::~ConnectionLoader() {    
@@ -128,7 +129,11 @@ QString randomPassword() {
 }
 
 /**
+<<<<<<< HEAD
  * This will create a new safecoin.conf, download Safecoin parameters.
+=======
+ * This will create a new HUSH3.conf and download params if they cannot be found
+>>>>>>> 581b35f... meh
  */ 
 void ConnectionLoader::createZcashConf() {
     main->logger->write("createZcashConf");
@@ -485,6 +490,11 @@ Connection* ConnectionLoader::makeConnection(std::shared_ptr<ConnectionConfig> c
 }
 
 void ConnectionLoader::refreshZcashdState(Connection* connection, std::function<void(void)> refused) {
+<<<<<<< HEAD
+=======
+    main->logger->write("refreshing state");
+
+>>>>>>> 581b35f... meh
     json payload = {
         {"jsonrpc", "1.0"},
         {"id", "someid"},
