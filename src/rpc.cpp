@@ -1429,16 +1429,18 @@ void RPC::refreshPrice() {
                 s->set_marketcap(ticker, mcap);
 
                 qDebug() << "Volume = " << (double) vol;
-                ui->volume->setText( QString::number((double) vol) + " HUSH" );
+                std::for_each(ticker.begin(), ticker.end(), [](char & c){ c = ::toupper(c); });
+                ui->volume->setText( QString::number((double) vol) + " " + QString::fromStdString(ticker) );
                 ui->volumeBTC->setText( QString::number((double) btcvol) + " BTC" );
                 std::for_each(ticker.begin(), ticker.end(), [](char & c){ c = ::toupper(c); });
-                ui->volumeLocal->setText( QString::number((double) vol * (double) price) + " " + QString::fromStdString(ticker) );
+                //TODO: we don't get an actual HUSH volume stat
+                if (price > 0)
+                    ui->volumeLocal->setText( QString::number((double) vol / (double) price) + " HUSH");
 
                 qDebug() << "Mcap = " << (double) mcap;
-                ui->marketcap->setText(  QString::number( (double) mcap) + " HUSH" );
+                ui->marketcap->setText(  QString::number( (double) mcap) + " " + QString::fromStdString(ticker) );
                 ui->marketcapBTC->setText( QString::number((double) btcmcap) + " BTC" );
-                std::for_each(ticker.begin(), ticker.end(), [](char & c){ c = ::toupper(c); });
-                ui->marketcapLocal->setText( QString::number((double) mcap * (double) price) + " " + QString::fromStdString(ticker) );
+                //ui->marketcapLocal->setText( QString::number((double) mcap * (double) price) + " " + QString::fromStdString(ticker) );
 
 
                 refresh(true);

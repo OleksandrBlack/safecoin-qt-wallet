@@ -1091,7 +1091,7 @@
            <item row="13" column="2">
             <widget class="QLabel" name="marketcapLocal">
              <property name="text">
-              <string>Loading...</string>
+              <string></string>
              </property>
             </widget>
            </item>
