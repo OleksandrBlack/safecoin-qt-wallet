@@ -432,7 +432,7 @@ bool Settings::isValidAddress(QString addr) {
     QRegExp ztsexp("^ztestsapling[a-z0-9]{76}", Qt::CaseInsensitive);
     QRegExp texp("^R[a-z0-9]{33}$", Qt::CaseInsensitive);
     QRegExp tsexp("^1[a-z0-9]{33}$", Qt::CaseInsensitive);
-    qDebug() << "isValidAddress(" << addr << ")";
+    //qDebug() << "isValidAddress(" << addr << ")";
 
     return	texp.exactMatch(addr)	|| ztsexp.exactMatch(addr)	||
 			zsexp.exactMatch(addr)	|| tsexp.exactMatch(addr);
