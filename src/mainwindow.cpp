@@ -165,8 +165,7 @@ MainWindow::MainWindow(QWidget *parent) :
         if (ads->getAllowInternetConnection())
             wormholecode = ads->getWormholeCode(ads->getSecretHex());
 
-
-        qDebug() << "MainWindow: createWebsocket with wormholcode=" << wormholecode;
+        qDebug() << "MainWindow: createWebsocket with wormholecode=" << wormholecode;
         createWebsocket(wormholecode);
     }
 }
