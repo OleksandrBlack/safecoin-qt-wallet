@@ -1569,6 +1569,8 @@ void MainWindow::slot_change_currency(const std::string& currency_name)
 {
     qDebug() << "slot_change_currency"; //<< ": " << currency_name;
     Settings::getInstance()->set_currency_name(currency_name);
+    qDebug() << "Refreshing price stats after currency change";
+    rpc->refreshPrice();
 
     // Include currency
     std::string saved_currency_name;
