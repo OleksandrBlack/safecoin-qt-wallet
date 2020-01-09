@@ -239,6 +239,11 @@
        </item>
        <item>
         <property name="text">
+         <string>IDR</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>INR</string>
         </property>
        </item>
