@@ -344,12 +344,22 @@
        </item>
        <item>
         <property name="text">
+         <string>SEK</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>SGD</string>
         </property>
        </item>
        <item>
         <property name="text">
          <string>THB</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>TRY</string>
         </property>
        </item>
        <item>
