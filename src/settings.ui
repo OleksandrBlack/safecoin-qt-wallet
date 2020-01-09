@@ -269,6 +269,11 @@
        </item>
        <item>
         <property name="text">
+         <string>SAR</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>SGD</string>
         </property>
        </item>
