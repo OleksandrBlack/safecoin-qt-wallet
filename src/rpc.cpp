@@ -1398,20 +1398,22 @@ void RPC::refreshPrice() {
             qDebug() << "Parsed JSON";
 
             const json& item  = parsed.get<json::object_t>();
-            const json& safe  = item["safe-coin-2"].get<json::object_t>();
-            auto  ticker      = s->get_currency_name();
+            const json& safe  = item["safe"].get<json::object_t>();
+            std::string  ticker    = s->get_currency_name();
+            std::for_each(ticker.begin(), ticker.end(), [](char & c){ c = ::tolower(c); });
+            fprintf(stderr,"ticker=%s\n", ticker.c_str());
+            //qDebug() << "Ticker = " + ticker;
 
             //TODO: better check for valid json response
-            if (safe["usd"] >= 0) {
+            if (hush[ticker] >= 0) {
                 qDebug() << "Found safe key in price json";
                 //QString price = QString::fromStdString(hush["usd"].get<json::string_t>());
-                qDebug() << "SAFE = $" << QString::number((double)safe["usd"]);
+                qDebug() << "SAFE = $" << QString::number((double)safe["usd"]) << " USD";
                 qDebug() << "SAFE = " << QString::number((double)safe["eur"]) << " EUR";
                 qDebug() << "SAFE = " << QString::number((int) 100000000 * (double) safe["btc"]) << " sat ";
 
-                s->setZECPrice( safe["usd"] );
+                s->setZECPrice( safe[ticker] );
                 s->setBTCPrice( (unsigned int) 100000000 * (double)safe["btc"] );
-
 
                 std::for_each(ticker.begin(), ticker.end(), [](char & c){ c = ::tolower(c); });
                 qDebug() << "ticker=" << QString::fromStdString(ticker);

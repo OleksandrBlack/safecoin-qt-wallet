@@ -316,7 +316,8 @@ void MainWindow::setupSettingsModal() {
         std::string currency_name;
         try {
             currency_name = Settings::getInstance()->get_currency_name();
-        } catch (...) {
+        } catch (const std::exception& e) {
+            qDebug() << QString("Currency name exception! : ") << e.what();
             currency_name = "USD";
         }
 
@@ -344,12 +345,13 @@ void MainWindow::setupSettingsModal() {
 
         });
 
-        // Get Currency Data
+        // Set local currency
         QString ticker = QString::fromStdString( Settings::getInstance()->get_currency_name() );
         int currency_index = settings.comboBoxCurrency->findText(ticker, Qt::MatchExactly);
         settings.comboBoxCurrency->setCurrentIndex(currency_index);
+        QObject::connect(settings.comboBoxCurrency, SIGNAL(currentIndexChanged(QString)), this, SLOT(slot_change_currency(QString)));
         QObject::connect(settings.comboBoxCurrency, &QComboBox::currentTextChanged, [=] (QString ticker) {
-            this->slot_change_currency(currency_name);
+            this->slot_change_currency(ticker.toStdString());
             rpc->refresh(true);
             QMessageBox::information(this, tr("Currency Change"), tr("This change can take a few seconds."), QMessageBox::Ok);
 
@@ -486,6 +488,7 @@ void MainWindow::setupSettingsModal() {
         }
 
         if (settingsDialog.exec() == QDialog::Accepted) {
+            qDebug() << "Setting dialog box accepted";
             // Custom fees
             bool customFees = settings.chkCustomFees->isChecked();
             Settings::getInstance()->setAllowCustomFees(customFees);
@@ -817,7 +820,7 @@ bool MainWindow::eventFilter(QObject *object, QEvent *event) {
 }
 
 
-// Pay the Safecoin URI by showing a confirmation window. If the URI parameter is empty, the UI
+// Pay the SAFE URI by showing a confirmation window. If the URI parameter is empty, the UI
 // will prompt for one. If the myAddr is empty, then the default from address is used to send
 // the transaction.
 void MainWindow::payZcashURI(QString uri, QString myAddr) {
@@ -1564,6 +1567,7 @@ void MainWindow::updateLabels() {
 
 void MainWindow::slot_change_currency(const std::string& currency_name)
 {
+    qDebug() << "slot_change_currency"; //<< ": " << currency_name;
     Settings::getInstance()->set_currency_name(currency_name);
 
     // Include currency
