@@ -204,6 +204,16 @@
        </property>
        <item>
         <property name="text">
+         <string>AED</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ARS</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>AUD</string>
         </property>
        </item>
