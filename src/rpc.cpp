@@ -1366,7 +1366,6 @@ void RPC::refreshPrice() {
     QUrl cmcURL(price_feed);
     QNetworkRequest req;
     req.setUrl(cmcURL);
-
     QUrl cmcURL(price_feed);
     QNetworkRequest req;
     req.setUrl(cmcURL);
