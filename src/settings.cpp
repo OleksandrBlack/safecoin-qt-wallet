@@ -168,20 +168,20 @@ double Settings::get_price(std::string currency) {
         return search->second;
     } else {
         qDebug() << "Could not find price of" << ticker << "!!!";
-        return -1.0;
+        return 0.0;
     }
 }
 
 void Settings::set_price(std::string curr, double price) {
     QString ticker = QString::fromStdString(curr);
     qDebug() << "Setting price of " << ticker << "=" << QString::number(price);
-    auto it = prices.insert( std::make_pair(curr, price) );
+    prices.insert( std::make_pair(curr, price) );
 }
 
 void Settings::set_volume(std::string curr, double volume) {
     QString ticker = QString::fromStdString(curr);
     qDebug() << "Setting volume of " << ticker << "=" << QString::number(volume);
-    auto it = volumes.insert( std::make_pair(curr, volume) );
+    volumes.insert( std::make_pair(curr, volume) );
 }
 
 double Settings::get_volume(std::string currency) {
@@ -193,14 +193,14 @@ double Settings::get_volume(std::string currency) {
         return search->second;
     } else {
         qDebug() << "Could not find volume of" << ticker << "!!!";
-        return -1.0;
+        return 0.0;
     }
 }
 
 void Settings::set_marketcap(std::string curr, double marketcap) {
     QString ticker = QString::fromStdString(curr);
     qDebug() << "Setting marketcap of " << ticker << "=" << QString::number(marketcap);
-    auto it = marketcaps.insert( std::make_pair(curr, marketcap) );
+    marketcaps.insert( std::make_pair(curr, marketcap) );
 }
 
 double Settings::get_marketcap(std::string currency) {
