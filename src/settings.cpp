@@ -308,7 +308,8 @@ void Settings::openTxInExplorer(QString txid) {
 }
 
 QString Settings::getUSDFormat(double bal) {
-    return "$" + QLocale(QLocale::English).toString(bal, 'f', 2);
+    //TODO: respect current locale!
+    return QLocale(QLocale::English).toString(bal * Settings::getInstance()->getZECPrice(), 'f', 2) + " " + QString::fromStdString(Settings::getInstance()->get_currency_name());
 }
 
 

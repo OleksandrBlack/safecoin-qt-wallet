@@ -209,11 +209,6 @@
        </item>
        <item>
         <property name="text">
-         <string>BTC</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
          <string>CAD</string>
         </property>
        </item>
@@ -240,6 +235,26 @@
        <item>
         <property name="text">
          <string>INR</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>JPY</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>KRW</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>RUB</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>SGD</string>
         </property>
        </item>
        <item>
