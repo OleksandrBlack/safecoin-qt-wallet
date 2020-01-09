@@ -249,6 +249,11 @@
        </item>
        <item>
         <property name="text">
+         <string>NZD</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>RUB</string>
         </property>
        </item>
@@ -259,7 +264,22 @@
        </item>
        <item>
         <property name="text">
+         <string>THB</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>USD</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>VEF</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ZAR</string>
         </property>
        </item>
       </widget>
