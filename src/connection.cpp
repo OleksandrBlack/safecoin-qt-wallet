@@ -129,11 +129,7 @@ QString randomPassword() {
 }
 
 /**
-<<<<<<< HEAD
  * This will create a new safecoin.conf, download Safecoin parameters.
-=======
- * This will create a new HUSH3.conf and download params if they cannot be found
->>>>>>> 581b35f... meh
  */ 
 void ConnectionLoader::createZcashConf() {
     main->logger->write("createZcashConf");
@@ -417,8 +413,8 @@ bool ConnectionLoader::startEmbeddedZcashd() {
     main->logger->write("Starting on Linux");
     ezcashd->start(safecoindProgram);
 #elif defined(Q_OS_DARWIN)
-    main->logger->write("Starting on Darwin");
-    ezcashd->start(safecoindProgram);
+    qDebug() << "Starting on Darwin: " + safecoindProgram + " " + params;
+    ezcashd->start(safecoindProgram, arguments);
 #elif defined(Q_OS_WIN64)
     main->logger->write("Starting on Win64 with params " + params);
     ezcashd->setWorkingDirectory(appPath.absolutePath());
