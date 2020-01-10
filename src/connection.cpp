@@ -365,9 +365,12 @@ bool ConnectionLoader::startEmbeddedZcashd() {
     auto safecoindProgram = appPath.absoluteFilePath("safecoind");
 #endif
     
-    if (!QFile(safecoindProgram).exists()) {
-        qDebug() << "Can't find safecoind at " << safecoindProgram;
-        main->logger->write("Can't find safecoind at " + safecoindProgram); 
+
+    //if (!QFile(hushdProgram).exists()) {
+    if (!QFile::exists(safecoindProgram)) {
+        qDebug() << "Can't find hushd at " << safecoindProgram;
+        main->logger->write("Can't find hushd at " + safecoindProgram);
+
         return false;
     }
 
