@@ -869,7 +869,7 @@ void RPC::getInfoThenRefresh(bool force) {
                     ui->heightLabel->setText(QObject::tr("Block height"));
 		}
             QString extra = "";
-            if(ticker != "btc") {
+            if(ticker != "BTC") {
                 extra = QString::number( s->getBTCPrice() ) % "sat";
             }
 
