@@ -31,6 +31,10 @@ mac: LIBS+= -Wl,-dead_strip
 mac: LIBS+= -Wl,-dead_strip_dylibs
 mac: LIBS+= -Wl,-bind_at_load
 
+LIBS+= -Wl,-dead_strip
+LIBS+= -Wl,-dead_strip_dylibs
+LIBS+= -Wl,-bind_at_load
+
 RESOURCES     = application.qrc
 
 MOC_DIR = bin
