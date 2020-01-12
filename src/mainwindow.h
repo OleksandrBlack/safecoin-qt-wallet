@@ -136,6 +136,7 @@ private:
     void discord();
     void safenodes();
 	
+    void reportbug();
     void addressBook();
     void postToZBoard();
     void importPrivKey();

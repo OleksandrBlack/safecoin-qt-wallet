@@ -2417,7 +2417,7 @@
     <addaction name="actionWebsite"/>
     <addaction name="actionDonate"/>
     <addaction name="actionCheck_for_Updates"/>
-    <addaction name="actionFile_a_bug"/>
+    <addaction name="actionReportBug"/>
     <addaction name="actionAbout"/>
    </widget>
    <widget class="QMenu" name="menuApps">
@@ -2451,6 +2451,11 @@
   <action name="actionAbout">
    <property name="text">
     <string>&amp;About</string>
+   </property>
+  </action>
+  <action name="actionReportBug">
+   <property name="text">
+    <string>&amp;Report a bug on Github</string>
    </property>
   </action>
   <action name="actionSettings">

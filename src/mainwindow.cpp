@@ -60,6 +60,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QObject::connect(ui->actionDiscord, &QAction::triggered, this, &MainWindow::discord);
 
+    QObject::connect(ui->actionReportBug, &QAction::triggered, this, &MainWindow::reportbug);
+
     QObject::connect(ui->actionWebsite, &QAction::triggered, this, &MainWindow::website);
 	
     QObject::connect(ui->actionSafeNodes, &QAction::triggered, this, &MainWindow::safenodes);
@@ -685,6 +687,11 @@ void MainWindow::addressBook() {
 
 void MainWindow::discord() {
     QString url = "https://discordapp.com/invite/vQgYGJz";
+    QDesktopServices::openUrl(QUrl(url));
+}
+
+void MainWindow::reportbug() {
+    QString url = "https://github.com/Fair-Exchange/safewallet/issues/new";
     QDesktopServices::openUrl(QUrl(url));
 }
 
