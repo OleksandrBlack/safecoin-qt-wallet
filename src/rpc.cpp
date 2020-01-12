@@ -882,7 +882,7 @@ void RPC::getInfoThenRefresh(bool force) {
                 (isSyncing ? ("/" % QString::number(progress*100, 'f', 2) % "%") : QString()) %
                 ") " %
                 " Lag: " % QString::number(blockNumber - notarized) %
-                ", " % "SAFE" % "=" % QString::number( (double) s->get_price(ticker) ) % " " % QString::fromStdString(ticker) %
+                ", " % "SAFE" % "=" % QString::number( (double) s->get_price(ticker),'f',6) % " " % QString::fromStdString(ticker) %
                 " " % extra;
             main->statusLabel->setText(statusText);
 
