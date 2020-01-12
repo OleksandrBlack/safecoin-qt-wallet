@@ -1440,8 +1440,8 @@ void RPC::refreshPrice() {
                     ui->volumeLocal->setText( QString::number((double) vol / (double) price) + " HUSH");
 
                 qDebug() << "Mcap = " << (double) mcap;
-                ui->marketcap->setText(  QString::number( (double) mcap) + " " + QString::fromStdString(ticker) );
-                ui->marketcapBTC->setText( QString::number((double) btcmcap) + " BTC" );
+                ui->marketcap->setText(  QString::number( (double) mcap, 'f', 2) + " " + QString::fromStdString(ticker) );
+                ui->marketcapBTC->setText( QString::number((double) btcmcap, 'f', 2) + " BTC" );
                 //ui->marketcapLocal->setText( QString::number((double) mcap * (double) price) + " " + QString::fromStdString(ticker) );
 
 
