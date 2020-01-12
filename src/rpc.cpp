@@ -839,34 +839,33 @@ void RPC::getInfoThenRefresh(bool force) {
             s->setBlockNumber(blockNumber);
             std::string ticker = s->get_currency_name();
 
-            // Update safecoind tab if it exists
-                if (isSyncing) {
-                    QString txt = QString::number(blockNumber);
-                    if (estimatedheight > 0) {
-                        txt = txt % " / ~" % QString::number(estimatedheight);
-                        // If estimated height is available, then use the download blocks 
-                        // as the progress instead of verification progress.
-                        progress = (double)blockNumber / (double)estimatedheight;
-                    }
-                    txt = txt %  " ( " % QString::number(progress * 100, 'f', 2) % "% )";
-                    ui->blockheight->setText(txt);
-                    ui->heightLabel->setText(QObject::tr("Downloading blocks"));
-                } else {
-                    // If syncing is finished, we may have to remove the fastsync
-                    // flag from safecoin.conf
-                    if (getConnection() != nullptr && getConnection()->config->fastsync) {
-                        getConnection()->config->fastsync = false;
-                        Settings::removeFromZcashConf(Settings::getInstance()->getZcashdConfLocation(), 
-                                                        "fastsync");
-                    }
-                    ui->blockheight->setText(QString::number(blockNumber));
-                    ui->heightLabel->setText(QObject::tr("Block height"));
-		}
+            // Update safecoind tab
+            if (isSyncing) {
+                QString txt = QString::number(blockNumber);
+                if (estimatedheight > 0) {
+                    txt = txt % " / ~" % QString::number(estimatedheight);
+                    // If estimated height is available, then use the download blocks 
+                    // as the progress instead of verification progress.
+                    progress = (double)blockNumber / (double)estimatedheight;
+                }
+                txt = txt %  " ( " % QString::number(progress * 100, 'f', 2) % "% )";
+                ui->blockheight->setText(txt);
+                ui->heightLabel->setText(QObject::tr("Downloading blocks"));
+            } else {
+                ui->blockheight->setText(QString::number(blockNumber));
+                ui->heightLabel->setText(QObject::tr("Block height"));
+            }
+
+            auto ticker_price = s->get_price(ticker);
+
             QString extra = "";
-            if(ticker != "BTC") {
+            if(ticker_price > 0 && ticker != "BTC") {
                 extra = QString::number( s->getBTCPrice() ) % "sat";
             }
-            auto ticker_price = s->get_price(ticker);
+            QString price = "";
+            if (ticker_price > 0) {
+                price = QString(", ") % "HUSH" % "=" % QString::number( (double)ticker_price,'f',8) % " " % QString::fromStdString(ticker) % " " % extra;
+            }
 
             // Update the status bar
             QString statusText = QString() %
@@ -876,9 +875,7 @@ void RPC::getInfoThenRefresh(bool force) {
                 QString::number(blockNumber) %
                 (isSyncing ? ("/" % QString::number(progress*100, 'f', 2) % "%") : QString()) %
                 ") " %
-                " Lag: " % QString::number(blockNumber - notarized) %
-                ", " % "SAFE" % "=" % QString::number( (double) ticker_price,'f',6) % " " % QString::fromStdString(ticker) %
-                " " % extra;
+                " Lag: " % QString::number(blockNumber - notarized) % price;
             main->statusLabel->setText(statusText);
 
 
