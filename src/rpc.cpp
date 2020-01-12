@@ -823,13 +823,7 @@ void RPC::getInfoThenRefresh(bool force) {
         });
 
         // Call to see if the blockchain is syncing. 
-        payload = {
-            {"jsonrpc", "1.0"},
-            {"id", "someid"},
-            {"method", "getblockchaininfo"}
-        };
-
-        conn->doRPCIgnoreError(payload, [=](const json& reply) {
+        conn->doRPCIgnoreError(makePayload("getblockchaininfo"), [=](const json& reply) {
             auto progress    = reply["verificationprogress"].get<double>();
             // TODO: use getinfo.synced
             bool isSyncing   = progress < 0.9999; // 99.99%
@@ -872,6 +866,7 @@ void RPC::getInfoThenRefresh(bool force) {
             if(ticker != "BTC") {
                 extra = QString::number( s->getBTCPrice() ) % "sat";
             }
+            auto ticker_price = s->get_price(ticker);
 
             // Update the status bar
             QString statusText = QString() %
@@ -882,7 +877,7 @@ void RPC::getInfoThenRefresh(bool force) {
                 (isSyncing ? ("/" % QString::number(progress*100, 'f', 2) % "%") : QString()) %
                 ") " %
                 " Lag: " % QString::number(blockNumber - notarized) %
-                ", " % "SAFE" % "=" % QString::number( (double) s->get_price(ticker),'f',6) % " " % QString::fromStdString(ticker) %
+                ", " % "SAFE" % "=" % QString::number( (double) ticker_price,'f',6) % " " % QString::fromStdString(ticker) %
                 " " % extra;
             main->statusLabel->setText(statusText);
 
@@ -891,7 +886,7 @@ void RPC::getInfoThenRefresh(bool force) {
             ui->lblSyncWarning->setVisible(isSyncing);
             ui->lblSyncWarningReceive->setVisible(isSyncing);
 
-            auto zecPrice = Settings::getInstance()->getUSDFormat(1);
+            auto safePrice = Settings::getInstance()->getUSDFormat(1);
             QString tooltip;
             if (connections > 0) {
                 tooltip = QObject::tr("Connected to safecoind");
@@ -901,8 +896,9 @@ void RPC::getInfoThenRefresh(bool force) {
             }
             tooltip = tooltip % "(v" % QString::number(Settings::getInstance()->getZcashdVersion()) % ")";
 
-            if (!zecPrice.isEmpty()) {
-                tooltip = "1 " % Settings::getTokenName() % " = " % zecPrice % "\n" % tooltip;
+            if (!safePrice.isEmpty()) {
+                tooltip = "1 SAFE = " % safePrice % "\n" % tooltip;
+
             }
             main->statusLabel->setToolTip(tooltip);
             main->statusIcon->setToolTip(tooltip);
@@ -1424,7 +1420,7 @@ void RPC::refreshPrice() {
 
                 std::for_each(ticker.begin(), ticker.end(), [](char & c){ c = ::tolower(c); });
                 qDebug() << "ticker=" << QString::fromStdString(ticker);
-                // TODO: update all stats and prevent coredumps!
+                // TODO: work harder to prevent coredumps!
                 auto price = safe[ticker];
                 auto vol   = safe[ticker + "_24h_vol"];
                 auto mcap  = safe[ticker + "_market_cap"];
@@ -1442,7 +1438,7 @@ void RPC::refreshPrice() {
                 ui->volume->setText( QString::number((double) vol) + " " + QString::fromStdString(ticker) );
                 ui->volumeBTC->setText( QString::number((double) btcvol) + " BTC" );
                 std::for_each(ticker.begin(), ticker.end(), [](char & c){ c = ::toupper(c); });
-                //TODO: we don't get an actual HUSH volume stat
+                // We don't get an actual HUSH volume stat, so we calculate it
                 if (price > 0)
                     ui->volumeLocal->setText( QString::number((double) vol / (double) price) + " HUSH");
 
