@@ -865,10 +865,13 @@ void RPC::getInfoThenRefresh(bool force) {
                         Settings::removeFromZcashConf(Settings::getInstance()->getZcashdConfLocation(), 
                                                         "fastsync");
                     }
-
                     ui->blockheight->setText(QString::number(blockNumber));
                     ui->heightLabel->setText(QObject::tr("Block height"));
 		}
+            QString extra = "";
+            if(ticker != "btc") {
+                extra = QString::number( s->getBTCPrice() ) % "sat";
+            }
 
             // Update the status bar
             QString statusText = QString() %
@@ -880,7 +883,7 @@ void RPC::getInfoThenRefresh(bool force) {
                 ") " %
                 " Lag: " % QString::number(blockNumber - notarized) %
                 ", " % "SAFE" % "=" % QString::number( (double) s->get_price(ticker) ) % " " % QString::fromStdString(ticker) %
-                " " % QString::number( s->getBTCPrice() ) % "sat";
+                " " % extra;
             main->statusLabel->setText(statusText);
 
 
