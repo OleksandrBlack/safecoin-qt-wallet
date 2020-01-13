@@ -62,3 +62,4 @@ RUN echo "[target.aarch64-unknown-linux-gnu]" >> ~/.cargo/config && \
 ENV CC_x86_64_pc_windows_gnu="x86_64-w64-mingw32.static-gcc"
 ENV CC_aarch64_unknown_linux_gnu="aarch64-linux-gnu-gcc"
 ENV PATH="/opt/mxe/usr/bin:${PATH}"
+
