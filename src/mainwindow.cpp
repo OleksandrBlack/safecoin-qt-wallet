@@ -11,6 +11,7 @@
 #include "ui_mobileappconnector.h"
 #include "ui_addressbook.h"
 #include "ui_privkey.h"
+#include "ui_viewkey.h"
 #include "ui_about.h"
 #include "ui_settings.h"
 #include "ui_viewalladdresses.h"
@@ -983,6 +984,69 @@ void MainWindow::exportAllKeys() {
     exportKeys("");
 }
 
+void MainWindow::getViewKey(QString addr) {
+    QDialog d(this);
+    Ui_ViewKey vui;
+    vui.setupUi(&d);
+
+    // Make the window big by default
+    auto ps = this->geometry();
+    QMargins margin = QMargins() + 50;
+    d.setGeometry(ps.marginsRemoved(margin));
+
+    Settings::saveRestore(&d);
+
+    vui.viewKeyTxt->setPlainText(tr("Loading..."));
+    vui.viewKeyTxt->setReadOnly(true);
+    vui.viewKeyTxt->setLineWrapMode(QPlainTextEdit::LineWrapMode::NoWrap);
+
+    // Disable the save button until it finishes loading
+    vui.buttonBox->button(QDialogButtonBox::Save)->setEnabled(false);
+    vui.buttonBox->button(QDialogButtonBox::Ok)->setVisible(false);
+
+    bool allKeys = false; //addr.isEmpty() ? true : false;
+    // Wire up save button
+    QObject::connect(vui.buttonBox->button(QDialogButtonBox::Save), &QPushButton::clicked, [=] () {
+        QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
+                           allKeys ? "hush-all-viewkeys.txt" : "hush-viewkey.txt");
+        QFile file(fileName);
+        if (!file.open(QIODevice::WriteOnly)) {
+            QMessageBox::information(this, tr("Unable to open file"), file.errorString());
+            return;
+        }
+        QTextStream out(&file);
+        // TODO: Output in address, viewkey CSV format?
+        out << vui.viewKeyTxt->toPlainText();
+    });
+    // TODO: actually get the viewkey of zaddr
+
+    auto isDialogAlive = std::make_shared<bool>(true);
+
+    auto fnUpdateUIWithKeys = [=](QList<QPair<QString, QString>> viewKeys) {
+        // Check to see if we are still showing.
+        if (! *(isDialogAlive.get()) ) return;
+
+        QString allKeysTxt;
+        for (auto keypair : viewKeys) {
+            allKeysTxt = allKeysTxt % keypair.second % " # addr=" % keypair.first % "\n";
+        }
+
+        vui.viewKeyTxt->setPlainText(allKeysTxt);
+        vui.buttonBox->button(QDialogButtonBox::Save)->setEnabled(true);
+    };
+
+    auto fnAddKey = [=](json key) {
+        QList<QPair<QString, QString>> singleAddrKey;
+        singleAddrKey.push_back(QPair<QString, QString>(addr, QString::fromStdString(key.get<json::string_t>())));
+        fnUpdateUIWithKeys(singleAddrKey);
+    };
+
+    rpc->getZViewKey(addr, fnAddKey);
+
+    d.exec();
+    *isDialogAlive = false;
+}
+
 void MainWindow::exportKeys(QString addr) {
     bool allKeys = addr.isEmpty() ? true : false;
 
@@ -1051,8 +1115,7 @@ void MainWindow::exportKeys(QString addr) {
 
         if (Settings::getInstance()->isZAddress(addr)) {
             rpc->getZPrivKey(addr, fnAddKey);
-        }
-        else {
+        } else {
             rpc->getTPrivKey(addr, fnAddKey);
         }
     }
@@ -1121,6 +1184,10 @@ void MainWindow::setupBalancesTab() {
 
         menu.addAction(tr("Get private key"), [=] () {
             this->exportKeys(addr);
+        });
+
+        menu.addAction(tr("Get viewing key"), [=] () {
+            this->getViewKey(addr);
         });
 
         menu.addAction("Send from " % addr.left(40) % (addr.size() > 40 ? "..." : ""), [=]() {

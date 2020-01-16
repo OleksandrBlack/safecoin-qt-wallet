@@ -83,6 +83,7 @@ public:
     void newTaddr(const std::function<void(json)>& cb);
 
     void getZPrivKey(QString addr, const std::function<void(json)>& cb);
+    void getZViewKey(QString addr, const std::function<void(json)>& cb);
     void getTPrivKey(QString addr, const std::function<void(json)>& cb);
     void importZPrivKey(QString addr, bool rescan, const std::function<void(json)>& cb);
     void importTPrivKey(QString addr, bool rescan, const std::function<void(json)>& cb);

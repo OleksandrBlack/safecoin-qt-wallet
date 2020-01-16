@@ -104,6 +104,7 @@ FORMS += \
     src/confirm.ui \
     src/privkey.ui \
     src/memodialog.ui \ 
+    src/viewkey.ui \
     src/validateaddress.ui \
     src/viewalladdresses.ui \
     src/connection.ui \

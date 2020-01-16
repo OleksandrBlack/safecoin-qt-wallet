@@ -172,6 +172,11 @@ void RPC::newTaddr(const std::function<void(json)>& cb) {
     conn->doRPCWithDefaultErrorHandling(makePayload(method), cb);
 }
 
+void RPC::getZViewKey(QString addr, const std::function<void(json)>& cb) {
+	std::string method = "z_exportviewingkey";
+    conn->doRPCWithDefaultErrorHandling(makePayload(method, addr.toStdString()), cb);
+}
+
 void RPC::getZPrivKey(QString addr, const std::function<void(json)>& cb) {
 	std::string method = "z_exportkey";
     conn->doRPCWithDefaultErrorHandling(makePayload(method, addr.toStdString()), cb);
