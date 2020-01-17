@@ -1260,7 +1260,14 @@ void MainWindow::setupChatTab() {
     contacts << "Alice" << "Bob" << "Charlie" << "Eve";
     chatModel->setStringList(contacts);
 
+    QStringListModel *conversationModel = new QStringListModel();
+    QStringList conversations;
+    conversations << "Bring home some milk" << "Markets look rough" << "How's the weather?" << "Is this on?";
+    conversationModel->setStringList(conversations);
+
+    //TODO: ui->contactsView->setModel( model of address book );
     ui->contactsView->setModel(chatModel);
+    ui->chatView->setModel( conversationModel );
 }
 
 void MainWindow::setupMarketTab() {
