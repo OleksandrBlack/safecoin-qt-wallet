@@ -95,6 +95,7 @@ private:
     void setupBalancesTab();
     void SafeNodesTab();
     void setupSafeTab();
+    void setupChatTab();
     void setupMarketTab();
 
 

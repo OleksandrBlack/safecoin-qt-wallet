@@ -153,7 +153,7 @@ MainWindow::MainWindow(QWidget *parent) :
     SafeNodesTab();
     setupSafeTab();
     setupMarketTab();
-
+    setupChatTab();
 
 
     rpc = new RPC(this);
@@ -1252,6 +1252,15 @@ void MainWindow::SafeNodesTab() {
 
 void MainWindow::setupSafeTab() {
     ui->safelogo->setBasePixmap(QPixmap(":/img/res/zcashdlogo.gif"));
+}
+
+void MainWindow::setupChatTab() {
+    QStringListModel *chatModel = new QStringListModel();
+    QStringList contacts;
+    contacts << "Alice" << "Bob" << "Charlie" << "Eve";
+    chatModel->setStringList(contacts);
+
+    ui->contactsView->setModel(chatModel);
 }
 
 void MainWindow::setupMarketTab() {
