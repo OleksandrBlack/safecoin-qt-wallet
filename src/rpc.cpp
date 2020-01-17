@@ -1437,8 +1437,8 @@ void RPC::refreshPrice() {
 
                 qDebug() << "Volume = " << (double) vol;
                 std::for_each(ticker.begin(), ticker.end(), [](char & c){ c = ::toupper(c); });
-                ui->volume->setText( QString::number((double) vol) + " " + QString::fromStdString(ticker) );
-                ui->volumeBTC->setText( QString::number((double) btcvol) + " BTC" );
+                ui->volume->setText( QString::number((double) vol, 'f', 2) + " " + QString::fromStdString(ticker) );
+                ui->volumeBTC->setText( QString::number((double) btcvol, 'f', 2) + " BTC" );
                 std::for_each(ticker.begin(), ticker.end(), [](char & c){ c = ::toupper(c); });
                 // We don't get an actual HUSH volume stat, so we calculate it
                 if (price > 0)
@@ -1495,8 +1495,9 @@ void RPC::shutdownZcashd() {
         waitCount++;
 
         if ((ezcashd->atEnd() && ezcashd->processId() == 0) ||
-            waitCount > 30 || 
-            conn->config->zcashDaemon)  {   // If safecoind is daemon, then we don't have to do anything else
+            ezcashd->state() == QProcess::NotRunning ||
+            waitCount > 30 ||
+            conn->config->zcashDaemon)  {   // If hushd is daemon, then we don't have to do anything else
             qDebug() << "Ended";
             waiter.stop();
             QTimer::singleShot(1000, [&]() { d.accept(); });
