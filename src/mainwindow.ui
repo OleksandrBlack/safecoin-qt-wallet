@@ -1141,16 +1141,10 @@
 	         <item>
          <layout class="QGridLayout" name="gridLayout_6">
           <item row="0" column="1">
-           <widget class="QListWidget" name="listWidget"/>
+           <widget class="QListView" name="contactsView"/>
           </item>
           <item row="0" column="0">
-           <widget class="QListWidget" name="listWidget_2">
-            <property name="maximumSize">
-             <size>
-              <width>460</width>
-              <height>16777215</height>
-             </size>
-            </property>
+           <widget class="QListView" name="chatView">
            </widget>
           </item>
          </layout>
