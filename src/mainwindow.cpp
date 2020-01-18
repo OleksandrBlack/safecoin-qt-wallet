@@ -1186,9 +1186,11 @@ void MainWindow::setupBalancesTab() {
             this->exportKeys(addr);
         });
 
-        menu.addAction(tr("Get viewing key"), [=] () {
-            this->getViewKey(addr);
-        });
+        if (addr.startsWith("zs1")) {
+            menu.addAction(tr("Get viewing key"), [=] () {
+                this->getViewKey(addr);
+            });
+        }
 
         menu.addAction("Send from " % addr.left(40) % (addr.size() > 40 ? "..." : ""), [=]() {
             fnDoSendFrom(addr);
