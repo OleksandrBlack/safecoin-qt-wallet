@@ -1159,7 +1159,7 @@
           <item row="1" column="0">
            <widget class="QPushButton" name="pushButton_2">
             <property name="text">
-             <string>New Conversation</string>
+             <string>New HushChat</string>
             </property>
            </widget>
           </item>
