@@ -806,6 +806,19 @@ void MainWindow::sendButton() {
 
         // Then delete the additional fields from the sendTo tab
         clearSendForm();
+	
+          // Create a new Dialog to show that we are computing/sending the Tx
+        auto d = new QDialog(this);
+        auto connD = new Ui_ConnectionDialog();
+        connD->setupUi(d);
+        QPixmap logo(":/img/res/logobig.gif");
+        connD->topIcon->setPixmap(logo.scaled(256, 256, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+
+        connD->status->setText(tr("Please wait..."));
+        connD->statusDetail->setText(tr("Computing your transaction"));
+
+        d->show();
+
 
         // And send the Tx
         rpc->executeTransaction(tx,
@@ -814,18 +827,40 @@ void MainWindow::sendButton() {
                 ui->statusBar->showMessage(tr("Computing transaction: ") % opid);
                 qDebug() << "Computing opid: " << opid;
             },
+
             // Accepted
+
+
+
+            // Errored out
+
+
             [=] (QString, QString txid) { 
                 ui->statusBar->showMessage(Settings::txidStatusMessage + " " + txid);
 
-                // If this was a recurring payment, update the payment with the info
+                // If this was a recurring payment, update the payment with the info                                                                  
                 if (!recurringPaymentHash.isEmpty()) {
-                    // Since this is the send button payment, this is the first payment
-                    Recurring::getInstance()->updatePaymentItem(recurringPaymentHash, 0, 
+                    // Since this is the send button payment, this is the first payment                                                               
+                    Recurring::getInstance()->updatePaymentItem(recurringPaymentHash, 0,
                             txid, "", PaymentStatus::COMPLETED);
                 }
-            },
-            // Errored out
+		
+                connD->status->setText(tr("Done!"));
+                connD->statusDetail->setText(txid);
+
+                QTimer::singleShot(1000, [=]() {
+                    d->accept();
+                    d->close();
+                    delete connD;
+                    delete d;
+
+                    // And switch to the balances tab
+                    ui->tabWidget->setCurrentIndex(0);
+                     });
+                       // Force a UI update so we get the unconfirmed Tx
+                rpc->refresh(true);
+            },       
+
             [=] (QString opid, QString errStr) {
                 ui->statusBar->showMessage(QObject::tr(" Transaction ") % opid % QObject::tr(" failed"), 15 * 1000);
 
@@ -843,7 +878,7 @@ void MainWindow::sendButton() {
                 QMessageBox::critical(this, QObject::tr("Transaction Error"), errStr, QMessageBox::Ok);            
             }
         );
-    }
+    }   
 }
 
 QString MainWindow::doSendTxValidations(Tx tx) {
