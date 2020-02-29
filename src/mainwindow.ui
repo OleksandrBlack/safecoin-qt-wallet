@@ -1131,9 +1131,8 @@
 	   
        </layout>
       </widget>
-
-
-     <widget class="QWidget" name="chat_tab">
+<!--
+      <widget class="QWidget" name="chat_tab">
        <attribute name="title">
         <string>Chat</string>
        </attribute>
@@ -1167,7 +1166,7 @@
         </item>
       </layout>
       </widget>
-      
+-->
       <widget class="QWidget" name="tab_5">
        <attribute name="title">
         <string>safecoind</string>
