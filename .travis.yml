@@ -11,6 +11,7 @@ matrix:
           packages: ['clang-3.7', 'g++-8']
 
 before_install:
+# TODO: I usually make builds with 5.14 - Duke
  - sudo add-apt-repository ppa:beineri/opt-qt591-trusty -y
  - sudo apt-get update -qq
  - sudo apt-get install qt59base qt59websockets 
