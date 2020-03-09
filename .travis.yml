@@ -30,6 +30,6 @@ script:
 # correctly and will hopefully catch syntax errors earlier
 # We want the build to fail if we can't compile translations.
  - lupdate silentdragon.pro
- - lrelease silentragon.pro
+ - lrelease silentdragon.pro
  - res/libsodium/buildlibsodium.sh
  - make CC=gcc-8 CXX=g++-8 -j2
