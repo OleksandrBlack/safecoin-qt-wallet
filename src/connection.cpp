@@ -633,7 +633,7 @@ bool ConnectionLoader::verifyParams() {
     }
 
     if (QFile(paramsDir.filePath("sapling-output.params")).exists() && 
-		QFile(paramsDir.filePath("sapling-spend.params")).exists()
+		QFile(paramsDir.filePath("sapling-spend.params")).exists() && 
 		QFile(paramsDir.filePath("sprout-proving.key")).exists() && 
 		QFile(paramsDir.filePath("sprout-verifying.key")).exists() && 
 		QFile(paramsDir.filePath("sprout-groth16.params")).exists() ) {
