@@ -614,9 +614,12 @@ void RPC::getInfoThenRefresh(bool force) {
             });
 
         // Get activenodes
-
-		std::string method = "getactivenodes";
-		conn->doRPCIgnoreError(makePayload(method), [=] (const json& reply) {
+        payload = {
+            {"jsonrpc", "1.0"},
+            {"id", "someid"},
+            {"method", "getactivenodes"}
+        };
+        conn->doRPCIgnoreError(payload, [=] (const json& reply) {
             double collateral_total;
             int node_count          = reply["node_count"].get<json::number_integer_t>();
             int tier_0_count        = reply["tier_0_count"].get<json::number_integer_t>();
@@ -651,9 +654,12 @@ void RPC::getInfoThenRefresh(bool force) {
 
 
         // Get nodeinfo
-
-		std::string method = "getnodeinfo";
-		conn->doRPCIgnoreError(makePayload(method), [=] (const json& reply) {
+        payload = {
+            {"jsonrpc", "1.0"},
+            {"id", "someid"},
+            {"method", "getnodeinfo"}
+        };
+        conn->doRPCIgnoreError(payload, [=] (const json& reply) {
 		
 		double balance, collateral;
 		int tier;
