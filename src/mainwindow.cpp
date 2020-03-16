@@ -523,7 +523,9 @@ void MainWindow::setupSettingsModal() {
         int theme_index = settings.comboBoxTheme->findText(Settings::getInstance()->get_theme_name(), Qt::MatchExactly);
         settings.comboBoxTheme->setCurrentIndex(theme_index);
 
-        QObject::connect(settings.comboBoxTheme, SIGNAL(currentIndexChanged(QString)), this, SLOT(slot_change_theme(QString)));
+        QObject::connect(settings.comboBoxTheme, &QComboBox::currentTextChanged, [=] (QString theme_name) {
+            this->slot_change_theme(theme_name);
+        });
 
         // Save sent transactions
         settings.chkSaveTxs->setChecked(Settings::getInstance()->getSaveZtxs());
@@ -1395,12 +1397,12 @@ void MainWindow::setupBalancesTab() {
     });
 }
 
-void MainWindow::setupZcashdTab() {    
-    ui->safecoinlogo->setBasePixmap(QPixmap(":/img/res/safecoindlogo.gif"));
+void MainWindow::setupZcashdTab() {
+    ui->safecoinlogo->setPixmap(QPixmap(":/img/res/safecoindlogo.gif").scaled(256, 256, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 }
 
 void MainWindow::SafeNodesTab() {
-    ui->safenodelogo->setBasePixmap(QPixmap(":/img/res/safenode.png"));
+    ui->safenodelogo->setPixmap(QPixmap(":/img/res/safenode.png").scaled(128, 128, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 }
 
 void MainWindow::setupTransactionsTab() {
@@ -1819,11 +1821,6 @@ void MainWindow::updateLabels() {
 
 void MainWindow::slot_change_theme(const QString& theme_name)
 {
-    /*
-    QMessageBox msgBox;
-    msgBox.setText(theme_name);
-    msgBox.exec();
-    */
     Settings::getInstance()->set_theme_name(theme_name);
 
     // Include css
@@ -1841,6 +1838,7 @@ void MainWindow::slot_change_theme(const QString& theme_name)
     if (qFile.open(QFile::ReadOnly))
     {
       QString styleSheet = QLatin1String(qFile.readAll());
+      this->setStyleSheet(""); // try to reset styles
       this->setStyleSheet(styleSheet);
     }
 
