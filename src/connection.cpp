@@ -1,3 +1,5 @@
+// Copyright 2019-2020 The Hush developers
+// Copyright 2020 Safecoin developers
 #include "connection.h"
 #include "mainwindow.h"
 #include "settings.h"
@@ -554,8 +556,12 @@ QString ConnectionLoader::zcashConfWritableLocation() {
 }
 
 QString ConnectionLoader::zcashParamsDir() {
-    #ifdef Q_OS_LINUX
+#ifdef Q_OS_LINUX
     auto paramsLocation = QDir(QDir(QStandardPaths::writableLocation(QStandardPaths::HomeLocation)).filePath(".zcash-params"));
+    // Debian packages do not install into per-user dirs
+    if (!paramsLocation.exists()) {
+        paramsLocation = QDir(QDir("/").filePath("usr/share/safecoin"));
+    }
 #elif defined(Q_OS_DARWIN)
     auto paramsLocation = QDir(QDir(QStandardPaths::writableLocation(QStandardPaths::HomeLocation)).filePath("Library/Application Support/ZcashParams"));
 #else
@@ -574,13 +580,69 @@ QString ConnectionLoader::zcashParamsDir() {
 bool ConnectionLoader::verifyParams() {
     QDir paramsDir(zcashParamsDir());
 
-    if (!QFile(paramsDir.filePath("sapling-output.params")).exists()) return false;
-    if (!QFile(paramsDir.filePath("sapling-spend.params")).exists()) return false;
-    if (!QFile(paramsDir.filePath("sprout-proving.key")).exists()) return false;
-    if (!QFile(paramsDir.filePath("sprout-verifying.key")).exists()) return false;
-    if (!QFile(paramsDir.filePath("sprout-groth16.params")).exists()) return false;
+    // TODO: better error reporting if only 1 file exists or is missing
+    qDebug() << "Verifying param files exist";
 
-    return true;
+
+    // This list of locations to look must be kept in sync with the list in safecoind
+    if( QFile( QDir(".").filePath("sapling-output.params") ).exists() && 
+		QFile( QDir(".").filePath("sapling-spend.params") ).exists() && 
+		QFile( QDir(".").filePath("sprout-proving.key") ).exists() && 
+		QFile( QDir(".").filePath("sprout-verifying.key") ).exists() && 
+		QFile( QDir(".").filePath("sprout-groth16.params") ).exists() ) {
+        qDebug() << "Found params in .";
+        return true;
+    }
+
+    if( QFile( QDir("..").filePath("sapling-output.params") ).exists() && 
+		QFile( QDir("..").filePath("sapling-spend.params") ).exists() && 
+		QFile( QDir("..").filePath("sprout-proving.key") ).exists() && 
+		QFile( QDir("..").filePath("sprout-verifying.key") ).exists() && 
+		QFile( QDir("..").filePath("sprout-groth16.params") ).exists() ) {
+        qDebug() << "Found params in ..";
+        return true;
+    }
+
+    if( QFile( QDir("..").filePath("safecoin/sapling-output.params") ).exists() && 
+		QFile( QDir("..").filePath("safecoin/sapling-spend.params") ).exists() && 
+		QFile( QDir("..").filePath("safecoin/sprout-proving.key") ).exists() &&
+		QFile( QDir("..").filePath("safecoin/sprout-verifying.key") ).exists() &&
+		QFile( QDir("..").filePath("safecoin/sprout-groth16.params") ).exists() ) {
+        qDebug() << "Found params in ../safecoin";
+        return true;
+    }
+
+    // this is to support SD on mac in /Applications1
+    if( QFile( QDir("/Applications").filePath("safecoinwallet.app/Contents/MacOS/sapling-output.params") ).exists() && 
+		QFile( QDir("/Applications").filePath("./safecoinwallet.app/Contents/MacOS/sapling-spend.params") ).exists() && 
+		QFile( QDir("/Applications").filePath("safecoinwallet.app/Contents/MacOS/sprout-proving.key") ).exists() &&
+		QFile( QDir("/Applications").filePath("safecoinwallet.app/Contents/MacOS/sprout-verifying.key") ).exists() &&
+		QFile( QDir("/Applications").filePath("safecoinwallet.app/Contents/MacOS/sprout-groth16.params") ).exists() ) {
+        qDebug() << "Found params in /Applications/safecoinwallet.app/Contents/MacOS";
+        return true;
+    }
+
+    // this is to support SD on mac inside a DMG
+    if( QFile( QDir("./").filePath("safecoinwallet.app/Contents/MacOS/sapling-output.params") ).exists() && 
+		QFile( QDir("./").filePath("./safecoinwallet.app/Contents/MacOS/sapling-spend.params") ).exists() && 
+		QFile( QDir("./").filePath("safecoinwallet.app/Contents/MacOS/sprout-proving.key") ).exists() && 
+		QFile( QDir("./").filePath("safecoinwallet.app/Contents/MacOS/sprout-verifying.key") ).exists() && 
+		QFile( QDir("./").filePath("safecoinwallet.app/Contents/MacOS/sprout-groth16.params") ).exists() ) {
+        qDebug() << "Found params in ./safecoinwallet.app/Contents/MacOS";
+        return true;
+    }
+
+    if (QFile(paramsDir.filePath("sapling-output.params")).exists() && 
+		QFile(paramsDir.filePath("sapling-spend.params")).exists()
+		QFile(paramsDir.filePath("sprout-proving.key")).exists() && 
+		QFile(paramsDir.filePath("sprout-verifying.key")).exists() && 
+		QFile(paramsDir.filePath("sprout-groth16.params")).exists() ) {
+        qDebug() << "Found params in " << paramsDir;
+        return true;
+    }
+
+    qDebug() << "Did not find params!";
+    return false;
 }
 
 /**
