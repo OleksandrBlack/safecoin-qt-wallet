@@ -4,7 +4,6 @@
 #include "mainwindow.h"
 #include "rpc.h"
 #include "settings.h"
-#include "turnstile.h"
 
 #include "version.h"
 

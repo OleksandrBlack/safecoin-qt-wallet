@@ -47,7 +47,6 @@ SOURCES += \
     src/sendtab.cpp \
     src/senttxstore.cpp \
     src/txtablemodel.cpp \
-    src/turnstile.cpp \
     src/qrcodelabel.cpp \
     src/connection.cpp \
     src/fillediconlabel.cpp \
@@ -74,7 +73,6 @@ HEADERS += \
     src/settings.h \
     src/txtablemodel.h \
     src/senttxstore.h \
-    src/turnstile.h \
     src/qrcodelabel.h \
     src/connection.h \
     src/fillediconlabel.h \
@@ -96,14 +94,11 @@ FORMS += \
     src/settings.ui \
     src/about.ui \
     src/confirm.ui \
-    src/turnstile.ui \
-    src/turnstileprogress.ui \
     src/privkey.ui \
     src/memodialog.ui \ 
     src/validateaddress.ui \
     src/viewalladdresses.ui \
     src/connection.ui \
-    src/zboard.ui \
     src/addressbook.ui \
     src/mobileappconnector.ui \
     src/createzcashconfdialog.ui \

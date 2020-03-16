@@ -3,7 +3,6 @@
 #include "addressbook.h"
 #include "settings.h"
 #include "senttxstore.h"
-#include "turnstile.h"
 #include "version.h"
 #include "websockets.h"
 
@@ -17,8 +16,6 @@ RPC::RPC(MainWindow* main) {
 
     this->main = main;
     this->ui = main->ui;
-
-    this->turnstile = new Turnstile(this, main);
 
     // Setup balances table model
     balancesTableModel = new BalancesTableModel(main->ui->balancesTable);
@@ -63,7 +60,6 @@ RPC::~RPC() {
 
     delete transactionsTableModel;
     delete balancesTableModel;
-    delete turnstile;
 
     delete utxos;
     delete allBalances;
@@ -606,9 +602,6 @@ void RPC::getInfoThenRefresh(bool force) {
         if ( force || (curBlock != lastBlock) ) {
             // Something changed, so refresh everything.
             lastBlock = curBlock;
-
-            // See if the turnstile migration has any steps that need to be done.
-            turnstile->executeMigrationStep();
 
             refreshBalances();        
             refreshAddresses();     // This calls refreshZSentTransactions() and refreshReceivedZTrans()
@@ -1462,61 +1455,6 @@ void RPC::shutdownZcashd() {
             QThread::sleep(1);
         }
     }
-}
-
-
-// Fetch the Z-board topics list
-void RPC::getZboardTopics(std::function<void(QMap<QString, QString>)> cb) {
-    if (conn == nullptr)
-        return noConnection();
-
-    QUrl cmcURL("http://z-board.net/listTopics");
-
-    QNetworkRequest req;
-    req.setUrl(cmcURL);
-
-    QNetworkReply *reply = conn->restclient->get(req);
-
-    QObject::connect(reply, &QNetworkReply::finished, [=] {
-        reply->deleteLater();
-
-        try {
-            if (reply->error() != QNetworkReply::NoError) {
-                auto parsed = json::parse(reply->readAll(), nullptr, false);
-                if (!parsed.is_discarded() && !parsed["error"]["message"].is_null()) {
-                    qDebug() << QString::fromStdString(parsed["error"]["message"]);
-                }
-                else {
-                    qDebug() << reply->errorString();
-                }
-                return;
-            }
-
-            auto all = reply->readAll();
-
-            auto parsed = json::parse(all, nullptr, false);
-            if (parsed.is_discarded()) {
-                return;
-            }
-
-            QMap<QString, QString> topics;
-            for (const json& item : parsed["topics"].get<json::array_t>()) {
-                if (item.find("addr") == item.end() || item.find("topicName") == item.end())
-                    return;
-
-                QString addr  = QString::fromStdString(item["addr"].get<json::string_t>());
-                QString topic = QString::fromStdString(item["topicName"].get<json::string_t>());
-                
-                topics.insert(topic, addr);
-            }
-
-            cb(topics);
-        }
-        catch (...) {
-            // If anything at all goes wrong, just set the price to 0 and move on.
-            qDebug() << QString("Caught something nasty");
-        }
-    });
 }
 
 /** 
