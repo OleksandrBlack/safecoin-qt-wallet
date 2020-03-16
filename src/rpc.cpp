@@ -1,3 +1,7 @@
+// Copyright 2019-2020 The Hush Developers
+// 2020 Safecoin Developers
+// Released under the GPLv3
+
 #include "rpc.h"
 
 #include "addressbook.h"
@@ -1223,13 +1227,9 @@ void RPC::watchTxStatus() {
         return noConnection();
 
     // Make an RPC to load pending operation statues
-    json payload = {
-        {"jsonrpc", "1.0"},
-        {"id", "someid"},
-        {"method", "z_getoperationstatus"},
-    };
 
-    conn->doRPCIgnoreError(payload, [=] (const json& reply) {
+    conn->doRPCIgnoreError(makePayload("z_getoperationstatus"), [=] (const json& reply) {
+        // conn->doRPCIgnoreError(payload, [=] (const json& reply) {
         // There's an array for each item in the status
         for (auto& it : reply.get<json::array_t>()) {  
             // If we were watching this Tx and its status became "success", then we'll show a status bar alert
@@ -1247,6 +1247,8 @@ void RPC::watchTxStatus() {
                     auto wtx = watchingOps[id];
                     watchingOps.remove(id);
                     wtx.completed(id, txid);
+
+                    qDebug() << "opid "<< id << " started at "<<QString::number((unsigned int)it["creation_time"])<<" took " << QString::number((double)it["execution_secs"]) << " seconds";
 
                     // Refresh balances to show unconfirmed balances                    
                     refresh(true);
@@ -1272,7 +1274,7 @@ void RPC::watchTxStatus() {
             main->loadingLabel->setVisible(false);
         } else {
             main->loadingLabel->setVisible(true);
-            main->loadingLabel->setToolTip(QString::number(watchingOps.size()) + QObject::tr(" tx computing. This can take several minutes."));
+            main->loadingLabel->setToolTip(QString::number(watchingOps.size()) + QObject::tr(" transaction computing."));
         }
     });
 }
