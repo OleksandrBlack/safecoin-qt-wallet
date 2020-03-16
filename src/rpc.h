@@ -117,6 +117,8 @@ private:
     void getInfoThenRefresh(bool force);
 
     void getBalance(const std::function<void(json)>& cb);
+    json makePayload(std::string method, std::string params);
+    json makePayload(std::string method);
 
     void getTransparentUnspent  (const std::function<void(json)>& cb);
     void getZUnspent            (const std::function<void(json)>& cb);

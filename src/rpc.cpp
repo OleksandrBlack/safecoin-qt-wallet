@@ -109,25 +109,34 @@ void RPC::setConnection(Connection* c) {
     refresh(true);
 }
 
-void RPC::getTAddresses(const std::function<void(json)>& cb) {
+json RPC::makePayload(std::string method, std::string params) {
     json payload = {
         {"jsonrpc", "1.0"},
-        {"id", "someid"},
-        {"method", "getaddressesbyaccount"},
-        {"params", {""}}
+        {"id", "42" },
+        {"method", method },
+        {"params", {params}}
     };
+	return payload;
+}
 
-    conn->doRPCWithDefaultErrorHandling(payload, cb);
+json RPC::makePayload(std::string method) {
+    json payload = {
+        {"jsonrpc", "1.0"},
+        {"id", "42" },
+        {"method", method },
+    };
+	return payload;
+}
+
+void RPC::getTAddresses(const std::function<void(json)>& cb) {
+    std::string method = "getaddressesbyaccount";
+    std::string params = "";
+    conn->doRPCWithDefaultErrorHandling(makePayload(method, std::string("")), cb);
 }
 
 void RPC::getZAddresses(const std::function<void(json)>& cb) {
-    json payload = {
-        {"jsonrpc", "1.0"},
-        {"id", "someid"},
-        {"method", "z_listaddresses"},
-    };
-
-    conn->doRPCWithDefaultErrorHandling(payload, cb);
+    std::string method = "z_listaddresses";
+    conn->doRPCWithDefaultErrorHandling(makePayload(method), cb);
 }
 
 void RPC::getTransparentUnspent(const std::function<void(json)>& cb) {
@@ -164,35 +173,18 @@ void RPC::newZaddr(bool sapling, const std::function<void(json)>& cb) {
 }
 
 void RPC::newTaddr(const std::function<void(json)>& cb) {
-    json payload = {
-        {"jsonrpc", "1.0"},
-        {"id", "someid"},
-        {"method", "getnewaddress"},
-    };
-
-    conn->doRPCWithDefaultErrorHandling(payload, cb);
+    std::string method = "getnewaddress";
+    conn->doRPCWithDefaultErrorHandling(makePayload(method), cb);
 }
 
 void RPC::getZPrivKey(QString addr, const std::function<void(json)>& cb) {
-    json payload = {
-        {"jsonrpc", "1.0"},
-        {"id", "someid"},
-        {"method", "z_exportkey"},
-        {"params", { addr.toStdString() }},
-    };
-    
-    conn->doRPCWithDefaultErrorHandling(payload, cb);
+    std::string method = "z_exportkey";
+    conn->doRPCWithDefaultErrorHandling(makePayload(method, addr.toStdString()), cb);
 }
 
 void RPC::getTPrivKey(QString addr, const std::function<void(json)>& cb) {
-    json payload = {
-        {"jsonrpc", "1.0"},
-        {"id", "someid"},
-        {"method", "dumpprivkey"},
-        {"params", { addr.toStdString() }},
-    };
-    
-    conn->doRPCWithDefaultErrorHandling(payload, cb);
+    std::string method = "dumpprivkey";
+    conn->doRPCWithDefaultErrorHandling(makePayload(method, addr.toStdString()), cb);
 }
 
 void RPC::importZPrivKey(QString addr, bool rescan, const std::function<void(json)>& cb) {
@@ -220,15 +212,8 @@ void RPC::importTPrivKey(QString addr, bool rescan, const std::function<void(jso
 
 void RPC::validateAddress(QString address, const std::function<void(json)>& cb) {
     QString method = Settings::isZAddress(address) ? "z_validateaddress" : "validateaddress";
-
-    json payload = {
-        {"jsonrpc", "1.0"},
-        {"id", "someid"},
-        {"method", method.toStdString() },
-        {"params", { address.toStdString() } },
-    };
     
-    conn->doRPCWithDefaultErrorHandling(payload, cb);
+    conn->doRPCWithDefaultErrorHandling(makePayload(method.toStdString(), address.toStdString()), cb);
 }
 
 void RPC::getBalance(const std::function<void(json)>& cb) {
@@ -243,13 +228,8 @@ void RPC::getBalance(const std::function<void(json)>& cb) {
 }
 
 void RPC::getTransactions(const std::function<void(json)>& cb) {
-    json payload = {
-        {"jsonrpc", "1.0"},
-        {"id", "someid"},
-        {"method", "listtransactions"}
-    };
-
-    conn->doRPCWithDefaultErrorHandling(payload, cb);
+    std::string method = "listtransactions";
+    conn->doRPCWithDefaultErrorHandling(makePayload(method), cb);
 }
 
 void RPC::sendZTransaction(json params, const std::function<void(json)>& cb, 
@@ -551,13 +531,10 @@ void RPC::getInfoThenRefresh(bool force) {
     if  (conn == nullptr) 
         return noConnection();
 
-    json payload = {
-        {"jsonrpc", "1.0"},
-        {"id", "someid"},
-        {"method", "getinfo"}
-    };
-
     static bool prevCallSucceeded = false;
+	
+    std::string method = "getinfo";
+	
     conn->doRPC(payload, [=] (const json& reply) {   
         prevCallSucceeded = true;
         // Testnet?
@@ -637,12 +614,9 @@ void RPC::getInfoThenRefresh(bool force) {
             });
 
         // Get activenodes
-        payload = {
-            {"jsonrpc", "1.0"},
-            {"id", "someid"},
-            {"method", "getactivenodes"}
-        };
-        conn->doRPCIgnoreError(payload, [=] (const json& reply) {
+
+		std::string method = "getactivenodes";
+		conn->doRPCIgnoreError(makePayload(method), [=] (const json& reply) {
             double collateral_total;
             int node_count          = reply["node_count"].get<json::number_integer_t>();
             int tier_0_count        = reply["tier_0_count"].get<json::number_integer_t>();
@@ -677,12 +651,9 @@ void RPC::getInfoThenRefresh(bool force) {
 
 
         // Get nodeinfo
-        payload = {
-            {"jsonrpc", "1.0"},
-            {"id", "someid"},
-            {"method", "getnodeinfo"}
-        };
-        conn->doRPCIgnoreError(payload, [=] (const json& reply) {
+
+		std::string method = "getnodeinfo";
+		conn->doRPCIgnoreError(makePayload(method), [=] (const json& reply) {
 		
 		double balance, collateral;
 		int tier;
@@ -1411,13 +1382,8 @@ void RPC::shutdownZcashd() {
         return;
     }
 
-    json payload = {
-        {"jsonrpc", "1.0"},
-        {"id", "someid"},
-        {"method", "stop"}
-    };
-    
-    conn->doRPCWithDefaultErrorHandling(payload, [=](auto) {});
+    std::string method = "stop";
+    conn->doRPCWithDefaultErrorHandling(makePayload(method), [=](auto) {});
     conn->shutdown();
 
     QDialog d(main);
