@@ -535,7 +535,7 @@ void RPC::getInfoThenRefresh(bool force) {
 	
     std::string method = "getinfo";
 	
-    conn->doRPC(payload, [=] (const json& reply) {   
+    conn->doRPC(makePayload(method), [=] (const json& reply) {   
         prevCallSucceeded = true;
         // Testnet?
         if (!reply["testnet"].is_null()) {
