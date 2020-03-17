@@ -1327,12 +1327,13 @@ void RPC::checkForUpdate(bool silent) {
     });
 }
 
-// Get the ZEC->USD price from coinmarketcap using their API
+// Get the SAFE->USD price from api.coinpaprika.com using their API
+
 void RPC::refreshZECPrice() {
     if  (conn == nullptr)
         return noConnection();
 
-    QUrl cmcURL("https://api.coinmarketcap.com/v1/ticker/safecoin/");
+    QUrl cmcURL("https://api.coinpaprika.com/v1/ticker/safe-safecoin");
 
     QNetworkRequest req;
     req.setUrl(cmcURL);
