@@ -358,7 +358,7 @@ bool ConnectionLoader::startEmbeddedZcashd() {
     auto zcashdProgram = appPath.absoluteFilePath("safecoind.exe");
 #endif
     
-    if (!QFile(zcashdProgram).exists()) {
+    if (!QFile::exists(zcashdProgram)) {
         qDebug() << "Can't find safecoind at " << zcashdProgram;
         main->logger->write("Can't find safecoind at " + zcashdProgram); 
         return false;
