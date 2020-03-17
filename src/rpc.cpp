@@ -1361,16 +1361,11 @@ void RPC::refreshZECPrice() {
             if (parsed.is_discarded()) {
                 Settings::getInstance()->setZECPrice(0);
                 return;
-            }
-
-            for (const json& item : parsed.get<json::array_t>()) {
-                if (item["symbol"].get<json::string_t>() == Settings::getTokenName().toStdString()) {
-                    QString price = QString::fromStdString(item["price_usd"].get<json::string_t>());
-                    qDebug() << Settings::getTokenName() << " Price=" << price;
-                    Settings::getInstance()->setZECPrice(price.toDouble());
-
-                    return;
-                }
+            } else {
+                QString price = QString::fromStdString(parsed["price_usd"].get<json::string_t>());
+                qDebug() << Settings::getTokenName() << " Price=" << price;
+                Settings::getInstance()->setZECPrice(price.toDouble());
+                return;
             }
         } catch (...) {
             // If anything at all goes wrong, just set the price to 0 and move on.
