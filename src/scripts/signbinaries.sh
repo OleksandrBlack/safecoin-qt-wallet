@@ -24,7 +24,10 @@ if [ -z $APP_VERSION ]; then echo "APP_VERSION is not set"; exit 1; fi
 
 # Store the hash and signatures here
 rm -rf release/signatures
-mkdir -p release/signatures 
+mkdir -p release/signatures
+
+# Staple the notarization
+xcrun stapler staple artifacts/macOS-safecoinwallet-v$APP_VERSION.dmg
 
 cd artifacts
 
@@ -47,4 +50,3 @@ cd ../release/signatures
 #tar -czf signatures-v$APP_VERSION.tar.gz *
 zip signatures-v$APP_VERSION.zip *
 mv signatures-v$APP_VERSION.zip ../../artifacts
-
