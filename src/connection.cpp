@@ -1,5 +1,6 @@
-// Copyright 2019-2020 The Hush developers
+// Copyright 2019-2020 The safecoin developers
 // Copyright 2020 Safecoin developers
+// GPLv3
 #include "connection.h"
 #include "mainwindow.h"
 #include "settings.h"
@@ -177,11 +178,13 @@ void ConnectionLoader::createZcashConf() {
     }
 
     main->logger->write("Creating file " + confLocation);
-    QDir().mkdir(fi.dir().absolutePath());
+    QDir().mkpath(fi.dir().absolutePath());
 
     QFile file(confLocation);
     if (!file.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
         main->logger->write("Could not create safecoin.conf, returning");
+        QString explanation = QString() % QObject::tr("Could not create safecoin.conf.");
+        this->showError(explanation);
         return;
     }
         
@@ -192,6 +195,7 @@ void ConnectionLoader::createZcashConf() {
     out << "rpcuser=safecoin\n";
     out << "rpcpassword=" % randomPassword() << "\n";
     out << "rpcport=8771\n";
+    out << "port=8770\n";
     out << "rpcworkqueue=256\n";
     out << "txindex=1\n";
     out << "addressindex=1\n";
@@ -713,7 +717,7 @@ std::shared_ptr<ConnectionConfig> ConnectionLoader::autoDetectZcashConf() {
         if (name == "testnet" &&
             value == "1"  &&
             zcashconf->port.isEmpty()) {
-                zcashconf->port = "18770";
+                zcashconf->port = "18771";
         }
         if (name == "fastsync" && value == "1") {
             zcashconf->fastsync = true;
@@ -721,7 +725,7 @@ std::shared_ptr<ConnectionConfig> ConnectionLoader::autoDetectZcashConf() {
     }
 
     // If rpcport is not in the file, and it was not set by the testnet=1 flag, then go to default
-    if (zcashconf->port.isEmpty()) zcashconf->port = "8770";
+    if (zcashconf->port.isEmpty()) zcashconf->port = "8771";
     file.close();
 
     // In addition to the safecoin.conf file, also double check the params. 
