@@ -1,3 +1,7 @@
+//Copyright (c) 2019-2020 The Hush developers
+//Copyright 2020 Safecoin Developers
+//Released under the GPLv3
+
 #include "mainwindow.h"
 #include "addressbook.h"
 #include "viewalladdresses.h"
@@ -26,24 +30,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
 	    
-	// Include css
+    // Include css
     QString theme_name;
     try
     {
        theme_name = Settings::getInstance()->get_theme_name();
-    }
-    catch (...)
+    } catch (...)
     {
         theme_name = "default";
     }
 
-    QFile qFile(":/css/res/css/" + theme_name +".css");
-    if (qFile.open(QFile::ReadOnly))
-    {
-      QString styleSheet = QLatin1String(qFile.readAll());
-      this->setStyleSheet(styleSheet);
-    }
-
+    this->slot_change_theme(theme_name);
 	    
     ui->setupUi(this);
     logger = new Logger(this, QDir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)).filePath("safe-qt-wallet.log"));
@@ -299,10 +296,12 @@ void MainWindow::setupSettingsModal() {
         int theme_index = settings.comboBoxTheme->findText(Settings::getInstance()->get_theme_name(), Qt::MatchExactly);
         settings.comboBoxTheme->setCurrentIndex(theme_index);
 
+        QObject::connect(settings.comboBoxTheme, SIGNAL(currentIndexChanged(QString)), this, SLOT(slot_change_theme(QString)));
         QObject::connect(settings.comboBoxTheme, &QComboBox::currentTextChanged, [=] (QString theme_name) {
             this->slot_change_theme(theme_name);
+            QMessageBox::information(this, tr("Theme Change"), tr("This change can take a few seconds."), QMessageBox::Ok);
         });
-
+		
         // Save sent transactions
         settings.chkSaveTxs->setChecked(Settings::getInstance()->getSaveZtxs());
 
@@ -1494,12 +1493,10 @@ void MainWindow::slot_change_theme(const QString& theme_name)
 
     // Include css
     QString saved_theme_name;
-    try
-    {
+    try {
        saved_theme_name = Settings::getInstance()->get_theme_name();
-    }
-    catch (...)
-    {
+    } catch (const std::exception& e) {
+        qDebug() << QString("Ignoring theme change Exception! : ") << e.what();
         saved_theme_name = "default";
     }
 
@@ -1507,7 +1504,7 @@ void MainWindow::slot_change_theme(const QString& theme_name)
     if (qFile.open(QFile::ReadOnly))
     {
       QString styleSheet = QLatin1String(qFile.readAll());
-      this->setStyleSheet(""); // try to reset styles
+      this->setStyleSheet(""); // reset styles
       this->setStyleSheet(styleSheet);
     }
 
