@@ -381,11 +381,6 @@
                <string>matrix</string>
               </property>
              </item>
-             <item>
-              <property name="text">
-               <string>classic</string>
-              </property>
-             </item>
             </widget>
            </item>
           </layout>
