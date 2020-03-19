@@ -151,7 +151,7 @@ void Settings::setAllowCustomFees(bool allow) {
 
 QString Settings::get_theme_name() {
     // Load from the QT Settings.
-    return QSettings().value("options/theme_name", "matrix").toString();
+    return QSettings().value("options/theme_name", "default").toString();
 }
 
 void Settings::set_theme_name(QString theme_name) {
@@ -318,19 +318,6 @@ double Settings::getMinerFee() {
     return 0.0001;
 }
 
-double Settings::getZboardAmount() {
-    return 0.0001;
-}
-
-QString Settings::getZboardAddr() {
-    if (Settings::getInstance()->isTestnet()) {
-        return getDonationAddr();
-    }
-    else {
-        return "zs10m00rvkhfm4f7n23e4sxsx275r7ptnggx39ygl0vy46j9mdll5c97gl6dxgpk0njuptg2mn9w5s";
-    }
-}
-
 bool Settings::isValidSaplingPrivateKey(QString pk) {
     if (isTestnet()) {
         QRegExp zspkey("^secret-extended-key-test[0-9a-z]{278}$", Qt::CaseInsensitive);
@@ -345,9 +332,11 @@ bool Settings::isValidAddress(QString addr) {
     QRegExp zsexp("^zs1[a-z0-9]{75}$",  Qt::CaseInsensitive);
     QRegExp ztsexp("^ztestsapling[a-z0-9]{76}", Qt::CaseInsensitive);
     QRegExp texp("^R[a-z0-9]{33}$", Qt::CaseInsensitive);
+    QRegExp tsexp("^1[a-z0-9]{33}$", Qt::CaseInsensitive);
     //qDebug() << "isValidAddress(" << addr << ")";
 
-    return  texp.exactMatch(addr) || ztsexp.exactMatch(addr) || zsexp.exactMatch(addr);
+    return	texp.exactMatch(addr)	|| ztsexp.exactMatch(addr)	||
+			zsexp.exactMatch(addr)	|| tsexp.exactMatch(addr);
 }
 
 // Get a pretty string representation of this Payment URI
@@ -379,27 +368,24 @@ PaymentURI Settings::parseURI(QString uri) {
         ans.error = "Could not understand address";
         return ans;
     }
-    uri = uri.right(uri.length() - ans.addr.length());
 
-    if (!uri.isEmpty()) {
-        uri = uri.right(uri.length() - 1); // Eat the "?"
+    uri = uri.right(uri.length() - ans.addr.length()-1);  // swallow '?'
+    QUrlQuery query(uri);
 
-        QStringList args = uri.split("&");
-        for (QString arg: args) {
-            QStringList kv = arg.split("=");
-            if (kv.length() != 2) {
-                ans.error = "No value argument was seen";
-                return ans;
-            }
+    // parse out amt / amount
+    if (query.hasQueryItem("amt")) {
+        ans.amt  = query.queryItemValue("amt");
+    } else if (query.hasQueryItem("amount")) {
+        ans.amt  = query.queryItemValue("amount");
+    }
 
-            if (kv[0].toLower() == "amt" || kv[0].toLower() == "amount") {
-                ans.amt = kv[1];
-            } else if (kv[0].toLower() == "memo" || kv[0].toLower() == "message" || kv[0].toLower() == "msg") {
-                ans.memo = QUrl::fromPercentEncoding(kv[1].toUtf8());
-            } else {
-                // Ignore unknown fields, since some developers use it to pass extra data.
-            }
-        }
+    // parse out memo / msg / message
+    if (query.hasQueryItem("memo")) {
+        ans.memo  = query.queryItemValue("memo");
+    } else if (query.hasQueryItem("msg")) {
+        ans.memo  = query.queryItemValue("msg");
+    } else if  (query.hasQueryItem("message")) {
+        ans.memo  = query.queryItemValue("message");
     }
 
     return ans;

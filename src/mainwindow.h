@@ -1,3 +1,7 @@
+//Copyright (c) 2019-2020 The Hush developers
+//Copyright 2020 Safecoin Developers
+//Released under the GPLv3
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
@@ -82,9 +86,6 @@ public:
 
     void doClose();
 
-public slots:
-    void slot_change_theme(const QString& themeName);
-
 private:    
     void closeEvent(QCloseEvent* event);
 
@@ -95,6 +96,7 @@ private:
     void setupZcashdTab();
     void SafeNodesTab();
 
+    void slot_change_theme(const QString& themeName);
     void setupTurnstileDialog();
     void setupSettingsModal();
     void setupStatusBar();

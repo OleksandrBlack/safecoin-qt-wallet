@@ -1,3 +1,7 @@
+//Copyright (c) 2019-2020 The Hush developers
+//Copyright 2020 Safecoin Developers
+//Released under the GPLv3
+
 #ifndef SETTINGS_H
 #define SETTINGS_H
 

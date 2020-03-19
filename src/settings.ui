@@ -151,86 +151,7 @@
        <string>Options</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="4" column="0" colspan="3">
-        <widget class="QLabel" name="label_6">
-         <property name="text">
-          <string>Allow overriding the default fees when sending transactions. Enabling this option may compromise your privacy since fees are transparent. </string>
-         </property>
-         <property name="wordWrap">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="11" column="0" colspan="3">
-        <widget class="QCheckBox" name="chkFetchPrices">
-         <property name="text">
-          <string>Fetch SAFE / USD prices</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QCheckBox" name="chkCustomFees">
-         <property name="text">
-          <string>Allow custom fees</string>
-         </property>
-        </widget>
-       </item>
-       <item row="16" column="0" colspan="3">
-        <widget class="Line" name="line_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="9" column="0" colspan="3">
-        <widget class="QCheckBox" name="chkCheckUpdates">
-         <property name="text">
-          <string>Check github for updates at startup</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0" colspan="3">
-        <widget class="QCheckBox" name="chkAutoShield">
-         <property name="text">
-          <string>Shield change from t-Addresses to your sapling address</string>
-         </property>
-        </widget>
-       </item>
-       <item row="17" column="0" colspan="3">
-        <spacer name="verticalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="2" column="2">
-        <widget class="QPushButton" name="btnClearSaved">
-         <property name="text">
-          <string>Clear History</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0" colspan="3">
-        <widget class="QCheckBox" name="chkSaveTxs">
-         <property name="text">
-          <string>Remember shielded transactions</string>
-         </property>
-        </widget>
-       </item>
-       <item row="7" column="0">
-        <widget class="QCheckBox" name="chkTor">
-         <property name="text">
-          <string>Connect via Tor</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="0" colspan="3">
+       <item row="6" column="0" colspan="2">
         <widget class="QLabel" name="label_7">
          <property name="text">
           <string>Normally, change from t-Addresses goes to another t-Address. Checking this option will send the change to your shielded sapling address instead. Check this option to increase your privacy.</string>
@@ -240,10 +161,51 @@
          </property>
         </widget>
        </item>
-       <item row="12" column="0" colspan="3">
-        <widget class="QLabel" name="label_10">
+       <item row="0" column="0" colspan="2">
+        <widget class="QCheckBox" name="chkSaveTxs">
          <property name="text">
-          <string>Connect to the internet to fetch SAFE prices</string>
+          <string>Remember shielded transactions</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0" colspan="2">
+        <widget class="QLabel" name="label_6">
+         <property name="text">
+          <string>Allow overriding the default fees when sending transactions. Enabling this option may compromise your privacy since fees are transparent. </string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="0" colspan="2">
+        <widget class="QCheckBox" name="chkFetchPrices">
+         <property name="text">
+          <string>Fetch SAFE / USD prices</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="2">
+        <widget class="QLabel" name="label_5">
+         <property name="text">
+          <string>Shielded transactions are saved locally and shown in the transactions tab.  If you uncheck this, shielded transactions will not appear in the transactions tab.</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="21" column="0" colspan="2">
+        <widget class="Line" name="line_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="13" column="0" colspan="2">
+        <widget class="Line" name="line_11">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </item>
@@ -260,33 +222,62 @@
          </property>
         </spacer>
        </item>
-       <item row="13" column="0">
-        <widget class="QLabel" name="label_20">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
+       <item row="9" column="0" colspan="2">
+        <widget class="QCheckBox" name="chkCheckUpdates">
          <property name="text">
-          <string>Theme</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          <string>Check github for updates at startup</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="0" colspan="3">
-        <widget class="QLabel" name="label_5">
+       <item row="5" column="0" colspan="2">
+        <widget class="QCheckBox" name="chkAutoShield">
          <property name="text">
-          <string>Shielded transactions are saved locally and shown in the transactions tab.  If you uncheck this, shielded transactions will not appear in the transactions tab.</string>
-         </property>
-         <property name="wordWrap">
-          <bool>true</bool>
+          <string>Shield change from t-Addresses to your sapling address</string>
          </property>
         </widget>
        </item>
-       <item row="8" column="0" colspan="3">
+       <item row="7" column="0">
+        <widget class="QCheckBox" name="chkTor">
+         <property name="text">
+          <string>Connect via Tor</string>
+         </property>
+        </widget>
+       </item>
+       <item row="22" column="0" colspan="2">
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="3" column="0">
+        <widget class="QCheckBox" name="chkCustomFees">
+         <property name="text">
+          <string>Allow custom fees</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QPushButton" name="btnClearSaved">
+         <property name="text">
+          <string>Clear History</string>
+         </property>
+        </widget>
+       </item>
+       <item row="12" column="0" colspan="2">
+        <widget class="QLabel" name="label_10">
+         <property name="text">
+          <string>Connect to the internet to fetch SAFE prices</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="0" colspan="2">
         <widget class="QLabel" name="lblTor">
          <property name="text">
           <string>Connect to the Tor network via SOCKS proxy running on 127.0.0.1:9050. Please note that you'll have to install and run the Tor service externally.</string>
@@ -296,86 +287,118 @@
          </property>
         </widget>
        </item>
-       <item row="10" column="0" colspan="3">
+       <item row="10" column="0" colspan="2">
         <widget class="QLabel" name="label_8">
          <property name="text">
           <string>Connect to github on startup to check for updates</string>
          </property>
         </widget>
        </item>
-       <item row="13" column="1" colspan="2">
-        <widget class="QComboBox" name="comboBoxTheme">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
+       <item row="14" column="0" colspan="2">
+        <layout class="QHBoxLayout" name="ThemehorizontalLayout">
          <item>
-          <property name="text">
-           <string>light</string>
-          </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>../res/images/blue/unchecked.png</normaloff>
-            <normalon>../res/images/blue/unchecked.png</normalon>
-            <disabledoff>../res/images/blue/unchecked.png</disabledoff>
-            <disabledon>../res/images/blue/unchecked.png</disabledon>
-            <activeoff>../res/images/blue/checked.png</activeoff>
-            <activeon>../res/images/blue/checked.png</activeon>
-            <selectedoff>../res/images/blue/checked.png</selectedoff>
-            <selectedon>../res/images/blue/checked.png</selectedon>../res/images/blue/unchecked.png</iconset>
-          </property>
+          <spacer name="ThemehorizontalSpacer_1">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
          </item>
          <item>
-          <property name="text">
-           <string>blue</string>
-          </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>../res/images/blue/unchecked.png</normaloff>
-            <normalon>../res/images/blue/unchecked.png</normalon>
-            <disabledoff>../res/images/blue/unchecked.png</disabledoff>
-            <disabledon>../res/images/blue/unchecked.png</disabledon>
-            <activeoff>../res/images/blue/checked.png</activeoff>
-            <activeon>../res/images/blue/checked.png</activeon>
-            <selectedoff>../res/images/blue/checked.png</selectedoff>
-            <selectedon>../res/images/blue/checked.png</selectedon>../res/images/blue/unchecked.png</iconset>
-          </property>
+          <layout class="QVBoxLayout" name="ThemeverticalLayout">
+           <item alignment="Qt::AlignHCenter">
+            <widget class="QLabel" name="Themelabel">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Theme</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="comboBoxTheme">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>150</width>
+               <height>25</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="acceptDrops">
+              <bool>false</bool>
+             </property>
+             <property name="layoutDirection">
+              <enum>Qt::LeftToRight</enum>
+             </property>
+             <property name="insertPolicy">
+              <enum>QComboBox::InsertAtBottom</enum>
+             </property>
+             <item>
+              <property name="text">
+               <string>default</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>blue</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>light</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>dark</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>matrix</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+          </layout>
          </item>
          <item>
-          <property name="text">
-           <string>dark</string>
-          </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>../res/images/blue/unchecked.png</normaloff>
-            <normalon>../res/images/blue/unchecked.png</normalon>
-            <disabledoff>../res/images/blue/unchecked.png</disabledoff>
-            <disabledon>../res/images/blue/unchecked.png</disabledon>
-            <activeoff>../res/images/blue/checked.png</activeoff>
-            <activeon>../res/images/blue/checked.png</activeon>
-            <selectedoff>../res/images/blue/checked.png</selectedoff>
-            <selectedon>../res/images/blue/checked.png</selectedon>../res/images/blue/unchecked.png</iconset>
-          </property>
+          <spacer name="ThemehorizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
          </item>
-         <item>
-          <property name="text">
-           <string>matrix</string>
-          </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>../res/images/blue/unchecked.png</normaloff>
-            <normalon>../res/images/blue/unchecked.png</normalon>
-            <disabledoff>../res/images/blue/unchecked.png</disabledoff>
-            <disabledon>../res/images/blue/unchecked.png</disabledon>
-            <activeoff>../res/images/blue/checked.png</activeoff>
-            <activeon>../res/images/blue/checked.png</activeon>
-            <selectedoff>../res/images/blue/checked.png</selectedoff>
-            <selectedon>../res/images/blue/checked.png</selectedon>../res/images/blue/unchecked.png</iconset>
-          </property>
-         </item>
-        </widget>
+        </layout>
        </item>
       </layout>
      </widget>

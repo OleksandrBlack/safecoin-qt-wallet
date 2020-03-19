@@ -1,3 +1,6 @@
+// Copyright 2019-2020 The safecoin developers
+// Copyright 2020 Safecoin developers
+// GPLv3
 #include "connection.h"
 #include "mainwindow.h"
 #include "settings.h"
@@ -175,11 +178,13 @@ void ConnectionLoader::createZcashConf() {
     }
 
     main->logger->write("Creating file " + confLocation);
-    QDir().mkdir(fi.dir().absolutePath());
+    QDir().mkpath(fi.dir().absolutePath());
 
     QFile file(confLocation);
     if (!file.open(QIODevice::ReadWrite | QIODevice::Truncate)) {
         main->logger->write("Could not create safecoin.conf, returning");
+        QString explanation = QString() % QObject::tr("Could not create safecoin.conf.");
+        this->showError(explanation);
         return;
     }
         
@@ -190,6 +195,7 @@ void ConnectionLoader::createZcashConf() {
     out << "rpcuser=safecoin\n";
     out << "rpcpassword=" % randomPassword() << "\n";
     out << "rpcport=8771\n";
+    out << "port=8770\n";
     out << "rpcworkqueue=256\n";
     out << "txindex=1\n";
     out << "addressindex=1\n";
@@ -356,7 +362,7 @@ bool ConnectionLoader::startEmbeddedZcashd() {
     auto zcashdProgram = appPath.absoluteFilePath("safecoind.exe");
 #endif
     
-    if (!QFile(zcashdProgram).exists()) {
+    if (!QFile::exists(zcashdProgram)) {
         qDebug() << "Can't find safecoind at " << zcashdProgram;
         main->logger->write("Can't find safecoind at " + zcashdProgram); 
         return false;
@@ -554,8 +560,12 @@ QString ConnectionLoader::zcashConfWritableLocation() {
 }
 
 QString ConnectionLoader::zcashParamsDir() {
-    #ifdef Q_OS_LINUX
+#ifdef Q_OS_LINUX
     auto paramsLocation = QDir(QDir(QStandardPaths::writableLocation(QStandardPaths::HomeLocation)).filePath(".zcash-params"));
+    // Debian packages do not install into per-user dirs
+    if (!paramsLocation.exists()) {
+        paramsLocation = QDir(QDir("/").filePath("usr/share/safecoin"));
+    }
 #elif defined(Q_OS_DARWIN)
     auto paramsLocation = QDir(QDir(QStandardPaths::writableLocation(QStandardPaths::HomeLocation)).filePath("Library/Application Support/ZcashParams"));
 #else
@@ -574,13 +584,69 @@ QString ConnectionLoader::zcashParamsDir() {
 bool ConnectionLoader::verifyParams() {
     QDir paramsDir(zcashParamsDir());
 
-    if (!QFile(paramsDir.filePath("sapling-output.params")).exists()) return false;
-    if (!QFile(paramsDir.filePath("sapling-spend.params")).exists()) return false;
-    if (!QFile(paramsDir.filePath("sprout-proving.key")).exists()) return false;
-    if (!QFile(paramsDir.filePath("sprout-verifying.key")).exists()) return false;
-    if (!QFile(paramsDir.filePath("sprout-groth16.params")).exists()) return false;
+    // TODO: better error reporting if only 1 file exists or is missing
+    qDebug() << "Verifying param files exist";
 
-    return true;
+
+    // This list of locations to look must be kept in sync with the list in safecoind
+    if( QFile( QDir(".").filePath("sapling-output.params") ).exists() && 
+		QFile( QDir(".").filePath("sapling-spend.params") ).exists() && 
+		QFile( QDir(".").filePath("sprout-proving.key") ).exists() && 
+		QFile( QDir(".").filePath("sprout-verifying.key") ).exists() && 
+		QFile( QDir(".").filePath("sprout-groth16.params") ).exists() ) {
+        qDebug() << "Found params in .";
+        return true;
+    }
+
+    if( QFile( QDir("..").filePath("sapling-output.params") ).exists() && 
+		QFile( QDir("..").filePath("sapling-spend.params") ).exists() && 
+		QFile( QDir("..").filePath("sprout-proving.key") ).exists() && 
+		QFile( QDir("..").filePath("sprout-verifying.key") ).exists() && 
+		QFile( QDir("..").filePath("sprout-groth16.params") ).exists() ) {
+        qDebug() << "Found params in ..";
+        return true;
+    }
+
+    if( QFile( QDir("..").filePath("safecoin/sapling-output.params") ).exists() && 
+		QFile( QDir("..").filePath("safecoin/sapling-spend.params") ).exists() && 
+		QFile( QDir("..").filePath("safecoin/sprout-proving.key") ).exists() &&
+		QFile( QDir("..").filePath("safecoin/sprout-verifying.key") ).exists() &&
+		QFile( QDir("..").filePath("safecoin/sprout-groth16.params") ).exists() ) {
+        qDebug() << "Found params in ../safecoin";
+        return true;
+    }
+
+    // this is to support SD on mac in /Applications1
+    if( QFile( QDir("/Applications").filePath("safecoinwallet.app/Contents/MacOS/sapling-output.params") ).exists() && 
+		QFile( QDir("/Applications").filePath("./safecoinwallet.app/Contents/MacOS/sapling-spend.params") ).exists() && 
+		QFile( QDir("/Applications").filePath("safecoinwallet.app/Contents/MacOS/sprout-proving.key") ).exists() &&
+		QFile( QDir("/Applications").filePath("safecoinwallet.app/Contents/MacOS/sprout-verifying.key") ).exists() &&
+		QFile( QDir("/Applications").filePath("safecoinwallet.app/Contents/MacOS/sprout-groth16.params") ).exists() ) {
+        qDebug() << "Found params in /Applications/safecoinwallet.app/Contents/MacOS";
+        return true;
+    }
+
+    // this is to support SD on mac inside a DMG
+    if( QFile( QDir("./").filePath("safecoinwallet.app/Contents/MacOS/sapling-output.params") ).exists() && 
+		QFile( QDir("./").filePath("./safecoinwallet.app/Contents/MacOS/sapling-spend.params") ).exists() && 
+		QFile( QDir("./").filePath("safecoinwallet.app/Contents/MacOS/sprout-proving.key") ).exists() && 
+		QFile( QDir("./").filePath("safecoinwallet.app/Contents/MacOS/sprout-verifying.key") ).exists() && 
+		QFile( QDir("./").filePath("safecoinwallet.app/Contents/MacOS/sprout-groth16.params") ).exists() ) {
+        qDebug() << "Found params in ./safecoinwallet.app/Contents/MacOS";
+        return true;
+    }
+
+    if (QFile(paramsDir.filePath("sapling-output.params")).exists() && 
+		QFile(paramsDir.filePath("sapling-spend.params")).exists() && 
+		QFile(paramsDir.filePath("sprout-proving.key")).exists() && 
+		QFile(paramsDir.filePath("sprout-verifying.key")).exists() && 
+		QFile(paramsDir.filePath("sprout-groth16.params")).exists() ) {
+        qDebug() << "Found params in " << paramsDir;
+        return true;
+    }
+
+    qDebug() << "Did not find params!";
+    return false;
 }
 
 /**
@@ -651,7 +717,7 @@ std::shared_ptr<ConnectionConfig> ConnectionLoader::autoDetectZcashConf() {
         if (name == "testnet" &&
             value == "1"  &&
             zcashconf->port.isEmpty()) {
-                zcashconf->port = "18770";
+                zcashconf->port = "18771";
         }
         if (name == "fastsync" && value == "1") {
             zcashconf->fastsync = true;
@@ -659,7 +725,7 @@ std::shared_ptr<ConnectionConfig> ConnectionLoader::autoDetectZcashConf() {
     }
 
     // If rpcport is not in the file, and it was not set by the testnet=1 flag, then go to default
-    if (zcashconf->port.isEmpty()) zcashconf->port = "8770";
+    if (zcashconf->port.isEmpty()) zcashconf->port = "8771";
     file.close();
 
     // In addition to the safecoin.conf file, also double check the params. 

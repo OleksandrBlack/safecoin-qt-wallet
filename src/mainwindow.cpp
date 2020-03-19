@@ -1,3 +1,7 @@
+//Copyright (c) 2019-2020 The Hush developers
+//Copyright 2020 Safecoin Developers
+//Released under the GPLv3
+
 #include "mainwindow.h"
 #include "addressbook.h"
 #include "viewalladdresses.h"
@@ -5,19 +9,15 @@
 #include "ui_mainwindow.h"
 #include "ui_mobileappconnector.h"
 #include "ui_addressbook.h"
-#include "ui_zboard.h"
 #include "ui_privkey.h"
 #include "ui_about.h"
 #include "ui_settings.h"
-#include "ui_turnstile.h"
-#include "ui_turnstileprogress.h"
 #include "ui_viewalladdresses.h"
 #include "ui_validateaddress.h"
 #include "rpc.h"
 #include "balancestablemodel.h"
 #include "settings.h"
 #include "version.h"
-#include "turnstile.h"
 #include "senttxstore.h"
 #include "connection.h"
 #include "requestdialog.h"
@@ -30,24 +30,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
 	    
-	// Include css
+    // Include css
     QString theme_name;
     try
     {
        theme_name = Settings::getInstance()->get_theme_name();
-    }
-    catch (...)
+    } catch (...)
     {
         theme_name = "default";
     }
 
-    QFile qFile(":/css/res/css/" + theme_name +".css");
-    if (qFile.open(QFile::ReadOnly))
-    {
-      QString styleSheet = QLatin1String(qFile.readAll());
-      this->setStyleSheet(styleSheet);
-    }
-
+    this->slot_change_theme(theme_name);
 	    
     ui->setupUi(this);
     logger = new Logger(this, QDir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)).filePath("safe-qt-wallet.log"));
@@ -108,11 +101,6 @@ MainWindow::MainWindow(QWidget *parent) :
     // Export transactions
     QObject::connect(ui->actionExport_transactions, &QAction::triggered, this, &MainWindow::exportTransactions);
 
-/*
-    // z-Board.net
-    QObject::connect(ui->actionz_board_net, &QAction::triggered, this, &MainWindow::postToZBoard);
-*/
-
     // Validate Address
     QObject::connect(ui->actionValidate_Address, &QAction::triggered, this, &MainWindow::validateAddress);
 
@@ -156,7 +144,6 @@ MainWindow::MainWindow(QWidget *parent) :
     setupTransactionsTab();
     setupReceiveTab();
     setupBalancesTab();
-//    setupTurnstileDialog();
     setupZcashdTab();
     SafeNodesTab();
 
@@ -171,17 +158,22 @@ MainWindow::MainWindow(QWidget *parent) :
         if (ads->getAllowInternetConnection())
             wormholecode = ads->getWormholeCode(ads->getSecretHex());
 
+        qDebug() << "MainWindow: createWebsocket with wormholecode=" << wormholecode;
         createWebsocket(wormholecode);
     }
 }
- 
+
 void MainWindow::createWebsocket(QString wormholecode) {
-    qDebug() << "Listening for app connections on port 8237";
     // Create the websocket server, for listening to direct connections
-    wsserver = new WSServer(8237, false, this);
+    int wsport = 8787;
+    // TODO: env var
+    bool msgDebug = true;
+    wsserver = new WSServer(wsport, msgDebug, this);
+    qDebug() << "createWebsocket: Listening for app connections on port " << wsport;
 
     if (!wormholecode.isEmpty()) {
         // Connect to the wormhole service
+        qDebug() << "Creating WormholeClient";
         wormhole = new WormholeClient(this, wormholecode);
     }
 }
@@ -201,6 +193,7 @@ bool MainWindow::isWebsocketListening() {
 }
 
 void MainWindow::replaceWormholeClient(WormholeClient* newClient) {
+    qDebug() << "replacing WormholeClient";
     delete wormhole;
     wormhole = newClient;
 }
@@ -211,7 +204,7 @@ void MainWindow::restoreSavedStates() {
 
     ui->balancesTable->horizontalHeader()->restoreState(s.value("baltablegeometry").toByteArray());
     ui->transactionsTable->horizontalHeader()->restoreState(s.value("tratablegeometry").toByteArray());
-
+	
     // Explicitly set the tx table resize headers, since some previous values may have made them
     // non-expandable.
     ui->transactionsTable->horizontalHeader()->setSectionResizeMode(3, QHeaderView::Interactive);
@@ -238,220 +231,6 @@ void MainWindow::closeEvent(QCloseEvent* event) {
     if (event)
         QMainWindow::closeEvent(event);
 }
-
-void MainWindow::turnstileProgress() {
-    Ui_TurnstileProgress progress;
-    QDialog d(this);
-    progress.setupUi(&d);
-    Settings::saveRestore(&d);
-
-    QIcon icon = QApplication::style()->standardIcon(QStyle::SP_MessageBoxWarning);
-    progress.msgIcon->setPixmap(icon.pixmap(64, 64));
-
-    bool migrationFinished = false;
-    auto fnUpdateProgressUI = [=, &migrationFinished] () mutable {
-        // Get the plan progress
-        if (rpc->getTurnstile()->isMigrationPresent()) {
-            auto curProgress = rpc->getTurnstile()->getPlanProgress();
-            
-            progress.progressTxt->setText(QString::number(curProgress.step) % QString(" / ") % QString::number(curProgress.totalSteps));
-            progress.progressBar->setValue(100 * curProgress.step / curProgress.totalSteps);
-            
-            auto nextTxBlock = curProgress.nextBlock - Settings::getInstance()->getBlockNumber();
-            
-            progress.fromAddr->setText(curProgress.from);
-            progress.toAddr->setText(curProgress.to);
-
-            if (curProgress.step == curProgress.totalSteps) {
-                migrationFinished = true;
-                auto txt = QString("Turnstile migration finished");
-                if (curProgress.hasErrors) {
-                    txt = txt + ". There were some errors.\n\nYour funds are all in your wallet, so you should be able to finish moving them manually.";
-                }
-                progress.nextTx->setText(txt);
-            } else {
-                progress.nextTx->setText(QString("Next transaction in ") 
-                                    % QString::number(nextTxBlock < 0 ? 0 : nextTxBlock)
-                                    % " blocks via " % curProgress.via % "\n" 
-                                    % (nextTxBlock <= 0 ? "(waiting for confirmations)" : ""));
-            }
-            
-        } else {
-            progress.progressTxt->setText("");
-            progress.progressBar->setValue(0);
-            progress.nextTx->setText("No turnstile migration is in progress");
-        }
-    };
-
-    QTimer progressTimer(this);        
-    QObject::connect(&progressTimer, &QTimer::timeout, fnUpdateProgressUI);
-    progressTimer.start(Settings::updateSpeed);
-    fnUpdateProgressUI();
-    
-    auto curProgress = rpc->getTurnstile()->getPlanProgress();
-
-    // Abort button
-    if (curProgress.step != curProgress.totalSteps)
-        progress.buttonBox->button(QDialogButtonBox::Discard)->setText("Abort");
-    else
-        progress.buttonBox->button(QDialogButtonBox::Discard)->setVisible(false);
-
-    // Abort button clicked
-    QObject::connect(progress.buttonBox->button(QDialogButtonBox::Discard), &QPushButton::clicked, [&] () {
-        if (curProgress.step != curProgress.totalSteps) {
-            auto abort = QMessageBox::warning(this, "Are you sure you want to Abort?",
-                                    "Are you sure you want to abort the migration?\nAll further transactions will be cancelled.\nAll your funds are still in your wallet.",
-                                    QMessageBox::Yes, QMessageBox::No);
-            if (abort == QMessageBox::Yes) {
-                rpc->getTurnstile()->removeFile();
-                d.close();
-                ui->statusBar->showMessage("Automatic Sapling turnstile migration aborted.");
-            }
-        }
-    });
-
-    d.exec();    
-    if (migrationFinished || curProgress.step == curProgress.totalSteps) {
-        // Finished, so delete the file
-        rpc->getTurnstile()->removeFile();
-    }    
-}
-
-void MainWindow::turnstileDoMigration(QString fromAddr) {
-    // Return if there is no connection
-    if (rpc->getAllZAddresses() == nullptr || rpc->getAllBalances() == nullptr) {
-        QMessageBox::information(this, tr("Not yet ready"), tr("safecoind is not yet ready. Please wait for the UI to load"), QMessageBox::Ok);
-        return;
-    }
-
-    // If a migration is already in progress, show the progress dialog instead
-    if (rpc->getTurnstile()->isMigrationPresent()) {
-        turnstileProgress();
-        return;
-    }
-
-    Ui_Turnstile turnstile;
-    QDialog d(this);
-    turnstile.setupUi(&d);
-    Settings::saveRestore(&d);
-
-    QIcon icon = QApplication::style()->standardIcon(QStyle::SP_MessageBoxInformation);
-    turnstile.msgIcon->setPixmap(icon.pixmap(64, 64));
-
-    auto fnGetAllSproutBalance = [=] () {
-        double bal = 0;
-        for (auto addr : *rpc->getAllZAddresses()) {
-            if (Settings::getInstance()->isSproutAddress(addr) && rpc->getAllBalances()) {
-                bal += rpc->getAllBalances()->value(addr);
-            }
-        }
-
-        return bal;
-    };
-
-    turnstile.fromBalance->setText(Settings::getZECUSDDisplayFormat(fnGetAllSproutBalance()));
-    for (auto addr : *rpc->getAllZAddresses()) {
-        auto bal = rpc->getAllBalances()->value(addr);
-        if (Settings::getInstance()->isSaplingAddress(addr)) {
-            turnstile.migrateTo->addItem(addr, bal);
-        } else {
-            turnstile.migrateZaddList->addItem(addr, bal);
-        }
-    }
-
-    auto fnUpdateSproutBalance = [=] (QString addr) {
-        double bal = 0;
-
-        // The currentText contains the balance as well, so strip that.
-        if (addr.contains("(")) {
-            addr = addr.left(addr.indexOf("("));
-        }
-
-        if (addr.startsWith("All")) {
-            bal = fnGetAllSproutBalance();
-        } else {
-            bal = rpc->getAllBalances()->value(addr);
-        }
-        
-        auto balTxt = Settings::getZECUSDDisplayFormat(bal);
-        
-        if (bal < Turnstile::minMigrationAmount) {
-            turnstile.fromBalance->setStyleSheet("color: red;");
-            turnstile.fromBalance->setText(balTxt % " [You need at least " 
-                        % Settings::getZECDisplayFormat(Turnstile::minMigrationAmount)
-                        % " for automatic migration]");
-            turnstile.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
-        } else {
-            turnstile.fromBalance->setStyleSheet("");
-            turnstile.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
-            turnstile.fromBalance->setText(balTxt);
-        }
-    };
-
-    if (!fromAddr.isEmpty())
-        turnstile.migrateZaddList->setCurrentText(fromAddr);
-
-    fnUpdateSproutBalance(turnstile.migrateZaddList->currentText());    
-
-    // Combo box selection event
-    QObject::connect(turnstile.migrateZaddList, &QComboBox::currentTextChanged, fnUpdateSproutBalance);
-        
-    // Privacy level combobox
-    // Num tx over num blocks
-    QList<std::tuple<int, int>> privOptions; 
-    privOptions.push_back(std::make_tuple<int, int>(3, 576));
-    privOptions.push_back(std::make_tuple<int, int>(5, 1152));
-    privOptions.push_back(std::make_tuple<int, int>(10, 2304));
-
-    QObject::connect(turnstile.privLevel, QOverload<int>::of(&QComboBox::currentIndexChanged), [=] (auto idx) {
-        // Update the fees
-        turnstile.minerFee->setText(
-            Settings::getZECUSDDisplayFormat(std::get<0>(privOptions[idx]) * Settings::getMinerFee()));
-    });
-
-    for (auto i : privOptions) {
-        turnstile.privLevel->addItem(QString::number((int)(std::get<1>(i) / 24 / 24)) % " days (" % // 24 blks/hr * 24 hrs per day
-                                     QString::number(std::get<1>(i)) % " blocks, ~" %
-                                     QString::number(std::get<0>(i)) % " txns)"
-        );
-    }
-    
-    turnstile.buttonBox->button(QDialogButtonBox::Ok)->setText("Start");
-
-    if (d.exec() == QDialog::Accepted) {
-        auto privLevel = privOptions[turnstile.privLevel->currentIndex()];
-        rpc->getTurnstile()->planMigration(
-            turnstile.migrateZaddList->currentText(), 
-            turnstile.migrateTo->currentText(),
-            std::get<0>(privLevel), std::get<1>(privLevel));
-
-        QMessageBox::information(this, "Backup your wallet.dat", 
-                                    "The migration will now start. You can check progress in the File -> Sapling Turnstile menu.\n\nYOU MUST BACKUP YOUR wallet.dat NOW!\n\nNew Addresses have been added to your wallet which will be used for the migration.", 
-                                    QMessageBox::Ok);
-    }
-}
-
-/*
-void MainWindow::setupTurnstileDialog() {        
-    // Turnstile migration
-    QObject::connect(ui->actionTurnstile_Migration, &QAction::triggered, [=] () {
-        // If the underlying safecoind has support for the migration and there is no existing migration
-        // in progress, use that.         
-        if (rpc->getMigrationStatus()->available && !rpc->getTurnstile()->isMigrationPresent()) {
-            Turnstile::showZcashdMigration(this);
-        } else {
-            // Else, show the SafecoinWallet turnstile tool
-
-            // If there is current migration that is present, show the progress button
-            if (rpc->getTurnstile()->isMigrationPresent())
-                turnstileProgress();
-            else    
-                turnstileDoMigration();        
-        }
-    });
-
-}
-*/
 
 void MainWindow::setupStatusBar() {
     // Status Bar
@@ -523,10 +302,12 @@ void MainWindow::setupSettingsModal() {
         int theme_index = settings.comboBoxTheme->findText(Settings::getInstance()->get_theme_name(), Qt::MatchExactly);
         settings.comboBoxTheme->setCurrentIndex(theme_index);
 
+        QObject::connect(settings.comboBoxTheme, SIGNAL(currentIndexChanged(QString)), this, SLOT(slot_change_theme(QString)));
         QObject::connect(settings.comboBoxTheme, &QComboBox::currentTextChanged, [=] (QString theme_name) {
             this->slot_change_theme(theme_name);
+            QMessageBox::information(this, tr("Theme Change"), tr("This change can take a few seconds."), QMessageBox::Ok);
         });
-
+		
         // Save sent transactions
         settings.chkSaveTxs->setChecked(Settings::getInstance()->getSaveZtxs());
 
@@ -825,7 +606,7 @@ void MainWindow::setupSettingsModal() {
 
 void MainWindow::addressBook() {
     // Check to see if there is a target.
-    QRegExp re("Address[0-9]+", Qt::CaseInsensitive);
+    QRegularExpression re("Address[0-9]+", QRegularExpression::CaseInsensitiveOption);
     for (auto target: ui->sendToWidgets->findChildren<QLineEdit *>(re)) {
         if (target->hasFocus()) {
             AddressBook::open(this, target);
@@ -908,109 +689,6 @@ void MainWindow::validateAddress() {
         d.exec();
     });
 
-}
-
-void MainWindow::postToZBoard() {
-    QDialog d(this);
-    Ui_zboard zb;
-    zb.setupUi(&d);
-    Settings::saveRestore(&d);
-
-    if (rpc->getConnection() == nullptr)
-        return;
-
-    // Fill the from field with sapling addresses.
-    for (auto i = rpc->getAllBalances()->keyBegin(); i != rpc->getAllBalances()->keyEnd(); i++) {
-        if (Settings::getInstance()->isSaplingAddress(*i) && rpc->getAllBalances()->value(*i) > 0) {
-            zb.fromAddr->addItem(*i);
-        }
-    }
-
-    QMap<QString, QString> topics;
-    // Insert the main topic automatically
-    topics.insert("#Main_Area", Settings::getInstance()->isTestnet() ? Settings::getDonationAddr() : Settings::getZboardAddr());
-    zb.topicsList->addItem(topics.firstKey());
-    // Then call the API to get topics, and if it returns successfully, then add the rest of the topics
-    rpc->getZboardTopics([&](QMap<QString, QString> topicsMap) {
-        for (auto t : topicsMap.keys()) {
-            topics.insert(t, Settings::getInstance()->isTestnet() ? Settings::getDonationAddr() : topicsMap[t]);
-            zb.topicsList->addItem(t);
-        }
-    });
-
-    // Testnet warning
-    if (Settings::getInstance()->isTestnet()) {
-        zb.testnetWarning->setText(tr("You are on testnet, your post won't actually appear on z-board.net"));
-    }
-    else {
-        zb.testnetWarning->setText("");
-    }
-
-    QRegExpValidator v(QRegExp("^[a-zA-Z0-9_]{3,20}$"), zb.postAs);
-    zb.postAs->setValidator(&v);
-
-    zb.feeAmount->setText(Settings::getZECUSDDisplayFormat(Settings::getZboardAmount() + Settings::getMinerFee()));
-
-    auto fnBuildNameMemo = [=]() -> QString {
-        auto memo = zb.memoTxt->toPlainText().trimmed();
-        if (!zb.postAs->text().trimmed().isEmpty())
-            memo = zb.postAs->text().trimmed() + ":: " + memo;
-        return memo;
-    };
-
-    auto fnUpdateMemoSize = [=]() {
-        QString txt = fnBuildNameMemo();
-        zb.memoSize->setText(QString::number(txt.toUtf8().size()) + "/512");
-
-        if (txt.toUtf8().size() <= 512) {
-            // Everything is fine
-            zb.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
-            zb.memoSize->setStyleSheet("");
-        }
-        else {
-            // Overweight
-            zb.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
-            zb.memoSize->setStyleSheet("color: red;");
-        }
-
-        // Disallow blank memos
-        if (zb.memoTxt->toPlainText().trimmed().isEmpty()) {
-            zb.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
-        }
-        else {
-            zb.buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
-        }
-    };
-
-    // Memo text changed
-    QObject::connect(zb.memoTxt, &QPlainTextEdit::textChanged, fnUpdateMemoSize);
-    QObject::connect(zb.postAs, &QLineEdit::textChanged, fnUpdateMemoSize);
-
-    zb.memoTxt->setFocus();
-    fnUpdateMemoSize();
-
-    if (d.exec() == QDialog::Accepted) {
-        // Create a transaction.
-        Tx tx;
-        
-        // Send from your first sapling address that has a balance.
-        tx.fromAddr = zb.fromAddr->currentText();
-        if (tx.fromAddr.isEmpty()) {
-            QMessageBox::critical(this, "Error Posting Message", tr("You need a sapling address with available balance to post"), QMessageBox::Ok);
-            return;
-        }
-
-        auto memo = zb.memoTxt->toPlainText().trimmed();
-        if (!zb.postAs->text().trimmed().isEmpty())
-            memo = zb.postAs->text().trimmed() + ":: " + memo;
-
-        auto toAddr = topics[zb.topicsList->currentText()];
-        tx.toAddrs.push_back(ToFields{ toAddr, Settings::getZboardAmount(), memo, memo.toUtf8().toHex() });
-        tx.fee = Settings::getMinerFee();
-
-        // And send the Tx
-        rpc->executeStandardUITransaction(tx);
-    }
 }
 
 void MainWindow::doImport(QList<QString>* keys) {
@@ -1387,12 +1065,6 @@ void MainWindow::setupBalancesTab() {
             });
         }
 
-        if (Settings::getInstance()->isSproutAddress(addr)) {
-            menu.addAction(tr("Migrate to Sapling"), [=] () {
-                this->turnstileDoMigration(addr);
-            });
-        }
-
         menu.exec(ui->balancesTable->viewport()->mapToGlobal(pos));            
     });
 }
@@ -1413,6 +1085,7 @@ void MainWindow::setupTransactionsTab() {
 
         if (!memo.isEmpty()) {
             QMessageBox mb(QMessageBox::Information, tr("Memo"), memo, QMessageBox::Ok, this);
+            mb.setTextFormat(Qt::PlainText);
             mb.setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
             mb.exec();
         }
@@ -1461,6 +1134,7 @@ void MainWindow::setupTransactionsTab() {
         if (!memo.isEmpty()) {
             menu.addAction(tr("View Memo"), [=] () {               
                 QMessageBox mb(QMessageBox::Information, tr("Memo"), memo, QMessageBox::Ok, this);
+                mb.setTextFormat(Qt::PlainText);
                 mb.setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::TextSelectableByKeyboard);
                 mb.exec();
             });
@@ -1825,12 +1499,10 @@ void MainWindow::slot_change_theme(const QString& theme_name)
 
     // Include css
     QString saved_theme_name;
-    try
-    {
+    try {
        saved_theme_name = Settings::getInstance()->get_theme_name();
-    }
-    catch (...)
-    {
+    } catch (const std::exception& e) {
+        qDebug() << QString("Ignoring theme change Exception! : ") << e.what();
         saved_theme_name = "default";
     }
 
@@ -1838,7 +1510,7 @@ void MainWindow::slot_change_theme(const QString& theme_name)
     if (qFile.open(QFile::ReadOnly))
     {
       QString styleSheet = QLatin1String(qFile.readAll());
-      this->setStyleSheet(""); // try to reset styles
+      this->setStyleSheet(""); // reset styles
       this->setStyleSheet(styleSheet);
     }
 
