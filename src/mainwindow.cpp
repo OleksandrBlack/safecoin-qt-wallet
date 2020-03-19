@@ -158,17 +158,22 @@ MainWindow::MainWindow(QWidget *parent) :
         if (ads->getAllowInternetConnection())
             wormholecode = ads->getWormholeCode(ads->getSecretHex());
 
+        qDebug() << "MainWindow: createWebsocket with wormholecode=" << wormholecode;
         createWebsocket(wormholecode);
     }
 }
- 
+
 void MainWindow::createWebsocket(QString wormholecode) {
-    qDebug() << "Listening for app connections on port 8237";
     // Create the websocket server, for listening to direct connections
-    wsserver = new WSServer(8237, false, this);
+    int wsport = 8787;
+    // TODO: env var
+    bool msgDebug = true;
+    wsserver = new WSServer(wsport, msgDebug, this);
+    qDebug() << "createWebsocket: Listening for app connections on port " << wsport;
 
     if (!wormholecode.isEmpty()) {
         // Connect to the wormhole service
+        qDebug() << "Creating WormholeClient";
         wormhole = new WormholeClient(this, wormholecode);
     }
 }
@@ -188,6 +193,7 @@ bool MainWindow::isWebsocketListening() {
 }
 
 void MainWindow::replaceWormholeClient(WormholeClient* newClient) {
+    qDebug() << "replacing WormholeClient";
     delete wormhole;
     wormhole = newClient;
 }
@@ -198,7 +204,7 @@ void MainWindow::restoreSavedStates() {
 
     ui->balancesTable->horizontalHeader()->restoreState(s.value("baltablegeometry").toByteArray());
     ui->transactionsTable->horizontalHeader()->restoreState(s.value("tratablegeometry").toByteArray());
-
+	
     // Explicitly set the tx table resize headers, since some previous values may have made them
     // non-expandable.
     ui->transactionsTable->horizontalHeader()->setSectionResizeMode(3, QHeaderView::Interactive);
