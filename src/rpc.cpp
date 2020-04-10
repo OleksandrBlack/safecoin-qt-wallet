@@ -1375,11 +1375,14 @@ void RPC::refreshPrice() {
     QNetworkReply *reply = conn->restclient->get(req);
     auto s = Settings::getInstance();
 
+    qDebug() << "Requesting price feed data via " << price_feed;
+
     QObject::connect(reply, &QNetworkReply::finished, [=] {
         reply->deleteLater();
 
         try {
             if (reply->error() != QNetworkReply::NoError) {
+                qDebug() << "Parsing price feed response";
                 auto parsed = json::parse(reply->readAll(), nullptr, false);
                 if (!parsed.is_discarded() && !parsed["error"]["message"].is_null()) {
                     qDebug() << QString::fromStdString(parsed["error"]["message"]);
@@ -1460,7 +1463,7 @@ void RPC::refreshPrice() {
             }
         } catch (...) {
             // If anything at all goes wrong, just set the price to 0 and move on.
-            qDebug() << QString("Caught something nasty");
+            qDebug() << QString("Price feed update failure : ") << e.what();
         }
 
         // If nothing, then set the price to 0;
