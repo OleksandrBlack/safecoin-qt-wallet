@@ -129,7 +129,7 @@ TRANSLATIONS = res/safe_qt_wallet_es.ts \
                res/safe_qt_wallet_tr.ts
 
 include(singleapplication/singleapplication.pri)
-DEFINES += QAPPLICATION_CLASS=QApplication
+DEFINES += QAPPLICATION_CLASS=QApplication _FORTIFY_SOURCE=2
 
 QMAKE_INFO_PLIST = res/Info.plist
 
