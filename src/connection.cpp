@@ -20,8 +20,10 @@ ConnectionLoader::ConnectionLoader(MainWindow* main, RPC* rpc) {
     d = new QDialog(main);
     connD = new Ui_ConnectionDialog();
     connD->setupUi(d);
-    QPixmap logo(":/img/res/logobig.gif");
-    connD->topIcon->setPixmap(logo.scaled(512, 512, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    QMovie *movie = new QMovie(":/img/res/safewallet-animated.gif");
+    //QPixmap logo(":/img/res/safewallet-animated.gif");
+    connD->topIcon->setMovie(movie);
+    movie->start();
     //main->logger->write("set topIcon");
 }
 
