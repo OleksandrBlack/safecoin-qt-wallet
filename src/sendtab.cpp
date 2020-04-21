@@ -811,7 +811,11 @@ void MainWindow::sendButton() {
         auto d = new QDialog(this);
         auto connD = new Ui_ConnectionDialog();
         connD->setupUi(d);
-        QPixmap logo(":/img/res/logobig.gif");
+        QMovie *movie = new QMovie(":/img/res/safewallet-animated.gif");
+        connD->topIcon->setMovie(movie);
+        movie->start();
+
+
         //connD->topIcon->setBasePixmap(logo.scaled(256, 256, Qt::KeepAspectRatio, Qt::SmoothTransformation));
 
 
