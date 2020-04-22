@@ -13,6 +13,7 @@
         <file>res/logobig.gif</file>
         <file>res/safenode.png</file>
         <file>res/safewallet-animated.gif</file>
+        <file>res/safewallet-animated-dark.gif</file>
     </qresource>
     <qresource prefix="/translations">
         <file>res/safe_qt_wallet_de.qm</file>

@@ -20,11 +20,19 @@ ConnectionLoader::ConnectionLoader(MainWindow* main, RPC* rpc) {
     d = new QDialog(main);
     connD = new Ui_ConnectionDialog();
     connD->setupUi(d);
-    QMovie *movie = new QMovie(":/img/res/safewallet-animated.gif");
-    //QPixmap logo(":/img/res/safewallet-animated.gif");
-    connD->topIcon->setMovie(movie);
-    movie->start();
-    //main->logger->write("set topIcon");
+    QMovie *movie1 = new QMovie(":/img/res/safewallet-animated.gif");;
+    QMovie *movie2 = new QMovie(":/img/res/safewallet-animated-dark.gif");;
+    auto theme = Settings::getInstance()->get_theme_name();
+    if (theme == "dark") {
+        movie2->setScaledSize(QSize(512,512));
+        connD->topIcon->setMovie(movie2);
+        movie2->start();
+    } else {
+        movie1->setScaledSize(QSize(512,512));
+        connD->topIcon->setMovie(movie1);
+        movie1->start();
+    }
+    main->logger->write("set animation");
 }
 
 ConnectionLoader::~ConnectionLoader() {    
