@@ -341,7 +341,6 @@ void MainWindow::setupSettingsModal() {
         int theme_index = settings.comboBoxTheme->findText(Settings::getInstance()->get_theme_name(), Qt::MatchExactly);
         settings.comboBoxTheme->setCurrentIndex(theme_index);
 
-        QObject::connect(settings.comboBoxTheme, SIGNAL(currentIndexChanged(QString)), this, SLOT(slot_change_theme(QString)));
         QObject::connect(settings.comboBoxTheme, &QComboBox::currentTextChanged, [=] (QString theme_name) {
             this->slot_change_theme(theme_name);
             QMessageBox::information(this, tr("Theme Change"), tr("This change can take a few seconds."), QMessageBox::Ok);
@@ -352,7 +351,6 @@ void MainWindow::setupSettingsModal() {
         QString ticker = QString::fromStdString( Settings::getInstance()->get_currency_name() );
         int currency_index = settings.comboBoxCurrency->findText(ticker, Qt::MatchExactly);
         settings.comboBoxCurrency->setCurrentIndex(currency_index);
-        QObject::connect(settings.comboBoxCurrency, SIGNAL(currentIndexChanged(QString)), this, SLOT(slot_change_currency(QString)));
         QObject::connect(settings.comboBoxCurrency, &QComboBox::currentTextChanged, [=] (QString ticker) {
             this->slot_change_currency(ticker.toStdString());
             rpc->refresh(true);
@@ -416,12 +414,7 @@ void MainWindow::setupSettingsModal() {
             settings.safepass->setEnabled(false);
             settings.safekey->setEnabled(false);
             settings.parentkey->setEnabled(false);
-        }
-        if (rpc->getEZcashD() == nullptr || !rpc->getConnection()->config->safenode.isEmpty()) {
-            settings.safeheight->setEnabled(false);
-            settings.safepass->setEnabled(false);
-            settings.safekey->setEnabled(false);
-            settings.parentkey->setEnabled(false);
+            settings.chkConso->setEnabled(false);
         }
 
     // Use Addressindex
