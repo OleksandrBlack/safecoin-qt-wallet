@@ -320,7 +320,7 @@ void MainWindow::setupSettingsModal() {
         try {
             currency_name = Settings::getInstance()->get_currency_name();
         } catch (const std::exception& e) {
-            qDebug() << QString("Currency name exception! : ") << e.what();
+            qDebug() << QString("Currency name exception! : ");
             currency_name = "USD";
         }
 
@@ -1695,7 +1695,7 @@ void MainWindow::slot_change_currency(const std::string& currency_name)
     try {
        saved_currency_name = Settings::getInstance()->get_currency_name();
     } catch (const std::exception& e) {
-        qDebug() << QString("Ignoring currency change Exception! : ") << e.what();
+        qDebug() << QString("Ignoring currency change Exception! : ");
         saved_currency_name = "USD";
     }
 }
@@ -1709,7 +1709,7 @@ void MainWindow::slot_change_theme(const QString& theme_name)
     try {
        saved_theme_name = Settings::getInstance()->get_theme_name();
     } catch (const std::exception& e) {
-        qDebug() << QString("Ignoring theme change Exception! : ") << e.what();
+        qDebug() << QString("Ignoring theme change Exception! : ");
         saved_theme_name = "default";
     }
 
