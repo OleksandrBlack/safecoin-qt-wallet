@@ -21,6 +21,7 @@ safecoinwallet is written in C++ 14, and can be compiled with g++/clang++/visual
 
 ### Building on Linux
 
+#### Ubuntu 18.04:
 
 ```
 
@@ -31,6 +32,17 @@ qmake safe-qt-wallet.pro CONFIG+=debug
 make -j$(nproc)
 
 ./safecoinwallet
+```
+
+#### Arch Linux:
+
+```
+sudo pacman -S qt5-base qt5-tools qtcreator qt5-websockets rust
+git clone https://github.com/MyHush/SilentDragonLite.git
+cd SilentDragonLite
+./build.sh linguist
+./build.sh release
+./silentdragon
 ```
 
 ### Building on Windows
