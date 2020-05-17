@@ -329,7 +329,7 @@ bool Settings::isValidSaplingPrivateKey(QString pk) {
 }
 
 bool Settings::isValidAddress(QString addr) {
-    QRegExp zsexp("^zs1[a-z0-9]{75}$",  Qt::CaseInsensitive);
+    QRegExp zsexp("^safe1[a-z0-9]{77}$",  Qt::CaseInsensitive);
     QRegExp ztsexp("^ztestsapling[a-z0-9]{76}", Qt::CaseInsensitive);
     QRegExp texp("^R[a-z0-9]{33}$", Qt::CaseInsensitive);
     QRegExp tsexp("^1[a-z0-9]{33}$", Qt::CaseInsensitive);
