@@ -1,14 +1,13 @@
 #!/bin/bash
 # Copyright (c) 2019-2020 The Hush developers
-# Copyright (c) 2020 Safecoin developers
 # Released under the GPLv3
 
 VERSION=1.0.18
 LIB="libsodium"
 DIR="$LIB-$VERSION"
 FILE="$DIR.tar.gz"
-URL=https://github.com/jedisct1/libsodium/releases/download/${VERSION}/${FILE}
-SHA=0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5
+URL=https://github.com/MyHush/libsodium/releases/download/${VERSION}/${FILE}
+SHA=6f504490b342a4f8a4c4a02fc9b866cbef8622d5df4e5452b46be121e46636c1
 
 # First thing to do is see if libsodium.a exists in the res folder. If it does, then there's nothing to do
 if [ -f res/${LIB}.a ]; then
