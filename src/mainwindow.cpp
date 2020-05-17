@@ -1056,7 +1056,7 @@ void MainWindow::setupBalancesTab() {
             auto defaultSapling = rpc->getDefaultSaplingAddress();
             if (!defaultSapling.isEmpty()) {
                 menu.addAction(tr("Shield balance to Sapling"), [=] () {
-                    fnDoSendFrom(addr, defaultSapling, true);
+                    fnDoSendFrom(addr, defaultSapling, false);
                 });
             }
 
