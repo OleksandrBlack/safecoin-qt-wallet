@@ -1056,7 +1056,7 @@ void MainWindow::setupBalancesTab() {
             auto defaultSapling = rpc->getDefaultSaplingAddress();
             if (!defaultSapling.isEmpty()) {
                 menu.addAction(tr("Shield balance to Sapling"), [=] () {
-                    fnDoSendFrom(addr, defaultSapling, false);
+                    fnDoSendFrom(addr, defaultSapling, true);
                 });
             }
 
@@ -1312,8 +1312,8 @@ void MainWindow::setupReceiveTab() {
     // Focus enter for the Receive Tab
     QObject::connect(ui->tabWidget, &QTabWidget::currentChanged, [=] (int tab) {
         if (tab == 2) {
-            // Switched to receive tab, select the z-addr radio button
-            ui->rdioZSAddr->setChecked(true);
+            // Switched to receive tab, select the t-addr radio button
+            ui->rdioTAddr->setChecked(true);
             ui->btnViewAllAddresses->setVisible(false);
             
             // And then select the first one
