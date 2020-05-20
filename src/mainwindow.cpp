@@ -236,7 +236,7 @@ void MainWindow::setupStatusBar() {
     // Status Bar
     loadingLabel = new QLabel();
     loadingMovie = new QMovie(":/icons/res/loading.gif");
-    loadingMovie->setScaledSize(QSize(32, 16));
+    loadingMovie->setScaledSize(QSize(24, 24));
     loadingMovie->start();
     loadingLabel->setAttribute(Qt::WA_NoSystemBackground);
     loadingLabel->setMovie(loadingMovie);
@@ -1312,8 +1312,8 @@ void MainWindow::setupReceiveTab() {
     // Focus enter for the Receive Tab
     QObject::connect(ui->tabWidget, &QTabWidget::currentChanged, [=] (int tab) {
         if (tab == 2) {
-            // Switched to receive tab, select the z-addr radio button
-            ui->rdioZSAddr->setChecked(true);
+            // Switched to receive tab, select the t-addr radio button
+            ui->rdioTAddr->setChecked(true);
             ui->btnViewAllAddresses->setVisible(false);
             
             // And then select the first one
