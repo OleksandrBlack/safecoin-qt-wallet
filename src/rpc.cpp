@@ -587,7 +587,7 @@ void RPC::getInfoThenRefresh(bool force) {
             refreshBalances();        
             refreshAddresses();     // This calls refreshZSentTransactions() and refreshReceivedZTrans()
             refreshTransactions();
-            refreshMigration();     // Sapling turnstile migration status.
+	    //            refreshMigration();     // Sapling turnstile migration status.
         }
 
         int connections = reply["connections"].get<json::number_integer_t>();
