@@ -112,8 +112,6 @@ rm -f artifcats/safecoinwallet.dmg >/dev/null 2>&1
 rm -f artifacts/rw* >/dev/null 2>&1
 cp $SAFECOIN_DIR/src/safecoind safecoinwallet.app/Contents/MacOS/
 cp $SAFECOIN_DIR/src/safecoin-cli safecoinwallet.app/Contents/MacOS/
-cp $SAFECOIN_DIR/sapling-output.params safecoinwallet.app/Contents/MacOS/
-cp $SAFECOIN_DIR/sapling-spend.params safecoinwallet.app/Contents/MacOS/
 $QT_PATH/bin/macdeployqt safecoinwallet.app 
 codesign --deep --force --verify --verbose -s "$CERTIFICATE" --options runtime --timestamp safecoinwallet.app
 echo "[OK]"
