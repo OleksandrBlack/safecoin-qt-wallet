@@ -16,8 +16,6 @@ class Settings;
 class WSServer;
 class WormholeClient;
 
-using json = nlohmann::json;
-
 // Struct used to hold destination info when sending a Tx. 
 struct ToFields {
     QString addr;
@@ -100,7 +98,7 @@ private:
 
 
     void slot_change_theme(const QString& themeName);
-    void slot_change_currency(const std::string& currencyName);
+    void slot_change_currency(const QString& currencyName);
     void setupTurnstileDialog();
     void setupSettingsModal();
     void setupStatusBar();

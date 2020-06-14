@@ -25,11 +25,6 @@ DEFINES += \
 
 INCLUDEPATH  += src/3rdparty/
 INCLUDEPATH  += src/
-
-mac: LIBS+= -Wl,-dead_strip
-mac: LIBS+= -Wl,-dead_strip_dylibs
-mac: LIBS+= -Wl,-bind_at_load
-
 mac: LIBS+= -Wl,-dead_strip
 mac: LIBS+= -Wl,-dead_strip_dylibs
 mac: LIBS+= -Wl,-bind_at_load
@@ -76,7 +71,6 @@ HEADERS += \
     src/3rdparty/qrcode/BitBuffer.hpp \
     src/3rdparty/qrcode/QrCode.hpp \
     src/3rdparty/qrcode/QrSegment.hpp \
-    src/3rdparty/json/json.hpp \
     src/settings.h \
     src/txtablemodel.h \
     src/senttxstore.h \
