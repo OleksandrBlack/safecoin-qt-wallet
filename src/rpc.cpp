@@ -1422,9 +1422,10 @@ void RPC::refreshPrice() {
                 auto vol   = safe[ticker + "_24h_vol"].toDouble();
                 auto mcap  = safe[ticker + "_market_cap"].toDouble();
 
-                auto btcprice = safe["btc"].toDouble();
+		//                auto btcprice = safe["btc"].toDouble();
                 auto btcvol   = safe["btc_24h_vol"].toDouble();
                 auto btcmcap  = safe["btc_market_cap"].toDouble();
+
 
                 s->set_price(ticker, price);
                 s->set_volume(ticker, vol);
