@@ -161,7 +161,7 @@ void RPC::newZaddr(const std::function<void(QJsonValue)>& cb) {
         {"jsonrpc", "1.0"},
         {"id", "someid"},
         {"method", "z_getnewaddress"},
-        {"params", { "sapling" }},
+        {"params", QJsonArray { "sapling" }},
     };
     
     conn->doRPCWithDefaultErrorHandling(payload, cb);
