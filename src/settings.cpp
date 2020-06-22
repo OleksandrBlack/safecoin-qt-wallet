@@ -58,7 +58,7 @@ bool Settings::isSaplingAddress(QString addr) {
         return false;
 
     return ( isTestnet() && addr.startsWith("ztestsapling")) ||
-           (!isTestnet() && addr.startsWith("zs"));
+           (!isTestnet() && addr.startsWith("safe1"));
 }
 
 bool Settings::isSproutAddress(QString addr) {
@@ -72,7 +72,7 @@ bool Settings::isZAddress(QString addr) {
     if (!isValidAddress(addr))
         return false;
         
-    return addr.startsWith("z");
+    return addr.startsWith("safe");
 }
 
 bool Settings::isTAddress(QString addr) {
@@ -329,7 +329,7 @@ bool Settings::isValidSaplingPrivateKey(QString pk) {
 }
 
 bool Settings::isValidAddress(QString addr) {
-    QRegExp zsexp("^safe1[a-z0-9]{77}$",  Qt::CaseInsensitive);
+    QRegExp zsexp("^safe1[a-z0-9]{75}$",  Qt::CaseInsensitive);
     QRegExp ztsexp("^ztestsapling[a-z0-9]{76}", Qt::CaseInsensitive);
     QRegExp texp("^R[a-z0-9]{33}$", Qt::CaseInsensitive);
     QRegExp tsexp("^1[a-z0-9]{33}$", Qt::CaseInsensitive);
