@@ -141,21 +141,6 @@ void Settings::setAutoShield(bool allow) {
     QSettings().setValue("options/autoshield", allow);
 }
 
-bool Settings::getCheckForUpdates() {
-    return QSettings().value("options/allowcheckupdates", true).toBool();
-}
-
-void Settings::setCheckForUpdates(bool allow) {
-     QSettings().setValue("options/allowcheckupdates", allow);
-}
-
-bool Settings::getAllowFetchPrices() {
-    return QSettings().value("options/allowfetchprices", true).toBool();
-}
-
-void Settings::setAllowFetchPrices(bool allow) {
-     QSettings().setValue("options/allowfetchprices", allow);
-}
 
 bool Settings::getAllowCustomFees() {
     // Load from the QT Settings. 
