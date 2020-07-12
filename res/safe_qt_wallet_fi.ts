@@ -39,8 +39,8 @@
     </message>
     <message>
         <location filename="../src/connection.ui" line="17"/>
-        <source>SilentDragon</source>
-        <translation>SilentDragon</translation>
+        <source>SafeWallet</source>
+        <translation>SafeWallet</translation>
     </message>
     <message>
         <location filename="../src/connection.ui" line="58"/>
@@ -235,7 +235,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="1489"/>
-        <source>Pay HUSH &amp;URI...</source>
+        <source>Pay Safecoin &amp;URI...</source>
         <translation>Maksa Hush &amp;URI...</translation>
     </message>
     <message>
@@ -250,7 +250,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="1502"/>
-        <source>Request HUSH...</source>
+        <source>Request Safecoin...</source>
         <translation>Pyydä Hush...</translation>
     </message>
     <message>
@@ -427,8 +427,8 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="14"/>
-        <source>SilentDragon</source>
-        <translation>SilentDragon</translation>
+        <source>SafeWallet</source>
+        <translation>SafeWallet</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="737"/>
@@ -536,7 +536,7 @@
     </message>
     <message>
         <source>Thanks for supporting silentdragon!</source>
-        <translation type="obsolete">Kiitos SilentDragonin tukemisesta!</translation>
+        <translation type="obsolete">Kiitos SafeWalletin tukemisesta!</translation>
     </message>
     <message>
         <source>Donate 0.01 </source>
@@ -601,8 +601,8 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="564"/>
-        <source>Connection over Tor has been enabled. To use this feature, you need to restart SilentDragon.</source>
-        <translation>Yhteys Tor-verkon kautta on otettu käyttöön. Jotta voit käyttää tätä ominaisuutta, sinun on käynnistettävä SilentDragon uudelleen.</translation>
+        <source>Connection over Tor has been enabled. To use this feature, you need to restart SafeWallet.</source>
+        <translation>Yhteys Tor-verkon kautta on otettu käyttöön. Jotta voit käyttää tätä ominaisuutta, sinun on käynnistettävä SafeWallet uudelleen.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="573"/>
@@ -611,23 +611,23 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="574"/>
-        <source>Connection over Tor has been disabled. To fully disconnect from Tor, you need to restart SilentDragon.</source>
-        <translation>Yhteys Tor-verkon kautta on poistettu käytöstä. Katkaistaksesi Tor-verkon kokonaan, sinun on käynnistettävä SilentDragon uudelleen.</translation>
+        <source>Connection over Tor has been disabled. To fully disconnect from Tor, you need to restart SafeWallet.</source>
+        <translation>Yhteys Tor-verkon kautta on poistettu käytöstä. Katkaistaksesi Tor-verkon kokonaan, sinun on käynnistettävä SafeWallet uudelleen.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="603"/>
-        <source>SilentDragon needs to restart to rescan/reindex. SilentDragon will now close, please restart SilentDragon to continue</source>
-        <translation>SilentDragon on käynnistettävä uudelleen, jotta voidaan uudelleenskannata/reindeksoida. SilentDragon sulkeutuu nyt, käynnistä SilentDragon uudelleen jatkaaksesi</translation>
+        <source>SafeWallet needs to restart to rescan/reindex. SafeWallet will now close, please restart SafeWallet to continue</source>
+        <translation>SafeWallet on käynnistettävä uudelleen, jotta voidaan uudelleenskannata/reindeksoida. SafeWallet sulkeutuu nyt, käynnistä SafeWallet uudelleen jatkaaksesi</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="605"/>
-        <source>Restart SilentDragon</source>
-        <translation>Käynnistä SilentDragon uudelleen</translation>
+        <source>Restart SafeWallet</source>
+        <translation>Käynnistä SafeWallet uudelleen</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="642"/>
-        <source>Some feedback about SilentDragon or Hush...</source>
-        <translation>Palautetta SilentDragonista tai Hushista...</translation>
+        <source>Some feedback about SafeWallet or Hush...</source>
+        <translation>Palautetta SafeWalletista tai Hushista...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="644"/>
@@ -636,8 +636,8 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="644"/>
-        <source> or SilentDragon</source>
-        <translation> tai SilentDragon</translation>
+        <source> or SafeWallet</source>
+        <translation> tai SafeWallet</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="660"/>
@@ -651,7 +651,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="882"/>
-        <source>Paste HUSH URI</source>
+        <source>Paste Safecoin URI</source>
         <translation>Liitä Hush URI</translation>
     </message>
     <message>
@@ -965,18 +965,18 @@ Ei näytä suojatulta Zs-osoitteelta</translation>
     </message>
     <message>
         <location filename="../src/mobileappconnector.ui" line="84"/>
-        <source>Allow connections over the internet via SilentDragon wormhole</source>
-        <translation>Salli yhteydet Internetin kautta SilentDragon-madonreiän kautta</translation>
+        <source>Allow connections over the internet via SafeWallet wormhole</source>
+        <translation>Salli yhteydet Internetin kautta SafeWallet-madonreiän kautta</translation>
     </message>
     <message>
         <location filename="../src/mobileappconnector.ui" line="36"/>
-        <source>Scan this QRCode in SilentDragonAndroid to connect your device</source>
-        <translation>Skannaa tämä QR-koodi SilentDragonAndroidissa laitteen kytkemiseksi</translation>
+        <source>Scan this QRCode in SafeWalletAndroid to connect your device</source>
+        <translation>Skannaa tämä QR-koodi SafeWalletAndroidissa laitteen kytkemiseksi</translation>
     </message>
     <message>
         <location filename="../src/mobileappconnector.ui" line="94"/>
-        <source>SilentDragonAndroid</source>
-        <translation>SilentDragonAndroid</translation>
+        <source>SafeWalletAndroid</source>
+        <translation>SafeWalletAndroid</translation>
     </message>
     <message>
         <location filename="../src/mobileappconnector.ui" line="106"/>
@@ -1074,13 +1074,13 @@ Not starting embedded hushd because --no-embedded was passed</source>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="80"/>
-        <source>You have hushd set to start as a daemon, which can cause problems with SilentDragon
+        <source>You have hushd set to start as a daemon, which can cause problems with SafeWallet
 
-.Please remove the following line from your HUSH3.conf and restart SilentDragon
+.Please remove the following line from your Safecoin.conf and restart SafeWallet
 daemon=1</source>
-        <translation>Olet asettanut hushd:n käynnistymään palveluprosessina, joka voi aiheuttaa ongelmia SilentDragonin kanssa
+        <translation>Olet asettanut hushd:n käynnistymään palveluprosessina, joka voi aiheuttaa ongelmia SafeWalletin kanssa
 
-.Poista seuraava rivi HUSH3.conf-tiedostosta ja käynnistä SilentDragon uudestaan
+.Poista seuraava rivi Safecoin.conf-tiedostosta ja käynnistä SafeWallet uudestaan
 daemon=1</translation>
     </message>
     <message>
@@ -1089,23 +1089,23 @@ daemon=1</translation>
 
 Please try restarting.
 
-If you previously started hushd with custom arguments, you might need to  reset HUSH3.conf.
+If you previously started hushd with custom arguments, you might need to  reset Safecoin.conf.
 
 If all else fails, please run hushd manually.</source>
         <translation>Integroitua hushdia ei voitu käynnistää.
 
 Yritä käynnistää uudelleen.
 
-Jos aloitit hushd:n aiemmin mukautetuilla argumenteilla, saatat joutua nollaamaan HUSH3.conf-tiedoston.
+Jos aloitit hushd:n aiemmin mukautetuilla argumenteilla, saatat joutua nollaamaan Safecoin.conf-tiedoston.
 
 Jos kaikki muu ei auta, suorita hushd manuaalisesti.</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="96"/>
-        <source>Couldn&apos;t connect to hushd configured in HUSH3.conf.
+        <source>Couldn&apos;t connect to hushd configured in Safecoin.conf.
 
 Not starting embedded hushd because --no-embedded was passed</source>
-        <translation>HUSH3.conf:ssa määritettyyn hushdiin ei voitu muodostaa yhteyttä.
+        <translation>Safecoin.conf:ssa määritettyyn hushdiin ei voitu muodostaa yhteyttä.
 
 Integroitua hushdia ei käynnistetä, koska --ei-integroitu ohitettiin</translation>
     </message>
@@ -1126,8 +1126,8 @@ Integroitua hushdia ei käynnistetä, koska --ei-integroitu ohitettiin</translat
     </message>
     <message>
         <location filename="../src/connection.cpp" line="183"/>
-        <source>Could not create HUSH3.conf.</source>
-        <translation>HUSH3.conf-tiedostoa ei voitu luoda.</translation>
+        <source>Could not create Safecoin.conf.</source>
+        <translation>Safecoin.conf-tiedostoa ei voitu luoda.</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="290"/>
@@ -1221,8 +1221,8 @@ Haluaisitko vierailla lataus-sivulla?</translation>
     </message>
     <message>
         <location filename="../src/rpc.cpp" line="1191"/>
-        <source>Please wait for SilentDragon to exit</source>
-        <translation>Odotathan, että SilentDragon sulkeutuu</translation>
+        <source>Please wait for SafeWallet to exit</source>
+        <translation>Odotathan, että SafeWallet sulkeutuu</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="802"/>
@@ -1456,8 +1456,8 @@ Sinulla on joko vahvistamattomia varoja tai saldo on liian pieni automaattiseen 
     </message>
     <message>
         <location filename="../src/websockets.cpp" line="360"/>
-        <source>Connected over the internet via SilentDragon wormhole service</source>
-        <translation>Yhdistetty internetin kautta SilentDragon-madonreikäpalveluun</translation>
+        <source>Connected over the internet via SafeWallet wormhole service</source>
+        <translation>Yhdistetty internetin kautta SafeWallet-madonreikäpalveluun</translation>
     </message>
     <message>
         <location filename="../src/websockets.cpp" line="653"/>
@@ -1552,13 +1552,13 @@ Sinulla on joko vahvistamattomia varoja tai saldo on liian pieni automaattiseen 
     </message>
     <message>
         <location filename="../src/requestdialog.ui" line="219"/>
-        <source>Request payment from a Sapling address. You&apos;ll send a HUSH 0.0001 transaction to the address with a HUSH payment URI. The memo will be included in the transaction when the address pays you.</source>
-        <translation>Pyydä maksua Sapling Zs-osoitteesta. Lähetä 0.0001 HUSH tapahtuma osoitteeseen HUSH URI-maksutunnuksen kanssa. Viesti sisällytetään tapahtumaan, kun osoite maksaa sinulle.</translation>
+        <source>Request payment from a Sapling address. You&apos;ll send a Safecoin 0.0001 transaction to the address with a Safecoin payment URI. The memo will be included in the transaction when the address pays you.</source>
+        <translation>Pyydä maksua Sapling Zs-osoitteesta. Lähetä 0.0001 Safecoin tapahtuma osoitteeseen Safecoin URI-maksutunnuksen kanssa. Viesti sisällytetään tapahtumaan, kun osoite maksaa sinulle.</translation>
     </message>
     <message>
         <location filename="../src/requestdialog.cpp" line="50"/>
-        <source>Error paying HUSH URI</source>
-        <translation>Virhe HUSH URI:n maksamisessa</translation>
+        <source>Error paying Safecoin URI</source>
+        <translation>Virhe Safecoin URI:n maksamisessa</translation>
     </message>
     <message>
         <location filename="../src/requestdialog.cpp" line="51"/>
@@ -1650,13 +1650,13 @@ Sinulla on joko vahvistamattomia varoja tai saldo on liian pieni automaattiseen 
     </message>
     <message>
         <location filename="../src/settings.ui" line="273"/>
-        <source>Connect to the internet to fetch HUSH prices</source>
-        <translation>Yhdistä Internetiin hakeaksesi HUSH hinnat</translation>
+        <source>Connect to the internet to fetch Safecoin prices</source>
+        <translation>Yhdistä Internetiin hakeaksesi Safecoin hinnat</translation>
     </message>
     <message>
         <location filename="../src/settings.ui" line="280"/>
-        <source>Fetch HUSH / USD prices</source>
-        <translation>Hae HUSH / USD hinnat</translation>
+        <source>Fetch Safecoin / USD prices</source>
+        <translation>Hae Safecoin / USD hinnat</translation>
     </message>
     <message>
         <location filename="../src/settings.ui" line="288"/>
@@ -1670,8 +1670,8 @@ Sinulla on joko vahvistamattomia varoja tai saldo on liian pieni automaattiseen 
     </message>
     <message>
         <location filename="../src/settings.ui" line="301"/>
-        <source>Rescan the blockchain for any missing wallet transactions and to correct your wallet balance. This may take several hours. You need to restart SilentDragon for this to take effect</source>
-        <translation>Uudelleenskannaa lohkoketju puuttuvien lompakkotapahtumien varalta ja lompakon saldon korjaamiseksi. Tämä voi viedä useita tunteja. Sinun on käynnistettävä SilentDragon uudelleen, jotta tämä muutos tulee voimaan</translation>
+        <source>Rescan the blockchain for any missing wallet transactions and to correct your wallet balance. This may take several hours. You need to restart SafeWallet for this to take effect</source>
+        <translation>Uudelleenskannaa lohkoketju puuttuvien lompakkotapahtumien varalta ja lompakon saldon korjaamiseksi. Tämä voi viedä useita tunteja. Sinun on käynnistettävä SafeWallet uudelleen, jotta tämä muutos tulee voimaan</translation>
     </message>
     <message>
         <location filename="../src/settings.ui" line="311"/>
@@ -1680,8 +1680,8 @@ Sinulla on joko vahvistamattomia varoja tai saldo on liian pieni automaattiseen 
     </message>
     <message>
         <location filename="../src/settings.ui" line="345"/>
-        <source>Rebuild the entire blockchain from the genesis block, by rescanning all the block files. This may take several hours to days, depending on your hardware. You need to restart SilentDragon for this to take effect</source>
-        <translation>Rakenna koko lohkoketju uudelleen syntylohkosta alkaen skannaamalla kaikki lohkotiedostot. Tämä voi viedä useista tunneista päiviin laitteistosta riippuen. Sinun on käynnistettävä SilentDragon uudelleen, jotta tämä tulee voimaan</translation>
+        <source>Rebuild the entire blockchain from the genesis block, by rescanning all the block files. This may take several hours to days, depending on your hardware. You need to restart SafeWallet for this to take effect</source>
+        <translation>Rakenna koko lohkoketju uudelleen syntylohkosta alkaen skannaamalla kaikki lohkotiedostot. Tämä voi viedä useista tunneista päiviin laitteistosta riippuen. Sinun on käynnistettävä SafeWallet uudelleen, jotta tämä tulee voimaan</translation>
     </message>
     <message>
         <location filename="../src/settings.ui" line="225"/>
@@ -1926,8 +1926,8 @@ Sinulla on joko vahvistamattomia varoja tai saldo on liian pieni automaattiseen 
     <name>createZcashConf</name>
     <message>
         <location filename="../src/createzcashconfdialog.ui" line="14"/>
-        <source>Configure HUSH3.conf</source>
-        <translation>Määritä HUSH3.conf</translation>
+        <source>Configure Safecoin.conf</source>
+        <translation>Määritä Safecoin.conf</translation>
     </message>
     <message>
         <location filename="../src/createzcashconfdialog.ui" line="61"/>
