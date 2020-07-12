@@ -600,8 +600,8 @@ bool ConnectionLoader::verifyParams() {
         return true;
     }
 
-    if( QFile( QDir("..").filePath("hush3/sapling-output.params") ).exists() && QFile( QDir("..").filePath("hush3/sapling-output.params") ).exists() ) {
-        qDebug() << "Found params in ../hush3";
+    if( QFile( QDir("..").filePath("safecoin/sapling-output.params") ).exists() && QFile( QDir("..").filePath("safecoin/sapling-output.params") ).exists() ) {
+        qDebug() << "Found params in ../safecoin";
         return true;
     }
 
