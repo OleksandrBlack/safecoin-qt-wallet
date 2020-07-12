@@ -812,8 +812,9 @@ void RPC::getInfoThenRefresh(bool force) {
 
         conn->doRPCIgnoreError(payload, [=](const json& reply) {
             QString clientname    = QString::fromStdString( reply["subversion"].get<json::string_t>() );
-
+            QString localservices = QString::fromStdString( reply["localservices"].get<json::string_t>() );
             ui->clientname->setText(clientname);
+    	    ui->localservices->setText(localservices);
         });
 
 
