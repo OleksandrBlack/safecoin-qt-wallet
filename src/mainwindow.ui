@@ -1920,6 +1920,30 @@
               </widget>
              </item>
 
+
+             <item row="18" column="0">
+              <widget class="QLabel" name="longestchainlabel">
+               <property name="text">
+                <string>Longest Chain</string>
+               </property>
+              </widget>
+             </item>
+             <item row="18" column="2">
+              <widget class="QLabel" name="longestchain">
+               <property name="text">
+                <string>Loading...</string>
+               </property>
+              </widget>
+             </item>
+             <item row="18" column="1">
+              <widget class="QLabel" name="longestchainspacer">
+               <property name="text">
+                <string>|</string>
+               </property>
+              </widget>
+             </item>
+
+	     
 	     
              <item row="2" column="2">
               <widget class="QLabel" name="solrate">
