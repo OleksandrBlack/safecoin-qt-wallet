@@ -359,7 +359,7 @@ bool ConnectionLoader::startEmbeddedZcashd() {
 #elif defined(Q_OS_DARWIN)
     auto safecoindProgram = appPath.absoluteFilePath("safecoind");
 #elif defined(Q_OS_WIN64)
-    auto safecoindProgram = appPath.absoluteFilePath("safecoind.bat");
+    auto safecoindProgram = appPath.absoluteFilePath("safecoind.exe");
 #else
     //TODO: Not Linux + not darwin DOES NOT EQUAL windows!!!
     auto safecoindProgram = appPath.absoluteFilePath("safecoind");

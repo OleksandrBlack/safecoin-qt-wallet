@@ -328,16 +328,6 @@ bool Settings::isValidSaplingPrivateKey(QString pk) {
     }
 }
 
-bool Settings::isValidSaplingPrivateKey(QString pk) {
-    if (isTestnet()) {
-        QRegExp zspkey("^secret-extended-key-test[0-9a-z]{278}$", Qt::CaseInsensitive);
-        return zspkey.exactMatch(pk);
-    } else {
-        QRegExp zspkey("^secret-extended-key-main[0-9a-z]{278}$", Qt::CaseInsensitive);
-        return zspkey.exactMatch(pk);
-    }
-}
-
 bool Settings::isValidAddress(QString addr) {
     QRegExp zsexp("^safe1[a-z0-9]{75}$",  Qt::CaseInsensitive);
     QRegExp ztsexp("^ztestsapling[a-z0-9]{76}", Qt::CaseInsensitive);
