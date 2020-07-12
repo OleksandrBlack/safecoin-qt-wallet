@@ -1405,76 +1405,24 @@ void MainWindow::setupReceiveTab() {
     });
 }
 
+
+
 void MainWindow::updateTAddrCombo(bool checked) {
     if (checked) {
         auto utxos = this->rpc->getUTXOs();
-
-        // Save the current address so we can restore it later
-        auto currentTaddr = ui->listReceiveAddresses->currentText();
-
         ui->listReceiveAddresses->clear();
 
-        // Maintain a set of addresses so we don't duplicate any, because we'll be adding
-        // t addresses multiple times
-        QSet<QString> addrs;
-
-        // 1. Add all t addresses that have a balance
-        std::for_each(utxos->begin(), utxos->end(), [=, &addrs](auto& utxo) {
+        std::for_each(utxos->begin(), utxos->end(), [=](auto& utxo) {
             auto addr = utxo.address;
-            if (Settings::isTAddress(addr) && !addrs.contains(addr)) {
+            if (addr.startsWith("R") && ui->listReceiveAddresses->findText(addr) < 0) {
                 auto bal = rpc->getAllBalances()->value(addr);
                 ui->listReceiveAddresses->addItem(addr, bal);
-
-                addrs.insert(addr);
             }
         });
-        
-        // 2. Add all t addresses that have a label
-        auto allTaddrs = this->rpc->getAllTAddresses();
-        QSet<QString> labels;
-        for (auto p : AddressBook::getInstance()->getAllAddressLabels()) {
-            labels.insert(p.second);
-        }
-        std::for_each(allTaddrs->begin(), allTaddrs->end(), [=, &addrs] (auto& taddr) {
-            // If the address is in the address book, add it. 
-            if (labels.contains(taddr) && !addrs.contains(taddr)) {
-                addrs.insert(taddr);
-                ui->listReceiveAddresses->addItem(taddr, 0);
-            }
-        });
-
-        // 3. Add all t-addresses. We won't add more than 20 total t-addresses,
-        // since it will overwhelm the dropdown
-        for (int i=0; addrs.size() < 20 && i < allTaddrs->size(); i++) {
-            auto addr = allTaddrs->at(i);
-            if (!addrs.contains(addr))  {
-                addrs.insert(addr);
-                // Balance is zero since it has not been previously added
-                ui->listReceiveAddresses->addItem(addr, 0);
-            }
-        }
-
-        // 4. Add the previously selected t-address
-        if (!currentTaddr.isEmpty() && Settings::isTAddress(currentTaddr)) {
-            // Make sure the current taddr is in the list
-            if (!addrs.contains(currentTaddr)) {
-                auto bal = rpc->getAllBalances()->value(currentTaddr);
-                ui->listReceiveAddresses->addItem(currentTaddr, bal);
-            }
-            ui->listReceiveAddresses->setCurrentText(currentTaddr);
-        }
-
-        // 5. Add a last, disabled item if there are remaining items
-        if (allTaddrs->size() > addrs.size()) {
-            auto num = QString::number(allTaddrs->size() - addrs.size());
-            ui->listReceiveAddresses->addItem("-- " + num + " more --", 0);
-
-            QStandardItemModel* model = qobject_cast<QStandardItemModel*>(ui->listReceiveAddresses->model());
-            QStandardItem* item =  model->findItems("--", Qt::MatchStartsWith)[0];
-            item->setFlags(item->flags() & ~Qt::ItemIsEnabled);
-        }
     }
 };
+
+
 
 // Updates the labels everywhere on the UI. Call this after the labels have been updated
 void MainWindow::updateLabels() {
