@@ -257,11 +257,8 @@ QString AppDataServer::getWormholeCode(QString secretHex) {
     delete[] out1;
     delete[] secret;
 
-<<<<<<< HEAD
-    qDebug() << "Created wormhole secretHex=" << wmcodehex;
-=======
 	qDebug() << "Created wormhole secretHex";
->>>>>>> 14387c3... Improve websocket logging
+
     return wmcodehex;
 }
 
@@ -391,15 +388,10 @@ void AppDataServer::updateUIWithNewQRCode(MainWindow* mainwindow) {
 
     if (ipv4Addr.isEmpty())
         return;
-<<<<<<< HEAD
-
-    QString uri = "ws://" + ipv4Addr + ":8787";  //Safecoin port
-    qDebug() << "Websocket URI: " << uri;
-=======
     
     QString uri = "ws://" + ipv4Addr + ":8777";
 	qDebug() << "Websocket URI: " << uri;
->>>>>>> 14387c3... Improve websocket logging
+
 
     // Get a new secret
     unsigned char* secretBin = new unsigned char[crypto_secretbox_KEYBYTES];
@@ -422,11 +414,7 @@ void AppDataServer::updateUIWithNewQRCode(MainWindow* mainwindow) {
 }
 
 void AppDataServer::registerNewTempSecret(QString tmpSecretHex, bool allowInternet, MainWindow* main) {
-<<<<<<< HEAD
-    qDebug() << "Registering new tempSecret, allowInternet=" << allowInternet;	
-=======
 	qDebug() << "Registering new tempSecret, allowInternet=" << allowInternet;	
->>>>>>> 14387c3... Improve websocket logging
     tempSecret = tmpSecretHex;
 
     delete tempWormholeClient;
@@ -434,13 +422,8 @@ void AppDataServer::registerNewTempSecret(QString tmpSecretHex, bool allowIntern
 
     if (allowInternet) {
         tempWormholeClient = new WormholeClient(main, getWormholeCode(tempSecret));
-<<<<<<< HEAD
-        qDebug() << "Created new wormhole client";
-    }
-=======
 		qDebug() << "Created new wormhole client";
 	}
->>>>>>> 14387c3... Improve websocket logging
 }
 
 QString AppDataServer::connDesc(AppConnectionType t) {
