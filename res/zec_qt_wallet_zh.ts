@@ -31,7 +31,7 @@
     <name>ConnectionDialog</name>
     <message>
         <location filename="../src/connection.ui" line="17"/>
-        <source>SilentDragon</source>
+        <source>SafeWallet</source>
         <translation>沉默的龙</translation>
     </message>
     <message>
@@ -44,7 +44,7 @@
     <name>MainWindow</name>
     <message>
         <location filename="../src/mainwindow.ui" line="14"/>
-        <source>SilentDragon</source>
+        <source>SafeWallet</source>
         <translation>沉默的龙</translation>
     </message>
     <message>
@@ -449,8 +449,8 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="566"/>
-        <source>Connection over Tor has been enabled. To use this feature, you need to restart SilentDragon.</source>
-        <translation>已启用Tor上的连接。 要使用此功能，您需要重新启动SilentDragon。</translation>
+        <source>Connection over Tor has been enabled. To use this feature, you need to restart SafeWallet.</source>
+        <translation>已启用Tor上的连接。 要使用此功能，您需要重新启动SafeWallet。</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="575"/>
@@ -459,12 +459,12 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="576"/>
-        <source>Connection over Tor has been disabled. To fully disconnect from Tor, you need to restart SilentDragon.</source>
-        <translation>Tor上的连接已被禁用。 要完全断开与Tor的连接，您需要重新启动SilentDragon。</translation>
+        <source>Connection over Tor has been disabled. To fully disconnect from Tor, you need to restart SafeWallet.</source>
+        <translation>Tor上的连接已被禁用。 要完全断开与Tor的连接，您需要重新启动SafeWallet。</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="605"/>
-        <source>SilentDragon needs to restart to rescan/reindex. SilentDragon will now close, please restart SilentDragon to continue</source>
+        <source>SafeWallet needs to restart to rescan/reindex. SafeWallet will now close, please restart SafeWallet to continue</source>
         <translation>SlientDragon需要重新启动才能重新扫描/重新索引。 SlientDragon现在关闭，请重启SlientDragon以继续</translation>
     </message>
     <message>
