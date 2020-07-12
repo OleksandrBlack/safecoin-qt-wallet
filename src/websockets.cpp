@@ -131,9 +131,6 @@ void WormholeClient::sslerrors(const QList<QSslError> &)
 
 }
 
-void ws_error() {
-    qDebug() << "websocket error!";
-}
 
 void WormholeClient::connect() {
     qDebug() << "Wormhole::connect";
