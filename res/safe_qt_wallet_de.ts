@@ -498,7 +498,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="823"/>
         <source>URI should be of the form &apos;safecoin:&lt;addr&gt;?amt=x&amp;memo=y</source>
-        <translation>Die URI sollte folgendes Format haben: &apos;hush:&lt;Adresse&gt;?Betrag=x&amp;Nachricht=y</translation>
+        <translation>Die URI sollte folgendes Format haben: &apos;safecoin:&lt;Adresse&gt;?Betrag=x&amp;Nachricht=y</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="810"/>
@@ -1273,8 +1273,8 @@ You either have unconfirmed funds or the balance is too low for an automatic mig
     </message>
     <message>
         <location filename="../src/requestdialog.cpp" line="51"/>
-        <source>URI should be of the form &apos;hush:&lt;addr&gt;?amt=x&amp;memo=y</source>
-        <translation>Die URI sollte im folgendem Format sein: &apos;hush:&lt;Adresse&gt;?Betrag=x&amp;Nachricht=y </translation>
+        <source>URI should be of the form &apos;safecoin:&lt;addr&gt;?amt=x&amp;memo=y</source>
+        <translation>Die URI sollte im folgendem Format sein: &apos;safecoin:&lt;Adresse&gt;?Betrag=x&amp;Nachricht=y </translation>
     </message>
     <message>
         <location filename="../src/requestdialog.cpp" line="65"/>

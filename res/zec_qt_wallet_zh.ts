@@ -248,7 +248,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="908"/>
-        <source>hushd</source>
+        <source>safecoind</source>
         <translation>节点</translation>
     </message>
     <message>
@@ -389,8 +389,8 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="1179"/>
-        <source>Pay Hush &amp;URI...</source>
-        <translation>支付hush &amp;URI ...</translation>
+        <source>Pay Safecoin &amp;URI...</source>
+        <translation>支付safecoin &amp;URI ...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="1184"/>
@@ -409,8 +409,8 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="1197"/>
-        <source>Request Hush...</source>
-        <translation>请求 Hush...</translation>
+        <source>Request Safecoin...</source>
+        <translation>请求 Safecoin...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="1202"/>
@@ -424,23 +424,23 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="277"/>
-        <source>hushd is not yet ready. Please wait for the UI to load</source>
-        <translation>hushd尚未准备好。 请等待UI加载</translation>
+        <source>safecoind is not yet ready. Please wait for the UI to load</source>
+        <translation>safecoind尚未准备好。 请等待UI加载</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="498"/>
-        <source>Tor configuration is available only when running an embedded hushd.</source>
-        <translation>Tor配置仅在运行嵌入的hushd时可用。</translation>
+        <source>Tor configuration is available only when running an embedded safecoind.</source>
+        <translation>Tor配置仅在运行嵌入的safecoind时可用。</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="537"/>
-        <source>You&apos;re using an external hushd. Please restart hushd with -rescan</source>
-        <translation>你正在使用外部hushd。 请使用-rescan参数重新启动hushd</translation>
+        <source>You&apos;re using an external safecoind. Please restart safecoind with -rescan</source>
+        <translation>你正在使用外部safecoind。 请使用-rescan参数重新启动safecoind</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="540"/>
-        <source>You&apos;re using an external hushd. Please restart hushd with -reindex</source>
-        <translation>你正在使用外部hushd。 请使用-reindex重新启动hushd</translation>
+        <source>You&apos;re using an external safecoind. Please restart safecoind with -reindex</source>
+        <translation>你正在使用外部safecoind。 请使用-reindex重新启动safecoind</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="565"/>
@@ -510,18 +510,18 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="837"/>
-        <source>Paste Hush URI</source>
-        <translation>粘贴Hush URI</translation>
+        <source>Paste Safecoin URI</source>
+        <translation>粘贴Safecoin URI</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="849"/>
-        <source>Error paying hush URI</source>
-        <translation>支付hush URI时出错</translation>
+        <source>Error paying safecoin URI</source>
+        <translation>支付safecoin URI时出错</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="850"/>
-        <source>URI should be of the form &apos;hush:&lt;addr&gt;?amt=x&amp;memo=y</source>
-        <translation>URI的格式应为 &apos;hush:&lt;addr&gt;?amt=x&amp;memo=y&apos;</translation>
+        <source>URI should be of the form &apos;safecoin:&lt;addr&gt;?amt=x&amp;memo=y</source>
+        <translation>URI的格式应为 &apos;safecoin:&lt;addr&gt;?amt=x&amp;memo=y&apos;</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="886"/>
@@ -530,8 +530,8 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="887"/>
-        <source>The keys will be imported into your connected hushd node</source>
-        <translation>密钥将导入已连接的hushd节点</translation>
+        <source>The keys will be imported into your connected safecoind node</source>
+        <translation>密钥将导入已连接的safecoind节点</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="908"/>
@@ -560,8 +560,8 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="951"/>
-        <source>You need to back it up from the machine hushd is running on</source>
-        <translation>你需要从运行hushd的机器备份它</translation>
+        <source>You need to back it up from the machine safecoind is running on</source>
+        <translation>你需要从运行safecoind的机器备份它</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="955"/>
@@ -803,8 +803,8 @@ doesn&apos;t look like a z-address</source>
     </message>
     <message>
         <location filename="../src/migration.ui" line="81"/>
-        <source>If enabled, hushd will slowly migrate your Sprout shielded funds to your Sapling address. </source>
-        <translation>如果启用，hushd将慢慢将您的Sprout屏蔽资金迁移到您的Sapling地址。 </translation>
+        <source>If enabled, safecoind will slowly migrate your Sprout shielded funds to your Sapling address. </source>
+        <translation>如果启用，safecoind将慢慢将您的Sprout屏蔽资金迁移到您的Sapling地址。 </translation>
     </message>
 </context>
 <context>
@@ -905,8 +905,8 @@ doesn&apos;t look like a z-address</source>
     </message>
     <message>
         <location filename="../src/addressbook.cpp" line="135"/>
-        <source>%1 doesn&apos;t seem to be a valid Hush address.</source>
-        <translation>%1 似乎不是有效的Hush地址。</translation>
+        <source>%1 doesn&apos;t seem to be a valid Safecoin address.</source>
+        <translation>%1 似乎不是有效的Safecoin地址。</translation>
     </message>
     <message>
         <location filename="../src/addressbook.cpp" line="143"/>
@@ -960,46 +960,46 @@ doesn&apos;t look like a z-address</source>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="52"/>
-        <source>Starting embedded hushd</source>
-        <translation>启动内嵌的hushd</translation>
+        <source>Starting embedded safecoind</source>
+        <translation>启动内嵌的safecoind</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="62"/>
-        <source>hushd is set to run as daemon</source>
-        <translation>hushd设置为作为守护进程运行</translation>
+        <source>safecoind is set to run as daemon</source>
+        <translation>safecoind设置为作为守护进程运行</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="62"/>
-        <source>Waiting for hushd</source>
-        <translation>等待hushd</translation>
+        <source>Waiting for safecoind</source>
+        <translation>等待safecoind</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="77"/>
-        <source>You have hushd set to start as a daemon, which can cause problems with SlientDragon
+        <source>You have safecoind set to start as a daemon, which can cause problems with SlientDragon
 
 .Please remove the following line from your HUSH3.conf and restart SlientDragon
 daemon=1</source>
-        <translation>你已经将hushd设置为守护进程启动，这可能会导致SlientDragon出现问题
+        <translation>你已经将safecoind设置为守护进程启动，这可能会导致SlientDragon出现问题
 
 。请从HUSH3.conf中删除以下行并重新启动SlientDragon
 daemon=1</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="82"/>
-        <source>Couldn&apos;t start the embedded hushd.
+        <source>Couldn&apos;t start the embedded safecoind.
 
 Please try restarting.
 
-If you previously started hushd with custom arguments, you might need to reset HUSH3.conf.
+If you previously started safecoind with custom arguments, you might need to reset HUSH3.conf.
 
-If all else fails, please run hushd manually.</source>
-        <translation>无法启动内嵌的hushd。
+If all else fails, please run safecoind manually.</source>
+        <translation>无法启动内嵌的safecoind。
 
 请尝试重新启动。
 
-如果您之前使用自定义参数启动了hushd，则可能需要重置HUSH3.conf。
+如果您之前使用自定义参数启动了safecoind，则可能需要重置HUSH3.conf。
 
-如果所有其他方法都失败了，请手动运行hushd。</translation>
+如果所有其他方法都失败了，请手动运行safecoind。</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="85"/>
@@ -1008,12 +1008,12 @@ If all else fails, please run hushd manually.</source>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="93"/>
-        <source>Couldn&apos;t connect to hushd configured in HUSH3.conf.
+        <source>Couldn&apos;t connect to safecoind configured in HUSH3.conf.
 
-Not starting embedded hushd because --no-embedded was passed</source>
-        <translation>无法连接到HUSH3.conf中配置的hushd。
+Not starting embedded safecoind because --no-embedded was passed</source>
+        <translation>无法连接到HUSH3.conf中配置的safecoind。
 
-没有启动内嵌的hushd，因为已经传了--no-embedded参数</translation>
+没有启动内嵌的safecoind，因为已经传了--no-embedded参数</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="146"/>
@@ -1068,8 +1068,8 @@ Not starting embedded hushd because --no-embedded was passed</source>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="332"/>
-        <source>hushd error</source>
-        <translation>hushd 出错</translation>
+        <source>safecoind error</source>
+        <translation>safecoind 出错</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="399"/>
@@ -1082,22 +1082,22 @@ Please set the host/port and user/password in the Edit-&gt;Settings menu.</sourc
     </message>
     <message>
         <location filename="../src/connection.cpp" line="411"/>
-        <source>Could not connect to hushd configured in settings.
+        <source>Could not connect to safecoind configured in settings.
 
 Please set the host/port and user/password in the Edit-&gt;Settings menu.</source>
-        <translation>无法连接到设置中配置的hushd。
+        <translation>无法连接到设置中配置的safecoind。
 
 请在编辑 - &gt;设置菜单中设置主机/端口和用户/密码。</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="472"/>
-        <source>Authentication failed. The username / password you specified was not accepted by hushd. Try changing it in the Edit-&gt;Settings menu</source>
-        <translation>验证失败。 hushd不接受您指定的用户名/密码。 请在编辑 - &gt;设置菜单中更改它</translation>
+        <source>Authentication failed. The username / password you specified was not accepted by safecoind. Try changing it in the Edit-&gt;Settings menu</source>
+        <translation>验证失败。 safecoind不接受您指定的用户名/密码。 请在编辑 - &gt;设置菜单中更改它</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="487"/>
-        <source>Your hushd is starting up. Please wait.</source>
-        <translation>你的hushd正在启动。 请耐心等待。</translation>
+        <source>Your safecoind is starting up. Please wait.</source>
+        <translation>你的safecoind正在启动。 请耐心等待。</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="504"/>
@@ -1223,18 +1223,18 @@ Please set the host/port and user/password in the Edit-&gt;Settings menu.</sourc
     </message>
     <message>
         <location filename="../src/rpc.cpp" line="673"/>
-        <source>Connected to hushd</source>
-        <translation>连接到hushd</translation>
+        <source>Connected to safecoind</source>
+        <translation>连接到safecoind</translation>
     </message>
     <message>
         <location filename="../src/rpc.cpp" line="676"/>
-        <source>hushd has no peer connections</source>
-        <translation>hushd没有节点可连接</translation>
+        <source>safecoind has no peer connections</source>
+        <translation>safecoind没有节点可连接</translation>
     </message>
     <message>
         <location filename="../src/rpc.cpp" line="695"/>
-        <source>There was an error connecting to hushd. The error was</source>
-        <translation>连接到hushd时出错。 错误是</translation>
+        <source>There was an error connecting to safecoind. The error was</source>
+        <translation>连接到safecoind时出错。 错误是</translation>
     </message>
     <message>
         <location filename="../src/rpc.cpp" line="1032"/>
@@ -1272,8 +1272,8 @@ Would you like to visit the releases page?</source>
     </message>
     <message>
         <location filename="../src/rpc.cpp" line="1183"/>
-        <source>Waiting for hushd to exit</source>
-        <translation>等待hushd退出</translation>
+        <source>Waiting for safecoind to exit</source>
+        <translation>等待safecoind退出</translation>
     </message>
     <message>
         <location filename="../src/settings.cpp" line="235"/>
@@ -1573,18 +1573,18 @@ You either have unconfirmed funds or the balance is too low for an automatic mig
     </message>
     <message>
         <location filename="../src/requestdialog.ui" line="219"/>
-        <source>Request payment from a Sapling address. You&apos;ll send a HUSH 0.0001 transaction to the address with a hush payment URI. The memo will be included in the transaction when the address pays you.</source>
-        <translation>要求从树苗地址付款。 您将使用hush支付URI将ZEC 0.0001交易发送到该地址。 当地址付款时，备注将包含在交易中。</translation>
+        <source>Request payment from a Sapling address. You&apos;ll send a HUSH 0.0001 transaction to the address with a safecoin payment URI. The memo will be included in the transaction when the address pays you.</source>
+        <translation>要求从树苗地址付款。 您将使用safecoin支付URI将ZEC 0.0001交易发送到该地址。 当地址付款时，备注将包含在交易中。</translation>
     </message>
     <message>
         <location filename="../src/requestdialog.cpp" line="50"/>
-        <source>Error paying hush URI</source>
-        <translation>支付hush URI时出错</translation>
+        <source>Error paying safecoin URI</source>
+        <translation>支付safecoin URI时出错</translation>
     </message>
     <message>
         <location filename="../src/requestdialog.cpp" line="51"/>
-        <source>URI should be of the form &apos;hush:&lt;addr&gt;?amt=x&amp;memo=y</source>
-        <translation>URI的格式应为&apos;hush:&lt;addr&gt;?amt=x&amp;memo=y‘</translation>
+        <source>URI should be of the form &apos;safecoin:&lt;addr&gt;?amt=x&amp;memo=y</source>
+        <translation>URI的格式应为&apos;safecoin:&lt;addr&gt;?amt=x&amp;memo=y‘</translation>
     </message>
     <message>
         <location filename="../src/requestdialog.cpp" line="65"/>
@@ -1616,8 +1616,8 @@ You either have unconfirmed funds or the balance is too low for an automatic mig
     </message>
     <message>
         <location filename="../src/settings.ui" line="33"/>
-        <source>hushd connection</source>
-        <translation>hushd连接</translation>
+        <source>safecoind connection</source>
+        <translation>safecoind连接</translation>
     </message>
     <message>
         <location filename="../src/settings.ui" line="62"/>
@@ -1882,8 +1882,8 @@ You either have unconfirmed funds or the balance is too low for an automatic mig
     </message>
     <message>
         <location filename="../src/confirm.ui" line="183"/>
-        <source>hushd doesn&apos;t seem to have any peers. You might not be connected to the internet, so this transaction might not work.</source>
-        <translation>hushd似乎没有任何可连接的节点。 您可能没有连接到互联网，因此此交易可能无效。</translation>
+        <source>safecoind doesn&apos;t seem to have any peers. You might not be connected to the internet, so this transaction might not work.</source>
+        <translation>safecoind似乎没有任何可连接的节点。 您可能没有连接到互联网，因此此交易可能无效。</translation>
     </message>
     <message>
         <location filename="../src/confirm.ui" line="196"/>
@@ -1900,13 +1900,13 @@ You either have unconfirmed funds or the balance is too low for an automatic mig
     <name>createZcashConf</name>
     <message>
         <location filename="../src/createzcashconfdialog.ui" line="14"/>
-        <source>Configure hush.conf</source>
-        <translation>配置 hush.conf</translation>
+        <source>Configure safecoin.conf</source>
+        <translation>配置 safecoin.conf</translation>
     </message>
     <message>
         <location filename="../src/createzcashconfdialog.ui" line="20"/>
-        <source>Your Hush node will be configured for you automatically</source>
-        <translation>您的hush节点将自动为您配置</translation>
+        <source>Your Safecoin node will be configured for you automatically</source>
+        <translation>您的safecoin节点将自动为您配置</translation>
     </message>
     <message>
         <location filename="../src/createzcashconfdialog.ui" line="30"/>

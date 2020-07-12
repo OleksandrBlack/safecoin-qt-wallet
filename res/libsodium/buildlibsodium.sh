@@ -1,12 +1,12 @@
 #!/bin/bash
-# Copyright (c) 2019-2020 The Hush developers
+# Copyright (c) 2019-2020 The Safecoin developers
 # Released under the GPLv3
 
 VERSION=1.0.18
 LIB="libsodium"
 DIR="$LIB-$VERSION"
 FILE="$DIR.tar.gz"
-URL=https://github.com/MyHush/libsodium/releases/download/${VERSION}/${FILE}
+URL=https://github.com/MySafecoin/libsodium/releases/download/${VERSION}/${FILE}
 SHA=6f504490b342a4f8a4c4a02fc9b866cbef8622d5df4e5452b46be121e46636c1
 
 # First thing to do is see if libsodium.a exists in the res folder. If it does, then there's nothing to do
