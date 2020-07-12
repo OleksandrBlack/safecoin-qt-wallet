@@ -379,18 +379,20 @@ bool ConnectionLoader::startEmbeddedZcashd() {
         qDebug() << "Embedded safecoind started via " + safecoindProgram;
     });
 
-    QObject::connect(ezcashd, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
-                        [=](int, QProcess::ExitStatus) {
-        //qDebug() << "safecoind finished with code " << exitCode << "," << exitStatus;    
-    });
-
+    QObject::connect(ezcashd.get(), QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
+                        [=](int exitCode, QProcess::ExitStatus exitStatus) {
+        qDebug() << "hushd finished with code " << exitCode << "," << exitStatus;
+ });
+    
     QObject::connect(ezcashd.get(), &QProcess::errorOccurred, [&] (QProcess::ProcessError error) {
         qDebug() << "Couldn't start safecoind at " + safecoindProgram << error;
     });
 
-    QObject::connect(ezcashd, &QProcess::readyReadStandardError, [=]() {
-        auto output = ezcashd->readAllStandardError();
-       main->logger->write("safecoind stderr:" + output);
+    std::weak_ptr<QProcess> weak_obj(ezcashd);
+    auto ptr_main(main);
+    QObject::connect(ezcashd.get(), &QProcess::readyReadStandardError, [weak_obj, ptr_main]() {
+        auto output = weak_obj.lock()->readAllStandardError();
+        ptr_main->logger->write("safecoind stderr:" + output);
         processStdErrOutput.append(output);
     });
 
