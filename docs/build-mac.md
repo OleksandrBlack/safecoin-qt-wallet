@@ -52,7 +52,8 @@ After adding this to your path the file should look something like this:
 ```
 Now simply save and exit the file this can be done by pressing `^X` then press `Y` and then `return` 
 
-After following these steps your build environment should be ready to compile safecoind and the safecoinwallet.
+After following these steps your build environment should be ready to compile safecoind and the safecoinwallet just restart your terminal for the changes to take effect.
+
 
 ## Compiling safecoind and safecoin-cli
 safecoinwallet needs a Safecoin full node running safecoind and safecoin-cli. 
