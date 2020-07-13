@@ -36,7 +36,7 @@ To configure your path you will need to edit the following file `/etc/paths`. yo
 This can be done with the following command:
 
 ```
-sudo nano /etc/pahts
+sudo nano /etc/paths
 ```
 Then you will need to add the path to qmake. By default this is `/usr/local/opt/qt/bin` and `/usr/local/opt/qt5/bin`
 After adding this to your path the file should look something like this: 
