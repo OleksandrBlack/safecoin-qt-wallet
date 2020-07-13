@@ -81,7 +81,7 @@ To compile the safewallet for macOS simply execute the follwing commands:
 
 ```
 git clone https://github.com/Fair-Exchange/safewallet.git
-cd safecoinwallet
+cd safewallet
 qmake safe-qt-wallet.pro CONFIG+=debug
 make -j$(expr $(sysctl -n hw.ncpu) - 1)
 ```
