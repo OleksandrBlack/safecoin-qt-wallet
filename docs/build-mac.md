@@ -9,7 +9,11 @@ Before compiling you will need to configure your build environmet.
 ### Xcode
 
 The first step to setting up your mac build environment is installing [Xcode](https://developer.apple.com/xcode/).
-After Xcode has been installed download and install the Xcode command line tools [here](https://developer.apple.com/download/more/?=command%20line%20tools)
+After Xcode has been installed download and install the Xcode command line tools [here](https://developer.apple.com/download/more/?=command%20line%20tools). or enter this command in the terminal: 
+```
+xcode-select --install
+```
+You will get a popup asking you to install the Xcode command line tools simply click `install` to intsall them.
 
 ### Homebrew
 
@@ -102,4 +106,3 @@ now click `save`
 ### Support
 
 For support or other questions, Join [Discord](https://discordapp.com/invite/vQgYGJz), or tweet at [@safecoins](https://twitter.com/safecoins) or [file an issue](https://github.com/Fair-Exchange/safewallet/issues).
-
