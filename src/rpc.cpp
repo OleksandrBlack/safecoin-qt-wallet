@@ -1424,7 +1424,7 @@ void RPC::refreshPrice() {
                 s->set_volume(ticker, vol);
                 //s->set_marketcap(ticker, mcap);
                 //ui->marketcap = QString::number(mcap);
-                ui->volume    = QString::number((double) vol);
+		//                ui->volume    = QString::number((double) vol);
 
 
                 refresh(true);
