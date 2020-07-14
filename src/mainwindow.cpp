@@ -843,8 +843,8 @@ void MainWindow::payZcashURI(QString uri, QString myAddr) {
     qDebug() << "Received URI " << uri;
     PaymentURI paymentInfo = Settings::parseURI(uri);
     if (!paymentInfo.error.isEmpty()) {
-        QMessageBox::critical(this, tr("Error paying Hush URI"),
-                tr("URI should be of the form 'hush:<addr>?amt=x&memo=y") + "\n" + paymentInfo.error);
+        QMessageBox::critical(this, tr("Error paying Safecoin URI"),
+                tr("URI should be of the form 'safe:<addr>?amt=x&memo=y") + "\n" + paymentInfo.error);
         return;
     }
 
@@ -1156,7 +1156,7 @@ void MainWindow::setupBalancesTab() {
 
             menu.addAction(tr("Convert Address"), [=] () {
                 QString url;
-                url = "https://dexstats.info/addressconverter.php?fromcoin=HUSH3&address=" + addr;
+                url = "https://dexstats.info/addressconverter.php?fromcoin=SAFE&address=" + addr;
                 QDesktopServices::openUrl(QUrl(url));
             });
         }
@@ -1179,7 +1179,7 @@ void MainWindow::setupMarketTab() {
     auto s      = Settings::getInstance();
     auto ticker = s->get_currency_name();
 
-    ui->volume->setText(QString::number((double)       s->get_volume("HUSH") ,'f',8) + " HUSH");
+    ui->volume->setText(QString::number((double)       s->get_volume("SAFE") ,'f',8) + " SAFE");
     ui->volumeLocal->setText(QString::number((double)  s->get_volume(ticker) ,'f',8) + " " + QString::fromStdString(ticker));
     ui->volumeBTC->setText(QString::number((double)    s->get_volume("BTC") ,'f',8) + " BTC");
 
