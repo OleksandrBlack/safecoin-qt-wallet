@@ -414,7 +414,6 @@ void MainWindow::setupSettingsModal() {
             settings.safepass->setEnabled(false);
             settings.safekey->setEnabled(false);
             settings.parentkey->setEnabled(false);
-            settings.chkConso->setEnabled(false);
         }
 
     // Use Addressindex
