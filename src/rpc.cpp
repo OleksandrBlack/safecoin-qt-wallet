@@ -1466,7 +1466,7 @@ void RPC::refreshPrice() {
             }
         } catch (...) {
             // If anything at all goes wrong, just set the price to 0 and move on.
-            qDebug() << QString("Price feed update failure : ") << e.what();
+            qDebug() << QString("Price feed update failure : ");
         }
 
         // If nothing, then set the price to 0;
