@@ -576,6 +576,7 @@ void RPC::getInfoThenRefresh(bool force) {
         int rpcport             = reply["rpcport"].toInt();
         int notarized           = reply["notarized"].toInt();
         int protocolversion     = reply["protocolversion"].toInt();
+        int tls_connections     = reply["tls_connections"].get<json::number_integer_t>();
         int lag                 = curBlock - notarized;
 	int blocks_until_halving= 2207378 - curBlock;
         char halving_days[8];
