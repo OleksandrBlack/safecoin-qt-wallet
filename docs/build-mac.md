@@ -9,7 +9,11 @@ Before compiling you will need to configure your build environmet.
 ### Xcode
 
 The first step to setting up your mac build environment is installing [Xcode](https://developer.apple.com/xcode/).
-After Xcode has been installed download and install the Xcode command line tools [here](https://developer.apple.com/download/more/?=command%20line%20tools)
+After Xcode has been installed download and install the Xcode command line tools [here](https://developer.apple.com/download/more/?=command%20line%20tools). or enter this command in the terminal: 
+```
+xcode-select --install
+```
+You will get a popup asking you to install the Xcode command line tools simply click `install` to intsall them.
 
 ### Homebrew
 
@@ -32,7 +36,7 @@ To configure your path you will need to edit the following file `/etc/paths`. yo
 This can be done with the following command:
 
 ```
-sudo nano /etc/pahts
+sudo nano /etc/paths
 ```
 Then you will need to add the path to qmake. By default this is `/usr/local/opt/qt/bin` and `/usr/local/opt/qt5/bin`
 After adding this to your path the file should look something like this: 
@@ -48,7 +52,8 @@ After adding this to your path the file should look something like this:
 ```
 Now simply save and exit the file this can be done by pressing `^X` then press `Y` and then `return` 
 
-After following these steps your build environment should be ready to compile safecoind and the safecoinwallet.
+After following these steps your build environment should be ready to compile safecoind and the safecoinwallet just restart your terminal for the changes to take effect.
+
 
 ## Compiling safecoind and safecoin-cli
 safecoinwallet needs a Safecoin full node running safecoind and safecoin-cli. 
@@ -77,7 +82,7 @@ To compile the safewallet for macOS simply execute the follwing commands:
 
 ```
 git clone https://github.com/Fair-Exchange/safewallet.git
-cd safecoinwallet
+cd safewallet
 qmake safe-qt-wallet.pro CONFIG+=debug
 make -j$(expr $(sysctl -n hw.ncpu) - 1)
 ```
@@ -94,7 +99,7 @@ Next copy the safecoinwallet.app to the folder.
 Additionally you can add a short cut to the applications folder by going to your home directory and option dragging this to the folder on your desktop.
 
 next open **Disk Utilty**
-now go to `File -> New Image -> Image from Folder` select the folder on your desktop and click `choose` 
+and go to `File -> New Image -> Image from Folder` select the folder on your desktop and click `choose` 
 Enter the name you want the image to show up as this should be the same name as you named your folder.
 For encryption choose `none` and for Image format choose `read-only`.
 now click `save` 
@@ -102,4 +107,3 @@ now click `save`
 ### Support
 
 For support or other questions, Join [Discord](https://discordapp.com/invite/vQgYGJz), or tweet at [@safecoins](https://twitter.com/safecoins) or [file an issue](https://github.com/Fair-Exchange/safewallet/issues).
-
