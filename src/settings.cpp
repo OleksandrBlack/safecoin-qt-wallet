@@ -153,6 +153,12 @@ bool Settings::isSaplingActive() {
 }
 
 
+double Settings::getZECPrice() {
+    return zecPrice;
+}
+
+
+
 double Settings::get_price(std::string currency) {
     std::for_each(currency.begin(), currency.end(), [](char & c){ c = ::tolower(c); });
     QString ticker = QString::fromStdString(currency);

@@ -1143,13 +1143,6 @@ void MainWindow::setupBalancesTab() {
             });
         }
 
-        //TODO: No sprout UTXOs on the Hush chain, should we remove all turnstile code?
-        if (Settings::getInstance()->isSproutAddress(addr)) {
-            menu.addAction(tr("Migrate to Sapling"), [=] () {
-                this->turnstileDoMigration(addr);
-            });
-        }
-
         menu.exec(ui->balancesTable->viewport()->mapToGlobal(pos));
     });
 }
