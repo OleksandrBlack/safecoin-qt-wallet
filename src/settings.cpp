@@ -213,12 +213,8 @@ double Settings::get_marketcap(std::string currency) {
 unsigned int Settings::getBTCPrice() {
     // in satoshis
     return btcPrice;
-
-=======
-double Settings::getZECPrice() {
-    return zecPrice;
->>>>>>> cbdd74a... Add advanced explorer settings
 }
+
 
 bool Settings::getAutoShield() {
     // Load from Qt settings
@@ -438,7 +434,7 @@ bool Settings::isValidAddress(QString addr) {
 
 // Get a pretty string representation of this Payment URI
 QString Settings::paymentURIPretty(PaymentURI uri) {
-    return QString() + "Payment Request\n" + "Pay: " + uri.addr + "\nAmount: " + getZECDisplayFormat(uri.amt.toDouble())
+    return QString() + "Payment Request\n" + "Pay: " + uri.addr + "\nAmount: " + getDisplayFormat(uri.amt.toDouble())
         + "\nMemo:" + QUrl::fromPercentEncoding(uri.memo.toUtf8());
 }
 
