@@ -1453,7 +1453,7 @@ void RPC::refreshPrice() {
                 refresh(true);
                 return;
             } else {
-	      QString price = QString::fromStdString(parsed["price_usd"] );
+	      QString price = parsed["price_usd"].toString();
                 qDebug() << Settings::getTokenName() << " Price=" << price;
                 Settings::getInstance()->setZECPrice(price.toDouble());
                 return;
