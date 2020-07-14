@@ -1052,114 +1052,112 @@
        <attribute name="title">
         <string>Market</string>
        </attribute>
-          <layout class="QGridLayout" name="gridLayout_5">
-           <item row="11" column="0" colspan="3">
-            <widget class="QLabel" name="label_24">
-             <property name="font">
-              <font>
-               <pointsize>15</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;SAFE Market Information&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-             </property>
-            </widget>
-           </item>
-           <item row="12" column="0" colspan="3">
-            <widget class="Line" name="line_5">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-            </widget>
-           </item>
-           <item row="13" column="0">
-            <widget class="QLabel" name="label_31">
-             <property name="text">
-              <string>Market Cap</string>
-             </property>
-            </widget>
-           </item>
-
-           <item row="13" column="1">
-            <widget class="QLabel" name="marketcap">
-             <property name="text">
-              <string>Loading...</string>
-             </property>
-            </widget>
-           </item>
-
-           <item row="13" column="2">
-            <widget class="QLabel" name="marketcapLocal">
-             <property name="text">
-              <string></string>
-             </property>
-            </widget>
-           </item>
-
-           <item row="13" column="3">
-            <widget class="QLabel" name="marketcapBTC">
-             <property name="text">
-              <string>Loading...</string>
-             </property>
-            </widget>
-           </item>
-
-           <item row="14" column="0">
-            <widget class="QLabel" name="volumeLabel">
-             <property name="text">
-              <string>24H Volume</string>
-             </property>
-            </widget>
-           </item>
-           <item row="14" column="1">
-            <widget class="QLabel" name="volume">
-             <property name="text">
-              <string>Loading...</string>
-             </property>
-            </widget>
-           </item>
-           <item row="14" column="2">
-            <widget class="QLabel" name="volumeLocal">
-             <property name="text">
-              <string>Loading...</string>
-             </property>
-            </widget>
-           </item>
-           <item row="14" column="3">
-            <widget class="QLabel" name="volumeBTC">
-             <property name="text">
-              <string>Loading...</string>
-             </property>
-            </widget>
-           </item>
-
+       <layout class="QGridLayout" name="gridLayout_5">
+        <item row="11" column="0" colspan="3">
+         <widget class="QLabel" name="label_24">
+          <property name="font">
+           <font>
+            <pointsize>15</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;SAFE Market Information&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+         </widget>
+        </item>
+        <item row="12" column="0" colspan="3">
+         <widget class="Line" name="line_5">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="13" column="0">
+         <widget class="QLabel" name="label_31">
+          <property name="text">
+           <string>Market Cap</string>
+          </property>
+         </widget>
+        </item>
+        <item row="13" column="1">
+         <widget class="QLabel" name="marketcap">
+          <property name="text">
+           <string>Loading...</string>
+          </property>
+         </widget>
+        </item>
+        <item row="13" column="2">
+         <widget class="QLabel" name="marketcapLocal">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="13" column="3">
+         <widget class="QLabel" name="marketcapBTC">
+          <property name="text">
+           <string>Loading...</string>
+          </property>
+         </widget>
+        </item>
+        <item row="14" column="0">
+         <widget class="QLabel" name="volumeLabel">
+          <property name="text">
+           <string>24H Volume</string>
+          </property>
+         </widget>
+        </item>
+        <item row="14" column="1">
+         <widget class="QLabel" name="volume">
+          <property name="text">
+           <string>Loading...</string>
+          </property>
+         </widget>
+        </item>
+        <item row="14" column="2">
+         <widget class="QLabel" name="volumeLocal">
+          <property name="text">
+           <string>Loading...</string>
+          </property>
+         </widget>
+        </item>
+        <item row="14" column="3">
+         <widget class="QLabel" name="volumeBTC">
+          <property name="text">
+           <string>Loading...</string>
+          </property>
+         </widget>
+        </item>
+	   
        </layout>
       </widget>
 
-      <widget class="QWidget" name="chat_tab">
+
+     <widget class="QWidget" name="chat_tab">
        <attribute name="title">
         <string>Chat</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_7">
-           <item>
-                <widget class="QLabel" name="MemoText">
-                <property name="font">
-                    <font>
-                    <pointsize>10</pointsize>
-                    </font>
-                </property>
-                <property name="text">Welcome To The Future -- Duke
-                    <string/>
-                </property>
-                <property name="wordWrap">
-                    <bool>true</bool>
-                </property>
-                </widget>
-           </item>
-
-       </layout>
+	         <item>
+         <layout class="QGridLayout" name="gridLayout_6">
+          <item row="0" column="1">
+           <widget class="QListWidget" name="listWidget"/>
+          </item>
+          <item row="0" column="0">
+           <widget class="QListWidget" name="listWidget_2">
+            <property name="maximumSize">
+             <size>
+              <width>460</width>
+              <height>16777215</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+      </layout>
       </widget>
-
+      
       <widget class="QWidget" name="tab_5">
        <attribute name="title">
         <string>safecoind</string>
