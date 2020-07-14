@@ -21,7 +21,7 @@ ConnectionLoader::ConnectionLoader(MainWindow* main, RPC* rpc) {
     connD = new Ui_ConnectionDialog();
     connD->setupUi(d);
     QPixmap logo(":/img/res/logobig.gif");
-    connD->topIcon->setBasePixmap(logo.scaled(512, 512, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    connD->topIcon->setPixmap(logo.scaled(512, 512, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     //main->logger->write("set topIcon");
 }
 
