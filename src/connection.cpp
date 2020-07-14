@@ -490,11 +490,9 @@ Connection* ConnectionLoader::makeConnection(std::shared_ptr<ConnectionConfig> c
 }
 
 void ConnectionLoader::refreshZcashdState(Connection* connection, std::function<void(void)> refused) {
-<<<<<<< HEAD
-=======
     main->logger->write("refreshing state");
 
->>>>>>> 581b35f... meh
+
     json payload = {
         {"jsonrpc", "1.0"},
         {"id", "someid"},
