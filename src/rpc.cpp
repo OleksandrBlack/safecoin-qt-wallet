@@ -1409,12 +1409,12 @@ void RPC::refreshPrice() {
                 qDebug() << "SAFE = " << QString::number((double)safe["eur"]) << " EUR";
                 qDebug() << "SAFE = " << QString::number((int) 100000000 * (double) safe["btc"]) << " sat ";
                 //TODO: based on current fiat selection, store that fiat price
-                s->setZECPrice( hush["usd"] );
-                s->setBTCPrice( (unsigned int) 100000000 * (double)hush["btc"] );
+                s->setZECPrice( safe["usd"] );
+                s->setBTCPrice( (unsigned int) 100000000 * (double)safe["btc"] );
 
                 // convert ticker to upper case
                 //std::for_each(ticker.begin(), ticker.end(), [](char & c){ c = ::toupper(c); });
-                s->set_price(ticker, hush[ticker]);
+                s->set_price(ticker, safe[ticker]);
 
                 return;
             } else {
