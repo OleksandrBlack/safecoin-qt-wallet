@@ -237,6 +237,11 @@
          <string>BRL</string>
         </property>
        </item>
+        <item>
+        <property name="text">
+         <string>BTC</string>
+        </property>
+       </item>
        <item>
         <property name="text">
          <string>CAD</string>
@@ -581,7 +586,7 @@
        <item row="11" column="0" colspan="2">
         <widget class="QCheckBox" name="chkFetchPrices">
          <property name="text">
-          <string>Fetch SAFE / USD prices</string>
+          <string>Fetch SAFE prices</string>
          </property>
         </widget>
        </item>

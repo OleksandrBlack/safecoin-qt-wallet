@@ -372,7 +372,7 @@ bool Settings::addToZcashConf(QString confLocation, QString line) {
 
 std::string Settings::get_currency_name() {
     // Load from the QT Settings.
-    return QSettings().value("options/currency_name", "USD").toString().toStdString();
+    return QSettings().value("options/currency_name", "BTC").toString().toStdString();
 }
 
 void Settings::set_currency_name(std::string currency_name) {

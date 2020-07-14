@@ -1693,7 +1693,7 @@ Avete fondi non confermati o il saldo è troppo basso per una migrazione automat
     </message>
     <message>
         <location filename="../src/settings.ui" line="280"/>
-        <source>Fetch SAFE / USD prices</source>
+        <source>Fetch SAFE / BTC prices</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

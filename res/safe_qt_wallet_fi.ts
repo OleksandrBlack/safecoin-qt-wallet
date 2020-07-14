@@ -1655,8 +1655,8 @@ Sinulla on joko vahvistamattomia varoja tai saldo on liian pieni automaattiseen 
     </message>
     <message>
         <location filename="../src/settings.ui" line="280"/>
-        <source>Fetch Safecoin / USD prices</source>
-        <translation>Hae Safecoin / USD hinnat</translation>
+        <source>Fetch Safecoin / BTC prices</source>
+        <translation>Hae Safecoin / BTC hinnat</translation>
     </message>
     <message>
         <location filename="../src/settings.ui" line="288"/>

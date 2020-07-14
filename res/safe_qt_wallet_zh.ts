@@ -1706,7 +1706,7 @@ You either have unconfirmed funds or the balance is too low for an automatic mig
     </message>
     <message>
         <location filename="../src/settings.ui" line="280"/>
-        <source>Fetch SAFE / USD prices</source>
+        <source>Fetch SAFE / BTC prices</source>
         <translation>获取 SAFE/USD 价格</translation>
     </message>
     <message>
