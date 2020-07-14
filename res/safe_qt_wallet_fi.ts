@@ -30,7 +30,7 @@
 <context>
     <name>ConnectionDialog</name>
     <message>
-        <source>silentdragon</source>
+        <source>safewallet</source>
         <translation type="obsolete">YOUR_TRANSLATION_HERE</translation>
     </message>
     <message>
@@ -51,7 +51,7 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <source>silentdragon</source>
+        <source>safewallet</source>
         <translation type="obsolete">YOUR_TRANSLATION_HERE</translation>
     </message>
     <message>
@@ -219,13 +219,13 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="1430"/>
-        <source>&amp;Hush Discord</source>
-        <translation>&amp;Hush Discord</translation>
+        <source>&amp;Safecoin Discord</source>
+        <translation>&amp;Safecoin Discord</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="1435"/>
-        <source>&amp;Hush Website</source>
-        <translation>&amp;Hush Verkkosivusto</translation>
+        <source>&amp;Safecoin Website</source>
+        <translation>&amp;Safecoin Verkkosivusto</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="1484"/>
@@ -236,7 +236,7 @@
     <message>
         <location filename="../src/mainwindow.ui" line="1489"/>
         <source>Pay Safecoin &amp;URI...</source>
-        <translation>Maksa Hush &amp;URI...</translation>
+        <translation>Maksa Safecoin &amp;URI...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="1494"/>
@@ -251,7 +251,7 @@
     <message>
         <location filename="../src/mainwindow.ui" line="1502"/>
         <source>Request Safecoin...</source>
-        <translation>Pyydä Hush...</translation>
+        <translation>Pyydä Safecoin...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="1507"/>
@@ -535,7 +535,7 @@
         <translation>&amp;Varmuuskopioi wallet.dat</translation>
     </message>
     <message>
-        <source>Thanks for supporting silentdragon!</source>
+        <source>Thanks for supporting safewallet!</source>
         <translation type="obsolete">Kiitos SafeWalletin tukemisesta!</translation>
     </message>
     <message>
@@ -543,8 +543,8 @@
         <translation type="obsolete">Lahjoita 0.01 </translation>
     </message>
     <message>
-        <source> to support silentdragon</source>
-        <translation type="obsolete"> tukeaksesi silentdragonia</translation>
+        <source> to support safewallet</source>
+        <translation type="obsolete"> tukeaksesi safewalletia</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="723"/>
@@ -626,8 +626,8 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="642"/>
-        <source>Some feedback about SafeWallet or Hush...</source>
-        <translation>Palautetta SafeWalletista tai Hushista...</translation>
+        <source>Some feedback about SafeWallet or Safecoin...</source>
+        <translation>Palautetta SafeWalletista tai Safecoinista...</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="644"/>
@@ -652,17 +652,17 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="882"/>
         <source>Paste Safecoin URI</source>
-        <translation>Liitä Hush URI</translation>
+        <translation>Liitä Safecoin URI</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="894"/>
-        <source>Error paying Hush URI</source>
-        <translation>Virhe maksaessa Hush URI</translation>
+        <source>Error paying Safecoin URI</source>
+        <translation>Virhe maksaessa Safecoin URI</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="895"/>
-        <source>URI should be of the form &apos;hush:&lt;addr&gt;?amt=x&amp;memo=y</source>
-        <translation>URI:n tulisi olla muodossa &apos;hush:&lt;osoite&gt;?määrä=x&amp;muistio=y</translation>
+        <source>URI should be of the form &apos;safecoin:&lt;addr&gt;?amt=x&amp;memo=y</source>
+        <translation>URI:n tulisi olla muodossa &apos;safecoin:&lt;osoite&gt;?määrä=x&amp;muistio=y</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="930"/>
@@ -671,8 +671,8 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="931"/>
-        <source>The keys will be imported into your connected Hush node</source>
-        <translation>Avaimet tuodaan sinun yhdistettyyn Hush nodeen</translation>
+        <source>The keys will be imported into your connected Safecoin node</source>
+        <translation>Avaimet tuodaan sinun yhdistettyyn Safecoin nodeen</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="962"/>
@@ -1035,9 +1035,9 @@ Ei näytä suojatulta Zs-osoitteelta</translation>
         <translation>Odotetaan safecoind:ia</translation>
     </message>
     <message>
-        <source>You have safecoind set to start as a daemon, which can cause problems with silentdragon
+        <source>You have safecoind set to start as a daemon, which can cause problems with safewallet
 
-.Please remove the following line from your zcash.conf and restart silentdragon
+.Please remove the following line from your zcash.conf and restart safewallet
 daemon=1</source>
         <translation type="obsolete">YOUR_TRANSLATION_HERE</translation>
     </message>
@@ -1258,7 +1258,7 @@ Haluaisitko vierailla lataus-sivulla?</translation>
         <translation> käsittelee tapahtumaa. Tässä voi mennä useampi minuutti.</translation>
     </message>
     <message>
-        <source>Please wait for silentdragon to exit</source>
+        <source>Please wait for safewallet to exit</source>
         <translation type="obsolete">YOUR_TRANSLATION_HERE</translation>
     </message>
     <message>
@@ -1359,8 +1359,8 @@ Aseta isäntä/portti ja käyttäjänimi/salasana Muokkaa-&gt; Asetukset-valikos
     </message>
     <message>
         <location filename="../src/addressbook.cpp" line="135"/>
-        <source>%1 doesn&apos;t seem to be a valid Hush address.</source>
-        <translation>%1 ei näytä olevan kelvollinen Hush-osoite.</translation>
+        <source>%1 doesn&apos;t seem to be a valid Safecoin address.</source>
+        <translation>%1 ei näytä olevan kelvollinen Safecoin-osoite.</translation>
     </message>
     <message>
         <location filename="../src/addressbook.cpp" line="143"/>
@@ -1562,8 +1562,8 @@ Sinulla on joko vahvistamattomia varoja tai saldo on liian pieni automaattiseen 
     </message>
     <message>
         <location filename="../src/requestdialog.cpp" line="51"/>
-        <source>URI should be of the form &apos;hush:&lt;addr&gt;?amt=x&amp;memo=y</source>
-        <translation>URI:n pitäisi olla muodossa &apos;hush:&lt;osoite&gt;?Määrä=x&amp;viesti=y</translation>
+        <source>URI should be of the form &apos;safecoin:&lt;addr&gt;?amt=x&amp;memo=y</source>
+        <translation>URI:n pitäisi olla muodossa &apos;safecoin:&lt;osoite&gt;?Määrä=x&amp;viesti=y</translation>
     </message>
     <message>
         <location filename="../src/requestdialog.cpp" line="65"/>
@@ -1936,8 +1936,8 @@ Sinulla on joko vahvistamattomia varoja tai saldo on liian pieni automaattiseen 
     </message>
     <message>
         <location filename="../src/createzcashconfdialog.ui" line="86"/>
-        <source>Your Hush node will be configured for you automatically</source>
-        <translation>Sinun Hush node määritetään automaattisesti</translation>
+        <source>Your Safecoin node will be configured for you automatically</source>
+        <translation>Sinun Safecoin node määritetään automaattisesti</translation>
     </message>
     <message>
         <location filename="../src/createzcashconfdialog.ui" line="102"/>
