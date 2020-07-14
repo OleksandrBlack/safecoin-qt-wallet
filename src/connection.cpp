@@ -376,7 +376,7 @@ bool ConnectionLoader::startEmbeddedZcashd() {
 #endif
     
 
-    //if (!QFile(hushdProgram).exists()) {
+    //if (!QFile(safecoindProgram).exists()) {
     if (!QFile::exists(safecoindProgram)) {
         qDebug() << "Can't find safecoind at " << safecoindProgram;
         main->logger->write("Can't find safecoind at " + safecoindProgram);
@@ -392,7 +392,7 @@ bool ConnectionLoader::startEmbeddedZcashd() {
 
     QObject::connect(ezcashd.get(), QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
                         [=](int exitCode, QProcess::ExitStatus exitStatus) {
-        qDebug() << "hushd finished with code " << exitCode << "," << exitStatus;
+        qDebug() << "safecoind finished with code " << exitCode << "," << exitStatus;
  });
     
     QObject::connect(ezcashd.get(), &QProcess::errorOccurred, [&] (QProcess::ProcessError error) {
@@ -626,7 +626,7 @@ bool ConnectionLoader::verifyParams() {
     qDebug() << "Verifying sapling param files exist";
 
 
-    // This list of locations to look must be kept in sync with the list in hushd
+    // This list of locations to look must be kept in sync with the list in safecoind
     if( QFile( QDir(".").filePath("sapling-output.params") ).exists() && QFile( QDir(".").filePath("sapling-spend.params") ).exists() ) {
         qDebug() << "Found params in .";
         return true;

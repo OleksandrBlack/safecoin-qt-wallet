@@ -313,8 +313,8 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="941"/>
-        <source>hushd</source>
-        <translation>hushd</translation>
+        <source>safecoind</source>
+        <translation>safecoind</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="971"/>
@@ -576,23 +576,23 @@
         <translation type="obsolete">YOUR_TRANSLATION_HERE</translation>
     </message>
     <message>
-        <source>The keys will be imported into your connected hushd node</source>
+        <source>The keys will be imported into your connected safecoind node</source>
         <translation type="obsolete">YOUR_TRANSLATION_HERE</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="497"/>
-        <source>Tor configuration is available only when running an embedded hushd.</source>
-        <translation>Tor-verkon konfigurointi on saatavilla vain kun integroitu hushd on käynnissä.</translation>
+        <source>Tor configuration is available only when running an embedded safecoind.</source>
+        <translation>Tor-verkon konfigurointi on saatavilla vain kun integroitu safecoind on käynnissä.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="535"/>
-        <source>You&apos;re using an external hushd. Please restart hushd with -rescan</source>
-        <translation>Käytät ulkopuolista hushd:ia. Ole hyvä ja käynnistä hushd uudelleen -rescan:lla</translation>
+        <source>You&apos;re using an external safecoind. Please restart safecoind with -rescan</source>
+        <translation>Käytät ulkopuolista safecoind:ia. Ole hyvä ja käynnistä safecoind uudelleen -rescan:lla</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="538"/>
-        <source>You&apos;re using an external hushd. Please restart hushd with -reindex</source>
-        <translation>Käytät ulkopuolista hushd:ia. Ole hyvä ja käynnistä hushd uudelleen -reindex:lla</translation>
+        <source>You&apos;re using an external safecoind. Please restart safecoind with -reindex</source>
+        <translation>Käytät ulkopuolista safecoind:ia. Ole hyvä ja käynnistä safecoind uudelleen -reindex:lla</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="563"/>
@@ -701,8 +701,8 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1005"/>
-        <source>You need to back it up from the machine hushd is running on</source>
-        <translation>Sinun on varmuuskopioitava se siitä koneesta, missä hushd on käynnissä</translation>
+        <source>You need to back it up from the machine safecoind is running on</source>
+        <translation>Sinun on varmuuskopioitava se siitä koneesta, missä safecoind on käynnissä</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="1009"/>
@@ -1021,40 +1021,40 @@ Ei näytä suojatulta Zs-osoitteelta</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="55"/>
-        <source>Starting embedded hushd</source>
-        <translation>Käynnistetään integroitu hushd</translation>
+        <source>Starting embedded safecoind</source>
+        <translation>Käynnistetään integroitu safecoind</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="65"/>
-        <source>hushd is set to run as daemon</source>
-        <translation>hushd on asetettu toimimaan palveluprosessina</translation>
+        <source>safecoind is set to run as daemon</source>
+        <translation>safecoind on asetettu toimimaan palveluprosessina</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="65"/>
-        <source>Waiting for hushd</source>
-        <translation>Odotetaan hushd:ia</translation>
+        <source>Waiting for safecoind</source>
+        <translation>Odotetaan safecoind:ia</translation>
     </message>
     <message>
-        <source>You have hushd set to start as a daemon, which can cause problems with silentdragon
+        <source>You have safecoind set to start as a daemon, which can cause problems with silentdragon
 
 .Please remove the following line from your zcash.conf and restart silentdragon
 daemon=1</source>
         <translation type="obsolete">YOUR_TRANSLATION_HERE</translation>
     </message>
     <message>
-        <source>Couldn&apos;t start the embedded hushd.
+        <source>Couldn&apos;t start the embedded safecoind.
 
 Please try restarting.
 
-If you previously started hushd with custom arguments, you might need to reset zcash.conf.
+If you previously started safecoind with custom arguments, you might need to reset zcash.conf.
 
-If all else fails, please run hushd manually.</source>
+If all else fails, please run safecoind manually.</source>
         <translation type="obsolete">YOUR_TRANSLATION_HERE</translation>
     </message>
     <message>
-        <source>Couldn&apos;t connect to hushd configured in zcash.conf.
+        <source>Couldn&apos;t connect to safecoind configured in zcash.conf.
 
-Not starting embedded hushd because --no-embedded was passed</source>
+Not starting embedded safecoind because --no-embedded was passed</source>
         <translation type="obsolete">YOUR_TRANSLATION_HERE</translation>
     </message>
     <message>
@@ -1074,40 +1074,40 @@ Not starting embedded hushd because --no-embedded was passed</source>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="80"/>
-        <source>You have hushd set to start as a daemon, which can cause problems with SafeWallet
+        <source>You have safecoind set to start as a daemon, which can cause problems with SafeWallet
 
 .Please remove the following line from your Safecoin.conf and restart SafeWallet
 daemon=1</source>
-        <translation>Olet asettanut hushd:n käynnistymään palveluprosessina, joka voi aiheuttaa ongelmia SafeWalletin kanssa
+        <translation>Olet asettanut safecoind:n käynnistymään palveluprosessina, joka voi aiheuttaa ongelmia SafeWalletin kanssa
 
 .Poista seuraava rivi Safecoin.conf-tiedostosta ja käynnistä SafeWallet uudestaan
 daemon=1</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="85"/>
-        <source>Couldn&apos;t start the embedded hushd.
+        <source>Couldn&apos;t start the embedded safecoind.
 
 Please try restarting.
 
-If you previously started hushd with custom arguments, you might need to  reset Safecoin.conf.
+If you previously started safecoind with custom arguments, you might need to  reset Safecoin.conf.
 
-If all else fails, please run hushd manually.</source>
-        <translation>Integroitua hushdia ei voitu käynnistää.
+If all else fails, please run safecoind manually.</source>
+        <translation>Integroitua safecoindia ei voitu käynnistää.
 
 Yritä käynnistää uudelleen.
 
-Jos aloitit hushd:n aiemmin mukautetuilla argumenteilla, saatat joutua nollaamaan Safecoin.conf-tiedoston.
+Jos aloitit safecoind:n aiemmin mukautetuilla argumenteilla, saatat joutua nollaamaan Safecoin.conf-tiedoston.
 
-Jos kaikki muu ei auta, suorita hushd manuaalisesti.</translation>
+Jos kaikki muu ei auta, suorita safecoind manuaalisesti.</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="96"/>
-        <source>Couldn&apos;t connect to hushd configured in Safecoin.conf.
+        <source>Couldn&apos;t connect to safecoind configured in Safecoin.conf.
 
-Not starting embedded hushd because --no-embedded was passed</source>
-        <translation>Safecoin.conf:ssa määritettyyn hushdiin ei voitu muodostaa yhteyttä.
+Not starting embedded safecoind because --no-embedded was passed</source>
+        <translation>Safecoin.conf:ssa määritettyyn safecoindiin ei voitu muodostaa yhteyttä.
 
-Integroitua hushdia ei käynnistetä, koska --ei-integroitu ohitettiin</translation>
+Integroitua safecoindia ei käynnistetä, koska --ei-integroitu ohitettiin</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="149"/>
@@ -1182,18 +1182,18 @@ Integroitua hushdia ei käynnistetä, koska --ei-integroitu ohitettiin</translat
     </message>
     <message>
         <location filename="../src/rpc.cpp" line="718"/>
-        <source>Connected to hushd</source>
-        <translation>Yhdistetty hushd</translation>
+        <source>Connected to safecoind</source>
+        <translation>Yhdistetty safecoind</translation>
     </message>
     <message>
         <location filename="../src/rpc.cpp" line="721"/>
-        <source>hushd has no peer connections! Network issues?</source>
-        <translation>hushd:lla ei ole vertaisverkko yhteyksiä! Verkko ongelmia?</translation>
+        <source>safecoind has no peer connections! Network issues?</source>
+        <translation>safecoind:lla ei ole vertaisverkko yhteyksiä! Verkko ongelmia?</translation>
     </message>
     <message>
         <location filename="../src/rpc.cpp" line="740"/>
-        <source>There was an error connecting to hushd. The error was</source>
-        <translation>Yhdistettäessä hushd:iin tapahtui virhe. Virhe oli</translation>
+        <source>There was an error connecting to safecoind. The error was</source>
+        <translation>Yhdistettäessä safecoind:iin tapahtui virhe. Virhe oli</translation>
     </message>
     <message>
         <location filename="../src/rpc.cpp" line="1084"/>
@@ -1263,8 +1263,8 @@ Haluaisitko vierailla lataus-sivulla?</translation>
     </message>
     <message>
         <location filename="../src/rpc.cpp" line="1192"/>
-        <source>Waiting for hushd to exit</source>
-        <translation>Odotetaan hushd:n poistumista</translation>
+        <source>Waiting for safecoind to exit</source>
+        <translation>Odotetaan safecoind:n poistumista</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="306"/>
@@ -1273,8 +1273,8 @@ Haluaisitko vierailla lataus-sivulla?</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="330"/>
-        <source>hushd error</source>
-        <translation>hushd virhe</translation>
+        <source>safecoind error</source>
+        <translation>safecoind virhe</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="417"/>
@@ -1287,22 +1287,22 @@ Aseta isäntä/portti ja käyttäjänimi/salasana Muokkaa-&gt; Asetukset-valikos
     </message>
     <message>
         <location filename="../src/connection.cpp" line="429"/>
-        <source>Could not connect to hushd configured in settings.
+        <source>Could not connect to safecoind configured in settings.
 
 Please set the host/port and user/password in the Edit-&gt;Settings menu.</source>
-        <translation>Asetuksissa määritettyyn hushdiin ei voitu muodostaa yhteyttä.
+        <translation>Asetuksissa määritettyyn safecoindiin ei voitu muodostaa yhteyttä.
 
 Aseta isäntä/portti ja käyttäjänimi/salasana Muokkaa-&gt; Asetukset-valikossa.</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="492"/>
-        <source>Authentication failed. The username / password you specified was not accepted by hushd. Try changing it in the Edit-&gt;Settings menu</source>
-        <translation>Todennus epäonnistui. Hushd ei hyväksynyt määrittämääsi käyttäjänimeä / salasanaa. Yritä muuttaa niitä Muokkaa-&gt; Asetukset-valikosta</translation>
+        <source>Authentication failed. The username / password you specified was not accepted by safecoind. Try changing it in the Edit-&gt;Settings menu</source>
+        <translation>Todennus epäonnistui. Safecoind ei hyväksynyt määrittämääsi käyttäjänimeä / salasanaa. Yritä muuttaa niitä Muokkaa-&gt; Asetukset-valikosta</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="507"/>
-        <source>Your hushd is starting up. Please wait.</source>
-        <translation>hushd on käynnistymässä. Ole hyvä ja odota.</translation>
+        <source>Your safecoind is starting up. Please wait.</source>
+        <translation>safecoind on käynnistymässä. Ole hyvä ja odota.</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="524"/>
@@ -1595,8 +1595,8 @@ Sinulla on joko vahvistamattomia varoja tai saldo on liian pieni automaattiseen 
     </message>
     <message>
         <location filename="../src/settings.ui" line="33"/>
-        <source>hushd connection</source>
-        <translation>hushd yhteys</translation>
+        <source>safecoind connection</source>
+        <translation>safecoind yhteys</translation>
     </message>
     <message>
         <location filename="../src/settings.ui" line="62"/>
@@ -1908,8 +1908,8 @@ Sinulla on joko vahvistamattomia varoja tai saldo on liian pieni automaattiseen 
     </message>
     <message>
         <location filename="../src/confirm.ui" line="155"/>
-        <source>hushd doesn&apos;t seem to have any peers. You might not be connected to the internet, so this Transaction might not work.</source>
-        <translation>hushdilla ei näytä olevan vertaisia(P2P). Sinä et ehkä ole yhteydessä Internetiin, joten tämä tapahtuma ei ehkä toimi.</translation>
+        <source>safecoind doesn&apos;t seem to have any peers. You might not be connected to the internet, so this Transaction might not work.</source>
+        <translation>safecoindilla ei näytä olevan vertaisia(P2P). Sinä et ehkä ole yhteydessä Internetiin, joten tämä tapahtuma ei ehkä toimi.</translation>
     </message>
     <message>
         <location filename="../src/confirm.ui" line="168"/>
