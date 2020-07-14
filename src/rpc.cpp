@@ -11,6 +11,7 @@
 #include "websockets.h"
 
 
+
 RPC::RPC(MainWindow* main) {
     auto cl = new ConnectionLoader(main, this);
 
@@ -576,7 +577,7 @@ void RPC::getInfoThenRefresh(bool force) {
         int rpcport             = reply["rpcport"].toInt();
         int notarized           = reply["notarized"].toInt();
         int protocolversion     = reply["protocolversion"].toInt();
-        int tls_connections     = reply["tls_connections"].get<json::number_integer_t>();
+        int tls_connections     = reply["tls_connections"].toInt();
         int lag                 = curBlock - notarized;
 	int blocks_until_halving= 2207378 - curBlock;
         char halving_days[8];
@@ -645,14 +646,14 @@ void RPC::getInfoThenRefresh(bool force) {
             {"id", "someid"},
             {"method", "getactivenodes"}
         };
-        conn->doRPCIgnoreError(payload, [=] (const json& reply) {
+        conn->doRPCIgnoreError(payload, [=] (const QJsonValue& reply) {
             double collateral_total;
-            int node_count          = reply["node_count"].get<json::number_integer_t>();
-            int tier_0_count        = reply["tier_0_count"].get<json::number_integer_t>();
-            int tier_1_count        = reply["tier_1_count"].get<json::number_integer_t>();
-            int tier_2_count        = reply["tier_2_count"].get<json::number_integer_t>();
-            int tier_3_count        = reply["tier_3_count"].get<json::number_integer_t>();
-            collateral_total    = reply["collateral_total"].get<json::number_float_t>();
+            int node_count          = reply["node_count"].toInt();
+            int tier_0_count        = reply["tier_0_count"].toInt();
+            int tier_1_count        = reply["tier_1_count"].toInt();
+            int tier_2_count        = reply["tier_2_count"].toInt();
+            int tier_3_count        = reply["tier_3_count"].toInt();
+            collateral_total    = reply["collateral_total"].toDouble();
 
             ui->node_count->setText(QString::number(node_count));
 			
@@ -686,7 +687,7 @@ void RPC::getInfoThenRefresh(bool force) {
             {"id", "someid"},
             {"method", "getnodeinfo"}
         };
-        conn->doRPCIgnoreError(payload, [=] (const json& reply) {
+        conn->doRPCIgnoreError(payload, [=] (const QJsonValue& reply) {
 		
 		double balance, collateral;
 		int tier;
@@ -698,7 +699,7 @@ void RPC::getInfoThenRefresh(bool force) {
 		if (!getConnection()->config->addrindex.isEmpty()) {
 			try
 			{
-				balance = reply["balance"].get<json::number_float_t>();
+			  balance = reply["balance"].toDouble();
 				
 				ui->balance->setToolTip(Settings::getDisplayFormat(balance));
 				ui->balance->setText(Settings::getDisplayFormat(balance));
@@ -712,7 +713,7 @@ void RPC::getInfoThenRefresh(bool force) {
 			}
 			try
 			{
-				collateral = reply["collateral"].get<json::number_float_t>();
+			  collateral = reply["collateral"].toDouble();
 				
 				ui->collateral->setToolTip(Settings::getDisplayFormat(collateral));
 				ui->collateral->setText(Settings::getDisplayFormat(collateral));
@@ -728,7 +729,7 @@ void RPC::getInfoThenRefresh(bool force) {
 			
 			try
 			{
-				tier = reply["tier"].get<json::number_integer_t>();
+				tier = reply["tier"].toInt();
 				
 				ui->tier->setText(QString::number(tier));
 			}
@@ -744,9 +745,12 @@ void RPC::getInfoThenRefresh(bool force) {
 				ui->tier->setText("addressindex not enabled");
 		}
 
-			is_valid = reply["is_valid"].get<json::boolean_t>();
-			
-			std::vector<std::string> vs_errors = reply["errors"].get<std::vector<std::string>>();
+			is_valid = reply["is_valid"].toInt();
+
+			std::string error_string=reply["errors"].toString().toStdString();
+			std::vector<std::string> vs_errors;
+			transform(error_string.begin(), error_string.end(), std::back_inserter(vs_errors),  [](char a){return a - '0'; });
+			//for_each(error_string.begin(), error_string.end(), [&vs_errors](char c) {vs_errors.push_back(c - '0');});
 			QString error_line;
 			
 			for (unsigned int i = 0; i < vs_errors.size(); i++)
@@ -762,7 +766,7 @@ void RPC::getInfoThenRefresh(bool force) {
 		if (is_valid == true) {
 			try
 			{
-				last_reg_height = reply["last_reg_height"].get<json::number_integer_t>();
+				last_reg_height = reply["last_reg_height"].toInt();
 				
 				ui->last_reg_height->setText(QString::number(last_reg_height));
 			}
@@ -772,7 +776,7 @@ void RPC::getInfoThenRefresh(bool force) {
 			}
 			try
 			{
-				valid_thru_height = reply["valid_thru_height"].get<json::number_integer_t>();
+				valid_thru_height = reply["valid_thru_height"].toInt();
 				
 				ui->valid_thru_height->setText(QString::number(valid_thru_height));
 			}
@@ -786,10 +790,10 @@ void RPC::getInfoThenRefresh(bool force) {
 		}
 
 		
-			QString parentkey   = QString::fromStdString( reply["parentkey"].get<json::string_t>() );
-			QString safekey     = QString::fromStdString( reply["safekey"].get<json::string_t>() );
-			QString safeheight  = QString::fromStdString( reply["safeheight"].get<json::string_t>() );
-			QString SAFE_address  = QString::fromStdString( reply["SAFE_address"].get<json::string_t>() );
+			QString parentkey   = QString::fromStdString( reply["parentkey"].toString() );
+			QString safekey     = QString::fromStdString( reply["safekey"].toString() );
+			QString safeheight  = QString::fromStdString( reply["safeheight"].toString() );
+			QString SAFE_address  = QString::fromStdString( reply["SAFE_address"].toString() );
 			
 			ui->parentkey->setText(parentkey);
 			ui->safekey->setText(safekey);
@@ -1451,7 +1455,7 @@ void RPC::refreshPrice() {
                 qDebug() << "SAFE = " << QString::number(safe["eur"].toDouble()) << " EUR";
                 qDebug() << "SAFE = " << QString::number((int) 100000000 * safe["btc"].toDouble()) << " sat ";
 
-                s->setZECPrice( hush[ticker].toDouble() );
+                s->setZECPrice( safe[ticker].toDouble() );
                 s->setBTCPrice( (unsigned int) 100000000 * safe["btc"].toDouble() );
 
 
