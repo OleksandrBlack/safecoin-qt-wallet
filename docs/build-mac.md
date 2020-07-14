@@ -99,7 +99,7 @@ Next copy the safecoinwallet.app to the folder.
 Additionally you can add a short cut to the applications folder by going to your home directory and option dragging this to the folder on your desktop.
 
 next open **Disk Utilty**
-now go to `File -> New Image -> Image from Folder` select the folder on your desktop and click `choose` 
+and go to `File -> New Image -> Image from Folder` select the folder on your desktop and click `choose` 
 Enter the name you want the image to show up as this should be the same name as you named your folder.
 For encryption choose `none` and for Image format choose `read-only`.
 now click `save` 
