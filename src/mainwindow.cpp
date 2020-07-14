@@ -668,7 +668,7 @@ void MainWindow::setupSettingsModal() {
             }
 
             if (showRestartInfo) {
-                auto desc = tr("SafeWallet needs to restart to rescan/reindex. SafeWallet will now close, please restart SilentDragon to continue");
+                auto desc = tr("SafeWallet needs to restart to rescan/reindex. SafeWallet will now close, please restart SafeWallet to continue");
 
                 QMessageBox::information(this, tr("Restart SafeWallet"), desc, QMessageBox::Ok);
                 QTimer::singleShot(1, [=]() { this->close(); });

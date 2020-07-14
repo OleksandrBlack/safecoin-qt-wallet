@@ -1483,8 +1483,8 @@ void RPC::shutdownZcashd() {
     Ui_ConnectionDialog connD;
     connD.setupUi(&d);
     //connD.topIcon->setBasePixmap(QIcon(":/icons/res/icon.ico").pixmap(256, 256));
-    QMovie *movie1 = new QMovie(":/img/res/silentdragon-animated.gif");;
-    QMovie *movie2 = new QMovie(":/img/res/silentdragon-animated-dark.gif");;
+    QMovie *movie1 = new QMovie(":/img/res/safewallet-animated.gif");;
+    QMovie *movie2 = new QMovie(":/img/res/safewallet-animated-dark.gif");;
     auto theme = Settings::getInstance()->get_theme_name();
     if (theme == "dark") {
         movie2->setScaledSize(QSize(512,512));
@@ -1497,8 +1497,8 @@ void RPC::shutdownZcashd() {
     }
 
 
-    connD.status->setText(QObject::tr("Please enhance your calm and wait for SilentDragon to exit"));
-    connD.statusDetail->setText(QObject::tr("Waiting for hushd to exit, y'all"));
+    connD.status->setText(QObject::tr("Please wait for SafeWallet to exit"));
+    connD.statusDetail->setText(QObject::tr("Waiting for safecoind to exit, y'all"));
 
 
     QTimer waiter(main);
@@ -1512,7 +1512,7 @@ void RPC::shutdownZcashd() {
         if ((ezcashd->atEnd() && ezcashd->processId() == 0) ||
             ezcashd->state() == QProcess::NotRunning ||
             waitCount > 30 ||
-            conn->config->zcashDaemon)  {   // If hushd is daemon, then we don't have to do anything else
+            conn->config->zcashDaemon)  {   // If safecoind is daemon, then we don't have to do anything else
             qDebug() << "Ended";
             waiter.stop();
             QTimer::singleShot(1000, [&]() { d.accept(); });

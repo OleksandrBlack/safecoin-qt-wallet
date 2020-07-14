@@ -382,8 +382,8 @@ bool ConnectionLoader::startEmbeddedZcashd() {
     
     //if (!QFile(safecoindProgram).exists()) {
     if (!QFile::exists(safecoindProgram)) {
-        qDebug() << "Can't find hushd at " << safecoindProgram;
-        main->logger->write("Can't find hushd at " + safecoindProgram);
+        qDebug() << "Can't find safecoind at " << safecoindProgram;
+        main->logger->write("Can't find safecoind at " + safecoindProgram);
         return false;
     } else {
         main->logger->write("Found safecoind at " + safecoindProgram);
@@ -646,14 +646,14 @@ bool ConnectionLoader::verifyParams() {
     }
 
     // this is to support SD on mac in /Applications1
-    if( QFile( QDir("/Applications").filePath("silentdragon.app/Contents/MacOS/sapling-output.params") ).exists() && QFile( QDir("/Applications").filePath("./silentdragon.app/Contents/MacOS/sapling-spend.params") ).exists() ) {
-        qDebug() << "Found params in /Applications/silentdragon.app/Contents/MacOS";
+    if( QFile( QDir("/Applications").filePath("safewallet.app/Contents/MacOS/sapling-output.params") ).exists() && QFile( QDir("/Applications").filePath("./safewallet.app/Contents/MacOS/sapling-spend.params") ).exists() ) {
+        qDebug() << "Found params in /Applications/safewallet.app/Contents/MacOS";
         return true;
     }
 
     // this is to support SD on mac inside a DMG
-    if( QFile( QDir("./").filePath("silentdragon.app/Contents/MacOS/sapling-output.params") ).exists() && QFile( QDir("./").filePath("./silentdragon.app/Contents/MacOS/sapling-spend.params") ).exists() ) {
-        qDebug() << "Found params in ./silentdragon.app/Contents/MacOS";
+    if( QFile( QDir("./").filePath("safewallet.app/Contents/MacOS/sapling-output.params") ).exists() && QFile( QDir("./").filePath("./safewallet.app/Contents/MacOS/sapling-spend.params") ).exists() ) {
+        qDebug() << "Found params in ./safewallet.app/Contents/MacOS";
         return true;
     }
 
