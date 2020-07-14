@@ -790,10 +790,10 @@ void RPC::getInfoThenRefresh(bool force) {
 		}
 
 		
-			QString parentkey   = QString::fromStdString( reply["parentkey"].toString() );
-			QString safekey     = QString::fromStdString( reply["safekey"].toString() );
-			QString safeheight  = QString::fromStdString( reply["safeheight"].toString() );
-			QString SAFE_address  = QString::fromStdString( reply["SAFE_address"].toString() );
+		QString parentkey   = QString::fromStdString( reply["parentkey"].toString().toStdString() );
+			QString safekey     = QString::fromStdString( reply["safekey"].toString().toStdString() );
+			QString safeheight  = QString::fromStdString( reply["safeheight"].toString().toStdString() );
+			QString SAFE_address  = QString::fromStdString( reply["SAFE_address"].toString().toStdString() );
 			
 			ui->parentkey->setText(parentkey);
 			ui->safekey->setText(safekey);
@@ -1013,48 +1013,6 @@ bool RPC::processUnspent(const QJsonValue& reply, QMap<QString, double>* balance
     }
     return anyUnconfirmed;
 };
-
-/**
- * Refresh the turnstile migration status
- */
-void RPC::refreshMigration() {
-    // Turnstile migration is only supported in safecoind v2.0.5 and above
-    if (Settings::getInstance()->getZcashdVersion() < 2000552)
-        return;
-
-    json payload = {
-        {"jsonrpc", "1.0"},
-        {"id", "someid"},
-        {"method", "z_getmigrationstatus"},
-    };
-    
-    conn->doRPCWithDefaultErrorHandling(payload, [=](json reply) {
-        this->migrationStatus.available = true;
-        this->migrationStatus.enabled   = reply["enabled"].get<json::boolean_t>();
-        this->migrationStatus.saplingAddress = QString::fromStdString(reply["destination_address"]);
-        this->migrationStatus.unmigrated = QString::fromStdString(reply["unmigrated_amount"]).toDouble();
-        this->migrationStatus.migrated = QString::fromStdString(reply["finalized_migrated_amount"]).toDouble();
-
-        QList<QString> ids;
-        for (auto& it : reply["migration_txids"].get<json::array_t>()) {
-            ids.push_back(QString::fromStdString(it.get<json::string_t>()));
-        }
-        this->migrationStatus.txids = ids;
-    });
-}
-
-void RPC::setMigrationStatus(bool enabled) {
-    json payload = {
-        {"jsonrpc", "1.0"},
-        {"id", "someid"},
-        {"method", "z_setmigration"},
-        {"params", {enabled}}  
-    };
-
-    conn->doRPCWithDefaultErrorHandling(payload, [=](json) {
-        // Ignore return value.
-    });
-}
 
 
 
@@ -1484,7 +1442,7 @@ void RPC::refreshPrice() {
                 ticker = ticker.toUpper();
                 // We don't get an actual HUSH volume stat, so we calculate it
                 if (price > 0)
-                    ui->volumeLocal->setText( QString::number((double) vol / (double) price) + " HUSH");
+                    ui->volumeLocal->setText( QString::number((double) vol / (double) price) + " SAFE");
 
                 qDebug() << "Mcap = " << (double) mcap;
                 ui->marketcap->setText(  QString::number( (double) mcap, 'f', 2) + " " + ticker );
@@ -1495,7 +1453,7 @@ void RPC::refreshPrice() {
                 refresh(true);
                 return;
             } else {
-                QString price = QString::fromStdString(parsed["price_usd"].get<json::string_t>());
+	      QString price = QString::fromStdString(parsed["price_usd"] );
                 qDebug() << Settings::getTokenName() << " Price=" << price;
                 Settings::getInstance()->setZECPrice(price.toDouble());
                 return;
