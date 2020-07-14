@@ -1185,7 +1185,7 @@ void MainWindow::setupBalancesTab() {
             this->exportKeys(addr);
         });
 
-        if (addr.startsWith("zs1")) {
+        if (addr.startsWith("safe")) {
             menu.addAction(tr("Get viewing key"), [=] () {
                 this->getViewKey(addr);
             });
