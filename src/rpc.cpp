@@ -747,17 +747,15 @@ void RPC::getInfoThenRefresh(bool force) {
 
 			is_valid = reply["is_valid"].toInt();
 
-			std::string error_string=reply["errors"].toString().toStdString();
-			std::vector<std::string> vs_errors;
-			transform(error_string.begin(), error_string.end(), std::back_inserter(vs_errors),  [](char a){return a - '0'; });
-			//for_each(error_string.begin(), error_string.end(), [&vs_errors](char c) {vs_errors.push_back(c - '0');});
 			QString error_line;
+
+			error_line = reply["errors"].toString();
 			
-			for (unsigned int i = 0; i < vs_errors.size(); i++)
+			//			for (unsigned int i = 0; i < vs_errors.size(); i++)
 			
-			{
-				error_line = error_line + QString(vs_errors.at(i).c_str()) + "\n";
-			}
+			//{
+			//	error_line = error_line + QString(vs_errors.at(i).c_str()) + "\n";
+			//}
 			
 			ui->is_valid->setText(is_valid?"YES":"NO");
 			ui->errors->setText(error_line);
