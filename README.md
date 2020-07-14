@@ -38,11 +38,11 @@ make -j$(nproc)
 
 ```
 sudo pacman -S qt5-base qt5-tools qtcreator qt5-websockets rust
-git clone https://github.com/MyHush/SilentDragonLite.git
-cd SilentDragonLite
+git clone https://github.com/Fair-Exchange/safewallet.git
+cd safewallet
 ./build.sh linguist
 ./build.sh release
-./silentdragon
+./safewallet
 ```
 
 ### Building on Windows
