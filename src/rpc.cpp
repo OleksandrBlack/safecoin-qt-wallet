@@ -1403,7 +1403,7 @@ void RPC::refreshPrice() {
 
             //TODO: better check for valid json response
             if (safe["usd"] >= 0) {
-                qDebug() << "Found hush key in price json";
+                qDebug() << "Found safe key in price json";
                 //QString price = QString::fromStdString(hush["usd"].get<json::string_t>());
                 qDebug() << "SAFE = $" << QString::number((double)safe["usd"]);
                 qDebug() << "SAFE = " << QString::number((double)safe["eur"]) << " EUR";
