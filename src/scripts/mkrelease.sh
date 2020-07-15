@@ -118,6 +118,7 @@ rm -rf bin/safe-qt-wallet* > /dev/null
 rm -rf bin/safecoinwallet* > /dev/null
 make clean > /dev/null
 make -j$(nproc) > /dev/null
+./build.sh release > /dev/null
 echo "[OK]"
 
 

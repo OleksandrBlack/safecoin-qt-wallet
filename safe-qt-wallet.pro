@@ -1,4 +1,3 @@
-#-------------------------------------------------
 #
 # Project created by QtCreator 2018-10-05T09:54:45
 #
@@ -26,7 +25,6 @@ DEFINES += \
 
 INCLUDEPATH  += src/3rdparty/
 INCLUDEPATH  += src/
-
 mac: LIBS+= -Wl,-dead_strip
 mac: LIBS+= -Wl,-dead_strip_dylibs
 mac: LIBS+= -Wl,-bind_at_load
@@ -73,7 +71,6 @@ HEADERS += \
     src/3rdparty/qrcode/BitBuffer.hpp \
     src/3rdparty/qrcode/QrCode.hpp \
     src/3rdparty/qrcode/QrSegment.hpp \
-    src/3rdparty/json/json.hpp \
     src/settings.h \
     src/txtablemodel.h \
     src/senttxstore.h \
@@ -100,6 +97,7 @@ FORMS += \
     src/confirm.ui \
     src/privkey.ui \
     src/memodialog.ui \ 
+    src/viewkey.ui \
     src/validateaddress.ui \
     src/viewalladdresses.ui \
     src/connection.ui \
@@ -125,7 +123,7 @@ TRANSLATIONS = res/safe_qt_wallet_es.ts \
                res/safe_qt_wallet_tr.ts
 
 include(singleapplication/singleapplication.pri)
-DEFINES += QAPPLICATION_CLASS=QApplication
+DEFINES += QAPPLICATION_CLASS=QApplication _FORTIFY_SOURCE=2
 
 QMAKE_INFO_PLIST = res/Info.plist
 

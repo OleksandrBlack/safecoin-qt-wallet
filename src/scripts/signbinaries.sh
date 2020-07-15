@@ -27,7 +27,7 @@ rm -rf release/signatures
 mkdir -p release/signatures
 
 # Staple the notarization
-xcrun stapler staple artifacts/macOS-safecoinwallet-v$APP_VERSION.dmg
+xcrun stapler staple artifacts/macOS-safewallet-v$APP_VERSION.dmg
 
 cd artifacts
 

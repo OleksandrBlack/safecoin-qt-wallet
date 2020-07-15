@@ -16,8 +16,6 @@ class Settings;
 class WSServer;
 class WormholeClient;
 
-using json = nlohmann::json;
-
 // Struct used to hold destination info when sending a Tx. 
 struct ToFields {
     QString addr;
@@ -95,6 +93,7 @@ private:
     void setupBalancesTab();
     void SafeNodesTab();
     void setupSafeTab();
+    void setupChatTab();
     void setupMarketTab();
 
 
@@ -123,7 +122,7 @@ private:
     void addressChanged(int number, const QString& text);
     void amountChanged (int number, const QString& text);
 
-    void addNewZaddr(bool sapling);
+    void addNewZaddr();
     std::function<void(bool)> addZAddrsToComboList(bool sapling);
 
     void memoButtonClicked(int number, bool includeReplyTo = false);
@@ -136,11 +135,13 @@ private:
     void discord();
     void safenodes();
 	
+    void reportbug();
     void addressBook();
     void postToZBoard();
     void importPrivKey();
     void exportAllKeys();
     void exportKeys(QString addr = "");
+    void getViewKey(QString addr = "");
     void backupWalletDat();
     void exportTransactions();
 

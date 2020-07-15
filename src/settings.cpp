@@ -5,8 +5,8 @@
 
 Settings* Settings::instance = nullptr;
 
-Settings* Settings::init() {    
-    if (instance == nullptr) 
+Settings* Settings::init() {
+    if (instance == nullptr)
         instance = new Settings();
 
     return instance;
@@ -32,15 +32,37 @@ void Settings::setAllowFetchPrices(bool allow) {
      QSettings().setValue("options/allowfetchprices", allow);
 }
 
+Explorer Settings::getExplorer() {
+    // Load from the QT Settings.
+    QSettings s;
+
+    //TODO: make it easy for people to use other explorers like komodod.com
+    QString explorer = "https://explorer.safecoin.org";
+
+    auto txExplorerUrl                = s.value("explorer/txExplorerUrl").toString();
+    auto addressExplorerUrl           = s.value("explorer/addressExplorerUrl").toString();
+    auto testnetTxExplorerUrl         = s.value("explorer/testnetTxExplorerUrl").toString();
+    auto testnetAddressExplorerUrl    = s.value("explorer/testnetAddressExplorerUrl").toString();
+
+    return Explorer{txExplorerUrl, addressExplorerUrl, testnetTxExplorerUrl, testnetAddressExplorerUrl};
+}
+
+void Settings::saveExplorer(const QString& txExplorerUrl, const QString& addressExplorerUrl, const QString& testnetTxExplorerUrl, const QString& testnetAddressExplorerUrl) {
+    QSettings s;
+    s.setValue("explorer/txExplorerUrl", txExplorerUrl);
+    s.setValue("explorer/addressExplorerUrl", addressExplorerUrl);
+    s.setValue("explorer/testnetTxExplorerUrl", testnetTxExplorerUrl);
+    s.setValue("explorer/testnetAddressExplorerUrl", testnetAddressExplorerUrl);
+}
 
 Config Settings::getSettings() {
-    // Load from the QT Settings. 
+    // Load from the QT Settings.
     QSettings s;
-    
+
     auto host        = s.value("connection/host").toString();
     auto port        = s.value("connection/port").toString();
     auto username    = s.value("connection/rpcuser").toString();
-    auto password    = s.value("connection/rpcpassword").toString();    
+    auto password    = s.value("connection/rpcpassword").toString();
 
     return Config{host, port, username, password};
 }
@@ -83,22 +105,22 @@ bool Settings::isSaplingAddress(QString addr) {
 bool Settings::isSproutAddress(QString addr) {
     if (!isValidAddress(addr))
         return false;
-        
+
     return isZAddress(addr) && !isSaplingAddress(addr);
 }
 
 bool Settings::isZAddress(QString addr) {
     if (!isValidAddress(addr))
         return false;
-        
     return addr.startsWith("safe");
+
 }
 
 bool Settings::isTAddress(QString addr) {
     if (!isValidAddress(addr))
         return false;
-
     return addr.startsWith("R");
+
 }
 
 int Settings::getZcashdVersion() {
@@ -135,11 +157,62 @@ double Settings::getZECPrice() {
     return zecPrice;
 }
 
-double Settings::get_price(std::string currency) {
+
+double Settings::get_price(QString currency) {
+    currency = currency.toLower();
+    QString ticker = currency;
+
     auto search = prices.find(currency);
     if (search != prices.end()) {
+        qDebug() << "Found price of " << ticker << " = " << search->second;
         return search->second;
     } else {
+        qDebug() << "Could not find price of" << ticker << "!!!";
+        return 0.0;
+    }
+}
+
+void Settings::set_price(QString curr, double price) {
+    QString ticker = curr;
+    qDebug() << "Setting price of " << ticker << "=" << QString::number(price);
+    prices.insert( std::make_pair(curr, price) );
+    prices.insert( std::make_pair(curr, price) );
+}
+
+void Settings::set_volume(QString curr, double volume) {
+    QString ticker = curr;
+    qDebug() << "Setting volume of " << ticker << "=" << QString::number(volume);
+    volumes.insert( std::make_pair(curr, volume) );
+}
+
+double Settings::get_volume(QString currency) {
+    currency = currency.toLower();
+    QString ticker = currency;
+    auto search = volumes.find(currency);
+    if (search != volumes.end()) {
+        qDebug() << "Found volume of " << ticker << " = " << search->second;
+        return search->second;
+    } else {
+        qDebug() << "Could not find volume of" << ticker << "!!!";
+        return 0.0;
+    }
+}
+
+void Settings::set_marketcap(QString curr, double marketcap) {
+    QString ticker = curr;
+    qDebug() << "Setting marketcap of " << ticker << "=" << QString::number(marketcap);
+    marketcaps.insert( std::make_pair(curr, marketcap) );
+}
+
+double Settings::get_marketcap(QString currency) {
+    currency = currency.toLower();
+    QString ticker = currency;
+    auto search = marketcaps.find(currency);
+    if (search != marketcaps.end()) {
+        qDebug() << "Found marketcap of " << ticker << " = " << search->second;
+        return search->second;
+    } else {
+        qDebug() << "Could not find marketcap of" << ticker << "!!!";
         return -1.0;
     }
 }
@@ -147,8 +220,8 @@ double Settings::get_price(std::string currency) {
 unsigned int Settings::getBTCPrice() {
     // in satoshis
     return btcPrice;
-
 }
+
 
 bool Settings::getAutoShield() {
     // Load from Qt settings
@@ -161,7 +234,7 @@ void Settings::setAutoShield(bool allow) {
 
 
 bool Settings::getAllowCustomFees() {
-    // Load from the QT Settings. 
+    // Load from the QT Settings.
     return QSettings().value("options/customfees", false).toBool();
 }
 
@@ -179,7 +252,7 @@ void Settings::set_theme_name(QString theme_name) {
 }
 
 bool Settings::getSaveZtxs() {
-    // Load from the QT Settings. 
+    // Load from the QT Settings.
     return QSettings().value("options/savesenttx", true).toBool();
 }
 
@@ -236,7 +309,8 @@ void Settings::openTxInExplorer(QString txid) {
 }
 
 QString Settings::getUSDFormat(double bal) {
-    return "$" + QLocale(QLocale::English).toString(bal, 'f', 2);
+    //TODO: respect current locale!
+    return QLocale(QLocale::English).toString(bal * Settings::getInstance()->getZECPrice(), 'f', 8) + " " +Settings::getInstance()->get_currency_name();
 }
 
 
@@ -288,7 +362,7 @@ bool Settings::addToZcashConf(QString confLocation, QString line) {
     QFile file(confLocation);
     if (!file.open(QIODevice::ReadWrite | QIODevice::Append))
         return false;
-    
+
 
     QTextStream out(&file);
     out << line << "\n";
@@ -299,12 +373,13 @@ bool Settings::addToZcashConf(QString confLocation, QString line) {
 
 QString Settings::get_currency_name() {
     // Load from the QT Settings.
-    return QSettings().value("options/currency_name", false).toString();
+    return QSettings().value("options/currency_name", "BTC").toString();
 }
 
 void Settings::set_currency_name(QString currency_name) {
     QSettings().setValue("options/currency_name", currency_name);
 }
+
 
 bool Settings::removeFromZcashConf(QString confLocation, QString option) {
     if (confLocation.isEmpty())
@@ -312,9 +387,9 @@ bool Settings::removeFromZcashConf(QString confLocation, QString option) {
 
     // To remove an option, we'll create a new file, and copy over everything but the option.
     QFile file(confLocation);
-    if (!file.open(QIODevice::ReadOnly)) 
+    if (!file.open(QIODevice::ReadOnly))
         return false;
-    
+
     QList<QString> lines;
     QTextStream in(&file);
     while (!in.atEnd()) {
@@ -324,9 +399,9 @@ bool Settings::removeFromZcashConf(QString confLocation, QString option) {
         if (name != option) {
             lines.append(line);
         }
-    }    
+    }
     file.close();
-    
+
     QFile newfile(confLocation);
     if (!newfile.open(QIODevice::ReadWrite | QIODevice::Truncate))
         return false;
@@ -367,7 +442,7 @@ bool Settings::isValidAddress(QString addr) {
 
 // Get a pretty string representation of this Payment URI
 QString Settings::paymentURIPretty(PaymentURI uri) {
-  return QString() + "Payment Request\n" + "Pay: " + uri.addr + "\nAmount: " + getDisplayFormat(uri.amt.toDouble())
+    return QString() + "Payment Request\n" + "Pay: " + uri.addr + "\nAmount: " + getDisplayFormat(uri.amt.toDouble())
         + "\nMemo:" + QUrl::fromPercentEncoding(uri.memo.toUtf8());
 }
 
@@ -380,8 +455,8 @@ PaymentURI Settings::parseURI(QString uri) {
         return ans;
     }
 
+
     uri = uri.right(uri.length() - QString("safecoin:").length());
-    
     QRegExp re("([a-zA-Z0-9]+)");
     int pos;
     if ( (pos = re.indexIn(uri)) == -1 ) {

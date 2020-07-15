@@ -245,8 +245,8 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="878"/>
-        <source>hushd</source>
-        <translation type="unfinished">hushd</translation>
+        <source>safecoind</source>
+        <translation type="unfinished">safecoind</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="908"/>
@@ -406,18 +406,18 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="479"/>
-        <source>Tor configuration is available only when running an embedded hushd.</source>
-        <translation type="unfinished">Die Tor konfiguration ist nur möglich, wenn der integrierte hushd client läuft.</translation>
+        <source>Tor configuration is available only when running an embedded safecoind.</source>
+        <translation type="unfinished">Die Tor konfiguration ist nur möglich, wenn der integrierte safecoind client läuft.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="518"/>
-        <source>You&apos;re using an external hushd. Please restart hushd with -rescan</source>
-        <translation type="unfinished">Sie benutzen einen externen hushd clienten. Bitte starten Sie hushd mit folgendem Parameter neu: -rescan</translation>
+        <source>You&apos;re using an external safecoind. Please restart safecoind with -rescan</source>
+        <translation type="unfinished">Sie benutzen einen externen safecoind clienten. Bitte starten Sie safecoind mit folgendem Parameter neu: -rescan</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="521"/>
-        <source>You&apos;re using an external hushd. Please restart hushd with -reindex</source>
-        <translation type="unfinished">Sie benutzen einen externen hushd clienten. Bitte starten Sie hushd mit folgendem Parameter neu: -reindex</translation>
+        <source>You&apos;re using an external safecoind. Please restart safecoind with -reindex</source>
+        <translation type="unfinished">Sie benutzen einen externen safecoind clienten. Bitte starten Sie safecoind mit folgendem Parameter neu: -reindex</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="540"/>
@@ -512,8 +512,8 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="859"/>
-        <source>The keys will be imported into your connected hushd node</source>
-        <translation type="unfinished">Die Keys werden in das verbundene hushd Node importiert</translation>
+        <source>The keys will be imported into your connected safecoind node</source>
+        <translation type="unfinished">Die Keys werden in das verbundene safecoind Node importiert</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="899"/>
@@ -537,8 +537,8 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="923"/>
-        <source>You need to back it up from the machine hushd is running on</source>
-        <translation type="unfinished">Die Sicherung geht nur auf dem System, wo hushd aktiv läuft</translation>
+        <source>You need to back it up from the machine safecoind is running on</source>
+        <translation type="unfinished">Die Sicherung geht nur auf dem System, wo safecoind aktiv läuft</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="927"/>
@@ -810,44 +810,44 @@ doesn&apos;t look like a z-address</source>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="52"/>
-        <source>Starting embedded hushd</source>
-        <translation type="unfinished">Starte integriertes hushd</translation>
+        <source>Starting embedded safecoind</source>
+        <translation type="unfinished">Starte integriertes safecoind</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="62"/>
-        <source>hushd is set to run as daemon</source>
-        <translation type="unfinished">hushd wird im Hintergund gestartet</translation>
+        <source>safecoind is set to run as daemon</source>
+        <translation type="unfinished">safecoind wird im Hintergund gestartet</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="62"/>
-        <source>Waiting for hushd</source>
-        <translation type="unfinished">Warte auf hushd</translation>
+        <source>Waiting for safecoind</source>
+        <translation type="unfinished">Warte auf safecoind</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="77"/>
-        <source>You have hushd set to start as a daemon, which can cause problems with ZecWallet
+        <source>You have safecoind set to start as a daemon, which can cause problems with ZecWallet
 
 .Please remove the following line from your zcash.conf and restart ZecWallet
 daemon=1</source>
-        <translation type="unfinished">Sie haben hushd im Hintergrund gestartet, was zu Problemen führen kann. Bitte löschen Sie folgende Zeile aus Ihrer Hush3.conf: daemon=1</translation>
+        <translation type="unfinished">Sie haben safecoind im Hintergrund gestartet, was zu Problemen führen kann. Bitte löschen Sie folgende Zeile aus Ihrer Hush3.conf: daemon=1</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="82"/>
-        <source>Couldn&apos;t start the embedded hushd.
+        <source>Couldn&apos;t start the embedded safecoind.
 
 Please try restarting.
 
-If you previously started hushd with custom arguments, you might need to reset zcash.conf.
+If you previously started safecoind with custom arguments, you might need to reset zcash.conf.
 
-If all else fails, please run hushd manually.</source>
-        <translation type="unfinished">Ich konnte den intergrierten hushd nicht starten. Wenn Sie hushd mit anderen Argumenten gestartet haben, müssen Sie die Hush3.conf resetten. Wenn dies nicht funktioniert, starten Sie hushd manuell</translation>
+If all else fails, please run safecoind manually.</source>
+        <translation type="unfinished">Ich konnte den intergrierten safecoind nicht starten. Wenn Sie safecoind mit anderen Argumenten gestartet haben, müssen Sie die Hush3.conf resetten. Wenn dies nicht funktioniert, starten Sie safecoind manuell</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="93"/>
-        <source>Couldn&apos;t connect to hushd configured in zcash.conf.
+        <source>Couldn&apos;t connect to safecoind configured in zcash.conf.
 
-Not starting embedded hushd because --no-embedded was passed</source>
-        <translation type="unfinished">Starte den internen hushd Node nicht --no-embedded wurde eingestellt.</translation>
+Not starting embedded safecoind because --no-embedded was passed</source>
+        <translation type="unfinished">Starte den internen safecoind Node nicht --no-embedded wurde eingestellt.</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="146"/>
@@ -927,18 +927,18 @@ Not starting embedded hushd because --no-embedded was passed</source>
     </message>
     <message>
         <location filename="../src/rpc.cpp" line="645"/>
-        <source>Connected to hushd</source>
-        <translation type="unfinished">Verbunden zu Hushd</translation>
+        <source>Connected to safecoind</source>
+        <translation type="unfinished">Verbunden zu Safecoind</translation>
     </message>
     <message>
         <location filename="../src/rpc.cpp" line="648"/>
-        <source>hushd has no peer connections</source>
-        <translation type="unfinished">Hushd hat keine Verbindung zu anderen Teilnehmern</translation>
+        <source>safecoind has no peer connections</source>
+        <translation type="unfinished">Safecoind hat keine Verbindung zu anderen Teilnehmern</translation>
     </message>
     <message>
         <location filename="../src/rpc.cpp" line="667"/>
-        <source>There was an error connecting to hushd. The error was</source>
-        <translation type="unfinished">Es gab einen Fehler bei dem versuch Hushd zu verbinden. Der Fehler war</translation>
+        <source>There was an error connecting to safecoind. The error was</source>
+        <translation type="unfinished">Es gab einen Fehler bei dem versuch Safecoind zu verbinden. Der Fehler war</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="730"/>
@@ -1002,8 +1002,8 @@ Would you like to visit the releases page?</source>
     </message>
     <message>
         <location filename="../src/rpc.cpp" line="1111"/>
-        <source>Waiting for hushd to exit</source>
-        <translation type="unfinished">Bitte warten Sie, bis Hushd beendet ist</translation>
+        <source>Waiting for safecoind to exit</source>
+        <translation type="unfinished">Bitte warten Sie, bis Safecoind beendet ist</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="295"/>
@@ -1012,8 +1012,8 @@ Would you like to visit the releases page?</source>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="319"/>
-        <source>hushd error</source>
-        <translation type="unfinished">Hushd fehler</translation>
+        <source>safecoind error</source>
+        <translation type="unfinished">Safecoind fehler</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="386"/>
@@ -1024,20 +1024,20 @@ Please set the host/port and user/password in the Edit-&gt;Settings menu.</sourc
     </message>
     <message>
         <location filename="../src/connection.cpp" line="398"/>
-        <source>Could not connect to hushd configured in settings.
+        <source>Could not connect to safecoind configured in settings.
 
 Please set the host/port and user/password in the Edit-&gt;Settings menu.</source>
-        <translation type="unfinished">Konnte keine Verbindung zum konfigurierten hushd aufbauen. Bitte tragen Sie den Host/Port und Benutzer/Passwort im Einstellungsmenü ein.</translation>
+        <translation type="unfinished">Konnte keine Verbindung zum konfigurierten safecoind aufbauen. Bitte tragen Sie den Host/Port und Benutzer/Passwort im Einstellungsmenü ein.</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="459"/>
-        <source>Authentication failed. The username / password you specified was not accepted by hushd. Try changing it in the Edit-&gt;Settings menu</source>
+        <source>Authentication failed. The username / password you specified was not accepted by safecoind. Try changing it in the Edit-&gt;Settings menu</source>
         <translation type="unfinished">Authentifizierung fehlgeschlagen. Der Benutzername / Passwort wurde nicht akzeptiert. Versuche Sie die Daten im Einstellunsgmenü zu ändern.</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="474"/>
-        <source>Your hushd is starting up. Please wait.</source>
-        <translation type="unfinished">Hushd startet. Bitte warten</translation>
+        <source>Your safecoind is starting up. Please wait.</source>
+        <translation type="unfinished">Safecoind startet. Bitte warten</translation>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="491"/>
@@ -1306,8 +1306,8 @@ You either have unconfirmed funds or the balance is too low for an automatic mig
     </message>
     <message>
         <location filename="../src/settings.ui" line="33"/>
-        <source>hushd connection</source>
-        <translation type="unfinished">Hushd Verbindungen</translation>
+        <source>safecoind connection</source>
+        <translation type="unfinished">Safecoind Verbindungen</translation>
     </message>
     <message>
         <location filename="../src/settings.ui" line="62"/>
@@ -1542,8 +1542,8 @@ You either have unconfirmed funds or the balance is too low for an automatic mig
     </message>
     <message>
         <location filename="../src/confirm.ui" line="155"/>
-        <source>hushd doesn&apos;t seem to have any peers. You might not be connected to the internet, so this Transaction might not work.</source>
-        <translation type="unfinished">Hushd hat keine Verbindung zu anderen Teilnehmern. Sie haben evtl. keine Verbindung zum Internet, sodass die Transaktion nicht funktioniert.</translation>
+        <source>safecoind doesn&apos;t seem to have any peers. You might not be connected to the internet, so this Transaction might not work.</source>
+        <translation type="unfinished">Safecoind hat keine Verbindung zu anderen Teilnehmern. Sie haben evtl. keine Verbindung zum Internet, sodass die Transaktion nicht funktioniert.</translation>
     </message>
     <message>
         <location filename="../src/confirm.ui" line="168"/>

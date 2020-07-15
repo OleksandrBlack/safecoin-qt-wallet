@@ -14,7 +14,6 @@
 #include "recurring.h"
 #include <QFileDialog>
 
-using json = nlohmann::json;
 
 void MainWindow::setupSendTab() {
     // Create the validator for send to/amount fields
@@ -557,15 +556,7 @@ Tx MainWindow::createTxFromSendPage() {
         // Remove label if it exists
         addr = AddressBook::addressFromAddressLabel(addr);
         
-        // If address is sprout, then we can't send change to sapling, because of turnstile.
-        sendChangeToSapling = sendChangeToSapling && !Settings::getInstance()->isSproutAddress(addr);
-
-        QString amtStr = ui->sendToWidgets->findChild<QLineEdit*>(QString("Amount")  % QString::number(i+1))->text().trimmed();
-        if (amtStr.isEmpty()) {
-            amtStr = "-1";; // The user didn't specify an amount
-        }        
-
-        double amt = amtStr.toDouble();
+        double  amt  = ui->sendToWidgets->findChild<QLineEdit*>(QString("Amount")  % QString::number(i+1))->text().trimmed().toDouble();        
         totalAmt += amt;
         QString memo = ui->sendToWidgets->findChild<QLabel*>(QString("MemoTxt")  % QString::number(i+1))->text().trimmed();
         
@@ -812,8 +803,36 @@ void MainWindow::sendButton() {
             recurringPaymentHash = sendTxRecurringInfo->getHash();
         }
 
+
         // Then delete the additional fields from the sendTo tab
         clearSendForm();
+	
+
+        // Create a new Dialog to show that we are computing/sending the Tx
+        auto d = new QDialog(this);
+        auto connD = new Ui_ConnectionDialog();
+        connD->setupUi(d);
+        QMovie *movie1 = new QMovie(":/img/res/safewallet-animated.gif");;
+        QMovie *movie2 = new QMovie(":/img/res/safewallet-animated-dark.gif");;
+        auto theme = Settings::getInstance()->get_theme_name();
+        if (theme == "dark") {
+            movie2->setScaledSize(QSize(512,512));
+            connD->topIcon->setMovie(movie2);
+            movie2->start();
+        } else {
+            movie1->setScaledSize(QSize(512,512));
+            connD->topIcon->setMovie(movie1);
+            movie1->start();
+        }
+
+        //connD->topIcon->setBasePixmap(logo.scaled(256, 256, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+
+
+        connD->status->setText(tr("Please wait..."));
+        connD->statusDetail->setText(tr("Computing your transaction"));
+
+        d->show();
+
 
         // And send the Tx
         rpc->executeTransaction(tx,
@@ -822,18 +841,40 @@ void MainWindow::sendButton() {
                 ui->statusBar->showMessage(tr("Computing transaction: ") % opid);
                 qDebug() << "Computing opid: " << opid;
             },
+
             // Accepted
+
+
+
+            // Errored out
+
+
             [=] (QString, QString txid) { 
                 ui->statusBar->showMessage(Settings::txidStatusMessage + " " + txid);
 
-                // If this was a recurring payment, update the payment with the info
+                // If this was a recurring payment, update the payment with the info                                                                  
                 if (!recurringPaymentHash.isEmpty()) {
-                    // Since this is the send button payment, this is the first payment
-                    Recurring::getInstance()->updatePaymentItem(recurringPaymentHash, 0, 
+                    // Since this is the send button payment, this is the first payment                                                               
+                    Recurring::getInstance()->updatePaymentItem(recurringPaymentHash, 0,
                             txid, "", PaymentStatus::COMPLETED);
                 }
-            },
-            // Errored out
+		
+                connD->status->setText(tr("Done!"));
+                connD->statusDetail->setText(txid);
+
+                QTimer::singleShot(1000, [=]() {
+                    d->accept();
+                    d->close();
+                    delete connD;
+                    delete d;
+
+                    // And switch to the balances tab
+                    ui->tabWidget->setCurrentIndex(0);
+                     });
+                       // Force a UI update so we get the unconfirmed Tx
+                rpc->refresh(true);
+            },       
+
             [=] (QString opid, QString errStr) {
                 ui->statusBar->showMessage(QObject::tr(" Transaction ") % opid % QObject::tr(" failed"), 15 * 1000);
 
@@ -851,11 +892,16 @@ void MainWindow::sendButton() {
                 QMessageBox::critical(this, QObject::tr("Transaction Error"), errStr, QMessageBox::Ok);            
             }
         );
-    }
+    }   
 }
 
 QString MainWindow::doSendTxValidations(Tx tx) {
-    if (!Settings::isValidAddress(tx.fromAddr)) return QString(tr("From Address is Invalid"));    
+    //TODO: Feedback fromAddr is empty for some reason
+    if (!Settings::isValidAddress(tx.fromAddr)){
+		qDebug() << "address is invalid! " << tx.fromAddr;
+		return QString(tr("From Address is Invalid!"));
+	}
+
 
     for (auto toAddr : tx.toAddrs) {
         if (!Settings::isValidAddress(toAddr.addr)) {

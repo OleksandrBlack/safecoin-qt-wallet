@@ -14,6 +14,13 @@ struct Config {
     QString rpcpassword;
 };
 
+struct Explorer {
+    QString txExplorerUrl;
+    QString addressExplorerUrl;
+    QString testnetTxExplorerUrl;
+    QString testnetAddressExplorerUrl;
+};
+
 struct ToFields;
 struct Tx;
 
@@ -32,15 +39,18 @@ public:
     static  Settings* init();
     static  Settings* getInstance();
 
+    Explorer  getExplorer();
+    void    saveExplorer(const QString& txExplorerUrl, const QString& addressExplorerUrl, const QString& testnetTxExplorerUrl, const QString& testnetAddressExplorerUrl);
+
     Config  getSettings();
     void    saveSettings(const QString& host, const QString& port, const QString& username, const QString& password);
 
     bool    isTestnet();
     void    setTestnet(bool isTestnet);
-            
+
     bool    isSaplingAddress(QString addr);
     bool    isSproutAddress(QString addr);
-            
+
     bool    isValidSaplingPrivateKey(QString pk);
 
     bool    isSyncing();
@@ -48,7 +58,7 @@ public:
 
     int     getZcashdVersion();
     void    setZcashdVersion(int version);
-    
+
     void    setUseEmbedded(bool r) { _useEmbedded = r; }
     bool    useEmbedded() { return _useEmbedded; }
 
@@ -57,7 +67,7 @@ public:
 
     int     getBlockNumber();
     void    setBlockNumber(int number);
-            
+
     bool    getSaveZtxs();
     void    setSaveZtxs(bool save);
 
@@ -92,15 +102,20 @@ public:
     double  getZECPrice();
     double  get_fiat_price();
     unsigned int  getBTCPrice();
-    double get_price(std::string currency);
+    double get_price(QString currency);
+    void   set_price(QString currency, double price);
+    double get_volume(QString ticker);
+    void   set_volume(QString curr, double volume);
+    double get_marketcap(QString curr);
+    void   set_marketcap(QString curr, double marketcap);
 
 
     void    setPeers(int peers);
     int     getPeers();
-       
+
     // Static stuff
     static const QString txidStatusMessage;
-    
+
     static void saveRestore(QDialog* d);
     static void saveRestoreTableHeader(QTableView* table, QDialog* d, QString tablename) ;
 
@@ -127,7 +142,7 @@ public:
     static QString getZboardAddr();
 
     static int     getMaxMobileAppTxns() { return 30; }
-    
+
     static bool    isValidAddress(QString addr);
 
     static bool    addToZcashConf(QString confLocation, QString line);
@@ -155,13 +170,13 @@ private:
     bool    _useEmbedded      = false;
     bool    _headless         = false;
     int     _peerConnections  = 0;
-    
+
     double  zecPrice          = 0.0;
     double  fiat_price        = 0.0;
     unsigned int  btcPrice    = 0;
-    std::map<std::string, double> prices;
-
-
+    std::map<QString, double> prices;
+    std::map<QString, double> volumes;
+    std::map<QString, double> marketcaps;
 };
 
 #endif // SETTINGS_H

@@ -32,7 +32,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -204,10 +204,40 @@
        </property>
        <item>
         <property name="text">
+         <string>AED</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ARS</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>AUD</string>
         </property>
        </item>
        <item>
+        <property name="text">
+         <string>BDT</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>BHD</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>BMD</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>BRL</string>
+        </property>
+       </item>
+        <item>
         <property name="text">
          <string>BTC</string>
         </property>
@@ -224,7 +254,22 @@
        </item>
        <item>
         <property name="text">
+         <string>CLP</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>CNY</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>CZK</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>DKK</string>
         </property>
        </item>
        <item>
@@ -239,12 +284,127 @@
        </item>
        <item>
         <property name="text">
+         <string>HKD</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>HUF</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>IDR</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ILS</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>INR</string>
         </property>
        </item>
        <item>
         <property name="text">
+         <string>JPY</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>KRW</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>KWD</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>LKR</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>MXN</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>NZD</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>RUB</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>SAR</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>SEK</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>SGD</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>THB</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>TRY</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>TWD</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>UAH</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>USD</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>VEF</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>VND</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>XAG</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>XAU</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>ZAR</string>
         </property>
        </item>
       </widget>
@@ -426,7 +586,7 @@
        <item row="11" column="0" colspan="2">
         <widget class="QCheckBox" name="chkFetchPrices">
          <property name="text">
-          <string>Fetch SAFE / USD prices</string>
+          <string>Fetch SAFE prices</string>
          </property>
         </widget>
        </item>
@@ -537,6 +697,167 @@
         </layout>
        </item>
       </layout>
+     </widget>
+     <widget class="QWidget" name="tab_4">
+      <attribute name="title">
+       <string>Explorer</string>
+      </attribute>
+      <widget class="QLabel" name="label_14">
+       <property name="geometry">
+        <rect>
+         <x>9</x>
+         <y>9</y>
+         <width>491</width>
+         <height>13</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Tx Explorer URL</string>
+       </property>
+      </widget>
+      <widget class="Line" name="line_5">
+       <property name="geometry">
+        <rect>
+         <x>9</x>
+         <y>105</y>
+         <width>491</width>
+         <height>3</height>
+        </rect>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="txExplorerUrl">
+       <property name="geometry">
+        <rect>
+         <x>9</x>
+         <y>28</y>
+         <width>491</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string notr="true">https://explorer.safecoin.org/tx/</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_15">
+       <property name="geometry">
+        <rect>
+         <x>9</x>
+         <y>54</y>
+         <width>491</width>
+         <height>13</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Address Explorer URL</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="addressExplorerUrl">
+       <property name="geometry">
+        <rect>
+         <x>9</x>
+         <y>73</y>
+         <width>491</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string notr="true">https://explorer.safecoin.org/address/</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_16">
+       <property name="geometry">
+        <rect>
+         <x>9</x>
+         <y>112</y>
+         <width>491</width>
+         <height>13</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Testnet Tx Explorer URL</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="testnetTxExplorerUrl">
+       <property name="geometry">
+        <rect>
+         <x>9</x>
+         <y>131</y>
+         <width>491</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string notr="true">https://explorer.testnet.z.cash/tx/</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_17">
+       <property name="geometry">
+        <rect>
+         <x>9</x>
+         <y>160</y>
+         <width>501</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Testnet Address Explorer URL</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="testnetAddressExplorerUrl">
+       <property name="geometry">
+        <rect>
+         <x>9</x>
+         <y>180</y>
+         <width>491</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string notr="true">https://explorer.testnet.safecoin.org/address/</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="WalletSize">
+       <property name="geometry">
+        <rect>
+         <x>330</x>
+         <y>550</y>
+         <width>51</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>100</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_22">
+       <property name="geometry">
+        <rect>
+         <x>210</x>
+         <y>550</y>
+         <width>111</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Wallet.dat Size :</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_46">
+       <property name="geometry">
+        <rect>
+         <x>370</x>
+         <y>550</y>
+         <width>41</width>
+         <height>17</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>MB</string>
+       </property>
+      </widget>
      </widget>
      <widget class="QWidget" name="tab_3">
       <attribute name="title">

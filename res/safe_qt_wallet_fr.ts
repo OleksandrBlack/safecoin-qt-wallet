@@ -1701,7 +1701,7 @@ Vous avez soit des fonds non confirmés soit le solde est trop petit pour une mi
     </message>
     <message>
         <location filename="../src/settings.ui" line="280"/>
-        <source>Fetch SAFE / USD prices</source>
+        <source>Fetch SAFE / BTC prices</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
