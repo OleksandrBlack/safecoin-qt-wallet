@@ -374,10 +374,10 @@ bool ConnectionLoader::startEmbeddedZcashd() {
     auto safecoindProgram = appPath.absoluteFilePath("safecoind");
 #elif defined(Q_OS_WIN64)
     // we use the CLI directly
-    auto safecoinProgram = appPath.absoluteFilePath("safecoind");
+    auto safecoindProgram = appPath.absoluteFilePath("safecoind");
 #else
     main->logger->write("Unknown OS!");
-    auto safecoinProgram = appPath.absoluteFilePath("safecoind");
+    auto safecoindProgram = appPath.absoluteFilePath("safecoind");
 #endif
     
     //if (!QFile(safecoindProgram).exists()) {
