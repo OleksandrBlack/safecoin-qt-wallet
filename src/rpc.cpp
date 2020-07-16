@@ -579,7 +579,7 @@ void RPC::getInfoThenRefresh(bool force) {
         int protocolversion     = reply["protocolversion"].toInt();
         int tls_connections     = reply["tls_connections"].toInt();
         int lag                 = curBlock - notarized;
-	int blocks_until_halving= 2207378 - curBlock;
+        int blocks_until_halving= 2207378 - curBlock;
         char halving_days[8];
         sprintf(halving_days, "%.2f", (double) (blocks_until_halving * 150) / (60*60*24) );
         QString ntzhash         = reply["notarizedhash"].toString();
@@ -885,7 +885,7 @@ void RPC::getInfoThenRefresh(bool force) {
             }
             QString price = "";
             if (ticker_price > 0) {
-                price = QString(", ") % "HUSH" % "=" % QString::number( (double)ticker_price,'f',8) % " " % ticker % " " % extra;
+                price = QString(", ") % "SAFE" % "=" % QString::number( (double)ticker_price,'f',8) % " " % ticker % " " % extra;
             }
 
             // Update the status bar
@@ -1439,7 +1439,7 @@ void RPC::refreshPrice() {
                 ui->volumeBTC->setText( QString::number((double) btcvol, 'f', 2) + " BTC" );
 
                 ticker = ticker.toUpper();
-                // We don't get an actual HUSH volume stat, so we calculate it
+                // We don't get an actual SAFE volume stat, so we calculate it
                 if (price > 0)
                     ui->volumeLocal->setText( QString::number((double) vol / (double) price) + " SAFE");
 

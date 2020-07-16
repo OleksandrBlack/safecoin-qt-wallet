@@ -363,24 +363,18 @@ bool ConnectionLoader::startEmbeddedZcashd() {
     }
 
 
-    // Finally, start safecoind    
+    // Finally, start safecoind
+
     QDir appPath(QCoreApplication::applicationDirPath());
-#ifdef Q_OS_LINUX
-    auto safecoindProgram = appPath.absoluteFilePath("safecoind");
-    if (!QFile(safecoindProgram).exists()) {
-        safecoindProgram = appPath.absoluteFilePath("safcoind");
-    }
-#elif defined(Q_OS_DARWIN)
-    auto safecoindProgram = appPath.absoluteFilePath("safecoind");
-#elif defined(Q_OS_WIN64)
-    // we use the CLI directly
-    auto safecoindProgram = appPath.absoluteFilePath("safecoind");
+
+#ifdef Q_OS_WIN64
+    auto safecoindProgram = appPath.absoluteFilePath("safecoind.exe");
 #else
-    main->logger->write("Unknown OS!");
     auto safecoindProgram = appPath.absoluteFilePath("safecoind");
 #endif
-    
-    //if (!QFile(safecoindProgram).exists()) {
+
+    // if (!QFile(safecoindProgram).exists()) {
+
     if (!QFile::exists(safecoindProgram)) {
         qDebug() << "Can't find safecoind at " << safecoindProgram;
         main->logger->write("Can't find safecoind at " + safecoindProgram);
@@ -413,27 +407,50 @@ bool ConnectionLoader::startEmbeddedZcashd() {
 
 
     // This string should be the exact arg list seperated by single spaces
+
+    // Not used at this stage
     QString params = "-ac_name=HUSH3 -ac_sapling=1 -ac_reward=0,1125000000,562500000 -ac_halving=129,340000,840000 -ac_end=128,340000,5422111 -ac_eras=3 -ac_blocktime=150 -ac_cc=2 -ac_ccenable=228,234,235,236,241 -ac_founders=1 -ac_supply=6178674 -ac_perc=11111111 -clientname=GoldenSandtrout -addnode=188.165.212.101 -addnode=136.243.227.142 -addnode=5.9.224.250 -ac_cclib=safecoin -ac_script=76a9145eb10cf64f2bab1b457f1f25e658526155928fac88ac";
     QStringList arguments = params.split(" ");
-    // Finally, actually start the full node
 
+	// Finally, actually start the full node
+
+/* Parameter and attribute not used now
 #ifdef Q_OS_LINUX
-    main->logger->write("Starting on Linux");
-    ezcashd->start(safecoindProgram);
+    qDebug() << "Starting on Linux: " + safecoindProgram + " " + params;
+    ezcashd->start(safecoindProgram, arguments);
 #elif defined(Q_OS_DARWIN)
     qDebug() << "Starting on Darwin: " + safecoindProgram + " " + params;
     ezcashd->start(safecoindProgram, arguments);
 #elif defined(Q_OS_WIN64)
-    main->logger->write("Starting on Win64 with params " + params);
+    qDebug() << "Starting on Win64: " + safecoindProgram + " " + params;
     ezcashd->setWorkingDirectory(appPath.absolutePath());
     ezcashd->start(safecoindProgram, arguments);
 #else
-    main->logger->write("Starting on Unknown OS with params " + params);
+    qDebug() << "Starting on Unknown OS(!): " + safecoindProgram + " " + params;
     ezcashd->setWorkingDirectory(appPath.absolutePath());
     ezcashd->start(safecoindProgram, arguments);
 #endif // Q_OS_LINUX
 
+    main->logger->write("Started via " + safecoindProgram + " " + params);
+*/
 
+#ifdef Q_OS_LINUX
+    qDebug() << "Starting on Linux: ";
+    ezcashd->start(safecoindProgram);
+#elif defined(Q_OS_DARWIN)
+    qDebug() << "Starting on Darwin: ";
+    ezcashd->start(safecoindProgram);
+#elif defined(Q_OS_WIN64)
+    qDebug() << "Starting on Win64: ";
+    ezcashd->setWorkingDirectory(appPath.absolutePath());
+    ezcashd->start(safecoindProgram);
+#else
+    qDebug() << "Starting on Unknown OS(!): ";
+    ezcashd->setWorkingDirectory(appPath.absolutePath());
+    ezcashd->start(safecoindProgram);
+#endif // Q_OS_LINUX
+
+    main->logger->write("Started");
     return true;
 }
 
