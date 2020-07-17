@@ -36,7 +36,7 @@ Explorer Settings::getExplorer() {
     // Load from the QT Settings.
     QSettings s;
 
-    //TODO: make it easy for people to use other explorers like komodod.com
+    //TODO: make it easy for people to use other explorers like https://explorer.deepsky.space/
     QString explorer = "https://explorer.safecoin.org";
 
     auto txExplorerUrl                = s.value("explorer/txExplorerUrl").toString();

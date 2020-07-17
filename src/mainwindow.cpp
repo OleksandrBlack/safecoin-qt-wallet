@@ -1241,18 +1241,6 @@ void MainWindow::setupBalancesTab() {
                 }
                 QGuiApplication::clipboard()->setText(url);
             });
-
-            menu.addAction(tr("Address Asset Viewer"), [=] () {
-                QString url;
-                url = "https://dexstats.info/assetviewer.php?address=" + addr;
-                QDesktopServices::openUrl(QUrl(url));
-            });
-
-            menu.addAction(tr("Convert Address"), [=] () {
-                QString url;
-                url = "https://dexstats.info/addressconverter.php?fromcoin=SAFE&address=" + addr;
-                QDesktopServices::openUrl(QUrl(url));
-            });
         }
 
         menu.exec(ui->balancesTable->viewport()->mapToGlobal(pos));
