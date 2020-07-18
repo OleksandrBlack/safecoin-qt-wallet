@@ -519,7 +519,7 @@ void RPC::refreshReceivedZTrans(QList<QString> zaddrs) {
                             }
                             
                             auto amount        = i.toObject()["amount"].toDouble();
-                            auto confirmations = (unsigned long)txidInfo["confirmations"].toInt();
+                            auto confirmations = static_cast<unsigned long>(txidInfo["confirmations"].toInt());
 
 
                             TransactionItem tx{ QString("receive"), timestamp, zaddr, txid, amount, 
