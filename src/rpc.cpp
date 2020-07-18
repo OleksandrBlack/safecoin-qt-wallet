@@ -523,7 +523,7 @@ void RPC::refreshReceivedZTrans(QList<QString> zaddrs) {
 
 
                             TransactionItem tx{ QString("receive"), timestamp, zaddr, txid, amount, 
-                                                confirmations, "", memos.value(zaddr + txid, "") };
+                                               static_cast<long>confirmations, "", memos.value(zaddr + txid, "") };
                             txdata.push_front(tx);
                         }
                     }
