@@ -1088,7 +1088,7 @@ void RPC::refreshTransactions() {
                 address,
                 it.toObject()["txid"].toString(),
                 it.toObject()["amount"].toDouble() + fee,
-                (unsigned long)it.toObject()["confirmations"].toInt(),
+		  static_cast<long>(it.toObject()["confirmations"].toInt()),
                 "", "" };
 
             txdata.push_back(tx);
