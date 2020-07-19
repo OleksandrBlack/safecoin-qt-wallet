@@ -21,6 +21,13 @@ struct Explorer {
     QString testnetAddressExplorerUrl;
 };
 
+struct Safenode {
+    QString parentkey;
+    QString safekey;
+    QString safepass;
+    QString safeheight;
+};
+
 struct ToFields;
 struct Tx;
 
@@ -39,6 +46,9 @@ public:
     static  Settings* init();
     static  Settings* getInstance();
 
+    Safenode  getSafenode();
+    void    saveSafenode(const QString& parentkey, const QString& safekey, const QString& safepass, const QString& safeheight);
+	
     Explorer  getExplorer();
     void    saveExplorer(const QString& txExplorerUrl, const QString& addressExplorerUrl, const QString& testnetTxExplorerUrl, const QString& testnetAddressExplorerUrl);
 

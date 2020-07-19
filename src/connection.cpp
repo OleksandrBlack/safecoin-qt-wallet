@@ -736,8 +736,11 @@ std::shared_ptr<ConnectionConfig> ConnectionLoader::autoDetectZcashConf() {
         if (name == "proxy") {
             zcashconf->proxy = value;
         }
-        if (name == "safekey") {
-            zcashconf->safenode = value;
+        if (name == "parentkey" ||
+			name == "safekey" ||
+			name == "safepass" ||
+			name == "safeheight") {
+            zcashconf->confsnode = value;
         }
         if (name == "spentindex") {
             zcashconf->spentindex = value;

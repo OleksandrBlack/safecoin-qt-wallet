@@ -47,3 +47,4 @@ safecoinwallet
 node_modules
 safe-qt-wallet.pro.user
 safecoinwallet_resource.rc
+msvc_make.bat

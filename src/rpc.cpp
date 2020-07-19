@@ -519,11 +519,11 @@ void RPC::refreshReceivedZTrans(QList<QString> zaddrs) {
                             }
                             
                             auto amount        = i.toObject()["amount"].toDouble();
-                            auto confirmations = (unsigned long)txidInfo["confirmations"].toInt();
+                            auto confirmations = static_cast<unsigned long>(txidInfo["confirmations"].toInt());
 
 
                             TransactionItem tx{ QString("receive"), timestamp, zaddr, txid, amount, 
-                                                confirmations, "", memos.value(zaddr + txid, "") };
+				static_cast<long>(confirmations), "", memos.value(zaddr + txid, "") };
                             txdata.push_front(tx);
                         }
                     }
@@ -695,7 +695,7 @@ void RPC::getInfoThenRefresh(bool force) {
 		int valid_thru_height;
 		bool is_valid;
 
-	if (!getConnection()->config->safenode.isEmpty()) {
+	if (!getConnection()->config->confsnode.isEmpty()) {
 		if (!getConnection()->config->addrindex.isEmpty()) {
 			try
 			{
@@ -1088,7 +1088,7 @@ void RPC::refreshTransactions() {
                 address,
                 it.toObject()["txid"].toString(),
                 it.toObject()["amount"].toDouble() + fee,
-                (unsigned long)it.toObject()["confirmations"].toInt(),
+		  static_cast<long>(it.toObject()["confirmations"].toInt()),
                 "", "" };
 
             txdata.push_back(tx);
@@ -1487,11 +1487,11 @@ void RPC::shutdownZcashd() {
     QMovie *movie2 = new QMovie(":/img/res/safewallet-animated-dark.gif");;
     auto theme = Settings::getInstance()->get_theme_name();
     if (theme == "dark") {
-        movie2->setScaledSize(QSize(512,512));
+        movie2->setScaledSize(QSize(256,256));
         connD.topIcon->setMovie(movie2);
         movie2->start();
     } else {
-        movie1->setScaledSize(QSize(512,512));
+        movie1->setScaledSize(QSize(256,256));
         connD.topIcon->setMovie(movie1);
         movie1->start();
     }

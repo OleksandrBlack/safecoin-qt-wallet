@@ -36,7 +36,7 @@ Explorer Settings::getExplorer() {
     // Load from the QT Settings.
     QSettings s;
 
-    //TODO: make it easy for people to use other explorers like komodod.com
+    //TODO: make it easy for people to use other explorers like https://explorer.deepsky.space/
     QString explorer = "https://explorer.safecoin.org";
 
     auto txExplorerUrl                = s.value("explorer/txExplorerUrl").toString();
@@ -53,6 +53,29 @@ void Settings::saveExplorer(const QString& txExplorerUrl, const QString& address
     s.setValue("explorer/addressExplorerUrl", addressExplorerUrl);
     s.setValue("explorer/testnetTxExplorerUrl", testnetTxExplorerUrl);
     s.setValue("explorer/testnetAddressExplorerUrl", testnetAddressExplorerUrl);
+}
+
+//=================================
+// Safenode Conf
+//=================================
+Safenode Settings::getSafenode() {
+    // Load from the QT Settings.
+    QSettings s;
+
+    auto parentkey		= s.value("safenode/parentkey").toString();
+    auto safekey		= s.value("safenode/safekey").toString();
+    auto safepass		= s.value("safenode/safepass").toString();
+    auto safeheight		= s.value("safenode/safeheight").toString();
+
+    return Safenode{parentkey, safekey, safepass, safeheight};
+}
+
+void Settings::saveSafenode(const QString& parentkey, const QString& safekey, const QString& safepass, const QString& safeheight) {
+    QSettings s;
+    s.setValue("safenode/parentkey", parentkey);
+    s.setValue("safenode/safekey", safekey);
+    s.setValue("safenode/safepass", safepass);
+    s.setValue("safenode/safeheight", safeheight);
 }
 
 Config Settings::getSettings() {
