@@ -32,7 +32,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>4</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -151,307 +151,31 @@
        <string>Options</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout">
-       <item row="15" column="0">
-        <widget class="QLabel" name="label_20">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>Theme</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="16" column="0">
-        <widget class="QLabel" name="label_20">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="text">
-          <string>Local Currency</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="16" column="1">
-        <widget class="QComboBox" name="comboBoxCurrency">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <item>
-          <property name="text">
-           <string>AED</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>ARS</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>AUD</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>BDT</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>BHD</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>BMD</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>BRL</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>BTC</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>CAD</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>CHF</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>CLP</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>CNY</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>CZK</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>DKK</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>EUR</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>GBP</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>HKD</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>HUF</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>IDR</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>ILS</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>INR</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>JPY</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>KRW</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>KWD</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>LKR</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>MXN</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>NZD</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>RUB</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>SAR</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>SEK</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>SGD</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>THB</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>TRY</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>TWD</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>UAH</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>USD</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>VEF</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>VND</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>XAG</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>XAU</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>ZAR</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item row="15" column="1">
-        <widget class="QComboBox" name="comboBoxTheme">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <item>
-          <property name="text">
-           <string>default</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>blue</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>light</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>dark</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item row="14" column="0" colspan="2">
-        <spacer name="verticalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="21" column="0" colspan="2">
+       <item row="13" column="0" colspan="2">
         <widget class="Line" name="line_2">
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </item>
-       <item row="13" column="0" colspan="2">
-        <widget class="Line" name="line_11">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+       <item row="0" column="0" colspan="2">
+        <widget class="QCheckBox" name="chkSaveTxs">
+         <property name="text">
+          <string>Remember shielded transactions</string>
+         </property>
+        </widget>
+       </item>
+       <item row="10" column="0" colspan="2">
+        <widget class="QLabel" name="label_8">
+         <property name="text">
+          <string>Connect to github on startup to check for updates</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="0">
+        <widget class="QCheckBox" name="chkTor">
+         <property name="text">
+          <string>Connect via Tor</string>
          </property>
         </widget>
        </item>
@@ -468,38 +192,17 @@
          </property>
         </spacer>
        </item>
-       <item row="7" column="0">
-        <widget class="QCheckBox" name="chkTor">
+       <item row="12" column="0" colspan="2">
+        <widget class="QLabel" name="label_10">
          <property name="text">
-          <string>Connect via Tor</string>
+          <string>Connect to the internet to fetch SAFE prices</string>
          </property>
         </widget>
        </item>
-       <item row="9" column="0" colspan="2">
-        <widget class="QCheckBox" name="chkCheckUpdates">
+       <item row="1" column="0" colspan="2">
+        <widget class="QLabel" name="label_5">
          <property name="text">
-          <string>Check github for updates at startup</string>
-         </property>
-        </widget>
-       </item>
-       <item row="13" column="0" colspan="2">
-        <widget class="Line" name="line_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0" colspan="2">
-        <widget class="QCheckBox" name="chkSaveTxs">
-         <property name="text">
-          <string>Remember shielded transactions</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="0" colspan="2">
-        <widget class="QLabel" name="label_7">
-         <property name="text">
-          <string>Normally, change from t-Addresses goes to another t-Address. Checking this option will send the change to your shielded sapling address instead. Check this option to increase your privacy.</string>
+          <string>Shielded transactions are saved locally and shown in the transactions tab.  If you uncheck this, shielded transactions will not appear in the transactions tab.</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
@@ -516,34 +219,10 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="1">
-        <widget class="QPushButton" name="btnClearSaved">
-         <property name="text">
-          <string>Clear History</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0" colspan="2">
-        <widget class="QLabel" name="label_5">
-         <property name="text">
-          <string>Shielded transactions are saved locally and shown in the transactions tab.  If you uncheck this, shielded transactions will not appear in the transactions tab.</string>
-         </property>
-         <property name="wordWrap">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QCheckBox" name="chkCustomFees">
-         <property name="text">
-          <string>Allow custom fees</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0" colspan="2">
-        <widget class="QCheckBox" name="chkAutoShield">
-         <property name="text">
-          <string>Clear History</string>
+       <item row="20" column="0" colspan="2">
+        <widget class="Line" name="line_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
         </widget>
        </item>
@@ -554,27 +233,6 @@
          </property>
          <property name="wordWrap">
           <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item row="10" column="0" colspan="2">
-        <widget class="QLabel" name="label_8">
-         <property name="text">
-          <string>Connect to github on startup to check for updates</string>
-         </property>
-        </widget>
-       </item>
-       <item row="12" column="0" colspan="2">
-        <widget class="QLabel" name="label_10">
-         <property name="text">
-          <string>Connect to the internet to fetch SAFE prices</string>
-         </property>
-        </widget>
-       </item>
-       <item row="11" column="0" colspan="2">
-        <widget class="QCheckBox" name="chkFetchPrices">
-         <property name="text">
-          <string>Fetch SAFE prices</string>
          </property>
         </widget>
        </item>
@@ -619,27 +277,6 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
-             <property name="minimumSize">
-              <size>
-               <width>150</width>
-               <height>25</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="acceptDrops">
-              <bool>false</bool>
-             </property>
-             <property name="layoutDirection">
-              <enum>Qt::LeftToRight</enum>
-             </property>
-             <property name="insertPolicy">
-              <enum>QComboBox::InsertAtBottom</enum>
-             </property>
              <item>
               <property name="text">
                <string>default</string>
@@ -660,14 +297,246 @@
                <string>dark</string>
               </property>
              </item>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_20">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Local Currency</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="comboBoxCurrency">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <item>
               <property name="text">
-               <string>matrix</string>
+               <string>AED</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>ARS</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>AUD</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>BDT</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>BHD</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>BMD</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>BRL</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>BTC</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>CAD</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>CHF</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>CLP</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>CNY</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>CZK</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>DKK</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>EUR</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>GBP</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>HKD</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>HUF</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>IDR</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>ILS</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>INR</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>JPY</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>KRW</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>KWD</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>LKR</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>MXN</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>NZD</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>RUB</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>SAR</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>SEK</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>SGD</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>THB</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>TRY</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>TWD</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>UAH</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>USD</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>VEF</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>VND</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>XAG</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>XAU</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>ZAR</string>
               </property>
              </item>
             </widget>
            </item>
           </layout>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_8"/>
          </item>
          <item>
           <spacer name="ThemehorizontalSpacer_2">
@@ -683,6 +552,71 @@
           </spacer>
          </item>
         </layout>
+       </item>
+       <item row="9" column="0" colspan="2">
+        <widget class="QCheckBox" name="chkCheckUpdates">
+         <property name="text">
+          <string>Check github for updates at startup</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0" colspan="2">
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>Normally, change from t-Addresses goes to another t-Address. Checking this option will send the change to your shielded sapling address instead. Check this option to increase your privacy.</string>
+         </property>
+         <property name="wordWrap">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="11" column="0" colspan="2">
+        <widget class="QCheckBox" name="chkFetchPrices">
+         <property name="text">
+          <string>Fetch SAFE prices</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QPushButton" name="btnClearSaved">
+         <property name="text">
+          <string>Clear History</string>
+         </property>
+        </widget>
+       </item>
+       <item row="13" column="0" colspan="2">
+        <widget class="Line" name="line_11">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0" colspan="2">
+        <widget class="QCheckBox" name="chkAutoShield">
+         <property name="text">
+          <string>Clear History</string>
+         </property>
+        </widget>
+       </item>
+       <item row="14" column="0" colspan="2">
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="3" column="0">
+        <widget class="QCheckBox" name="chkCustomFees">
+         <property name="text">
+          <string>Allow custom fees</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
