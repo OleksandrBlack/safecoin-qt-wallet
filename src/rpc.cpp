@@ -695,7 +695,7 @@ void RPC::getInfoThenRefresh(bool force) {
 		int valid_thru_height;
 		bool is_valid;
 
-	if (!getConnection()->config->safenode.isEmpty()) {
+	if (!getConnection()->config->confsnode.isEmpty()) {
 		if (!getConnection()->config->addrindex.isEmpty()) {
 			try
 			{

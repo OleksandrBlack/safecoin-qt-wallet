@@ -23,7 +23,7 @@ struct ConnectionConfig {
     bool    fastsync;
     QString zcashDir;
     QString proxy;
-    QString safenode;
+    QString confsnode;
     QString spentindex;
     QString timeindex;
     QString addrindex;
