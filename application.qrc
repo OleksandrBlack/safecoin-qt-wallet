@@ -21,12 +21,14 @@
         <file>res/safe_qt_wallet_de.qm</file>
         <file>res/safe_qt_wallet_es.qm</file>
         <file>res/safe_qt_wallet_fr.qm</file>
+        <file>res/safe_qt_wallet_fi.qm</file>
         <file>res/safe_qt_wallet_pt.qm</file>
         <file>res/safe_qt_wallet_it.qm</file>
         <file>res/safe_qt_wallet_zh.qm</file>
         <file>res/safe_qt_wallet_ru.qm</file>
         <file>res/safe_qt_wallet_uk.qm</file>
         <file>res/safe_qt_wallet_tr.qm</file>
+        <file>res/safe_qt_wallet_zh.qm</file>
     </qresource>
     <qresource prefix="/css">
         <file>res/css/blue.css</file>
@@ -52,12 +54,5 @@
         <file>res/images/icons/tick-white.png</file>
         <file>res/images/icons/tick.png</file>
         <file>res/images/icons/close.png</file>
-        <file>res/safe_qt_wallet_es.qm</file>
-        <file>res/safe_qt_wallet_fr.qm</file>
-        <file>res/safe_qt_wallet_pt.qm</file>
-        <file>res/safe_qt_wallet_it.qm</file>
-        <file>res/safe_qt_wallet_zh.qm</file>
-        <file>res/safe_qt_wallet_ru.qm</file>
-        <file>res/safe_qt_wallet_ua.qm</file>
     </qresource>
 </RCC>

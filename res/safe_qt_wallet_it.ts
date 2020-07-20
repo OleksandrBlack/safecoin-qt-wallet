@@ -31,8 +31,8 @@
     <name>ConnectionDialog</name>
     <message>
         <location filename="../src/connection.ui" line="17"/>
-        <source>SafecoinWallet</source>
-        <translation>SafecoinWallet</translation>
+        <source>SafeWallet</source>
+        <translation>SafeWallet</translation>
     </message>
     <message>
         <location filename="../src/connection.ui" line="58"/>
@@ -44,8 +44,8 @@
     <name>MainWindow</name>
     <message>
         <location filename="../src/mainwindow.ui" line="14"/>
-        <source>SafecoinWallet</source>
-        <translation>SafecoinWallet</translation>
+        <source>SafeWallet</source>
+        <translation>SafeWallet</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="29"/>
@@ -434,8 +434,8 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="637"/>
-        <source>Thanks for supporting SafecoinWallet!</source>
-        <translation>Grazie per il tuo supporto a SafecoinWallet!</translation>
+        <source>Thanks for supporting SafeWallet!</source>
+        <translation>Grazie per il tuo supporto a SafeWallet!</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="639"/>
@@ -444,8 +444,8 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="639"/>
-        <source> to support SafecoinWallet</source>
-        <translation> per supportare SafecoinWallet</translation>
+        <source> to support SafeWallet</source>
+        <translation> per supportare SafeWallet</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="676"/>
@@ -495,7 +495,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="566"/>
-        <source>Connection over Tor has been enabled. To use this feature, you need to restart SafecoinWallet.</source>
+        <source>Connection over Tor has been enabled. To use this feature, you need to restart SafeWallet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -505,17 +505,17 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="576"/>
-        <source>Connection over Tor has been disabled. To fully disconnect from Tor, you need to restart SafecoinWallet.</source>
+        <source>Connection over Tor has been disabled. To fully disconnect from Tor, you need to restart SafeWallet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="605"/>
-        <source>SafecoinWallet needs to restart to rescan/reindex. SafecoinWallet will now close, please restart SafecoinWallet to continue</source>
+        <source>SafeWallet needs to restart to rescan/reindex. SafeWallet will now close, please restart SafeWallet to continue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="607"/>
-        <source>Restart SafecoinWallet</source>
+        <source>Restart SafeWallet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -850,17 +850,17 @@ doesn&apos;t look like a z-address</source>
     </message>
     <message>
         <location filename="../src/mobileappconnector.ui" line="84"/>
-        <source>Allow connections over the internet via SafecoinWallet wormhole</source>
+        <source>Allow connections over the internet via SafeWallet wormhole</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mobileappconnector.ui" line="36"/>
-        <source>Scan this QRCode from your SafecoinWallet companion app to connect your phone</source>
+        <source>Scan this QRCode from your SafeWallet companion app to connect your phone</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/mobileappconnector.ui" line="94"/>
-        <source>SafecoinWallet Companion App</source>
+        <source>SafeWallet Companion App</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -922,11 +922,11 @@ doesn&apos;t look like a z-address</source>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="77"/>
-        <source>You have safecoind set to start as a daemon, which can cause problems with SafecoinWallet
+        <source>You have safecoind set to start as a daemon, which can cause problems with SafeWallet
 
-.Please remove the following line from your safecoin.conf and restart SafecoinWallet
+.Please remove the following line from your safecoin.conf and restart SafeWallet
 daemon=1</source>
-        <translatorcomment>Hai safecoind impostato per l&apos;avvio come daemon, che può causare problemi con SafecoinWallet</translatorcomment>
+        <translatorcomment>Hai safecoind impostato per l&apos;avvio come daemon, che può causare problemi con SafeWallet</translatorcomment>
         <translation>YOUR_TRANSLATION_HERE</translation>
     </message>
     <message>
@@ -1104,9 +1104,9 @@ Would you like to visit the releases page?</source>
     </message>
     <message>
         <location filename="../src/rpc.cpp" line="1182"/>
-        <source>Please wait for SafecoinWallet to exit</source>
+        <source>Please wait for SafeWallet to exit</source>
         <translatorcomment>controllare, senza contesto potrebbe voler dire  &quot;attendere safe qt wallet per uscire&quot; o altro, non ho contesto</translatorcomment>
-        <translation>Si prega di attendere che SafecoinWallet finisca la procedura di uscita</translation>
+        <translation>Si prega di attendere che SafeWallet finisca la procedura di uscita</translation>
     </message>
     <message>
         <location filename="../src/rpc.cpp" line="1183"/>
@@ -1304,7 +1304,7 @@ Avete fondi non confermati o il saldo è troppo basso per una migrazione automat
     </message>
     <message>
         <location filename="../src/websockets.cpp" line="359"/>
-        <source>Connected over the internet via SafecoinWallet wormhole service</source>
+        <source>Connected over the internet via SafeWallet wormhole service</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1487,7 +1487,7 @@ Avete fondi non confermati o il saldo è troppo basso per una migrazione automat
     </message>
     <message>
         <location filename="../src/recurringmultiple.ui" line="44"/>
-        <source>How should SafecoinWallet proceed?</source>
+        <source>How should SafeWallet proceed?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1708,7 +1708,7 @@ Avete fondi non confermati o il saldo è troppo basso per una migrazione automat
     </message>
     <message>
         <location filename="../src/settings.ui" line="301"/>
-        <source>Rescan the blockchain for any missing wallet transactions and to correct your wallet balance. This may take several hours. You need to restart SafecoinWallet for this to take effect</source>
+        <source>Rescan the blockchain for any missing wallet transactions and to correct your wallet balance. This may take several hours. You need to restart SafeWallet for this to take effect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1718,7 +1718,7 @@ Avete fondi non confermati o il saldo è troppo basso per una migrazione automat
     </message>
     <message>
         <location filename="../src/settings.ui" line="345"/>
-        <source>Rebuild the entire blockchain from the genesis block, by rescanning all the block files. This may take several hours to days, depending on your hardware. You need to restart SafecoinWallet for this to take effect</source>
+        <source>Rebuild the entire blockchain from the genesis block, by rescanning all the block files. This may take several hours to days, depending on your hardware. You need to restart SafeWallet for this to take effect</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

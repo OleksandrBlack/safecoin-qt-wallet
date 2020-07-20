@@ -273,12 +273,12 @@ void AddressBook::readFromStorage() {
     }
 
     // Special. 
-    // Add the default SafecoinWallet donation address if it isn't already present
+    // Add the default SafeWallet donation address if it isn't already present
     // QList<QString> allAddresses;
     // std::transform(allLabels.begin(), allLabels.end(), 
     //     std::back_inserter(allAddresses), [=] (auto i) { return i.second; });
     // if (!allAddresses.contains(Settings::getDonationAddr(true))) {
-    //     allLabels.append(QPair<QString, QString>("SafecoinWallet donation", Settings::getDonationAddr(true)));
+    //     allLabels.append(QPair<QString, QString>("SafeWallet donation", Settings::getDonationAddr(true)));
     // }
 }
 

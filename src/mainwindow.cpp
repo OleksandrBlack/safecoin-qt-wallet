@@ -542,7 +542,7 @@ void MainWindow::setupSettingsModal() {
                 rpc->getConnection()->config->proxy.clear();
 
                 QMessageBox::information(this, tr("Disable Tor"),
-                    tr("Connection over Tor has been disabled. To fully disconnect from Tor, you need to restart SafecoinWallet."),
+                    tr("Connection over Tor has been disabled. To fully disconnect from Tor, you need to restart SafeWallet."),
                     QMessageBox::Ok);
             }
 
@@ -572,9 +572,9 @@ void MainWindow::setupSettingsModal() {
                  }
             }
             if (showNodeConfInfo) {
-                auto desc = tr("SafecoinWallet needs to restart to apply configuration Safenode. SafecoinWallet will now close, please restart SafecoinWallet to continue");
+                auto desc = tr("SafeWallet needs to restart to apply configuration Safenode. SafeWallet will now close, please restart SafeWallet to continue");
 
-                QMessageBox::information(this, tr("Restart SafecoinWallet"), desc, QMessageBox::Ok);
+                QMessageBox::information(this, tr("Restart SafeWallet"), desc, QMessageBox::Ok);
                 QTimer::singleShot(1, [=]() { this->close(); });
             }
 			
@@ -722,9 +722,9 @@ void MainWindow::donate() {
     ui->Address1->setText(Settings::getDonationAddr());
     ui->Address1->setCursorPosition(0);
     ui->Amount1->setText("0.00");
-    ui->MemoTxt1->setText(tr("Some feedback about SafecoinWallet or Safecoin...!"));
+    ui->MemoTxt1->setText(tr("Some feedback about SafeWallet or Safecoin...!"));
 
-    ui->statusBar->showMessage(tr("Send OleksandrBlack feedback about ") % Settings::getTokenName() % tr(" or SafecoinWallet"));
+    ui->statusBar->showMessage(tr("Send OleksandrBlack feedback about ") % Settings::getTokenName() % tr(" or SafeWallet"));
 
     // And switch to the send tab.
     ui->tabWidget->setCurrentIndex(1);

@@ -11,7 +11,7 @@ if [ -z $APP_VERSION ]; then echo "APP_VERSION is not set"; exit 1; fi
 set -e
 OS=$(uname)
 ARCH=$(uname -i)
-APP=SafecoinWallet-v$APP_VERSION-$OS-$ARCH
+APP=SafeWallet-v$APP_VERSION-$OS-$ARCH
 DIR=$APP
 echo "Making tarball for $APP..."
 if [ -e $DIR ]; then

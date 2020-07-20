@@ -62,7 +62,7 @@ echo "[OK]"
 
 
 echo -n "Packaging.............."
-APP=SafecoinWallet-v$APP_VERSION
+APP=SafeWallet-v$APP_VERSION
 DIR=bin/$APP
 mkdir $DIR > /dev/null
 strip safecoinwallet

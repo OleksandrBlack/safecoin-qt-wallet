@@ -18,7 +18,7 @@ else
 fi
 
 VERSION=$(cat src/version.h |cut -d\" -f2)
-echo "Compiling SafecoinWallet $VERSION with $JOBS threads..."
+echo "Compiling SafeWallet $VERSION with $JOBS threads..."
 CONF=safe-qt-wallet.pro
 
 qbuild () {
