@@ -1498,7 +1498,7 @@ void RPC::shutdownZcashd() {
 
 
     connD.status->setText(QObject::tr("Please wait for SafeWallet to exit"));
-    connD.statusDetail->setText(QObject::tr("Waiting for safecoind to exit, y'all"));
+    connD.statusDetail->setText(QObject::tr("Waiting for safecoind to exit, Stay Safe"));
 
 
     QTimer waiter(main);
