@@ -1398,7 +1398,7 @@ void RPC::refreshPrice() {
 
 
             const QJsonValue& item  = parsed;
-            const QJsonValue& safe  = item["safe"].toObject();
+            const QJsonValue& safe  = item["safe-coin-2"].toObject();
             QString  ticker    = s->get_currency_name();
             ticker = ticker.toLower();
             fprintf(stderr,"ticker=%s\n", ticker.toLocal8Bit().data());
