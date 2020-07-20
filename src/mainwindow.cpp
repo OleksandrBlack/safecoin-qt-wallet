@@ -1025,7 +1025,7 @@ void MainWindow::getViewKey(QString addr) {
     // Wire up save button
     QObject::connect(vui.buttonBox->button(QDialogButtonBox::Save), &QPushButton::clicked, [=] () {
         QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
-                           allKeys ? "hush-all-viewkeys.txt" : "hush-viewkey.txt");
+                           allKeys ? "safe-all-viewkeys.txt" : "safe-viewkey.txt");
         QFile file(fileName);
         if (!file.open(QIODevice::WriteOnly)) {
             QMessageBox::information(this, tr("Unable to open file"), file.errorString());
