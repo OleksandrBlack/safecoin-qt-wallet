@@ -32,7 +32,7 @@
     <message>
         <location filename="../src/connection.ui" line="17"/>
         <source>ZecWallet</source>
-        <translation type="unfinished">SilentDragon</translation>
+        <translation type="unfinished">SafeWallet</translation>
     </message>
     <message>
         <location filename="../src/connection.ui" line="58"/>
@@ -45,7 +45,7 @@
     <message>
         <location filename="../src/mainwindow.ui" line="14"/>
         <source>ZecWallet</source>
-        <translation type="unfinished">Silentdragon</translation>
+        <translation type="unfinished">Safewallet</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="29"/>
@@ -427,7 +427,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="541"/>
         <source>Connection over Tor has been enabled. To use this feature, you need to restart ZecWallet.</source>
-        <translation type="unfinished">Die Verbindung über Tor wurde aktiviert. Um Tor zu benutzen starten Sie bitte Silentdragon neu.</translation>
+        <translation type="unfinished">Die Verbindung über Tor wurde aktiviert. Um Tor zu benutzen starten Sie bitte Safewallet neu.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="550"/>
@@ -437,12 +437,12 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="551"/>
         <source>Connection over Tor has been disabled. To fully disconnect from Tor, you need to restart ZecWallet.</source>
-        <translation type="unfinished">Die Verbindung über Tor wurde deaktiviert. Um die Verbingung zu Tor endgültig zu beenden, starten Sie bitte Silentdragon neu</translation>
+        <translation type="unfinished">Die Verbindung über Tor wurde deaktiviert. Um die Verbingung zu Tor endgültig zu beenden, starten Sie bitte Safewallet neu</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="612"/>
         <source>Thanks for supporting ZecWallet!</source>
-        <translation type="unfinished">Danke dass Sie Silentdragon unterstützen</translation>
+        <translation type="unfinished">Danke dass Sie Safewallet unterstützen</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="614"/>
@@ -452,7 +452,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="614"/>
         <source> to support ZecWallet</source>
-        <translation type="unfinished">um Silentdragon zu unterstützen</translation>
+        <translation type="unfinished">um Safewallet zu unterstützen</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="651"/>
@@ -473,7 +473,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="880"/>
         <source>The keys were imported. It may take several minutes to rescan the blockchain. Until then, functionality may be limited</source>
-        <translation type="unfinished">Die Keys wurden erfolgreich importiert. Es dauert einige Minuten um die Blockchain zu scannen. Bis dahin ist die Funktion von Silentdragon eingeschränkt</translation>
+        <translation type="unfinished">Die Keys wurden erfolgreich importiert. Es dauert einige Minuten um die Blockchain zu scannen. Bis dahin ist die Funktion von Safewallet eingeschränkt</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="745"/>
@@ -483,12 +483,12 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="580"/>
         <source>ZecWallet needs to restart to rescan/reindex. ZecWallet will now close, please restart ZecWallet to continue</source>
-        <translation type="unfinished">Silentdragon muss für den Rescan/Reindex neu gestartet werden. Silentdragon wird nun schließen, bitte starten Sie Silentdragon neu um fortzufahren</translation>
+        <translation type="unfinished">Safewallet muss für den Rescan/Reindex neu gestartet werden. Safewallet wird nun schließen, bitte starten Sie Safewallet neu um fortzufahren</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="582"/>
         <source>Restart ZecWallet</source>
-        <translation type="unfinished">Starte Silentdragon neu</translation>
+        <translation type="unfinished">Starte Safewallet neu</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="822"/>
@@ -749,7 +749,7 @@ doesn&apos;t look like a z-address</source>
     <message>
         <location filename="../src/mobileappconnector.ui" line="36"/>
         <source>Scan this QRCode from your ZecQT Wallet companion app to connect your phone</source>
-        <translation type="unfinished">Scannen Sie den QR Code von Silentdragon, um mit Ihrem Smartphone zu verbinden</translation>
+        <translation type="unfinished">Scannen Sie den QR Code von Safewallet, um mit Ihrem Smartphone zu verbinden</translation>
     </message>
     <message>
         <location filename="../src/mobileappconnector.ui" line="43"/>
@@ -764,12 +764,12 @@ doesn&apos;t look like a z-address</source>
     <message>
         <location filename="../src/mobileappconnector.ui" line="84"/>
         <source>Allow connections over the internet via ZecWallet wormhole</source>
-        <translation type="unfinished">Erlaube Verbindungen über das Internet via Silentdragon Wurmloch</translation>
+        <translation type="unfinished">Erlaube Verbindungen über das Internet via Safewallet Wurmloch</translation>
     </message>
     <message>
         <location filename="../src/mobileappconnector.ui" line="94"/>
         <source>ZecQT Wallet Companion App</source>
-        <translation type="unfinished">Silentdragon APP</translation>
+        <translation type="unfinished">Safewallet APP</translation>
     </message>
     <message>
         <location filename="../src/mobileappconnector.ui" line="106"/>
@@ -997,8 +997,8 @@ Would you like to visit the releases page?</source>
     </message>
     <message>
         <location filename="../src/rpc.cpp" line="1110"/>
-        <source>Please wait for SilentDragon to exit</source>
-        <translation type="unfinished">Bitte warten Sie, bis Silentdragon beendet ist</translation>
+        <source>Please wait for SafeWallet to exit</source>
+        <translation type="unfinished">Bitte warten Sie, bis Safewallet beendet ist</translation>
     </message>
     <message>
         <location filename="../src/rpc.cpp" line="1111"/>
@@ -1167,8 +1167,8 @@ You either have unconfirmed funds or the balance is too low for an automatic mig
     </message>
     <message>
         <location filename="../src/websockets.cpp" line="345"/>
-        <source>Connected over the internet via SilentDragon wormhole service</source>
-        <translation type="unfinished">Über das Silentdragon Wurmloch zum Internet verbunden </translation>
+        <source>Connected over the internet via SafeWallet wormhole service</source>
+        <translation type="unfinished">Über das Safewallet Wurmloch zum Internet verbunden </translation>
     </message>
     <message>
         <location filename="../src/websockets.cpp" line="646"/>
@@ -1361,8 +1361,8 @@ You either have unconfirmed funds or the balance is too low for an automatic mig
     </message>
     <message>
         <location filename="../src/settings.ui" line="287"/>
-        <source>Rescan the blockchain for any missing wallet transactions and to correct your wallet balance. This may take several hours. You need to restart SilentDragon for this to take effect</source>
-        <translation type="unfinished">Ich überprüfe nun die Blockchain auf fehlende Transaktionen, und werde Änderungen zu Ihrem Wallet hinzufügen. Dies kann einige Stunden dauern. Sie müssen Silentdragon neu starten bevor dies ausgeführt werden kann.</translation>
+        <source>Rescan the blockchain for any missing wallet transactions and to correct your wallet balance. This may take several hours. You need to restart SafeWallet for this to take effect</source>
+        <translation type="unfinished">Ich überprüfe nun die Blockchain auf fehlende Transaktionen, und werde Änderungen zu Ihrem Wallet hinzufügen. Dies kann einige Stunden dauern. Sie müssen Safewallet neu starten bevor dies ausgeführt werden kann.</translation>
     </message>
     <message>
         <location filename="../src/settings.ui" line="297"/>
@@ -1371,8 +1371,8 @@ You either have unconfirmed funds or the balance is too low for an automatic mig
     </message>
     <message>
         <location filename="../src/settings.ui" line="331"/>
-        <source>Rebuild the entire blockchain from the genesis block, by rescanning all the block files. This may take several hours to days, depending on your hardware. You need to restart SilentDragon for this to take effect</source>
-        <translation type="unfinished">Stelle die Blockchain vom Genesis Block wieder her. Dies kann je nach verwendeter Hardware, mehrere Stunden bis Tage dauern. Sie müssen Silentdragon neustarten um fortzuführen.</translation>
+        <source>Rebuild the entire blockchain from the genesis block, by rescanning all the block files. This may take several hours to days, depending on your hardware. You need to restart SafeWallet for this to take effect</source>
+        <translation type="unfinished">Stelle die Blockchain vom Genesis Block wieder her. Dies kann je nach verwendeter Hardware, mehrere Stunden bis Tage dauern. Sie müssen Safewallet neustarten um fortzuführen.</translation>
     </message>
     <message>
         <location filename="../src/settings.ui" line="161"/>
