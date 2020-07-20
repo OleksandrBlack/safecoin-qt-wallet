@@ -484,8 +484,8 @@ void MainWindow::setupSettingsModal() {
 
         // Load current explorer values into the dialog
         auto explorer = Settings::getInstance()->getExplorer();
-        settings.txExplorerUrl->setText(explorer.txExplorerUrl);
-        settings.addressExplorerUrl->setText(explorer.addressExplorerUrl);
+        settings.txExplorerUrl->setCurrentText(explorer.txExplorerUrl);
+        settings.addressExplorerUrl->setCurrentText(explorer.addressExplorerUrl);
         settings.testnetTxExplorerUrl->setText(explorer.testnetTxExplorerUrl);
         settings.testnetAddressExplorerUrl->setText(explorer.testnetAddressExplorerUrl);
 
@@ -647,8 +647,8 @@ void MainWindow::setupSettingsModal() {
 
             // Save explorer
             Settings::getInstance()->saveExplorer(
-                settings.txExplorerUrl->text(),
-                settings.addressExplorerUrl->text(),
+                settings.txExplorerUrl->currentText(),
+                settings.addressExplorerUrl->currentText(),
                 settings.testnetTxExplorerUrl->text(),
                 settings.testnetAddressExplorerUrl->text());
 
