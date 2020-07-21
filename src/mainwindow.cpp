@@ -266,7 +266,7 @@ void MainWindow::setupStatusBar() {
             menu.addAction(tr("Copy txid"), [=]() {
                 QGuiApplication::clipboard()->setText(txid);
             });
-            menu.addAction("Copy block explorer link", [=]() {
+            menu.addAction(tr("Copy block explorer link"), [=]() {
                 QString url;
                 auto explorer = Settings::getInstance()->getExplorer();
                 if (Settings::getInstance()->isTestnet()) {
@@ -276,7 +276,7 @@ void MainWindow::setupStatusBar() {
                 }
                 QGuiApplication::clipboard()->setText(url);
             });
-            menu.addAction("View tx on block explorer", [=]() {
+            menu.addAction(tr("View tx on block explorer"), [=]() {
                 QString url;
                 auto explorer = Settings::getInstance()->getExplorer();
                 if (Settings::getInstance()->isTestnet()) {
@@ -1216,7 +1216,7 @@ void MainWindow::setupBalancesTab() {
             fnDoSendFrom("",addr);
         });
 
-        if (addr.startsWith("R")) {
+        if (Settings::isTAddress(addr)) {
             auto defaultSapling = rpc->getDefaultSaplingAddress();
             if (!defaultSapling.isEmpty()) {
                 menu.addAction(tr("Shield balance to Sapling"), [=] () {
@@ -1504,7 +1504,6 @@ void MainWindow::setupReceiveTab() {
         viewaddrs.setupUi(&d);
         Settings::saveRestore(&d);
         Settings::saveRestoreTableHeader(viewaddrs.tblAddresses, &d, "viewalladdressestable");
-        viewaddrs.tblAddresses->horizontalHeader()->setStretchLastSection(true);
 
         ViewAllAddressesModel model(viewaddrs.tblAddresses, *getRPC()->getAllTAddresses(), getRPC());
         viewaddrs.tblAddresses->setModel(&model);
@@ -1520,7 +1519,7 @@ void MainWindow::setupReceiveTab() {
             QString addr = viewaddrs.tblAddresses->model()->data(index).toString();
 
             QMenu menu(this);
-            menu.addAction(tr("Export Private Key"), [=] () {
+            menu.addAction(tr("Export Private Key"), [=] () {                
                 if (addr.isEmpty())
                     return;
 
@@ -1652,13 +1651,55 @@ void MainWindow::updateTAddrCombo(bool checked) {
         auto utxos = this->rpc->getUTXOs();
         ui->listReceiveAddresses->clear();
 
-        std::for_each(utxos->begin(), utxos->end(), [=](auto& utxo) {
+        // Maintain a set of addresses so we don't duplicate any, because we'll be adding
+        // t addresses multiple times
+        QSet<QString> addrs;
+
+        // 1. Add all t addresses that have a balance
+        std::for_each(utxos->begin(), utxos->end(), [=, &addrs](auto& utxo) {
             auto addr = utxo.address;
-            if (addr.startsWith("R") && ui->listReceiveAddresses->findText(addr) < 0) {
+            if (Settings::isTAddress(addr) && !addrs.contains(addr)) {
                 auto bal = rpc->getAllBalances()->value(addr);
                 ui->listReceiveAddresses->addItem(addr, bal);
+
+                addrs.insert(addr);
             }
         });
+        
+        // 2. Add all t addresses that have a label
+        auto allTaddrs = this->rpc->getAllTAddresses();
+        QSet<QString> labels;
+        for (auto p : AddressBook::getInstance()->getAllAddressLabels()) {
+            labels.insert(p.second);
+        }
+        std::for_each(allTaddrs->begin(), allTaddrs->end(), [=, &addrs] (auto& taddr) {
+            // If the address is in the address book, add it. 
+            if (labels.contains(taddr) && !addrs.contains(taddr)) {
+                addrs.insert(taddr);
+                ui->listReceiveAddresses->addItem(taddr, 0);
+            }
+        });
+
+        // 3. Add all t-addresses. We won't add more than 20 total t-addresses,
+        // since it will overwhelm the dropdown
+        for (int i=0; addrs.size() < 20 && i < allTaddrs->size(); i++) {
+            auto addr = allTaddrs->at(i);
+            if (!addrs.contains(addr))  {
+                addrs.insert(addr);
+                // Balance is zero since it has not been previously added
+                ui->listReceiveAddresses->addItem(addr, 0);
+            }
+        }
+
+        // 4. Add a last, disabled item if there are remaining items
+        if (allTaddrs->size() > addrs.size()) {
+            auto num = QString::number(allTaddrs->size() - addrs.size());
+            ui->listReceiveAddresses->addItem("-- " + num + " more --", 0);
+
+            QStandardItemModel* model = qobject_cast<QStandardItemModel*>(ui->listReceiveAddresses->model());
+            QStandardItem* item =  model->findItems("--", Qt::MatchStartsWith)[0];
+            item->setFlags(item->flags() & ~Qt::ItemIsEnabled);
+        }
     }
 };
 
