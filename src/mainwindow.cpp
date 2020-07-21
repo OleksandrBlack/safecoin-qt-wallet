@@ -137,13 +137,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     // The safecoind tab is hidden by default, and only later added in if the embedded safecoind is started
-    zcashdtab = ui->tabWidget->widget(4);
-    ui->tabWidget->removeTab(4);
+    safecoindtab = ui->tabWidget->widget(5);
+    ui->tabWidget->removeTab(5);
 
     // The safenodes tab is hidden by default, and only later added in if the embedded safecoind is started
-    safenodestab = ui->tabWidget->widget(3);
-    ui->tabWidget->removeTab(3);
+    safenodestab = ui->tabWidget->widget(4);
+    ui->tabWidget->removeTab(4);
 
+	// Hidden tab market before implementation
+    ui->tabWidget->removeTab(3);
 
     setupSendTab();
     setupTransactionsTab();
@@ -151,7 +153,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setupBalancesTab();
     SafeNodesTab();
     setupSafeTab();
-    setupMarketTab();
+    //setupMarketTab();
     //setupChatTab();
 
 
@@ -1253,11 +1255,32 @@ void MainWindow::setupBalancesTab() {
 
 
 void MainWindow::SafeNodesTab() {
-    ui->safenodelogo->setPixmap(QPixmap(":/img/res/safenode.png").scaled(128, 128, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    QMovie *movie1 = new QMovie(":/img/res/safenode.png");; //TODO need make gif
+    QMovie *movie2 = new QMovie(":/img/res/safenode.png");;
+    auto theme = Settings::getInstance()->get_theme_name();
+    if (theme == "dark") {
+        movie2->setScaledSize(QSize(256,256));
+        ui->safenodelogo->setMovie(movie2);
+        movie2->start();
+    } else {
+        movie1->setScaledSize(QSize(256,256));
+        ui->safenodelogo->setMovie(movie1);
+        movie1->start();
+    }
 }
-
 void MainWindow::setupSafeTab() {
-    ui->safelogo->setBasePixmap(QPixmap(":/img/res/zcashdlogo.gif"));
+    QMovie *movie1 = new QMovie(":/img/res/safewallet-animated.gif");;
+    QMovie *movie2 = new QMovie(":/img/res/safewallet-animated-dark.gif");;
+    auto theme = Settings::getInstance()->get_theme_name();
+    if (theme == "dark") {
+        movie2->setScaledSize(QSize(256,256));
+        ui->safecoindlogo->setMovie(movie2);
+        movie2->start();
+    } else {
+        movie1->setScaledSize(QSize(256,256));
+        ui->safecoindlogo->setMovie(movie1);
+        movie1->start();
+    }
 }
 /*
 void MainWindow::setupChatTab() {

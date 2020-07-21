@@ -77,7 +77,7 @@ void RPC::setEZcashd(std::shared_ptr<QProcess> p) {
     ezcashd = p;
 
     if ((ezcashd && ui->tabWidget->widget(4) == nullptr) && (ezcashd && ui->tabWidget->widget(5) == nullptr)) {
-		ui->tabWidget->addTab(main->safenodestab, "SafeNodes") && ui->tabWidget->addTab(main->zcashdtab, "safecoind");
+        ui->tabWidget->addTab(main->safenodestab, "SafeNodes") && ui->tabWidget->addTab(main->safecoindtab, "safecoind");
     }
 }
 

@@ -816,11 +816,11 @@ void MainWindow::sendButton() {
         QMovie *movie2 = new QMovie(":/img/res/safewallet-animated-dark.gif");;
         auto theme = Settings::getInstance()->get_theme_name();
         if (theme == "dark") {
-            movie2->setScaledSize(QSize(512,512));
+            movie2->setScaledSize(QSize(256,256));
             connD->topIcon->setMovie(movie2);
             movie2->start();
         } else {
-            movie1->setScaledSize(QSize(512,512));
+            movie1->setScaledSize(QSize(256,256));
             connD->topIcon->setMovie(movie1);
             movie1->start();
         }
