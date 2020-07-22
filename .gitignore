@@ -48,3 +48,4 @@ node_modules
 safe-qt-wallet.pro.user
 safecoinwallet_resource.rc
 msvc_make.bat
+safewallet_resource.rc
