@@ -19,15 +19,15 @@ ConnectionLoader::ConnectionLoader(MainWindow* main, RPC* rpc) {
     d = new QDialog(main);
     connD = new Ui_ConnectionDialog();
     connD->setupUi(d);
-    QMovie *movie1 = new QMovie(":/img/res/safewallet-animated-startup.gif");;
-    QMovie *movie2 = new QMovie(":/img/res/safewallet-animated-startup-dark.gif");;
+    QMovie *movie1 = new QMovie(":/img/res/safecoindlogo.gif");;
+    QMovie *movie2 = new QMovie(":/img/res/safecoindlogo.gif");;
     auto theme = Settings::getInstance()->get_theme_name();
     if (theme == "dark") {
-        movie2->setScaledSize(QSize(512,512));
+        movie2->setScaledSize(QSize(256,256));
         connD->topIcon->setMovie(movie2);
         movie2->start();
     } else {
-        movie1->setScaledSize(QSize(512,512));
+        movie1->setScaledSize(QSize(256,256));
         connD->topIcon->setMovie(movie1);
         movie1->start();
     }
@@ -89,8 +89,8 @@ void ConnectionLoader::doAutoConnect(bool tryEzcashdStart) {
                     QString explanation;
                     if (config->zcashDaemon) {
                         explanation = QString() % QObject::tr("You have safecoind set to start as a daemon, which can cause problems "
-                            "with SafecoinWallet\n\n."
-                            "Please remove the following line from your safecoin.conf and restart SafecoinWallet\n"
+                            "with SafeWallet\n\n."
+                            "Please remove the following line from your safecoin.conf and restart SafeWallet\n"
                             "daemon=1");
                     } else {
                         explanation = QString() % QObject::tr("Couldn't start the embedded safecoind.\n\n" 
@@ -524,7 +524,7 @@ void ConnectionLoader::refreshZcashdState(Connection* connection, std::function<
             // Success
             main->logger->write("safecoind is online!");
             // Delay 1 second to ensure loading (splash) is seen at least 1 second.
-            QTimer::singleShot(1000, [=]() { this->doRPCSetConnection(connection); });
+            QTimer::singleShot(3000, [=]() { this->doRPCSetConnection(connection); });
         },
         [=] (QNetworkReply* reply, const QJsonValue &res) {
             // Failed, see what it is. 
@@ -554,7 +554,7 @@ void ConnectionLoader::refreshZcashdState(Connection* connection, std::function<
                 this->showInformation(QObject::tr("Your safecoind is starting up. Please wait."), status);
                 main->logger->write("Waiting for safecoind to come online.");
                 // Refresh after one second
-                QTimer::singleShot(1000, [=]() { this->refreshZcashdState(connection, refused); });
+                QTimer::singleShot(6000, [=]() { this->refreshZcashdState(connection, refused); });
             }
         }
     );

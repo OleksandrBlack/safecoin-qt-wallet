@@ -32,7 +32,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -624,123 +624,6 @@
       <attribute name="title">
        <string>Explorer</string>
       </attribute>
-      <widget class="QLabel" name="label_14">
-       <property name="geometry">
-        <rect>
-         <x>9</x>
-         <y>9</y>
-         <width>491</width>
-         <height>13</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Tx Explorer URL</string>
-       </property>
-      </widget>
-      <widget class="Line" name="line_5">
-       <property name="geometry">
-        <rect>
-         <x>9</x>
-         <y>105</y>
-         <width>491</width>
-         <height>3</height>
-        </rect>
-       </property>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="txExplorerUrl">
-       <property name="geometry">
-        <rect>
-         <x>9</x>
-         <y>28</y>
-         <width>491</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string notr="true">https://explorer.safecoin.org/tx/</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_15">
-       <property name="geometry">
-        <rect>
-         <x>9</x>
-         <y>54</y>
-         <width>491</width>
-         <height>13</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Address Explorer URL</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="addressExplorerUrl">
-       <property name="geometry">
-        <rect>
-         <x>9</x>
-         <y>73</y>
-         <width>491</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string notr="true">https://explorer.safecoin.org/address/</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_16">
-       <property name="geometry">
-        <rect>
-         <x>9</x>
-         <y>112</y>
-         <width>491</width>
-         <height>13</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Testnet Tx Explorer URL</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="testnetTxExplorerUrl">
-       <property name="geometry">
-        <rect>
-         <x>9</x>
-         <y>131</y>
-         <width>491</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string notr="true">https://explorer.testnet.z.cash/tx/</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_17">
-       <property name="geometry">
-        <rect>
-         <x>9</x>
-         <y>160</y>
-         <width>501</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Testnet Address Explorer URL</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="testnetAddressExplorerUrl">
-       <property name="geometry">
-        <rect>
-         <x>9</x>
-         <y>180</y>
-         <width>491</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string notr="true">https://explorer.testnet.safecoin.org/address/</string>
-       </property>
-      </widget>
       <widget class="QLabel" name="WalletSize">
        <property name="geometry">
         <rect>
@@ -780,6 +663,162 @@
         <string>MB</string>
        </property>
       </widget>
+      <widget class="QWidget" name="horizontalLayoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>6</y>
+         <width>551</width>
+         <height>521</height>
+        </rect>
+       </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_9">
+          <item>
+           <spacer name="verticalSpacer_7">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+           <widget class="QLabel" name="label_explorer_settiungs">
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+              <kerning>false</kerning>
+             </font>
+            </property>
+            <property name="text">
+             <string>Explorer Settings</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="Line" name="line_exp_h1">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_tx_url">
+            <property name="text">
+             <string>Tx Explorer URL</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="txExplorerUrl">
+            <item>
+             <property name="text">
+              <string>https://explorer.safecoin.org/tx/</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string notr="true">https://explorer.deepsky.space/tx/</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_addr_url">
+            <property name="text">
+             <string>Address Explorer URL</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QComboBox" name="addressExplorerUrl">
+            <item>
+             <property name="text">
+              <string>https://explorer.safecoin.org/address/</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string notr="true">https://explorer.deepsky.space/address/</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
+           <widget class="Line" name="line_exp_h2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_ttx_url">
+            <property name="text">
+             <string>Testnet Tx Explorer URL</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="testnetTxExplorerUrl">
+            <property name="text">
+             <string notr="true">https://explorer.testnet.z.cash/tx/</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_taddr_url">
+            <property name="text">
+             <string>Testnet Address Explorer URL</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="testnetAddressExplorerUrl">
+            <property name="text">
+             <string notr="true">https://explorer.testnet.safecoin.org/address/</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_9">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_8">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
      </widget>
      <widget class="QWidget" name="tab_3">
       <attribute name="title">
@@ -796,7 +835,7 @@
        <item row="1" column="0">
         <widget class="QLabel" name="label_9">
          <property name="text">
-          <string>Rescan the blockchain for any missing wallet transactions and to correct your wallet balance. This may take several hours. You need to restart SafecoinWallet for this to take effect</string>
+          <string>Rescan the blockchain for any missing wallet transactions and to correct your wallet balance. This may take several hours. You need to restart SafeWallet for this to take effect</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
@@ -840,7 +879,7 @@
        <item row="6" column="0">
         <widget class="QLabel" name="label_11">
          <property name="text">
-          <string>Rebuild the entire blockchain from the genesis block, by rescanning all the block files. This may take several hours to days, depending on your hardware. You need to restart SafecoinWallet for this to take effect</string>
+          <string>Rebuild the entire blockchain from the genesis block, by rescanning all the block files. This may take several hours to days, depending on your hardware. You need to restart SafeWallet for this to take effect</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>

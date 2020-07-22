@@ -31,8 +31,8 @@
     <name>ConnectionDialog</name>
     <message>
         <location filename="../src/connection.ui" line="17"/>
-        <source>SafecoinWallet</source>
-        <translation>SafecoinWallet</translation>
+        <source>SafeWallet</source>
+        <translation>SafeWallet</translation>
     </message>
     <message>
         <location filename="../src/connection.ui" line="58"/>
@@ -44,8 +44,8 @@
     <name>MainWindow</name>
     <message>
         <location filename="../src/mainwindow.ui" line="14"/>
-        <source>SafecoinWallet</source>
-        <translation>SafecoinWallet</translation>
+        <source>SafeWallet</source>
+        <translation>SafeWallet</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="29"/>
@@ -449,8 +449,8 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="566"/>
-        <source>Connection over Tor has been enabled. To use this feature, you need to restart SafecoinWallet.</source>
-        <translation>已启用Tor上的连接。 要使用此功能，您需要重新启动SafecoinWallet。</translation>
+        <source>Connection over Tor has been enabled. To use this feature, you need to restart SafeWallet.</source>
+        <translation>已启用Tor上的连接。 要使用此功能，您需要重新启动SafeWallet。</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="575"/>
@@ -459,23 +459,23 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="576"/>
-        <source>Connection over Tor has been disabled. To fully disconnect from Tor, you need to restart SafecoinWallet.</source>
-        <translation>Tor上的连接已被禁用。 要完全断开与Tor的连接，您需要重新启动SafecoinWallet。</translation>
+        <source>Connection over Tor has been disabled. To fully disconnect from Tor, you need to restart SafeWallet.</source>
+        <translation>Tor上的连接已被禁用。 要完全断开与Tor的连接，您需要重新启动SafeWallet。</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="605"/>
-        <source>SafecoinWallet needs to restart to rescan/reindex. SafecoinWallet will now close, please restart SafecoinWallet to continue</source>
-        <translation>SafecoinWallet需要重新启动才能重新扫描/重新索引。 SafecoinWallet现在关闭，请重启SafecoinWallet以继续</translation>
+        <source>SafeWallet needs to restart to rescan/reindex. SafeWallet will now close, please restart SafeWallet to continue</source>
+        <translation>SafeWallet需要重新启动才能重新扫描/重新索引。 SafeWallet现在关闭，请重启SafeWallet以继续</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="607"/>
-        <source>Restart SafecoinWallet</source>
-        <translation>重启SafecoinWallet</translation>
+        <source>Restart SafeWallet</source>
+        <translation>重启SafeWallet</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="637"/>
-        <source>Thanks for supporting SafecoinWallet!</source>
-        <translation>感谢您支持SafecoinWallet！</translation>
+        <source>Thanks for supporting SafeWallet!</source>
+        <translation>感谢您支持SafeWallet！</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="639"/>
@@ -484,8 +484,8 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="639"/>
-        <source> to support SafecoinWallet</source>
-        <translation> 支持SafecoinWallet</translation>
+        <source> to support SafeWallet</source>
+        <translation> 支持SafeWallet</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="676"/>
@@ -824,8 +824,8 @@ doesn&apos;t look like a z-address</source>
     </message>
     <message>
         <location filename="../src/mobileappconnector.ui" line="36"/>
-        <source>Scan this QRCode from your SafecoinWallet companion app to connect your phone</source>
-        <translation>从您的SafecoinWallet配套应用程序扫描此二维码以连接您的手机</translation>
+        <source>Scan this QRCode from your SafeWallet companion app to connect your phone</source>
+        <translation>从您的SafeWallet配套应用程序扫描此二维码以连接您的手机</translation>
     </message>
     <message>
         <location filename="../src/mobileappconnector.ui" line="43"/>
@@ -839,13 +839,13 @@ doesn&apos;t look like a z-address</source>
     </message>
     <message>
         <location filename="../src/mobileappconnector.ui" line="84"/>
-        <source>Allow connections over the internet via SafecoinWallet wormhole</source>
-        <translation>允许通过SafecoinWallet虫洞连接互联网</translation>
+        <source>Allow connections over the internet via SafeWallet wormhole</source>
+        <translation>允许通过SafeWallet虫洞连接互联网</translation>
     </message>
     <message>
         <location filename="../src/mobileappconnector.ui" line="94"/>
-        <source>SafecoinWallet Companion App</source>
-        <translation>SafecoinWallet配套App</translation>
+        <source>SafeWallet Companion App</source>
+        <translation>SafeWallet配套App</translation>
     </message>
     <message>
         <location filename="../src/mobileappconnector.ui" line="106"/>
@@ -975,13 +975,13 @@ doesn&apos;t look like a z-address</source>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="77"/>
-        <source>You have safecoind set to start as a daemon, which can cause problems with SafecoinWallet
+        <source>You have safecoind set to start as a daemon, which can cause problems with SafeWallet
 
-.Please remove the following line from your safecoin.conf and restart SafecoinWallet
+.Please remove the following line from your safecoin.conf and restart SafeWallet
 daemon=1</source>
-        <translation>你已经将safecoind设置为守护进程启动，这可能会导致SafecoinWallet出现问题
+        <translation>你已经将safecoind设置为守护进程启动，这可能会导致SafeWallet出现问题
 
-。请从safecoin.conf中删除以下行并重新启动SafecoinWallet
+。请从safecoin.conf中删除以下行并重新启动SafeWallet
 daemon=1</translation>
     </message>
     <message>
@@ -1267,8 +1267,8 @@ Would you like to visit the releases page?</source>
     </message>
     <message>
         <location filename="../src/rpc.cpp" line="1182"/>
-        <source>Please wait for SafecoinWallet to exit</source>
-        <translation>请等待SafecoinWallet退出</translation>
+        <source>Please wait for SafeWallet to exit</source>
+        <translation>请等待SafeWallet退出</translation>
     </message>
     <message>
         <location filename="../src/rpc.cpp" line="1183"/>
@@ -1324,8 +1324,8 @@ You either have unconfirmed funds or the balance is too low for an automatic mig
     </message>
     <message>
         <location filename="../src/websockets.cpp" line="359"/>
-        <source>Connected over the internet via SafecoinWallet wormhole service</source>
-        <translation>通过SafecoinWallet虫洞服务连接互联网</translation>
+        <source>Connected over the internet via SafeWallet wormhole service</source>
+        <translation>通过SafeWallet虫洞服务连接互联网</translation>
     </message>
     <message>
         <location filename="../src/websockets.cpp" line="652"/>
@@ -1470,8 +1470,8 @@ You either have unconfirmed funds or the balance is too low for an automatic mig
     </message>
     <message>
         <location filename="../src/recurringmultiple.ui" line="44"/>
-        <source>How should SafecoinWallet proceed?</source>
-        <translation>SafecoinWallet应该如何处理？</translation>
+        <source>How should SafeWallet proceed?</source>
+        <translation>SafeWallet应该如何处理？</translation>
     </message>
     <message>
         <location filename="../src/recurringmultiple.ui" line="51"/>
@@ -1721,8 +1721,8 @@ You either have unconfirmed funds or the balance is too low for an automatic mig
     </message>
     <message>
         <location filename="../src/settings.ui" line="301"/>
-        <source>Rescan the blockchain for any missing wallet transactions and to correct your wallet balance. This may take several hours. You need to restart SafecoinWallet for this to take effect</source>
-        <translation>重新扫描区块链以查找任何丢失的钱包交易并更正您的钱包余额。 这可能需要几个小时。 您需要重新启动SafecoinWallet才能使其生效</translation>
+        <source>Rescan the blockchain for any missing wallet transactions and to correct your wallet balance. This may take several hours. You need to restart SafeWallet for this to take effect</source>
+        <translation>重新扫描区块链以查找任何丢失的钱包交易并更正您的钱包余额。 这可能需要几个小时。 您需要重新启动SafeWallet才能使其生效</translation>
     </message>
     <message>
         <location filename="../src/settings.ui" line="311"/>
@@ -1731,8 +1731,8 @@ You either have unconfirmed funds or the balance is too low for an automatic mig
     </message>
     <message>
         <location filename="../src/settings.ui" line="345"/>
-        <source>Rebuild the entire blockchain from the genesis block, by rescanning all the block files. This may take several hours to days, depending on your hardware. You need to restart SafecoinWallet for this to take effect</source>
-        <translation>通过重新扫描所有区块文件，从创世块重建整个区块链。 这可能需要几个小时到几天，具体取决于您的硬件环境。 您需要重新启动SafecoinWallet才能使其生效</translation>
+        <source>Rebuild the entire blockchain from the genesis block, by rescanning all the block files. This may take several hours to days, depending on your hardware. You need to restart SafeWallet for this to take effect</source>
+        <translation>通过重新扫描所有区块文件，从创世块重建整个区块链。 这可能需要几个小时到几天，具体取决于您的硬件环境。 您需要重新启动SafeWallet才能使其生效</translation>
     </message>
 </context>
 <context>

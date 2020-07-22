@@ -437,8 +437,8 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="750"/>
-        <source>Transparent Address (Public, Metadata-Leaking)</source>
-        <translation>Suojaamaton Osoite (Kaikille Näkyvä, Metadataa-Vuotava)</translation>
+        <source>Transparent Address (Public)</source>
+        <translation>Suojaamaton Osoite (Kaikille Näkyvä)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="1361"/>

@@ -68,7 +68,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // File a bug
     QObject::connect(ui->actionFile_a_bug, &QAction::triggered, [=]() {
-        QDesktopServices::openUrl(QUrl("https://github.com/Fair-Exchange/safecoinwallet/issues/new"));
+        QDesktopServices::openUrl(QUrl("https://github.com/Fair-Exchange/safewallet/issues/new"));
     });
 
     // Set up check for updates action
@@ -137,13 +137,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     // The safecoind tab is hidden by default, and only later added in if the embedded safecoind is started
-    zcashdtab = ui->tabWidget->widget(4);
-    ui->tabWidget->removeTab(4);
+    safecoindtab = ui->tabWidget->widget(5);
+    ui->tabWidget->removeTab(5);
 
     // The safenodes tab is hidden by default, and only later added in if the embedded safecoind is started
-    safenodestab = ui->tabWidget->widget(3);
-    ui->tabWidget->removeTab(3);
+    safenodestab = ui->tabWidget->widget(4);
+    ui->tabWidget->removeTab(4);
 
+	// Hidden tab market before implementation
+    ui->tabWidget->removeTab(3);
 
     setupSendTab();
     setupTransactionsTab();
@@ -151,7 +153,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setupBalancesTab();
     SafeNodesTab();
     setupSafeTab();
-    setupMarketTab();
+    //setupMarketTab();
     //setupChatTab();
 
 
@@ -266,7 +268,7 @@ void MainWindow::setupStatusBar() {
             menu.addAction(tr("Copy txid"), [=]() {
                 QGuiApplication::clipboard()->setText(txid);
             });
-            menu.addAction("Copy block explorer link", [=]() {
+            menu.addAction(tr("Copy block explorer link"), [=]() {
                 QString url;
                 auto explorer = Settings::getInstance()->getExplorer();
                 if (Settings::getInstance()->isTestnet()) {
@@ -276,7 +278,7 @@ void MainWindow::setupStatusBar() {
                 }
                 QGuiApplication::clipboard()->setText(url);
             });
-            menu.addAction("View tx on block explorer", [=]() {
+            menu.addAction(tr("View tx on block explorer"), [=]() {
                 QString url;
                 auto explorer = Settings::getInstance()->getExplorer();
                 if (Settings::getInstance()->isTestnet()) {
@@ -484,8 +486,8 @@ void MainWindow::setupSettingsModal() {
 
         // Load current explorer values into the dialog
         auto explorer = Settings::getInstance()->getExplorer();
-        settings.txExplorerUrl->setText(explorer.txExplorerUrl);
-        settings.addressExplorerUrl->setText(explorer.addressExplorerUrl);
+        settings.txExplorerUrl->setCurrentText(explorer.txExplorerUrl);
+        settings.addressExplorerUrl->setCurrentText(explorer.addressExplorerUrl);
         settings.testnetTxExplorerUrl->setText(explorer.testnetTxExplorerUrl);
         settings.testnetAddressExplorerUrl->setText(explorer.testnetAddressExplorerUrl);
 
@@ -542,7 +544,7 @@ void MainWindow::setupSettingsModal() {
                 rpc->getConnection()->config->proxy.clear();
 
                 QMessageBox::information(this, tr("Disable Tor"),
-                    tr("Connection over Tor has been disabled. To fully disconnect from Tor, you need to restart SafecoinWallet."),
+                    tr("Connection over Tor has been disabled. To fully disconnect from Tor, you need to restart SafeWallet."),
                     QMessageBox::Ok);
             }
 
@@ -572,9 +574,9 @@ void MainWindow::setupSettingsModal() {
                  }
             }
             if (showNodeConfInfo) {
-                auto desc = tr("SafecoinWallet needs to restart to apply configuration Safenode. SafecoinWallet will now close, please restart SafecoinWallet to continue");
+                auto desc = tr("SafeWallet needs to restart to apply configuration Safenode. SafeWallet will now close, please restart SafeWallet to continue");
 
-                QMessageBox::information(this, tr("Restart SafecoinWallet"), desc, QMessageBox::Ok);
+                QMessageBox::information(this, tr("Restart SafeWallet"), desc, QMessageBox::Ok);
                 QTimer::singleShot(1, [=]() { this->close(); });
             }
 			
@@ -647,8 +649,8 @@ void MainWindow::setupSettingsModal() {
 
             // Save explorer
             Settings::getInstance()->saveExplorer(
-                settings.txExplorerUrl->text(),
-                settings.addressExplorerUrl->text(),
+                settings.txExplorerUrl->currentText(),
+                settings.addressExplorerUrl->currentText(),
                 settings.testnetTxExplorerUrl->text(),
                 settings.testnetAddressExplorerUrl->text());
 
@@ -722,9 +724,9 @@ void MainWindow::donate() {
     ui->Address1->setText(Settings::getDonationAddr());
     ui->Address1->setCursorPosition(0);
     ui->Amount1->setText("0.00");
-    ui->MemoTxt1->setText(tr("Some feedback about SafecoinWallet or Safecoin...!"));
+    ui->MemoTxt1->setText(tr("Some feedback about SafeWallet or Safecoin...!"));
 
-    ui->statusBar->showMessage(tr("Send OleksandrBlack feedback about ") % Settings::getTokenName() % tr(" or SafecoinWallet"));
+    ui->statusBar->showMessage(tr("Send OleksandrBlack feedback about ") % Settings::getTokenName() % tr(" or SafeWallet"));
 
     // And switch to the send tab.
     ui->tabWidget->setCurrentIndex(1);
@@ -1025,7 +1027,7 @@ void MainWindow::getViewKey(QString addr) {
     // Wire up save button
     QObject::connect(vui.buttonBox->button(QDialogButtonBox::Save), &QPushButton::clicked, [=] () {
         QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),
-                           allKeys ? "hush-all-viewkeys.txt" : "hush-viewkey.txt");
+                           allKeys ? "safe-all-viewkeys.txt" : "safe-viewkey.txt");
         QFile file(fileName);
         if (!file.open(QIODevice::WriteOnly)) {
             QMessageBox::information(this, tr("Unable to open file"), file.errorString());
@@ -1216,7 +1218,7 @@ void MainWindow::setupBalancesTab() {
             fnDoSendFrom("",addr);
         });
 
-        if (addr.startsWith("R")) {
+        if (Settings::isTAddress(addr)) {
             auto defaultSapling = rpc->getDefaultSaplingAddress();
             if (!defaultSapling.isEmpty()) {
                 menu.addAction(tr("Shield balance to Sapling"), [=] () {
@@ -1253,11 +1255,32 @@ void MainWindow::setupBalancesTab() {
 
 
 void MainWindow::SafeNodesTab() {
-    ui->safenodelogo->setPixmap(QPixmap(":/img/res/safenode.png").scaled(128, 128, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    QMovie *movie1 = new QMovie(":/img/res/safenodelogo.gif");;
+    QMovie *movie2 = new QMovie(":/img/res/safenodelogo.gif");;
+    auto theme = Settings::getInstance()->get_theme_name();
+    if (theme == "dark") {
+        movie2->setScaledSize(QSize(256,256));
+        ui->safenodelogo->setMovie(movie2);
+        movie2->start();
+    } else {
+        movie1->setScaledSize(QSize(256,256));
+        ui->safenodelogo->setMovie(movie1);
+        movie1->start();
+    }
 }
-
 void MainWindow::setupSafeTab() {
-    ui->safelogo->setBasePixmap(QPixmap(":/img/res/zcashdlogo.gif"));
+    QMovie *movie1 = new QMovie(":/img/res/safecoindlogo.gif");;
+    QMovie *movie2 = new QMovie(":/img/res/safecoindlogo.gif");;
+    auto theme = Settings::getInstance()->get_theme_name();
+    if (theme == "dark") {
+        movie2->setScaledSize(QSize(256,256));
+        ui->safecoindlogo->setMovie(movie2);
+        movie2->start();
+    } else {
+        movie1->setScaledSize(QSize(256,256));
+        ui->safecoindlogo->setMovie(movie1);
+        movie1->start();
+    }
 }
 /*
 void MainWindow::setupChatTab() {
@@ -1504,7 +1527,6 @@ void MainWindow::setupReceiveTab() {
         viewaddrs.setupUi(&d);
         Settings::saveRestore(&d);
         Settings::saveRestoreTableHeader(viewaddrs.tblAddresses, &d, "viewalladdressestable");
-        viewaddrs.tblAddresses->horizontalHeader()->setStretchLastSection(true);
 
         ViewAllAddressesModel model(viewaddrs.tblAddresses, *getRPC()->getAllTAddresses(), getRPC());
         viewaddrs.tblAddresses->setModel(&model);
@@ -1520,7 +1542,7 @@ void MainWindow::setupReceiveTab() {
             QString addr = viewaddrs.tblAddresses->model()->data(index).toString();
 
             QMenu menu(this);
-            menu.addAction(tr("Export Private Key"), [=] () {
+            menu.addAction(tr("Export Private Key"), [=] () {                
                 if (addr.isEmpty())
                     return;
 
@@ -1652,13 +1674,55 @@ void MainWindow::updateTAddrCombo(bool checked) {
         auto utxos = this->rpc->getUTXOs();
         ui->listReceiveAddresses->clear();
 
-        std::for_each(utxos->begin(), utxos->end(), [=](auto& utxo) {
+        // Maintain a set of addresses so we don't duplicate any, because we'll be adding
+        // t addresses multiple times
+        QSet<QString> addrs;
+
+        // 1. Add all t addresses that have a balance
+        std::for_each(utxos->begin(), utxos->end(), [=, &addrs](auto& utxo) {
             auto addr = utxo.address;
-            if (addr.startsWith("R") && ui->listReceiveAddresses->findText(addr) < 0) {
+            if (Settings::isTAddress(addr) && !addrs.contains(addr)) {
                 auto bal = rpc->getAllBalances()->value(addr);
                 ui->listReceiveAddresses->addItem(addr, bal);
+
+                addrs.insert(addr);
             }
         });
+        
+        // 2. Add all t addresses that have a label
+        auto allTaddrs = this->rpc->getAllTAddresses();
+        QSet<QString> labels;
+        for (auto p : AddressBook::getInstance()->getAllAddressLabels()) {
+            labels.insert(p.second);
+        }
+        std::for_each(allTaddrs->begin(), allTaddrs->end(), [=, &addrs] (auto& taddr) {
+            // If the address is in the address book, add it. 
+            if (labels.contains(taddr) && !addrs.contains(taddr)) {
+                addrs.insert(taddr);
+                ui->listReceiveAddresses->addItem(taddr, 0);
+            }
+        });
+
+        // 3. Add all t-addresses. We won't add more than 20 total t-addresses,
+        // since it will overwhelm the dropdown
+        for (int i=0; addrs.size() < 20 && i < allTaddrs->size(); i++) {
+            auto addr = allTaddrs->at(i);
+            if (!addrs.contains(addr))  {
+                addrs.insert(addr);
+                // Balance is zero since it has not been previously added
+                ui->listReceiveAddresses->addItem(addr, 0);
+            }
+        }
+
+        // 4. Add a last, disabled item if there are remaining items
+        if (allTaddrs->size() > addrs.size()) {
+            auto num = QString::number(allTaddrs->size() - addrs.size());
+            ui->listReceiveAddresses->addItem("-- " + num + " more --", 0);
+
+            QStandardItemModel* model = qobject_cast<QStandardItemModel*>(ui->listReceiveAddresses->model());
+            QStandardItem* item =  model->findItems("--", Qt::MatchStartsWith)[0];
+            item->setFlags(item->flags() & ~Qt::ItemIsEnabled);
+        }
     }
 };
 

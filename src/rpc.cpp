@@ -77,7 +77,7 @@ void RPC::setEZcashd(std::shared_ptr<QProcess> p) {
     ezcashd = p;
 
     if ((ezcashd && ui->tabWidget->widget(4) == nullptr) && (ezcashd && ui->tabWidget->widget(5) == nullptr)) {
-		ui->tabWidget->addTab(main->safenodestab, "SafeNodes") && ui->tabWidget->addTab(main->zcashdtab, "safecoind");
+        ui->tabWidget->addTab(main->safenodestab, "SafeNodes") && ui->tabWidget->addTab(main->safecoindtab, "safecoind");
     }
 }
 
@@ -373,7 +373,7 @@ void RPC::fillTxJsonParams(QJsonArray& params, Tx tx) {
         // Force it through string for rounding. Without this, decimal points beyond 8 places
         // will appear, causing an "invalid amount" error
         rec["amount"]       = Settings::getDecimalString(toAddr.amount); //.toDouble();
-        if (toAddr.addr.startsWith("s") && !toAddr.encodedMemo.trimmed().isEmpty())
+        if (Settings::isZAddress(toAddr.addr) && !toAddr.encodedMemo.trimmed().isEmpty())
             rec["memo"]     = toAddr.encodedMemo;
 
         allRecepients.push_back(rec);
@@ -1268,7 +1268,7 @@ void RPC::checkForUpdate(bool silent) {
     if  (conn == nullptr) 
         return noConnection();
 
-    QUrl cmcURL("https://api.github.com/repos/Fair-Exchange/safecoinwallet/releases");
+    QUrl cmcURL("https://api.github.com/repos/Fair-Exchange/safewallet/releases");
 
     QNetworkRequest req;
     req.setUrl(cmcURL);
@@ -1314,7 +1314,7 @@ void RPC::checkForUpdate(bool silent) {
                             .arg(currentVersion.toString()),
                         QMessageBox::Yes, QMessageBox::Cancel);
                     if (ans == QMessageBox::Yes) {
-                        QDesktopServices::openUrl(QUrl("https://github.com/Fair-Exchange/safecoinwallet/releases"));
+                        QDesktopServices::openUrl(QUrl("https://github.com/Fair-Exchange/safewallet/releases"));
                     } else {
                         // If the user selects cancel, don't bother them again for this version
                         s.setValue("update/lastversion", maxVersion.toString());
@@ -1398,7 +1398,7 @@ void RPC::refreshPrice() {
 
 
             const QJsonValue& item  = parsed;
-            const QJsonValue& safe  = item["safe"].toObject();
+            const QJsonValue& safe  = item["safe-coin-2"].toObject();
             QString  ticker    = s->get_currency_name();
             ticker = ticker.toLower();
             fprintf(stderr,"ticker=%s\n", ticker.toLocal8Bit().data());
@@ -1483,8 +1483,8 @@ void RPC::shutdownZcashd() {
     Ui_ConnectionDialog connD;
     connD.setupUi(&d);
     //connD.topIcon->setBasePixmap(QIcon(":/icons/res/icon.ico").pixmap(256, 256));
-    QMovie *movie1 = new QMovie(":/img/res/safewallet-animated.gif");;
-    QMovie *movie2 = new QMovie(":/img/res/safewallet-animated-dark.gif");;
+    QMovie *movie1 = new QMovie(":/img/res/safecoindlogo.gif");;
+    QMovie *movie2 = new QMovie(":/img/res/safecoindlogo.gif");;
     auto theme = Settings::getInstance()->get_theme_name();
     if (theme == "dark") {
         movie2->setScaledSize(QSize(256,256));
@@ -1498,7 +1498,7 @@ void RPC::shutdownZcashd() {
 
 
     connD.status->setText(QObject::tr("Please wait for SafeWallet to exit"));
-    connD.statusDetail->setText(QObject::tr("Waiting for safecoind to exit, y'all"));
+    connD.statusDetail->setText(QObject::tr("Waiting for safecoind to exit, Stay Safe"));
 
 
     QTimer waiter(main);

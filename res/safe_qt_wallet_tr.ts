@@ -19,7 +19,7 @@
     <message>
         <location filename="../src/connection.ui" line="17"/>
         <source>safe-qt-wallet</source>
-        <translation>SafecoinWallet</translation>
+        <translation>SafeWallet</translation>
     </message>
     <message>
         <location filename="../src/connection.ui" line="58"/>
@@ -32,7 +32,7 @@
     <message>
         <location filename="../src/mainwindow.ui" line="14"/>
         <source>safe-qt-wallet</source>
-        <translation>SafecoinWallet</translation>
+        <translation>SafeWallet</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="29"/>
@@ -346,7 +346,7 @@
     <message>
         <location filename="../src/mainwindow.cpp" line="471"/>
         <source>Thanks for supporting safe-qt-wallet!</source>
-        <translation>SafecoinWallet&apos;i desteklediğiniz için teşekkür ederiz!</translation>
+        <translation>SafeWallet&apos;i desteklediğiniz için teşekkür ederiz!</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="473"/>
@@ -357,7 +357,7 @@
         <location filename="../src/mainwindow.cpp" line="473"/>
         <source> to support safe-qt-wallet</source>
         <translatorcomment>0.01 Bağış yap yazısının devamı</translatorcomment>
-        <translation>ve SafecoinWallet&apos;i destekle</translation>
+        <translation>ve SafeWallet&apos;i destekle</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="509"/>
@@ -602,7 +602,7 @@ z-adres&apos;i gibi görünmüyor</translation>
 daemon=1</source>
         <translation>safecoind, safe-qt-wallet ile sorunlara neden olan bir daemon olarak başlayacak şekilde ayarladınız.
 
-.Lütfen aşağıdaki satırı safecoin.conf dosyanızdan kaldırın ve SafecoinWallet&apos;ı yeniden başlatın
+.Lütfen aşağıdaki satırı safecoin.conf dosyanızdan kaldırın ve SafeWallet&apos;ı yeniden başlatın
 daemon=1</translation>
     </message>
     <message>
@@ -730,7 +730,7 @@ Not starting embedded safecoind because --no-embedded was passed</source>
     <message>
         <location filename="../src/rpc.cpp" line="953"/>
         <source>Please wait for safe-qt-wallet to exit</source>
-        <translation>Lütfen çıkmak için SafecoinWallet&apos;ı bekleyin</translation>
+        <translation>Lütfen çıkmak için SafeWallet&apos;ı bekleyin</translation>
     </message>
     <message>
         <location filename="../src/rpc.cpp" line="954"/>

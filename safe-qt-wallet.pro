@@ -12,7 +12,7 @@ PRECOMPILED_HEADER = src/precompiled.h
 QT += widgets
 QT += websockets
 
-TARGET = safecoinwallet
+TARGET = safewallet
 
 TEMPLATE = app
 
@@ -112,9 +112,10 @@ FORMS += \
 
 
 
-TRANSLATIONS = res/safe_qt_wallet_es.ts \
+TRANSLATIONS = res/safe_qt_wallet_de.ts \
+               res/safe_qt_wallet_es.ts \
                res/safe_qt_wallet_fr.ts \
-               res/zec_qt_wallet_fi.ts \
+               res/safe_qt_wallet_fi.ts \
                res/safe_qt_wallet_pt.ts \
                res/safe_qt_wallet_it.ts \
                res/safe_qt_wallet_zh.ts \
