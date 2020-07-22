@@ -1,4 +1,3 @@
-#-------------------------------------------------
 #
 # Project created by QtCreator 2018-10-05T09:54:45
 #
@@ -13,7 +12,7 @@ PRECOMPILED_HEADER = src/precompiled.h
 QT += widgets
 QT += websockets
 
-TARGET = safecoinwallet
+TARGET = safewallet
 
 TEMPLATE = app
 
@@ -26,6 +25,9 @@ DEFINES += \
 
 INCLUDEPATH  += src/3rdparty/
 INCLUDEPATH  += src/
+mac: LIBS+= -Wl,-dead_strip
+mac: LIBS+= -Wl,-dead_strip_dylibs
+mac: LIBS+= -Wl,-bind_at_load
 
 RESOURCES     = application.qrc
 
@@ -47,7 +49,6 @@ SOURCES += \
     src/sendtab.cpp \
     src/senttxstore.cpp \
     src/txtablemodel.cpp \
-    src/turnstile.cpp \
     src/qrcodelabel.cpp \
     src/connection.cpp \
     src/fillediconlabel.cpp \
@@ -70,11 +71,9 @@ HEADERS += \
     src/3rdparty/qrcode/BitBuffer.hpp \
     src/3rdparty/qrcode/QrCode.hpp \
     src/3rdparty/qrcode/QrSegment.hpp \
-    src/3rdparty/json/json.hpp \
     src/settings.h \
     src/txtablemodel.h \
     src/senttxstore.h \
-    src/turnstile.h \
     src/qrcodelabel.h \
     src/connection.h \
     src/fillediconlabel.h \
@@ -96,14 +95,12 @@ FORMS += \
     src/settings.ui \
     src/about.ui \
     src/confirm.ui \
-    src/turnstile.ui \
-    src/turnstileprogress.ui \
     src/privkey.ui \
     src/memodialog.ui \ 
+    src/viewkey.ui \
     src/validateaddress.ui \
     src/viewalladdresses.ui \
     src/connection.ui \
-    src/zboard.ui \
     src/addressbook.ui \
     src/mobileappconnector.ui \
     src/createzcashconfdialog.ui \
@@ -113,18 +110,21 @@ FORMS += \
     src/recurringmultiple.ui
 
 
-TRANSLATIONS = res/zec_qt_wallet_es.ts \
-               res/zec_qt_wallet_fr.ts \
-               res/zec_qt_wallet_de.ts \
-               res/zec_qt_wallet_pt.ts \
-               res/zec_qt_wallet_it.ts \
-               res/zec_qt_wallet_zh.ts \
-               res/zec_qt_wallet_ru.ts \
-               res/zec_qt_wallet_uk.ts \
-               res/zec_qt_wallet_tr.ts
+
+
+TRANSLATIONS = res/safe_qt_wallet_de.ts \
+               res/safe_qt_wallet_es.ts \
+               res/safe_qt_wallet_fr.ts \
+               res/safe_qt_wallet_fi.ts \
+               res/safe_qt_wallet_pt.ts \
+               res/safe_qt_wallet_it.ts \
+               res/safe_qt_wallet_zh.ts \
+               res/safe_qt_wallet_ru.ts \
+               res/safe_qt_wallet_uk.ts \
+               res/safe_qt_wallet_tr.ts
 
 include(singleapplication/singleapplication.pri)
-DEFINES += QAPPLICATION_CLASS=QApplication
+DEFINES += QAPPLICATION_CLASS=QApplication _FORTIFY_SOURCE=2
 
 QMAKE_INFO_PLIST = res/Info.plist
 

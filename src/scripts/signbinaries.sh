@@ -24,7 +24,10 @@ if [ -z $APP_VERSION ]; then echo "APP_VERSION is not set"; exit 1; fi
 
 # Store the hash and signatures here
 rm -rf release/signatures
-mkdir -p release/signatures 
+mkdir -p release/signatures
+
+# Staple the notarization
+xcrun stapler staple artifacts/macOS-safewallet-v$APP_VERSION.dmg
 
 cd artifacts
 
@@ -35,7 +38,7 @@ rm -f signatures-v$APP_VERSION.tar.gz
 # sha256sum the binaries
 gsha256sum *$APP_VERSION* > sha256sum-v$APP_VERSION.txt
 
-for i in $( ls *safecoinwallet-v$APP_VERSION* sha256sum-v$APP_VERSION* ); do
+for i in $( ls *safewallet-v$APP_VERSION* sha256sum-v$APP_VERSION* ); do
   echo "Signing" $i
   gpg --batch --output ../release/signatures/$i.sig --detach-sig $i 
 done
@@ -47,4 +50,3 @@ cd ../release/signatures
 #tar -czf signatures-v$APP_VERSION.tar.gz *
 zip signatures-v$APP_VERSION.zip *
 mv signatures-v$APP_VERSION.zip ../../artifacts
-

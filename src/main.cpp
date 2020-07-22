@@ -4,7 +4,6 @@
 #include "mainwindow.h"
 #include "rpc.h"
 #include "settings.h"
-#include "turnstile.h"
 
 #include "version.h"
 
@@ -228,7 +227,7 @@ public:
         }
 
         w = new MainWindow();
-        w->setWindowTitle("SafecoinWallet v" + QString(APP_VERSION));
+        w->setWindowTitle("SafeWallet v" + QString(APP_VERSION));
 
         // If there was a payment URI on the command line, pay it
         if (parser.positionalArguments().length() > 0) {

@@ -1,3 +1,8 @@
+
+// Copyright 2019-2020 The Hush developers
+// Copyright 2020 Safecoin developers
+
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "addressbook.h"
@@ -7,8 +12,8 @@
 #include "settings.h"
 #include "rpc.h"
 #include "recurring.h"
+#include <QFileDialog>
 
-using json = nlohmann::json;
 
 void MainWindow::setupSendTab() {
     // Create the validator for send to/amount fields
@@ -42,6 +47,11 @@ void MainWindow::setupSendTab() {
         this->memoButtonClicked(1);
     });
     setMemoEnabled(1, false);
+
+    // File upload button
+    QObject::connect(ui->FileBtn, &QPushButton::clicked, [=] () {
+        this->fileUploadButtonClicked(1);
+    });
         
     // This is the damnest thing ever. If we do AddressBook::readFromStorage() directly, the whole file
     // doesn't get read. It needs to run in a timer after everything has finished to be able to read
@@ -62,7 +72,7 @@ void MainWindow::setupSendTab() {
     // Disable custom fees if settings say no
     ui->minerFeeAmt->setReadOnly(!Settings::getInstance()->getAllowCustomFees());
     QObject::connect(ui->minerFeeAmt, &QLineEdit::textChanged, [=](auto txt) {
-        ui->lblMinerFeeUSD->setText(Settings::getUSDFromZecAmount(txt.toDouble()));
+        ui->lblMinerFeeUSD->setText(Settings::getUSDFormat(txt.toDouble()));
     });
     ui->minerFeeAmt->setText(Settings::getDecimalString(Settings::getMinerFee()));    
 
@@ -70,7 +80,7 @@ void MainWindow::setupSendTab() {
     QObject::connect(ui->tabWidget, &QTabWidget::currentChanged, [=] (int pos) {
         if (pos == 1) {
             QString txt = ui->minerFeeAmt->text();
-            ui->lblMinerFeeUSD->setText(Settings::getUSDFromZecAmount(txt.toDouble()));
+            ui->lblMinerFeeUSD->setText(Settings::getUSDFormat(txt.toDouble()));
         }
     });
     
@@ -161,7 +171,7 @@ void MainWindow::updateLabelsAutoComplete() {
     labelCompleter->setCaseSensitivity(Qt::CaseInsensitive);
 
     // Then, find all the address fields and update the completer.
-    QRegExp re("Address[0-9]+", Qt::CaseInsensitive);
+    QRegularExpression re("Address[0-9]+", QRegularExpression::CaseInsensitiveOption);
     for (auto target: ui->sendToWidgets->findChildren<QLineEdit *>(re)) {
         target->setCompleter(labelCompleter);
     }
@@ -225,10 +235,10 @@ void MainWindow::updateFromCombo() {
 void MainWindow::inputComboTextChanged(int index) {
     auto addr   = ui->inputsCombo->itemText(index);
     auto bal    = rpc->getAllBalances()->value(addr);
-    auto balFmt = Settings::getZECDisplayFormat(bal);
+    auto balFmt = Settings::getDisplayFormat(bal);
 
     ui->sendAddressBalance->setText(balFmt);
-    ui->sendAddressBalanceUSD->setText(Settings::getUSDFromZecAmount(bal));
+    ui->sendAddressBalanceUSD->setText(Settings::getUSDFormat(bal));
 }
 
     
@@ -307,6 +317,15 @@ void MainWindow::addAddressSection() {
     horizontalLayout_13->addWidget(MemoBtn1);
     setMemoEnabled(itemNumber, false);
 
+    auto FileBtn = new QPushButton(verticalGroupBox);
+    FileBtn->setObjectName(QString("FileBtn") % QString::number(itemNumber));
+    FileBtn->setText(tr("File Upload"));    
+    // Connect File Upload button
+    QObject::connect(FileBtn, &QPushButton::clicked, [=] () {
+        this->fileUploadButtonClicked(itemNumber);
+    });
+    horizontalLayout_13->addWidget(FileBtn);
+
     sendAddressLayout->addLayout(horizontalLayout_13);
 
     auto MemoTxt1 = new QLabel(verticalGroupBox);
@@ -341,7 +360,7 @@ void MainWindow::addressChanged(int itemNumber, const QString& text) {
 
 void MainWindow::amountChanged(int item, const QString& text) {
     auto usd = ui->sendToWidgets->findChild<QLabel*>(QString("AmtUSD") % QString::number(item));
-    usd->setText(Settings::getUSDFromZecAmount(text.toDouble()));
+    usd->setText(Settings::getUSDFormat(text.toDouble()));
 
     // If there is a recurring payment, update the info there as well
     if (sendTxRecurringInfo != nullptr) {
@@ -359,6 +378,34 @@ void MainWindow::setMemoEnabled(int number, bool enabled) {
         memoBtn->setEnabled(false);
         memoBtn->setToolTip(tr("Only z-addresses can have memos"));
     }
+}
+
+void MainWindow::fileUploadButtonClicked(int number) {
+    // currently limited to one memo
+    int uploadMaxSize = 512;
+    qDebug() << "File upload button clicked";
+    //TODO: Choose custom upload directory in settings
+    QString fileName = QFileDialog::getOpenFileName(this, tr("File Upload"), ".", tr(""));
+    QFile file(fileName);
+
+    if (!file.open(QIODevice::ReadOnly))
+    {
+		qDebug() << "File " << fileName << " could not be opened, aborting!";
+        return;
+    }
+
+    QByteArray blob = file.readAll();
+    if (blob.size() > uploadMaxSize) {
+        QMessageBox msg(QMessageBox::Critical, tr("File size too large"),
+            tr("The file size ") + QString::number(blob.size()) + tr(" bytes is greater than ") + QString::number(uploadMaxSize) + tr("bytes"),
+            QMessageBox::Ok, this);
+        msg.exec();
+        return;
+    }
+    auto memoTxt = ui->sendToWidgets->findChild<QLabel *>(QString("MemoTxt") + QString::number(number));
+    memoTxt->setText( blob.data() );
+    qDebug() << "Set memo data to:" << blob.data();
+    qDebug() << "File " << fileName << " selected, " << QString::number(blob.size()) << " bytes";
 }
 
 void MainWindow::memoButtonClicked(int number, bool includeReplyTo) {
@@ -509,15 +556,7 @@ Tx MainWindow::createTxFromSendPage() {
         // Remove label if it exists
         addr = AddressBook::addressFromAddressLabel(addr);
         
-        // If address is sprout, then we can't send change to sapling, because of turnstile.
-        sendChangeToSapling = sendChangeToSapling && !Settings::getInstance()->isSproutAddress(addr);
-
-        QString amtStr = ui->sendToWidgets->findChild<QLineEdit*>(QString("Amount")  % QString::number(i+1))->text().trimmed();
-        if (amtStr.isEmpty()) {
-            amtStr = "-1";; // The user didn't specify an amount
-        }        
-
-        double amt = amtStr.toDouble();
+        double  amt  = ui->sendToWidgets->findChild<QLineEdit*>(QString("Amount")  % QString::number(i+1))->text().trimmed().toDouble();        
         totalAmt += amt;
         QString memo = ui->sendToWidgets->findChild<QLabel*>(QString("MemoTxt")  % QString::number(i+1))->text().trimmed();
         
@@ -636,7 +675,7 @@ bool MainWindow::confirmTx(Tx tx, RecurringPaymentInfo* rpi) {
             // Amount (ZEC)
             auto Amt = new QLabel(confirm.sendToAddrs);
             Amt->setObjectName(QString("Amt") % QString::number(i + 1));
-            Amt->setText(Settings::getZECDisplayFormat(toAddr.amount));
+            Amt->setText(Settings::getDisplayFormat(toAddr.amount));
             Amt->setAlignment(Qt::AlignRight | Qt::AlignTrailing | Qt::AlignVCenter);
             confirm.gridLayout->addWidget(Amt, row, 1, 1, 1);
             totalSpending += toAddr.amount;
@@ -644,7 +683,7 @@ bool MainWindow::confirmTx(Tx tx, RecurringPaymentInfo* rpi) {
             // Amount (USD)
             auto AmtUSD = new QLabel(confirm.sendToAddrs);
             AmtUSD->setObjectName(QString("AmtUSD") % QString::number(i + 1));
-            AmtUSD->setText(Settings::getUSDFromZecAmount(toAddr.amount));
+            AmtUSD->setText(Settings::getUSDFormat(toAddr.amount));
             AmtUSD->setAlignment(Qt::AlignRight | Qt::AlignTrailing | Qt::AlignVCenter);
             confirm.gridLayout->addWidget(AmtUSD, row, 2, 1, 1);            
 
@@ -686,7 +725,7 @@ bool MainWindow::confirmTx(Tx tx, RecurringPaymentInfo* rpi) {
         minerFee->setObjectName(QStringLiteral("minerFee"));
         minerFee->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         confirm.gridLayout->addWidget(minerFee, row, 1, 1, 1);
-        minerFee->setText(Settings::getZECDisplayFormat(tx.fee));
+        minerFee->setText(Settings::getDisplayFormat(tx.fee));
         totalSpending += tx.fee;
 
         auto minerFeeUSD = new QLabel(confirm.sendToAddrs);
@@ -695,7 +734,7 @@ bool MainWindow::confirmTx(Tx tx, RecurringPaymentInfo* rpi) {
         minerFeeUSD->setObjectName(QStringLiteral("minerFeeUSD"));
         minerFeeUSD->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         confirm.gridLayout->addWidget(minerFeeUSD, row, 2, 1, 1);
-        minerFeeUSD->setText(Settings::getUSDFromZecAmount(tx.fee));
+        minerFeeUSD->setText(Settings::getUSDFormat(tx.fee));
 
         if (Settings::getInstance()->getAllowCustomFees() && tx.fee != Settings::getMinerFee()) {
             confirm.warningLabel->setVisible(true);            
@@ -764,32 +803,84 @@ void MainWindow::sendButton() {
             recurringPaymentHash = sendTxRecurringInfo->getHash();
         }
 
+
         // Then delete the additional fields from the sendTo tab
         clearSendForm();
+	
+
+        // Create a new Dialog to show that we are computing/sending the Tx
+        auto d = new QDialog(this);
+        auto connD = new Ui_ConnectionDialog();
+        connD->setupUi(d);
+        QMovie *movie1 = new QMovie(":/img/res/safecoindlogo.gif");;
+        QMovie *movie2 = new QMovie(":/img/res/safecoindlogo.gif");;
+        auto theme = Settings::getInstance()->get_theme_name();
+        if (theme == "dark") {
+            movie2->setScaledSize(QSize(256,256));
+            connD->topIcon->setMovie(movie2);
+            movie2->start();
+        } else {
+            movie1->setScaledSize(QSize(256,256));
+            connD->topIcon->setMovie(movie1);
+            movie1->start();
+        }
+
+        //connD->topIcon->setBasePixmap(logo.scaled(256, 256, Qt::KeepAspectRatio, Qt::SmoothTransformation));
+
+
+        connD->status->setText(tr("Please wait..."));
+        connD->statusDetail->setText(tr("Computing your transaction"));
+
+        d->show();
+
 
         // And send the Tx
-        rpc->executeTransaction(tx, 
-            // Submitted
+        rpc->executeTransaction(tx,
+
             [=] (QString opid) {
-                ui->statusBar->showMessage(tr("Computing Tx: ") % opid);
+                ui->statusBar->showMessage(tr("Computing transaction: ") % opid);
+                qDebug() << "Computing opid: " << opid;
             },
+
             // Accepted
+
+
+
+            // Errored out
+
+
             [=] (QString, QString txid) { 
                 ui->statusBar->showMessage(Settings::txidStatusMessage + " " + txid);
 
-                // If this was a recurring payment, update the payment with the info
+                // If this was a recurring payment, update the payment with the info                                                                  
                 if (!recurringPaymentHash.isEmpty()) {
-                    // Since this is the send button payment, this is the first payment
-                    Recurring::getInstance()->updatePaymentItem(recurringPaymentHash, 0, 
+                    // Since this is the send button payment, this is the first payment                                                               
+                    Recurring::getInstance()->updatePaymentItem(recurringPaymentHash, 0,
                             txid, "", PaymentStatus::COMPLETED);
                 }
-            },
-            // Errored out
+		
+                connD->status->setText(tr("Done!"));
+                connD->statusDetail->setText(txid);
+
+                QTimer::singleShot(1000, [=]() {
+                    d->accept();
+                    d->close();
+                    delete connD;
+                    delete d;
+
+                    // And switch to the balances tab
+                    ui->tabWidget->setCurrentIndex(0);
+                     });
+                       // Force a UI update so we get the unconfirmed Tx
+                rpc->refresh(true);
+            },       
+
             [=] (QString opid, QString errStr) {
-                ui->statusBar->showMessage(QObject::tr(" Tx ") % opid % QObject::tr(" failed"), 15 * 1000);
+                ui->statusBar->showMessage(QObject::tr(" Transaction ") % opid % QObject::tr(" failed"), 15 * 1000);
 
                 if (!opid.isEmpty())
                     errStr = QObject::tr("The transaction with id ") % opid % QObject::tr(" failed. The error was") + ":\n\n" + errStr; 
+
 
                 // If this was a recurring payment, update the payment with the failure
                 if (!recurringPaymentHash.isEmpty()) {
@@ -801,11 +892,16 @@ void MainWindow::sendButton() {
                 QMessageBox::critical(this, QObject::tr("Transaction Error"), errStr, QMessageBox::Ok);            
             }
         );
-    }        
+    }   
 }
 
 QString MainWindow::doSendTxValidations(Tx tx) {
-    if (!Settings::isValidAddress(tx.fromAddr)) return QString(tr("From Address is Invalid"));    
+    //TODO: Feedback fromAddr is empty for some reason
+    if (!Settings::isValidAddress(tx.fromAddr)){
+		qDebug() << "address is invalid! " << tx.fromAddr;
+		return QString(tr("From Address is Invalid!"));
+	}
+
 
     for (auto toAddr : tx.toAddrs) {
         if (!Settings::isValidAddress(toAddr.addr)) {

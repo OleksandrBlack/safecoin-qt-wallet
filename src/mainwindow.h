@@ -1,3 +1,7 @@
+//Copyright (c) 2019-2020 The Hush developers
+//Copyright 2020 Safecoin Developers
+//Released under the GPLv3
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
@@ -11,8 +15,6 @@ class RPC;
 class Settings;
 class WSServer;
 class WormholeClient;
-
-using json = nlohmann::json;
 
 // Struct used to hold destination info when sending a Tx. 
 struct ToFields {
@@ -75,15 +77,12 @@ public:
     QLabel*             statusLabel;
     QLabel*             statusIcon;
     QLabel*             loadingLabel;
-    QWidget*            zcashdtab;
+    QWidget*            safecoindtab;
     QWidget*            safenodestab;
 
     Logger*      logger;
 
     void doClose();
-
-public slots:
-    void slot_change_theme(const QString& themeName);
 
 private:    
     void closeEvent(QCloseEvent* event);
@@ -92,9 +91,14 @@ private:
     void setupTransactionsTab();
     void setupReceiveTab();
     void setupBalancesTab();
-    void setupZcashdTab();
     void SafeNodesTab();
+    void setupSafeTab();
+    void setupChatTab();
+    void setupMarketTab();
 
+
+    void slot_change_theme(const QString& themeName);
+    void slot_change_currency(const QString& currencyName);
     void setupTurnstileDialog();
     void setupSettingsModal();
     void setupStatusBar();
@@ -118,10 +122,11 @@ private:
     void addressChanged(int number, const QString& text);
     void amountChanged (int number, const QString& text);
 
-    void addNewZaddr(bool sapling);
+    void addNewZaddr();
     std::function<void(bool)> addZAddrsToComboList(bool sapling);
 
     void memoButtonClicked(int number, bool includeReplyTo = false);
+    void fileUploadButtonClicked(int number);
     void setMemoEnabled(int number, bool enabled);
     
     void donate();
@@ -130,11 +135,13 @@ private:
     void discord();
     void safenodes();
 	
+    void reportbug();
     void addressBook();
     void postToZBoard();
     void importPrivKey();
     void exportAllKeys();
     void exportKeys(QString addr = "");
+    void getViewKey(QString addr = "");
     void backupWalletDat();
     void exportTransactions();
 

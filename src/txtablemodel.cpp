@@ -133,9 +133,8 @@ void TxTableModel::updateAllData() {
                     else 
                         return addr;
                 }
-        case Column::Time: return QDateTime::fromMSecsSinceEpoch(dat.datetime *  (qint64)1000).toLocalTime().toString();
-        case Column::Confirmations: return QString::number(dat.confirmations);
-        case Column::Amount: return Settings::getZECDisplayFormat(dat.amount);
+        case 2: return QDateTime::fromMSecsSinceEpoch(modeldata->at(index.row()).datetime *  (qint64)1000).toLocalTime().toString();
+        case 3: return Settings::getDisplayFormat(modeldata->at(index.row()).amount);
         }
     } 
 
@@ -146,7 +145,7 @@ void TxTableModel::updateAllData() {
                         return Settings::paymentURIPretty(Settings::parseURI(dat.memo));
                     } else {
                         return modeldata->at(index.row()).type + 
-                        (dat.memo.isEmpty() ? "" : " tx memo: \"" + dat.memo + "\"");
+                        (dat.memo.isEmpty() ? "" : " tx memo: \"" + dat.memo.toHtmlEscaped() + "\"");
                     }
                 }
         case Column::Address: {
@@ -158,7 +157,7 @@ void TxTableModel::updateAllData() {
                 }
         case Column::Time: return QDateTime::fromMSecsSinceEpoch(modeldata->at(index.row()).datetime * (qint64)1000).toLocalTime().toString();
         case Column::Confirmations: return QString("%1 Network Confirmations").arg(QString::number(dat.confirmations));
-        case Column::Amount: return Settings::getInstance()->getUSDFromZecAmount(modeldata->at(index.row()).amount);
+        case Column::Amount: return Settings::getInstance()->getUSDFormat(modeldata->at(index.row()).amount);
         }    
     }
 

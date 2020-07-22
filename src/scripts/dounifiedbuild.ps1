@@ -2,16 +2,17 @@
 param (
     [Parameter(Mandatory=$true)][string]$version,
     [Parameter(Mandatory=$true)][string]$prev,
+    [Parameter(Mandatory=$true)][string]$certificate,
     [Parameter(Mandatory=$true)][string]$server,
     [Parameter(Mandatory=$true)][string]$winserver
 )
 
 Write-Host "[Initializing]"
-Remove-Item -Force -ErrorAction Ignore ./artifacts/linux-binaries-safecoinwallet-v$version.tar.gz
-Remove-Item -Force -ErrorAction Ignore ./artifacts/linux-deb-safecoinwallet-v$version.deb
-Remove-Item -Force -ErrorAction Ignore ./artifacts/Windows-binaries-safecoinwallet-v$version.zip
-Remove-Item -Force -ErrorAction Ignore ./artifacts/Windows-installer-safecoinwallet-v$version.msi
-Remove-Item -Force -ErrorAction Ignore ./artifacts/macOS-safecoinwallet-v$version.dmg
+Remove-Item -Force -ErrorAction Ignore ./artifacts/linux-binaries-safewallet-v$version.tar.gz
+Remove-Item -Force -ErrorAction Ignore ./artifacts/linux-deb-safewallet-v$version.deb
+Remove-Item -Force -ErrorAction Ignore ./artifacts/Windows-binaries-safewallet-v$version.zip
+Remove-Item -Force -ErrorAction Ignore ./artifacts/Windows-installer-safewallet-v$version.msi
+Remove-Item -Force -ErrorAction Ignore ./artifacts/macOS-safewallet-v$version.dmg
 Remove-Item -Force -ErrorAction Ignore ./artifacts/signatures-v$version.tar.gz
 
 
@@ -27,7 +28,7 @@ Write-Host ""
 
 
 Write-Host "[Building on Mac]"
-bash src/scripts/mkmacdmg.sh --qt_path ~/Qt/5.11.1/clang_64/ --version $version --zcash_path ~/prod/safecoin 
+bash src/scripts/mkmacdmg.sh --qt_path ~/Qt/5.11.1/clang_64/ --version $version --zcash_path ~/git/safecoin --certificate "$certificate"
 if (! $?) {
     Write-Output "[Error]"
     exit 1;
@@ -62,7 +63,7 @@ ssh $winserver "New-Item zqwbuild -itemtype directory" | Out-Null
 # So, we'll ssh to windows, and execute an scp command to pull files from here to there.
 # Same while copying the built msi. A straight scp pull from windows to here doesn't work,
 # so we ssh to windows, and then scp push the file to here.
-$myhostname = (ipconfig getifaddr en0) | Out-String -NoNewline
+$myhostname = (hostname) | Out-String -NoNewline
 # Powershell seems not to be able to remove this directory for some reason!
 # Remove-Item -Path /tmp/zqwbuild -Recurse -ErrorAction Ignore | Out-Null
 bash "rm -rf /tmp/zqwbuild" 2>&1 | Out-Null
@@ -86,11 +87,11 @@ Write-Host "[OK]"
 
 # Finally, test to make sure all files exist
 Write-Host -NoNewline "Checking Build........."
-if (! (Test-Path ./artifacts/linux-binaries-safecoinwallet-v$version.tar.gz) -or
-    ! (Test-Path ./artifacts/linux-deb-safecoinwallet-v$version.deb) -or
-    ! (Test-Path ./artifacts/Windows-binaries-safecoinwallet-v$version.zip) -or
-    ! (Test-Path ./artifacts/macOS-safecoinwallet-v$version.dmg) -or 
-    ! (Test-Path ./artifacts/Windows-installer-safecoinwallet-v$version.msi) ) {
+if (! (Test-Path ./artifacts/linux-binaries-safewallet-v$version.tar.gz) -or
+    ! (Test-Path ./artifacts/linux-deb-safewallet-v$version.deb) -or
+    ! (Test-Path ./artifacts/Windows-binaries-safewallet-v$version.zip) -or
+    ! (Test-Path ./artifacts/macOS-safewallet-v$version.dmg) -or 
+    ! (Test-Path ./artifacts/Windows-installer-safewallet-v$version.msi) ) {
         Write-Host "[Error]"
         exit 1;
     }

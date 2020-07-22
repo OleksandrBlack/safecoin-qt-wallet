@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>PrivKey</class>
- <widget class="QDialog" name="PrivKey">
+ <class>ViewKey</class>
+ <widget class="QDialog" name="ViewKey">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,11 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Private Keys</string>
+   <string>Viewing Key</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="1" column="0">
-    <widget class="QPlainTextEdit" name="privKeyTxt">
+    <widget class="QPlainTextEdit" name="viewKeyTxt">
      <property name="plainText">
       <string/>
      </property>
@@ -34,7 +34,7 @@
    <item row="0" column="0">
     <widget class="QLabel" name="helpLbl">
      <property name="text">
-      <string notr="true">Private Key(s). Keep Secure!</string>
+      <string notr="true">Viewing Keys. Keep Secure!</string>
      </property>
     </widget>
    </item>
@@ -45,7 +45,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>PrivKey</receiver>
+   <receiver>ViewKey</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -61,7 +61,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>PrivKey</receiver>
+   <receiver>ViewKey</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

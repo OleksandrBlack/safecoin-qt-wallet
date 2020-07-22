@@ -32,13 +32,13 @@
     <name>ConnectionDialog</name>
     <message>
         <location filename="../src/connection.ui" line="17"/>
-        <source>SafecoinWallet</source>
-        <translation>SafecoinWallet</translation>
+        <source>SafeWallet</source>
+        <translation>SafeWallet</translation>
     </message>
     <message>
         <location filename="../src/connection.ui" line="58"/>
-        <source>The SafecoinWallet Awakens...</source>
-        <translation>SafecoinWallet Запускається...</translation>
+        <source>The SafeWallet Awakens...</source>
+        <translation>SafeWallet Запускається...</translation>
     </message>
 </context>
 <context>
@@ -70,8 +70,8 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="14"/>
-        <source>SafecoinWallet</source>
-        <translation>SafecoinWallet</translation>
+        <source>SafeWallet</source>
+        <translation>SafeWallet</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="29"/>
@@ -248,8 +248,8 @@
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="709"/>
-        <source>Transparent Address (Public, Metadata-Leaking)</source>
-        <translation>Прозора адреса (загальнодоступна, витік метаданих)</translation>
+        <source>Transparent Address (Public)</source>
+        <translation>Прозора адреса (загальнодоступна)</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.ui" line="733"/>
@@ -441,8 +441,8 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="647"/>
-        <source>Connection over Tor has been enabled. To use this feature, you need to restart SafecoinWallet.</source>
-        <translation>З&apos;єднання через Tor було включено. Щоб скористатися цією функцією, вам потрібно перезапустити SafecoinWallet.</translation>
+        <source>Connection over Tor has been enabled. To use this feature, you need to restart SafeWallet.</source>
+        <translation>З&apos;єднання через Tor було включено. Щоб скористатися цією функцією, вам потрібно перезапустити SafeWallet.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="656"/>
@@ -451,8 +451,8 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="657"/>
-        <source>Connection over Tor has been disabled. To fully disconnect from Tor, you need to restart SafecoinWallet.</source>
-        <translation>З&apos;єднання через Tor було відключено. Щоб повністю відключитися від Tor, вам потрібно перезапустити SafecoinWallet.</translation>
+        <source>Connection over Tor has been disabled. To fully disconnect from Tor, you need to restart SafeWallet.</source>
+        <translation>З&apos;єднання через Tor було відключено. Щоб повністю відключитися від Tor, вам потрібно перезапустити SafeWallet.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="915"/>
@@ -481,13 +481,13 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="789"/>
-        <source>SafecoinWallet needs to restart to rescan/reindex. SafecoinWallet will now close, please restart SafecoinWallet to continue</source>
-        <translation>SafecoinWallet необхідно перезапустити для повторного сканування / переіндексації. Перезапустіть SafecoinWallet, щоб продовжити</translation>
+        <source>SafeWallet needs to restart to rescan/reindex. SafeWallet will now close, please restart SafeWallet to continue</source>
+        <translation>SafeWallet необхідно перезапустити для повторного сканування / переіндексації. Перезапустіть SafeWallet, щоб продовжити</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="791"/>
-        <source>Restart SafecoinWallet</source>
-        <translation>Перезапуск SafecoinWallet</translation>
+        <source>Restart SafeWallet</source>
+        <translation>Перезапуск SafeWallet</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="303"/>
@@ -646,8 +646,8 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="702"/>
-        <source>Addressindex enabled. To use this feature, you need to restart SafecoinWallet.</source>
-        <translation>Addressindex включено. Щоб скористатися цією функцією, вам потрібно перезапустити SafecoinWallet.</translation>
+        <source>Addressindex enabled. To use this feature, you need to restart SafeWallet.</source>
+        <translation>Addressindex включено. Щоб скористатися цією функцією, вам потрібно перезапустити SafeWallet.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="712"/>
@@ -656,7 +656,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="713"/>
-        <source>Addressindex disabled. To fully disabled Addressindex, you need to restart SafecoinWallet.</source>
+        <source>Addressindex disabled. To fully disabled Addressindex, you need to restart SafeWallet.</source>
         <translation>Addressindex вимкнуто. Щоб повністю відключити Addressindex, вам потрібно перезапустити Safecoin Wallet.</translation>
     </message>
     <message>
@@ -666,8 +666,8 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="726"/>
-        <source>Timestampindex enabled. To use this feature, you need to restart SafecoinWallet.</source>
-        <translation>Timestampindex включено. Щоб скористатися цією функцією, вам потрібно перезапустити SafecoinWallet.</translation>
+        <source>Timestampindex enabled. To use this feature, you need to restart SafeWallet.</source>
+        <translation>Timestampindex включено. Щоб скористатися цією функцією, вам потрібно перезапустити SafeWallet.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="735"/>
@@ -676,7 +676,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="736"/>
-        <source>Timestampindex disabled. To fully disabled Timestampindex, you need to restart SafecoinWallet.</source>
+        <source>Timestampindex disabled. To fully disabled Timestampindex, you need to restart SafeWallet.</source>
         <translation>Timestampindex вимкнено. Щоб повністю відключити Timestampindex позначки часу, вам необхідно перезапустити Safecoin Wallet.</translation>
     </message>
     <message>
@@ -686,8 +686,8 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="748"/>
-        <source>Spentindex enabled. To use this feature, you need to restart SafecoinWallet.</source>
-        <translation>Spentindex включено. Щоб скористатися цією функцією, вам потрібно перезапустити SafecoinWallet.</translation>
+        <source>Spentindex enabled. To use this feature, you need to restart SafeWallet.</source>
+        <translation>Spentindex включено. Щоб скористатися цією функцією, вам потрібно перезапустити SafeWallet.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="757"/>
@@ -696,7 +696,7 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="758"/>
-        <source>Spentindex disabled. To fully disabled Spentindex, you need to restart SafecoinWallet.</source>
+        <source>Spentindex disabled. To fully disabled Spentindex, you need to restart SafeWallet.</source>
         <translation>Spentindex вимкнено. Щоб повністю відключити Spentindex, вам потрібно перезапустити Safecoin Wallet.</translation>
     </message>
     <message>
@@ -706,8 +706,8 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="675"/>
-        <source>SafeNode Configured. To use this feature, you need to restart SafecoinWallet.</source>
-        <translation>SafeNode налаштовано. Щоб скористатися цією функцією, вам потрібно перезапустити SafecoinWallet.</translation>
+        <source>SafeNode Configured. To use this feature, you need to restart SafeWallet.</source>
+        <translation>SafeNode налаштовано. Щоб скористатися цією функцією, вам потрібно перезапустити SafeWallet.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="688"/>
@@ -716,13 +716,13 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="689"/>
-        <source>Configuration SafeNode disabled. To fully disabled SafeNode Configuration, you need to restart SafecoinWallet.</source>
+        <source>Configuration SafeNode disabled. To fully disabled SafeNode Configuration, you need to restart SafeWallet.</source>
         <translation>Конфігурація SafeNode відключена. Щоб повністю відключити налаштування SafeNod, вам необхідно перезапустити Safecoin Wallet.</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="834"/>
-        <source>Some feedback about SafecoinWallet or Safecoin...!</source>
-        <translation>Деяка подяка за SafecoinWallet або Safecoin ...!</translation>
+        <source>Some feedback about SafeWallet or Safecoin...!</source>
+        <translation>Деяка подяка за SafeWallet або Safecoin ...!</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="836"/>
@@ -731,8 +731,8 @@
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="836"/>
-        <source> or SafecoinWallet</source>
-        <translation> або  SafecoinWallet</translation>
+        <source> or SafeWallet</source>
+        <translation> або  SafeWallet</translation>
     </message>
     <message>
         <location filename="../src/mainwindow.cpp" line="852"/>
@@ -1059,13 +1059,13 @@ doesn&apos;t look like a z-address</source>
     </message>
     <message>
         <location filename="../src/connection.cpp" line="77"/>
-        <source>You have safecoind set to start as a daemon, which can cause problems with SafecoinWallet
+        <source>You have safecoind set to start as a daemon, which can cause problems with SafeWallet
 
-.Please remove the following line from your safecoin.conf and restart SafecoinWallet
+.Please remove the following line from your safecoin.conf and restart SafeWallet
 daemon=1</source>
-        <translation>Ви налаштували safecoind для запуску в якості демона, що може викликати проблеми з SafecoinWallet
+        <translation>Ви налаштували safecoind для запуску в якості демона, що може викликати проблеми з SafeWallet
 
-. Видаліть наступний рядок з файлу safecoin.conf і перезапустіть SafecoinWallet.
+. Видаліть наступний рядок з файлу safecoin.conf і перезапустіть SafeWallet.
 daemon=1</translation>
     </message>
     <message>
@@ -1284,8 +1284,8 @@ Would you like to visit the releases page?</source>
     </message>
     <message>
         <location filename="../src/rpc.cpp" line="1193"/>
-        <source>Please wait for SafecoinWallet to exit</source>
-        <translation>Будь ласка, дочекайтеся закриття SafecoinWallet</translation>
+        <source>Please wait for SafeWallet to exit</source>
+        <translation>Будь ласка, дочекайтеся закриття SafeWallet</translation>
     </message>
     <message>
         <location filename="../src/rpc.cpp" line="1194"/>
@@ -1460,8 +1460,8 @@ You either have unconfirmed funds or the balance is too low for an automatic mig
     </message>
     <message>
         <location filename="../src/websockets.cpp" line="359"/>
-        <source>Connected over the internet via SafecoinWallet wormhole service</source>
-        <translation>Підключення через Інтернет за допомогою сервісу wormhol SafecoinWallet</translation>
+        <source>Connected over the internet via SafeWallet wormhole service</source>
+        <translation>Підключення через Інтернет за допомогою сервісу wormhol SafeWallet</translation>
     </message>
     <message>
         <location filename="../src/websockets.cpp" line="652"/>
@@ -1648,7 +1648,7 @@ You either have unconfirmed funds or the balance is too low for an automatic mig
     <message>
         <location filename="../src/recurringmultiple.ui" line="44"/>
         <source>How should ZecWallet proceed?</source>
-        <translation>Як повинен діяти SafecoinWallet?</translation>
+        <translation>Як повинен діяти SafeWallet?</translation>
     </message>
     <message>
         <location filename="../src/recurringmultiple.ui" line="51"/>
@@ -1838,8 +1838,8 @@ You either have unconfirmed funds or the balance is too low for an automatic mig
     </message>
     <message>
         <location filename="../src/settings.ui" line="280"/>
-        <source>Fetch SAFE / USD prices</source>
-        <translation>Отріматі ціни SAFE / USD</translation>
+        <source>Fetch SAFE / BTC prices</source>
+        <translation>Отріматі ціни SAFE / BTC</translation>
     </message>
     <message>
         <location filename="../src/settings.ui" line="373"/>
@@ -1948,8 +1948,8 @@ You either have unconfirmed funds or the balance is too low for an automatic mig
     </message>
     <message>
         <location filename="../src/settings.ui" line="301"/>
-        <source>Rescan the blockchain for any missing wallet transactions and to correct your wallet balance. This may take several hours. You need to restart SafecoinWallet for this to take effect</source>
-        <translation>Повторно сканує блокчейн для будь-яких пропущених транзакцій гаманця і виправляє баланс вашого гаманця. Це може зайняти кілька годин. Вам потрібно перезапустити SafecoinWallet, щоб це набуло чинності</translation>
+        <source>Rescan the blockchain for any missing wallet transactions and to correct your wallet balance. This may take several hours. You need to restart SafeWallet for this to take effect</source>
+        <translation>Повторно сканує блокчейн для будь-яких пропущених транзакцій гаманця і виправляє баланс вашого гаманця. Це може зайняти кілька годин. Вам потрібно перезапустити SafeWallet, щоб це набуло чинності</translation>
     </message>
     <message>
         <location filename="../src/settings.ui" line="311"/>
@@ -1958,8 +1958,8 @@ You either have unconfirmed funds or the balance is too low for an automatic mig
     </message>
     <message>
         <location filename="../src/settings.ui" line="345"/>
-        <source>Rebuild the entire blockchain from the genesis block, by rescanning all the block files. This may take several hours to days, depending on your hardware. You need to restart SafecoinWallet for this to take effect</source>
-        <translation>Перебудовує весь блокчейн з блоку генезису шляхом повторного сканування всіх файлів блоків. Це може зайняти кілька годин або днів, в залежності від вашого обладнання. Вам потрібно перезапустити SafecoinWallet, щоб це набуло чинності</translation>
+        <source>Rebuild the entire blockchain from the genesis block, by rescanning all the block files. This may take several hours to days, depending on your hardware. You need to restart SafeWallet for this to take effect</source>
+        <translation>Перебудовує весь блокчейн з блоку генезису шляхом повторного сканування всіх файлів блоків. Це може зайняти кілька годин або днів, в залежності від вашого обладнання. Вам потрібно перезапустити SafeWallet, щоб це набуло чинності</translation>
     </message>
     <message>
         <location filename="../src/settings.ui" line="225"/>

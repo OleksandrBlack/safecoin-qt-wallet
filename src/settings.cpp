@@ -1,10 +1,12 @@
+// Copyright 2019 The Hush developers
+// Released under the GPLv3
 #include "mainwindow.h"
 #include "settings.h"
 
 Settings* Settings::instance = nullptr;
 
-Settings* Settings::init() {    
-    if (instance == nullptr) 
+Settings* Settings::init() {
+    if (instance == nullptr)
         instance = new Settings();
 
     return instance;
@@ -14,14 +16,76 @@ Settings* Settings::getInstance() {
     return instance;
 }
 
-Config Settings::getSettings() {
-    // Load from the QT Settings. 
+bool Settings::getCheckForUpdates() {
+    return QSettings().value("options/allowcheckupdates", true).toBool();
+}
+
+void Settings::setCheckForUpdates(bool allow) {
+     QSettings().setValue("options/allowcheckupdates", allow);
+}
+
+bool Settings::getAllowFetchPrices() {
+    return QSettings().value("options/allowfetchprices", true).toBool();
+}
+
+void Settings::setAllowFetchPrices(bool allow) {
+     QSettings().setValue("options/allowfetchprices", allow);
+}
+
+Explorer Settings::getExplorer() {
+    // Load from the QT Settings.
     QSettings s;
-    
+
+    //TODO: make it easy for people to use other explorers like https://explorer.deepsky.space/
+    QString explorer = "https://explorer.safecoin.org";
+
+    auto txExplorerUrl                = s.value("explorer/txExplorerUrl").toString();
+    auto addressExplorerUrl           = s.value("explorer/addressExplorerUrl").toString();
+    auto testnetTxExplorerUrl         = s.value("explorer/testnetTxExplorerUrl").toString();
+    auto testnetAddressExplorerUrl    = s.value("explorer/testnetAddressExplorerUrl").toString();
+
+    return Explorer{txExplorerUrl, addressExplorerUrl, testnetTxExplorerUrl, testnetAddressExplorerUrl};
+}
+
+void Settings::saveExplorer(const QString& txExplorerUrl, const QString& addressExplorerUrl, const QString& testnetTxExplorerUrl, const QString& testnetAddressExplorerUrl) {
+    QSettings s;
+    s.setValue("explorer/txExplorerUrl", txExplorerUrl);
+    s.setValue("explorer/addressExplorerUrl", addressExplorerUrl);
+    s.setValue("explorer/testnetTxExplorerUrl", testnetTxExplorerUrl);
+    s.setValue("explorer/testnetAddressExplorerUrl", testnetAddressExplorerUrl);
+}
+
+//=================================
+// Safenode Conf
+//=================================
+Safenode Settings::getSafenode() {
+    // Load from the QT Settings.
+    QSettings s;
+
+    auto parentkey		= s.value("safenode/parentkey").toString();
+    auto safekey		= s.value("safenode/safekey").toString();
+    auto safepass		= s.value("safenode/safepass").toString();
+    auto safeheight		= s.value("safenode/safeheight").toString();
+
+    return Safenode{parentkey, safekey, safepass, safeheight};
+}
+
+void Settings::saveSafenode(const QString& parentkey, const QString& safekey, const QString& safepass, const QString& safeheight) {
+    QSettings s;
+    s.setValue("safenode/parentkey", parentkey);
+    s.setValue("safenode/safekey", safekey);
+    s.setValue("safenode/safepass", safepass);
+    s.setValue("safenode/safeheight", safeheight);
+}
+
+Config Settings::getSettings() {
+    // Load from the QT Settings.
+    QSettings s;
+
     auto host        = s.value("connection/host").toString();
     auto port        = s.value("connection/port").toString();
     auto username    = s.value("connection/rpcuser").toString();
-    auto password    = s.value("connection/rpcpassword").toString();    
+    auto password    = s.value("connection/rpcpassword").toString();
 
     return Config{host, port, username, password};
 }
@@ -58,28 +122,28 @@ bool Settings::isSaplingAddress(QString addr) {
         return false;
 
     return ( isTestnet() && addr.startsWith("ztestsapling")) ||
-           (!isTestnet() && addr.startsWith("zs"));
+           (!isTestnet() && addr.startsWith("safe1"));
 }
 
 bool Settings::isSproutAddress(QString addr) {
     if (!isValidAddress(addr))
         return false;
-        
+
     return isZAddress(addr) && !isSaplingAddress(addr);
 }
 
 bool Settings::isZAddress(QString addr) {
     if (!isValidAddress(addr))
         return false;
-        
-    return addr.startsWith("z");
+    return addr.startsWith("safe");
+
 }
 
 bool Settings::isTAddress(QString addr) {
     if (!isValidAddress(addr))
         return false;
-        
     return addr.startsWith("R");
+
 }
 
 int Settings::getZcashdVersion() {
@@ -111,9 +175,76 @@ bool Settings::isSaplingActive() {
 			(!isTestnet() && getBlockNumber() > 547422);
 }
 
-double Settings::getZECPrice() { 
-    return zecPrice; 
+
+double Settings::getZECPrice() {
+    return zecPrice;
 }
+
+
+double Settings::get_price(QString currency) {
+    currency = currency.toLower();
+    QString ticker = currency;
+
+    auto search = prices.find(currency);
+    if (search != prices.end()) {
+        qDebug() << "Found price of " << ticker << " = " << search->second;
+        return search->second;
+    } else {
+        qDebug() << "Could not find price of" << ticker << "!!!";
+        return 0.0;
+    }
+}
+
+void Settings::set_price(QString curr, double price) {
+    QString ticker = curr;
+    qDebug() << "Setting price of " << ticker << "=" << QString::number(price);
+    prices.insert( std::make_pair(curr, price) );
+    prices.insert( std::make_pair(curr, price) );
+}
+
+void Settings::set_volume(QString curr, double volume) {
+    QString ticker = curr;
+    qDebug() << "Setting volume of " << ticker << "=" << QString::number(volume);
+    volumes.insert( std::make_pair(curr, volume) );
+}
+
+double Settings::get_volume(QString currency) {
+    currency = currency.toLower();
+    QString ticker = currency;
+    auto search = volumes.find(currency);
+    if (search != volumes.end()) {
+        qDebug() << "Found volume of " << ticker << " = " << search->second;
+        return search->second;
+    } else {
+        qDebug() << "Could not find volume of" << ticker << "!!!";
+        return 0.0;
+    }
+}
+
+void Settings::set_marketcap(QString curr, double marketcap) {
+    QString ticker = curr;
+    qDebug() << "Setting marketcap of " << ticker << "=" << QString::number(marketcap);
+    marketcaps.insert( std::make_pair(curr, marketcap) );
+}
+
+double Settings::get_marketcap(QString currency) {
+    currency = currency.toLower();
+    QString ticker = currency;
+    auto search = marketcaps.find(currency);
+    if (search != marketcaps.end()) {
+        qDebug() << "Found marketcap of " << ticker << " = " << search->second;
+        return search->second;
+    } else {
+        qDebug() << "Could not find marketcap of" << ticker << "!!!";
+        return -1.0;
+    }
+}
+
+unsigned int Settings::getBTCPrice() {
+    // in satoshis
+    return btcPrice;
+}
+
 
 bool Settings::getAutoShield() {
     // Load from Qt settings
@@ -124,24 +255,9 @@ void Settings::setAutoShield(bool allow) {
     QSettings().setValue("options/autoshield", allow);
 }
 
-bool Settings::getCheckForUpdates() {
-    return QSettings().value("options/allowcheckupdates", true).toBool();
-}
-
-void Settings::setCheckForUpdates(bool allow) {
-     QSettings().setValue("options/allowcheckupdates", allow);
-}
-
-bool Settings::getAllowFetchPrices() {
-    return QSettings().value("options/allowfetchprices", true).toBool();
-}
-
-void Settings::setAllowFetchPrices(bool allow) {
-     QSettings().setValue("options/allowfetchprices", allow);
-}
 
 bool Settings::getAllowCustomFees() {
-    // Load from the QT Settings. 
+    // Load from the QT Settings.
     return QSettings().value("options/customfees", false).toBool();
 }
 
@@ -151,7 +267,7 @@ void Settings::setAllowCustomFees(bool allow) {
 
 QString Settings::get_theme_name() {
     // Load from the QT Settings.
-    return QSettings().value("options/theme_name", "matrix").toString();
+    return QSettings().value("options/theme_name", "default").toString();
 }
 
 void Settings::set_theme_name(QString theme_name) {
@@ -159,7 +275,7 @@ void Settings::set_theme_name(QString theme_name) {
 }
 
 bool Settings::getSaveZtxs() {
-    // Load from the QT Settings. 
+    // Load from the QT Settings.
     return QSettings().value("options/savesenttx", true).toBool();
 }
 
@@ -216,13 +332,10 @@ void Settings::openTxInExplorer(QString txid) {
 }
 
 QString Settings::getUSDFormat(double bal) {
-    return "$" + QLocale(QLocale::English).toString(bal, 'f', 2);
+    //TODO: respect current locale!
+    return QLocale(QLocale::English).toString(bal * Settings::getInstance()->getZECPrice(), 'f', 8) + " " +Settings::getInstance()->get_currency_name();
 }
 
-
-QString Settings::getUSDFromZecAmount(double bal) {
-    return getUSDFormat(bal * Settings::getInstance()->getZECPrice());
-}
 
 
 QString Settings::getDecimalString(double amt) {
@@ -237,20 +350,20 @@ QString Settings::getDecimalString(double amt) {
     return f;
 }
 
-QString Settings::getZECDisplayFormat(double bal) {
+QString Settings::getDisplayFormat(double bal) {
     // This is idiotic. Why doesn't QString have a way to do this?
     return getDecimalString(bal) % " " % Settings::getTokenName();
 }
 
 QString Settings::getZECUSDDisplayFormat(double bal) {
-    auto usdFormat = getUSDFromZecAmount(bal);
+    auto usdFormat = getUSDFormat(bal);
     if (!usdFormat.isEmpty())
-        return getZECDisplayFormat(bal) % " (" % usdFormat % ")";
+        return getDisplayFormat(bal) % " (" % getUSDFormat(bal) % ")";
     else
-        return getZECDisplayFormat(bal);
+        return getDisplayFormat(bal);
 }
 
-const QString Settings::txidStatusMessage = QString(QObject::tr("Tx submitted (right click to copy) txid:"));
+const QString Settings::txidStatusMessage = QString(QObject::tr("Transaction submitted (right click to copy) txid:"));
 
 QString Settings::getTokenName() {
     if (Settings::getInstance()->isTestnet()) {
@@ -260,6 +373,7 @@ QString Settings::getTokenName() {
     }
 }
 
+//TODO: this isn't used for donations
 QString Settings::getDonationAddr() {
     if (Settings::getInstance()->isTestnet()) 
             return "ztestsaplingXXX";
@@ -271,7 +385,7 @@ bool Settings::addToZcashConf(QString confLocation, QString line) {
     QFile file(confLocation);
     if (!file.open(QIODevice::ReadWrite | QIODevice::Append))
         return false;
-    
+
 
     QTextStream out(&file);
     out << line << "\n";
@@ -280,15 +394,25 @@ bool Settings::addToZcashConf(QString confLocation, QString line) {
     return true;
 }
 
+QString Settings::get_currency_name() {
+    // Load from the QT Settings.
+    return QSettings().value("options/currency_name", "BTC").toString();
+}
+
+void Settings::set_currency_name(QString currency_name) {
+    QSettings().setValue("options/currency_name", currency_name);
+}
+
+
 bool Settings::removeFromZcashConf(QString confLocation, QString option) {
     if (confLocation.isEmpty())
         return false;
 
     // To remove an option, we'll create a new file, and copy over everything but the option.
     QFile file(confLocation);
-    if (!file.open(QIODevice::ReadOnly)) 
+    if (!file.open(QIODevice::ReadOnly))
         return false;
-    
+
     QList<QString> lines;
     QTextStream in(&file);
     while (!in.atEnd()) {
@@ -298,9 +422,9 @@ bool Settings::removeFromZcashConf(QString confLocation, QString option) {
         if (name != option) {
             lines.append(line);
         }
-    }    
+    }
     file.close();
-    
+
     QFile newfile(confLocation);
     if (!newfile.open(QIODevice::ReadWrite | QIODevice::Truncate))
         return false;
@@ -318,19 +442,6 @@ double Settings::getMinerFee() {
     return 0.0001;
 }
 
-double Settings::getZboardAmount() {
-    return 0.0001;
-}
-
-QString Settings::getZboardAddr() {
-    if (Settings::getInstance()->isTestnet()) {
-        return getDonationAddr();
-    }
-    else {
-        return "zs10m00rvkhfm4f7n23e4sxsx275r7ptnggx39ygl0vy46j9mdll5c97gl6dxgpk0njuptg2mn9w5s";
-    }
-}
-
 bool Settings::isValidSaplingPrivateKey(QString pk) {
     if (isTestnet()) {
         QRegExp zspkey("^secret-extended-key-test[0-9a-z]{278}$", Qt::CaseInsensitive);
@@ -342,17 +453,19 @@ bool Settings::isValidSaplingPrivateKey(QString pk) {
 }
 
 bool Settings::isValidAddress(QString addr) {
-    QRegExp zsexp("^zs1[a-z0-9]{75}$",  Qt::CaseInsensitive);
+    QRegExp zsexp("^safe1[a-z0-9]{75}$",  Qt::CaseInsensitive);
     QRegExp ztsexp("^ztestsapling[a-z0-9]{76}", Qt::CaseInsensitive);
     QRegExp texp("^R[a-z0-9]{33}$", Qt::CaseInsensitive);
+    QRegExp tsexp("^1[a-z0-9]{33}$", Qt::CaseInsensitive);
     //qDebug() << "isValidAddress(" << addr << ")";
 
-    return  texp.exactMatch(addr) || ztsexp.exactMatch(addr) || zsexp.exactMatch(addr);
+    return	texp.exactMatch(addr)	|| ztsexp.exactMatch(addr)	||
+			zsexp.exactMatch(addr)	|| tsexp.exactMatch(addr);
 }
 
 // Get a pretty string representation of this Payment URI
 QString Settings::paymentURIPretty(PaymentURI uri) {
-    return QString() + "Payment Request\n" + "Pay: " + uri.addr + "\nAmount: " + getZECDisplayFormat(uri.amt.toDouble()) 
+    return QString() + "Payment Request\n" + "Pay: " + uri.addr + "\nAmount: " + getDisplayFormat(uri.amt.toDouble())
         + "\nMemo:" + QUrl::fromPercentEncoding(uri.memo.toUtf8());
 }
 
@@ -365,8 +478,8 @@ PaymentURI Settings::parseURI(QString uri) {
         return ans;
     }
 
+
     uri = uri.right(uri.length() - QString("safecoin:").length());
-    
     QRegExp re("([a-zA-Z0-9]+)");
     int pos;
     if ( (pos = re.indexIn(uri)) == -1 ) {
@@ -379,27 +492,23 @@ PaymentURI Settings::parseURI(QString uri) {
         ans.error = "Could not understand address";
         return ans;
     }
-    uri = uri.right(uri.length() - ans.addr.length());
 
-    if (!uri.isEmpty()) {
-        uri = uri.right(uri.length() - 1); // Eat the "?"
+    uri = uri.right(uri.length() - ans.addr.length()-1);  // swallow '?'
+    QUrlQuery query(uri);
+    // parse out amt / amount
+    if (query.hasQueryItem("amt")) {
+        ans.amt  = query.queryItemValue("amt");
+    } else if (query.hasQueryItem("amount")) {
+        ans.amt  = query.queryItemValue("amount");
+    }
 
-        QStringList args = uri.split("&");
-        for (QString arg: args) {
-            QStringList kv = arg.split("=");
-            if (kv.length() != 2) {
-                ans.error = "No value argument was seen";
-                return ans;
-            }
-
-            if (kv[0].toLower() == "amt" || kv[0].toLower() == "amount") {
-                ans.amt = kv[1];
-            } else if (kv[0].toLower() == "memo" || kv[0].toLower() == "message" || kv[0].toLower() == "msg") {
-                ans.memo = QUrl::fromPercentEncoding(kv[1].toUtf8());
-            } else {
-                // Ignore unknown fields, since some developers use it to pass extra data.
-            }
-        }
+    // parse out memo / msg / message
+    if (query.hasQueryItem("memo")) {
+        ans.memo  = query.queryItemValue("memo");
+    } else if (query.hasQueryItem("msg")) {
+        ans.memo  = query.queryItemValue("msg");
+    } else if  (query.hasQueryItem("message")) {
+        ans.memo  = query.queryItemValue("message");
     }
 
     return ans;

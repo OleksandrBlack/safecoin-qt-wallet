@@ -12,10 +12,13 @@
         <file>res/safecoindlogo.gif</file>
         <file>res/logobig.gif</file>
         <file>res/safenode.png</file>
+        <file>res/safenodelogo.gif</file>
     </qresource>
     <qresource prefix="/translations">
+        <file>res/safe_qt_wallet_de.qm</file>
         <file>res/safe_qt_wallet_es.qm</file>
         <file>res/safe_qt_wallet_fr.qm</file>
+        <file>res/safe_qt_wallet_fi.qm</file>
         <file>res/safe_qt_wallet_pt.qm</file>
         <file>res/safe_qt_wallet_it.qm</file>
         <file>res/safe_qt_wallet_zh.qm</file>
@@ -29,7 +32,6 @@
         <file>res/css/default.css</file>
         <file>res/css/light.css</file>
         <file>res/css/matrix.css</file>
-	<file>res/css/classic.css</file>
     </qresource>
     <qresource prefix="/images/blue">
         <file>res/images/blue/unchecked.png</file>

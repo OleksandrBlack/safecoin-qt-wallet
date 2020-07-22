@@ -64,15 +64,14 @@ public:
 
     void connect();
     void retryConnect();
+    void sslerrors(const QList<QSslError> &);
 
 private:
-    MainWindow* parent = nullptr;    
+    MainWindow* parent = nullptr;
     QWebSocket*  m_webSocket = nullptr;
-    
     QTimer* timer            = nullptr;
-
     QString     code;
-    int  retryCount          = 0;
+    unsigned int  retryCount = 0;
     bool shuttingDown        = false;
 };
 

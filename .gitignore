@@ -37,5 +37,14 @@ workspace.code-workspace
 zcashd
 IDEWorkspaceChecks.plist
 *.sln
+safecoind
+safecoin-cli
+*.sw?
+safewallet
+Safewallet
+SafeWallet
+safecoinwallet
 node_modules
 safe-qt-wallet.pro.user
+safecoinwallet_resource.rc
+msvc_make.bat

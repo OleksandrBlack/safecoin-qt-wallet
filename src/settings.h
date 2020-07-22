@@ -1,3 +1,7 @@
+//Copyright (c) 2019-2020 The Hush developers
+//Copyright 2020 Safecoin Developers
+//Released under the GPLv3
+
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
@@ -8,6 +12,20 @@ struct Config {
     QString port;
     QString rpcuser;
     QString rpcpassword;
+};
+
+struct Explorer {
+    QString txExplorerUrl;
+    QString addressExplorerUrl;
+    QString testnetTxExplorerUrl;
+    QString testnetAddressExplorerUrl;
+};
+
+struct Safenode {
+    QString parentkey;
+    QString safekey;
+    QString safepass;
+    QString safeheight;
 };
 
 struct ToFields;
@@ -28,15 +46,21 @@ public:
     static  Settings* init();
     static  Settings* getInstance();
 
+    Safenode  getSafenode();
+    void    saveSafenode(const QString& parentkey, const QString& safekey, const QString& safepass, const QString& safeheight);
+	
+    Explorer  getExplorer();
+    void    saveExplorer(const QString& txExplorerUrl, const QString& addressExplorerUrl, const QString& testnetTxExplorerUrl, const QString& testnetAddressExplorerUrl);
+
     Config  getSettings();
     void    saveSettings(const QString& host, const QString& port, const QString& username, const QString& password);
 
     bool    isTestnet();
     void    setTestnet(bool isTestnet);
-            
+
     bool    isSaplingAddress(QString addr);
     bool    isSproutAddress(QString addr);
-            
+
     bool    isValidSaplingPrivateKey(QString pk);
 
     bool    isSyncing();
@@ -44,7 +68,7 @@ public:
 
     int     getZcashdVersion();
     void    setZcashdVersion(int version);
-    
+
     void    setUseEmbedded(bool r) { _useEmbedded = r; }
     bool    useEmbedded() { return _useEmbedded; }
 
@@ -53,7 +77,7 @@ public:
 
     int     getBlockNumber();
     void    setBlockNumber(int number);
-            
+
     bool    getSaveZtxs();
     void    setSaveZtxs(bool save);
 
@@ -69,23 +93,39 @@ public:
     bool    getCheckForUpdates();
     void    setCheckForUpdates(bool allow);
 
+    bool    isSaplingActive();
+    
     QString get_theme_name();
     void set_theme_name(QString theme_name);
 
-    bool    isSaplingActive();
+    QString get_currency_name();
+    void set_currency_name(QString currency_name);
+
 
     void    setUsingZcashConf(QString confLocation);
     const   QString& getZcashdConfLocation() { return _confLocation; }
 
-    void    setZECPrice(double p) { zecPrice = p; }
+
+    void    setZECPrice(double p)       { zecPrice = p;   }
+    void    set_fiat_price(double p)    { fiat_price = p; }
+    void    setBTCPrice(unsigned int p) { btcPrice = p;   }
     double  getZECPrice();
+    double  get_fiat_price();
+    unsigned int  getBTCPrice();
+    double get_price(QString currency);
+    void   set_price(QString currency, double price);
+    double get_volume(QString ticker);
+    void   set_volume(QString curr, double volume);
+    double get_marketcap(QString curr);
+    void   set_marketcap(QString curr, double marketcap);
+
 
     void    setPeers(int peers);
     int     getPeers();
-       
+
     // Static stuff
     static const QString txidStatusMessage;
-    
+
     static void saveRestore(QDialog* d);
     static void saveRestoreTableHeader(QTableView* table, QDialog* d, QString tablename) ;
 
@@ -99,10 +139,9 @@ public:
     static bool    isTAddress(QString addr);
 
     static QString getDecimalString(double amt);
-    static QString getUSDFormat(double usdAmt);
+    static QString getUSDFormat(double bal);
+    static QString getDisplayFormat(double bal);
 
-    static QString getUSDFromZecAmount(double bal);
-    static QString getZECDisplayFormat(double bal);
     static QString getZECUSDDisplayFormat(double bal);
 
     static QString getTokenName();
@@ -113,7 +152,7 @@ public:
     static QString getZboardAddr();
 
     static int     getMaxMobileAppTxns() { return 30; }
-    
+
     static bool    isValidAddress(QString addr);
 
     static bool    addToZcashConf(QString confLocation, QString line);
@@ -141,8 +180,13 @@ private:
     bool    _useEmbedded      = false;
     bool    _headless         = false;
     int     _peerConnections  = 0;
-    
+
     double  zecPrice          = 0.0;
+    double  fiat_price        = 0.0;
+    unsigned int  btcPrice    = 0;
+    std::map<QString, double> prices;
+    std::map<QString, double> volumes;
+    std::map<QString, double> marketcaps;
 };
 
 #endif // SETTINGS_H

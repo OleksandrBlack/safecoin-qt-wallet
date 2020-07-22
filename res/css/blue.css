@@ -11,12 +11,133 @@ QLabel {
 
 QGroupBox#groupBox {
     background-color: #014d67;
+    margin: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 4px;
+    border-left: 7px solid #e6e6e6;
 }
 
 QGroupBox#groupBox QLabel {
     background: transparent;
     color: #f2f0f0;
 }
+
+/* account balance section */
+QGroupBox#groupBox_2 {
+    background-color: #014d67;
+    margin: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 4px;
+    border-left: 7px solid #e6e6e6;
+}
+
+/* recent transactions */
+QGroupBox#horizontalGroupBox_3 {
+    background-color: #014d67;
+    margin: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 4px;
+    border-left: 7px solid #e6e6e6;
+}
+
+/* send to */
+QGroupBox#groupBox_3 {
+    background-color: #014d67;
+    margin: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 4px;
+    border-left: 7px solid #e6e6e6;
+}
+
+QGroupBox#verticalGroupBox {
+    background-color: #014d67;
+    border-radius: 4px;
+}
+
+QGroupBox#groupBox_3 QScrollArea {
+    background-color: #014d67;
+}
+
+QGroupBox#groupBox_3 QWidget {
+    background-color: #014d67;
+}
+
+QGroupBox#groupBox_3 QWidget#sendToWidgets QPushButton{
+    background-color: #01698c ;
+    border:1px solid #f2f0f0;
+    border-radius:13px;
+    color:#f2f0f0;
+    font-size:12px;
+    font-weight:bold;
+    padding-left:15px;
+    padding-right:15px;
+    padding-top:5px;
+    padding-bottom:5px;
+    min-height:15px;
+}
+
+QGroupBox#groupBox_3 QWidget#sendToWidgets QPushButton:hover, .QPushButton:hover {
+    background: #0698c9;
+    color: #e6e6e6;
+    border: 1px solid #e6e6e6;
+}
+
+QGroupBox#groupBox_3 QWidget#sendToWidgets QPushButton:focus {
+    border:none;
+    outline:none;
+}
+
+QGroupBox#groupBox_3 QWidget#sendToWidgets QPushButton:pressed {
+    border:1px solid #e6e6e6;
+}
+
+/* send from */
+QGroupBox#groupBox_4 {
+    background-color: #014d67;
+    margin: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 4px;
+    border-left: 7px solid #e6e6e6;
+}
+
+/* Receive with section */
+QGroupBox#groupBox_6 {
+    background-color: #014d67;
+    margin: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 4px;
+    border-left: 7px solid #e6e6e6;
+}
+
+QGroupBox#groupBox_6 QRadioButton {
+    background: transparent;
+    color: #f2f0f0;
+}
+
+/* safecoind */
+QGroupBox#groupBox_7 {
+    background-color: #014d67;
+    margin: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 4px;
+    border-left: 7px solid #e6e6e6;
+}
+
+
 
 QTabWidget QTabBar::tab {
 padding-left:20px;

@@ -47,7 +47,7 @@ RUN cd /opt && \
 # Add rust
 RUN apt install -y gcc-aarch64-linux-gnu
 
-RUN curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain 1.32.0  -y 
+RUN curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain 1.38.0  -y 
 RUN echo 'source $HOME/.cargo/env' >> $HOME/.bashrc
 RUN ~/.cargo/bin/rustup target add x86_64-pc-windows-gnu
 RUN ~/.cargo/bin/rustup target add aarch64-unknown-linux-gnu
@@ -62,3 +62,4 @@ RUN echo "[target.aarch64-unknown-linux-gnu]" >> ~/.cargo/config && \
 ENV CC_x86_64_pc_windows_gnu="x86_64-w64-mingw32.static-gcc"
 ENV CC_aarch64_unknown_linux_gnu="aarch64-linux-gnu-gcc"
 ENV PATH="/opt/mxe/usr/bin:${PATH}"
+

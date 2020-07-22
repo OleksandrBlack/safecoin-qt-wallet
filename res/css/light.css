@@ -1,3 +1,4 @@
+/* General styling */
 QWidget, QMainWindow, QMenuBar, QMenu, QDialog, QTabWidget, QTableView, QTableView::item, QScrollArea, QGroupBox, QPlainTextEdit, QLineEdit
 {
     background-color: #fcfcfc;
@@ -9,8 +10,16 @@ QLabel {
     color: #303335;
 }
 
+/* balance section */
 QGroupBox#groupBox {
     background-color: #e6e6e6;
+    margin: 25px;
+    margin-left: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 4px;
+    border-left: 7px solid #014d67;
 }
 
 QGroupBox#groupBox QLabel {
@@ -18,6 +27,120 @@ QGroupBox#groupBox QLabel {
     color: #000000;
 }
 
+/* account balance section */
+QGroupBox#groupBox_2 {
+    background-color: #e6e6e6;
+    margin: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 4px;
+    border-left: 7px solid #014d67;
+}
+
+/* recent transactions */
+QGroupBox#horizontalGroupBox_3 {
+    background-color: #e6e6e6;
+    margin: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 4px;
+    border-left: 7px solid #014d67;
+}
+
+/* send to */
+QGroupBox#groupBox_3 {
+    background-color: #e6e6e6;
+    margin: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 4px;
+    border-left: 7px solid #014d67;
+}
+
+QGroupBox#verticalGroupBox {
+    background-color: #e6e6e6;
+    border-radius: 4px;
+}
+
+QGroupBox#groupBox_3 QScrollArea {
+    background-color: #e6e6e6;
+}
+
+QGroupBox#groupBox_3 QWidget {
+    background-color: #e6e6e6;
+}
+
+QGroupBox#groupBox_3 QWidget#sendToWidgets QPushButton{
+    background-color: #014d67 ;
+    border:1px solid #f2f0f0;
+    border-radius:13px;
+    color:#f2f0f0;
+    font-size:12px;
+    font-weight:bold;
+    padding-left:15px;
+    padding-right:15px;
+    padding-top:5px;
+    padding-bottom:5px;
+    min-height:15px;
+}
+
+QGroupBox#groupBox_3 QWidget#sendToWidgets QPushButton:hover, .QPushButton:hover {
+    background: #e6e6e6;
+    color: #303335;
+    border: 1px solid #303335;
+}
+
+QGroupBox#groupBox_3 QWidget#sendToWidgets QPushButton:focus {
+    border:none;
+    outline:none;
+}
+
+QGroupBox#groupBox_3 QWidget#sendToWidgets QPushButton:pressed {
+    border:1px solid #333;
+}
+
+/* send from */
+QGroupBox#groupBox_4 {
+    background-color: #e6e6e6;
+    margin: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 4px;
+    border-left: 7px solid #014d67;
+}
+
+/* Receive with section */
+QGroupBox#groupBox_6 {
+    background-color: #e6e6e6;
+    margin: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 4px;
+    border-left: 7px solid #014d67;
+}
+
+QGroupBox#groupBox_6 QRadioButton {
+    background: transparent;
+    color: #000000;
+}
+
+/* safecoind */
+QGroupBox#groupBox_7 {
+    background-color: #e6e6e6;
+    margin: 25px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 4px;
+    border-left: 7px solid #014d67;
+}
+
+/* Navigation bar styling */
 QTabWidget QTabBar::tab {
 padding-left:20px;
 padding-right:20px;
@@ -42,11 +165,13 @@ border: 1px solid #014d67;
 min-height: 20px
 }
 
-QHeaderView { /* Table Header */
+/* Table Header */
+QHeaderView { 
 background-color:#e6e6e6;
 }
 
-QHeaderView::section { /* Table Header Sections */
+/* Table Header Sections */
+QHeaderView::section { 
 qproperty-alignment:center;
 background-color: #014d67;
 color:#f2f0f0;
@@ -72,43 +197,49 @@ background:transparent;
 border:0px;
 }
 
-QScrollBar { /* Scroll Bar */
+/* Scroll Bar */
+QScrollBar { 
 
 }
 
-QScrollBar:vertical { /* Vertical Scroll Bar Attributes */
+/* Vertical Scroll Bar Attributes */
+QScrollBar:vertical { 
 border:0;
 background:#014d67;
 width:18px;
 margin: 18px 0px 18px 0px;
 }
 
-QScrollBar:horizontal { /* Horizontal Scroll Bar Attributes */
+/* Horizontal Scroll Bar Attributes */
+QScrollBar:horizontal { 
 border:0;
 background:#014d67;
 height:18px;
 margin: 0px 18px 0px 18px;
 }
 
-
-QScrollBar::handle:vertical { /* Scroll Bar Slider - vertical */
+/* Scroll Bar Slider - vertical */
+QScrollBar::handle:vertical { 
 background:#014d67;
 min-height:10px;
 border: 1px solid #303335
 }
 
-QScrollBar::handle:horizontal { /* Scroll Bar Slider - horizontal */
+/* Scroll Bar Slider - horizontal */
+QScrollBar::handle:horizontal { 
 background:#014d67;
 min-width:10px;
 border: 1px solid #303335;
 }
 
-QScrollBar::add-page, QScrollBar::sub-page { /* Scroll Bar Background */
+/* Scroll Bar Background */
+QScrollBar::add-page, QScrollBar::sub-page { 
 background:#e6e6e6;
 border: 1px solid #f2f0f0;
 }
 
-QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical, QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal { /* Define Arrow Button Dimensions */
+/* Define Arrow Button Dimensions */
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical, QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal { 
 background-color:#c5cad3;
 border: 1px solid #014d67;
 width:16px;
@@ -119,27 +250,32 @@ QScrollBar::add-line:vertical:pressed, QScrollBar::sub-line:vertical:pressed, QS
 background-color:#e6e6e6;
 }
 
-QScrollBar::sub-line:vertical { /* Vertical - top button position */
+/* Vertical - top button position */
+QScrollBar::sub-line:vertical { 
 subcontrol-position:top;
 subcontrol-origin: margin;
 }
 
-QScrollBar::add-line:vertical { /* Vertical - bottom button position */
+/* Vertical - bottom button position */
+QScrollBar::add-line:vertical { 
 subcontrol-position:bottom;
 subcontrol-origin: margin;
 }
 
-QScrollBar::sub-line:horizontal { /* Vertical - left button position */
+/* Vertical - left button position */
+QScrollBar::sub-line:horizontal { 
 subcontrol-position:left;
 subcontrol-origin: margin;
 }
 
-QScrollBar::add-line:horizontal { /* Vertical - right button position */
+/* Vertical - right button position */
+QScrollBar::add-line:horizontal { 
 subcontrol-position:right;
 subcontrol-origin: margin;
 }
 
-QScrollBar:up-arrow, QScrollBar:down-arrow, QScrollBar:left-arrow, QScrollBar:right-arrow { /* Arrows Icon */
+/* Arrows Icon */
+QScrollBar:up-arrow, QScrollBar:down-arrow, QScrollBar:left-arrow, QScrollBar:right-arrow { 
 width:10px;
 height:10px;
 }
@@ -206,6 +342,8 @@ QPushButton:focus {
 QPushButton:pressed {
     border:1px solid #333;
 }
+
+/* Status bar */
 QStatusBar {
     background: #babec2;
     border: 0;
@@ -215,6 +353,7 @@ QStatusBar {
     padding: 0;
 }
 
+/* Menu Bar */
 QMenuBar {
     background-color: #e6e6e6;
 }
@@ -229,6 +368,7 @@ QMenuBar::item:selected {
     border: 1px solid #303335;
 }
 
+/* Drop down menu */
 QMenu {
     background-color:#e6e6e6;
     padding-left: 15px;
@@ -245,7 +385,7 @@ QMenu::item:selected {
     border: 1px solid #303335;
 }
     
-
+/* Basic checkbox */
 QCheckBox {
     spacing: 5px;
 }

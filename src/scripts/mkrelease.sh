@@ -7,40 +7,21 @@ fi
 if [ -z $APP_VERSION ]; then echo "APP_VERSION is not set"; exit 1; fi
 if [ -z $PREV_VERSION ]; then echo "PREV_VERSION is not set"; exit 1; fi
 
-if [ -z $ZCASH_DIR ]; then
-    echo "ZCASH_DIR is not set. Please set it to the base directory of a Safecoin project with built Safecoin binaries."
+if [ -z $SAFECOIN_DIR ]; then
+    echo "SAFECOIN_DIR is not set. Please set it to the base directory of a Safecoin project with built Safecoin binaries."
     exit 1;
 fi
 
-if [ ! -f $ZCASH_DIR/artifacts/safecoind ]; then
-    echo "Couldn't find safecoind in $ZCASH_DIR/artifacts/. Please build safecoind."
+if [ ! -f $SAFECOIN_DIR/safecoind ]; then
+    echo "Couldn't find safecoind in $SAFECOIN_DIR/. Please build safecoind."
     exit 1;
 fi
 
-if [ ! -f $ZCASH_DIR/artifacts/safecoin-cli ]; then
-    echo "Couldn't find safecoin-cli in $ZCASH_DIR/artifacts/. Please build safecoind."
+if [ ! -f $SAFECOIN_DIR/safecoin-cli ]; then
+    echo "Couldn't find safecoin-cli in $SAFECOIN_DIR/. Please build safecoind."
     exit 1;
 fi
 
-
-## Ensure that safecoind is the right build
-#echo -n "safecoind version........."
-#if grep -q "zqwMagicBean" $ZCASH_DIR/artifacts/safecoind && ! readelf -s $ZCASH_DIR/artifacts/safecoind | grep -q "GLIBC_2\.25"; then 
-#    echo "[OK]"
-#else
-#    echo "[ERROR]"
-#    echo "safecoind doesn't seem to be a zqwMagicBean build or safecoind is built with libc 2.25"
-#    exit 1
-#fi
-
-#echo -n "safecoind.exe version....."
-#if grep -q "zqwMagicBean" $ZCASH_DIR/artifacts/safecoind.exe; then 
-#    echo "[OK]"
-#else
-#    echo "[ERROR]"
-#    echo "safecoind doesn't seem to be a zqwMagicBean build"
-#    exit 1
-#fi
 
 echo -n "Version files.........."
 # Replace the version number in the .pro file so it gets picked up everywhere
@@ -50,14 +31,80 @@ sed -i "s/${PREV_VERSION}/${APP_VERSION}/g" safe-qt-wallet.pro > /dev/null
 sed -i "s/${PREV_VERSION}/${APP_VERSION}/g" README.md > /dev/null
 echo "[OK]"
 
-echo -n "Cleaning..............."
+echo -n "Cleaning1..............."
 rm -rf bin/*
 rm -rf artifacts/*
+rm -rf release/safewallet-v$APP_VERSION
 make distclean >/dev/null 2>&1
 echo "[OK]"
 
 echo ""
+echo "-----------------------------------------------------"
+echo "[Windows]"
+echo "-----------------------------------------------------"
+echo ""
+
+if [ -z $MXE_PATH ]; then 
+    echo "MXE_PATH is not set. Set it to ~/github/mxe/usr/bin if you want to build Windows"
+    echo "Not building Windows"
+    exit 0; 
+fi
+
+if [ ! -f $SAFECOIN_DIR/safecoind.exe ]; then
+    echo "Couldn't find safecoind.exe in $SAFECOIN_DIR/. Please build safecoind.exe"
+    exit 1;
+fi
+
+
+if [ ! -f $SAFECOIN_DIR/safecoin-cli.exe ]; then
+    echo "Couldn't find safecoin-cli.exe in $SAFECOIN_DIR/. Please build safecoind.exe"
+    exit 1;
+fi
+
+export PATH=$MXE_PATH:$PATH
+
+echo -n "Building..............."
+./win-build.sh release > /dev/null
+echo "[OK]"
+
+
+echo -n "Packaging.............."
+mkdir release/safewallet-v$APP_VERSION  
+cp release/safewallet.exe			release/safewallet-v$APP_VERSION 
+cp $SAFECOIN_DIR/safecoind.exe			release/safewallet-v$APP_VERSION > /dev/null
+cp $SAFECOIN_DIR/safecoin-cli.exe		release/safewallet-v$APP_VERSION > /dev/null
+cp README.md							release/safewallet-v$APP_VERSION 
+cp LICENSE								release/safewallet-v$APP_VERSION 
+cd release && zip -r Windows-binaries-safewallet-v$APP_VERSION.zip safewallet-v$APP_VERSION/ > /dev/null
+cd ..
+
+mkdir artifacts >/dev/null 2>&1
+cp release/Windows-binaries-safewallet-v$APP_VERSION.zip ./artifacts/
+echo "[OK]"
+
+if [ -f artifacts/Windows-binaries-safewallet-v$APP_VERSION.zip ] ; then
+    echo -n "Package contents......."
+    if unzip -l "artifacts/Windows-binaries-safewallet-v$APP_VERSION.zip" | wc -l | grep -q "11"; then 
+        echo "[OK]"
+    else
+        echo "[ERROR]"
+        exit 1
+    fi
+else
+    echo "[ERROR]"
+    exit 1
+fi
+
+echo -n "Cleaning2..............."
+rm -rf bin/*
+make distclean >/dev/null 2>&1
+echo "[OK]"
+
+echo ""
+echo "-----------------------------------------------------"
 echo "[Building on" `lsb_release -r`"]"
+echo "-----------------------------------------------------"
+echo ""
 
 echo -n "Configuring............"
 #TODO
@@ -68,15 +115,16 @@ echo "[OK]"
 
 echo -n "Building..............."
 rm -rf bin/safe-qt-wallet* > /dev/null
-rm -rf bin/safecoinwallet* > /dev/null
+rm -rf bin/safewallet* > /dev/null
 make clean > /dev/null
 make -j$(nproc) > /dev/null
+./build.sh release > /dev/null
 echo "[OK]"
 
 
 # Test for Qt
 echo -n "Static link............"
-if [[ $(ldd safecoinwallet | grep -i "Qt") ]]; then
+if [[ $(ldd safewallet | grep -i "Qt") ]]; then
     echo "FOUND QT; ABORT"; 
     exit 1
 fi
@@ -84,27 +132,27 @@ echo "[OK]"
 
 
 echo -n "Packaging.............."
-mkdir bin/safecoinwallet-v$APP_VERSION > /dev/null
-strip safecoinwallet
+mkdir bin/safewallet-v$APP_VERSION > /dev/null
+strip safewallet
 
-cp safecoinwallet                  bin/safecoinwallet-v$APP_VERSION > /dev/null
-cp $ZCASH_DIR/artifacts/safecoind    bin/safecoinwallet-v$APP_VERSION > /dev/null
-cp $ZCASH_DIR/artifacts/safecoin-cli bin/safecoinwallet-v$APP_VERSION > /dev/null
-cp README.md                      bin/safecoinwallet-v$APP_VERSION > /dev/null
-cp LICENSE                        bin/safecoinwallet-v$APP_VERSION > /dev/null
+cp safewallet                  bin/safewallet-v$APP_VERSION > /dev/null
+cp $SAFECOIN_DIR/safecoind    bin/safewallet-v$APP_VERSION > /dev/null
+cp $SAFECOIN_DIR/safecoin-cli bin/safewallet-v$APP_VERSION > /dev/null
+cp README.md                      bin/safewallet-v$APP_VERSION > /dev/null
+cp LICENSE                        bin/safewallet-v$APP_VERSION > /dev/null
 
-cd bin && tar czf linux-safecoinwallet-v$APP_VERSION.tar.gz safecoinwallet-v$APP_VERSION/ > /dev/null
+cd bin && tar czf linux-safewallet-v$APP_VERSION.tar.gz safewallet-v$APP_VERSION/ > /dev/null
 cd .. 
 
 mkdir artifacts >/dev/null 2>&1
-cp bin/linux-safecoinwallet-v$APP_VERSION.tar.gz ./artifacts/linux-binaries-safecoinwallet-v$APP_VERSION.tar.gz
+cp bin/linux-safewallet-v$APP_VERSION.tar.gz ./artifacts/linux-binaries-safewallet-v$APP_VERSION.tar.gz
 echo "[OK]"
 
 
-if [ -f artifacts/linux-binaries-safecoinwallet-v$APP_VERSION.tar.gz ] ; then
+if [ -f artifacts/linux-binaries-safewallet-v$APP_VERSION.tar.gz ] ; then
     echo -n "Package contents......."
     # Test if the package is built OK
-    if tar tf "artifacts/linux-binaries-safecoinwallet-v$APP_VERSION.tar.gz" | wc -l | grep -q "6"; then 
+    if tar tf "artifacts/linux-binaries-safewallet-v$APP_VERSION.tar.gz" | wc -l | grep -q "6"; then 
         echo "[OK]"
     else
         echo "[ERROR]"
@@ -115,89 +163,40 @@ else
     exit 1
 fi
 
-echo -n "Building deb..........."
-debdir=bin/deb/safecoinwallet-v$APP_VERSION
+echo ""
+echo "-----------------------------------------------------"
+echo "[Building deb...........]"
+echo "-----------------------------------------------------"
+echo ""
+
+debdir=bin/deb/safewallet-v$APP_VERSION
 mkdir -p $debdir > /dev/null
 mkdir    $debdir/DEBIAN
 mkdir -p $debdir/usr/local/bin
 
 cat src/scripts/control | sed "s/RELEASE_VERSION/$APP_VERSION/g" > $debdir/DEBIAN/control
 
-cp safecoinwallet                   $debdir/usr/local/bin/
-cp $ZCASH_DIR/artifacts/safecoind $debdir/usr/local/bin/safecoind
+cp safewallet					$debdir/usr/local/bin/
+cp $SAFECOIN_DIR/safecoind			$debdir/usr/local/bin/safecoind
+cp $SAFECOIN_DIR/safecoin-cli		$debdir/usr/local/bin/safecoin-cli
 
 mkdir -p $debdir/usr/share/pixmaps/
-cp res/safecoinwallet.xpm           $debdir/usr/share/pixmaps/
+cp res/safewallet.xpm			$debdir/usr/share/pixmaps/
 
 mkdir -p $debdir/usr/share/applications
-cp src/scripts/desktopentry    $debdir/usr/share/applications/safecoinwallet.desktop
+cp src/scripts/desktopentry			$debdir/usr/share/applications/safewallet.desktop
 
 dpkg-deb --build $debdir >/dev/null
-cp $debdir.deb                 artifacts/linux-deb-safecoinwallet-v$APP_VERSION.deb
+cp $debdir.deb						artifacts/linux-deb-safewallet-v$APP_VERSION.deb
 echo "[OK]"
-
-
 
 echo ""
-echo "[Windows]"
-
-if [ -z $MXE_PATH ]; then 
-    echo "MXE_PATH is not set. Set it to ~/github/mxe/usr/bin if you want to build Windows"
-    echo "Not building Windows"
-    exit 0; 
-fi
-
-if [ ! -f $ZCASH_DIR/artifacts/safecoind.exe ]; then
-    echo "Couldn't find safecoind.exe in $ZCASH_DIR/artifacts/. Please build safecoind.exe"
-    exit 1;
-fi
-
-
-if [ ! -f $ZCASH_DIR/artifacts/safecoin-cli.exe ]; then
-    echo "Couldn't find safecoin-cli.exe in $ZCASH_DIR/artifacts/. Please build safecoind.exe"
-    exit 1;
-fi
-
-export PATH=$MXE_PATH:$PATH
-
-echo -n "Configuring............"
-make clean  > /dev/null
-rm -f safe-qt-wallet-mingw.pro
-rm -rf release/
-#Mingw seems to have trouble with precompiled headers, so strip that option from the .pro file
-cat safe-qt-wallet.pro | sed "s/precompile_header/release/g" | sed "s/PRECOMPILED_HEADER.*//g" > safe-qt-wallet-mingw.pro
+echo "-----------------------------------------------------"
+echo "DONE! Checksums:"
+echo "-----------------------------------------------------"
+echo ""
+cd artifacts
+sha256sum *
+echo "Save to checksums.txt"
+sha256sum * > checksums.txt
 echo "[OK]"
-
-
-echo -n "Building..............."
-x86_64-w64-mingw32.static-qmake-qt5 safe-qt-wallet-mingw.pro CONFIG+=release > /dev/null
-make -j32 > /dev/null
-echo "[OK]"
-
-
-echo -n "Packaging.............."
-mkdir release/safecoinwallet-v$APP_VERSION  
-cp release/safecoinwallet.exe          release/safecoinwallet-v$APP_VERSION 
-cp $ZCASH_DIR/artifacts/safecoind.exe    release/safecoinwallet-v$APP_VERSION > /dev/null
-cp $ZCASH_DIR/artifacts/safecoin-cli.exe release/safecoinwallet-v$APP_VERSION > /dev/null
-cp README.md                          release/safecoinwallet-v$APP_VERSION 
-cp LICENSE                            release/safecoinwallet-v$APP_VERSION 
-cd release && zip -r Windows-binaries-safecoinwallet-v$APP_VERSION.zip safecoinwallet-v$APP_VERSION/ > /dev/null
-cd ..
-
-mkdir artifacts >/dev/null 2>&1
-cp release/Windows-binaries-safecoinwallet-v$APP_VERSION.zip ./artifacts/
-echo "[OK]"
-
-if [ -f artifacts/Windows-binaries-safecoinwallet-v$APP_VERSION.zip ] ; then
-    echo -n "Package contents......."
-    if unzip -l "artifacts/Windows-binaries-safecoinwallet-v$APP_VERSION.zip" | wc -l | grep -q "11"; then 
-        echo "[OK]"
-    else
-        echo "[ERROR]"
-        exit 1
-    fi
-else
-    echo "[ERROR]"
-    exit 1
-fi
