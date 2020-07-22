@@ -554,7 +554,7 @@ void ConnectionLoader::refreshZcashdState(Connection* connection, std::function<
                 this->showInformation(QObject::tr("Your safecoind is starting up. Please wait."), status);
                 main->logger->write("Waiting for safecoind to come online.");
                 // Refresh after one second
-                QTimer::singleShot(1000, [=]() { this->refreshZcashdState(connection, refused); });
+                QTimer::singleShot(5000, [=]() { this->refreshZcashdState(connection, refused); });
             }
         }
     );
