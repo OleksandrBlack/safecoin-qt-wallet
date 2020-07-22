@@ -812,8 +812,8 @@ void MainWindow::sendButton() {
         auto d = new QDialog(this);
         auto connD = new Ui_ConnectionDialog();
         connD->setupUi(d);
-        QMovie *movie1 = new QMovie(":/img/res/safewallet-animated.gif");;
-        QMovie *movie2 = new QMovie(":/img/res/safewallet-animated-dark.gif");;
+        QMovie *movie1 = new QMovie(":/img/res/safecoindlogo.gif");;
+        QMovie *movie2 = new QMovie(":/img/res/safecoindlogo.gif");;
         auto theme = Settings::getInstance()->get_theme_name();
         if (theme == "dark") {
             movie2->setScaledSize(QSize(256,256));

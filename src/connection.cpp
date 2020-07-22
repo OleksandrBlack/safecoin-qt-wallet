@@ -19,8 +19,8 @@ ConnectionLoader::ConnectionLoader(MainWindow* main, RPC* rpc) {
     d = new QDialog(main);
     connD = new Ui_ConnectionDialog();
     connD->setupUi(d);
-    QMovie *movie1 = new QMovie(":/img/res/safewallet-animated-startup.gif");;
-    QMovie *movie2 = new QMovie(":/img/res/safewallet-animated-startup-dark.gif");;
+    QMovie *movie1 = new QMovie(":/img/res/safecoindlogo.gif");;
+    QMovie *movie2 = new QMovie(":/img/res/safecoindlogo.gif");;
     auto theme = Settings::getInstance()->get_theme_name();
     if (theme == "dark") {
         movie2->setScaledSize(QSize(256,256));
