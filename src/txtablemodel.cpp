@@ -133,8 +133,9 @@ void TxTableModel::updateAllData() {
                     else 
                         return addr;
                 }
-        case 2: return QDateTime::fromMSecsSinceEpoch(modeldata->at(index.row()).datetime *  (qint64)1000).toLocalTime().toString();
-        case 3: return Settings::getDisplayFormat(modeldata->at(index.row()).amount);
+        case Column::Time: return QDateTime::fromMSecsSinceEpoch(dat.datetime *  (qint64)1000).toLocalTime().toString();
+        case Column::Confirmations: return QString::number(dat.confirmations);
+        case Column::Amount: return Settings::getDisplayFormat(dat.amount);
         }
     } 
 
@@ -144,6 +145,7 @@ void TxTableModel::updateAllData() {
                     if (dat.memo.startsWith("safecoin:")) {
                         return Settings::paymentURIPretty(Settings::parseURI(dat.memo));
                     } else {
+                        // Don't render memo html in tooltip
                         return modeldata->at(index.row()).type + 
                         (dat.memo.isEmpty() ? "" : " tx memo: \"" + dat.memo.toHtmlEscaped() + "\"");
                     }
@@ -175,8 +177,7 @@ void TxTableModel::updateAllData() {
         } else {
             // Empty pixmap to make it align
             QPixmap p(16, 16);
-            //p.fill(Qt::white);
-            p.fill(Qt::transparent);
+            p.fill(Qt::white);
             return QVariant(p);
         }
     }
