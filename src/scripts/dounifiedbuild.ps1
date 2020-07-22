@@ -8,11 +8,11 @@ param (
 )
 
 Write-Host "[Initializing]"
-Remove-Item -Force -ErrorAction Ignore ./artifacts/linux-binaries-safecoinwallet-v$version.tar.gz
-Remove-Item -Force -ErrorAction Ignore ./artifacts/linux-deb-safecoinwallet-v$version.deb
-Remove-Item -Force -ErrorAction Ignore ./artifacts/Windows-binaries-safecoinwallet-v$version.zip
-Remove-Item -Force -ErrorAction Ignore ./artifacts/Windows-installer-safecoinwallet-v$version.msi
-Remove-Item -Force -ErrorAction Ignore ./artifacts/macOS-safecoinwallet-v$version.dmg
+Remove-Item -Force -ErrorAction Ignore ./artifacts/linux-binaries-safewallet-v$version.tar.gz
+Remove-Item -Force -ErrorAction Ignore ./artifacts/linux-deb-safewallet-v$version.deb
+Remove-Item -Force -ErrorAction Ignore ./artifacts/Windows-binaries-safewallet-v$version.zip
+Remove-Item -Force -ErrorAction Ignore ./artifacts/Windows-installer-safewallet-v$version.msi
+Remove-Item -Force -ErrorAction Ignore ./artifacts/macOS-safewallet-v$version.dmg
 Remove-Item -Force -ErrorAction Ignore ./artifacts/signatures-v$version.tar.gz
 
 
@@ -87,11 +87,11 @@ Write-Host "[OK]"
 
 # Finally, test to make sure all files exist
 Write-Host -NoNewline "Checking Build........."
-if (! (Test-Path ./artifacts/linux-binaries-safecoinwallet-v$version.tar.gz) -or
-    ! (Test-Path ./artifacts/linux-deb-safecoinwallet-v$version.deb) -or
-    ! (Test-Path ./artifacts/Windows-binaries-safecoinwallet-v$version.zip) -or
-    ! (Test-Path ./artifacts/macOS-safecoinwallet-v$version.dmg) -or 
-    ! (Test-Path ./artifacts/Windows-installer-safecoinwallet-v$version.msi) ) {
+if (! (Test-Path ./artifacts/linux-binaries-safewallet-v$version.tar.gz) -or
+    ! (Test-Path ./artifacts/linux-deb-safewallet-v$version.deb) -or
+    ! (Test-Path ./artifacts/Windows-binaries-safewallet-v$version.zip) -or
+    ! (Test-Path ./artifacts/macOS-safewallet-v$version.dmg) -or 
+    ! (Test-Path ./artifacts/Windows-installer-safewallet-v$version.msi) ) {
         Write-Host "[Error]"
         exit 1;
     }

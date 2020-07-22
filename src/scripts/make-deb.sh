@@ -46,7 +46,7 @@ echo "[OK]"
 
 
 echo -n "Building..............."
-rm -rf bin/safecoinwallet* > /dev/null
+rm -rf bin/safewallet* > /dev/null
 make clean > /dev/null
 ./build.sh release > /dev/null
 echo "[OK]"
@@ -54,7 +54,7 @@ echo "[OK]"
 
 # Test for Qt
 echo -n "Static link............"
-if [[ $(ldd safecoinwallet | grep -i "Qt") ]]; then
+if [[ $(ldd safewallet | grep -i "Qt") ]]; then
     echo "FOUND QT; ABORT";
     exit 1
 fi
@@ -65,9 +65,9 @@ echo -n "Packaging.............."
 APP=SafeWallet-v$APP_VERSION
 DIR=bin/$APP
 mkdir $DIR > /dev/null
-strip safecoinwallet
+strip safewallet
 
-cp safecoinwallet                  $DIR > /dev/null
+cp safewallet                  $DIR > /dev/null
 cp $SAFECOIN_DIR/artifacts/safecoind    $DIR > /dev/null
 cp $SAFECOIN_DIR/artifacts/safecoin-cli $DIR > /dev/null
 cp $SAFECOIN_DIR/artifacts/safecoin-tx $DIR > /dev/null
@@ -97,22 +97,22 @@ else
 fi
 
 echo -n "Building deb..........."
-debdir=bin/deb/safecoinwallet-v$APP_VERSION
+debdir=bin/deb/safewallet-v$APP_VERSION
 mkdir -p $debdir > /dev/null
 mkdir    $debdir/DEBIAN
 mkdir -p $debdir/usr/local/bin
 
 cat src/scripts/control | sed "s/RELEASE_VERSION/$APP_VERSION/g" > $debdir/DEBIAN/control
 
-cp safecoinwallet                   $debdir/usr/local/bin/
+cp safewallet                   $debdir/usr/local/bin/
 # TODO: how does this interact with safecoind deb ?
 cp $SAFECOIN_DIR/artifacts/safecoind $debdir/usr/local/bin/safecoind
 
 mkdir -p $debdir/usr/share/pixmaps/
-cp res/safecoinwallet.xpm           $debdir/usr/share/pixmaps/
+cp res/safewallet.xpm           $debdir/usr/share/pixmaps/
 
 mkdir -p $debdir/usr/share/applications
-cp src/scripts/desktopentry    $debdir/usr/share/applications/safecoinwallet.desktop
+cp src/scripts/desktopentry    $debdir/usr/share/applications/safewallet.desktop
 
 dpkg-deb --build $debdir >/dev/null
 cp $debdir.deb                 artifacts/$DIR.deb

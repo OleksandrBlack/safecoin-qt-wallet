@@ -6,8 +6,8 @@
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
 		<MediaTemplate EmbedCab="yes"/>
 
-        <Icon Id="safecoinwalleticon.exe" SourceFile="res/icon.ico"/>
-        <Property Id="ARPPRODUCTICON" Value="safecoinwalleticon.exe" />
+        <Icon Id="safewalleticon.exe" SourceFile="res/icon.ico"/>
+        <Property Id="ARPPRODUCTICON" Value="safewalleticon.exe" />
 
 		<Feature Id="ProductFeature" Title="safe-qt-wallet" Level="1">
 			<ComponentGroupRef Id="ProductComponents" /> 
@@ -55,9 +55,9 @@
 	<Fragment>
 		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
 			<Component Id="ProductComponent" Guid="0D210F5A-53E0-4E7E-CAAD-15A26995505E">
-                <File Source="safecoinwallet.exe" KeyPath="yes">
+                <File Source="safewallet.exe" KeyPath="yes">
                     <Shortcut Id="startMenuShotcut" Advertise="yes" Directory="ApplicationProgramsFolder"
-                        Name="SafeWallet" WorkingDirectory="INSTALLFOLDER" Icon="safecoinwalleticon.exe" >
+                        Name="SafeWallet" WorkingDirectory="INSTALLFOLDER" Icon="safewalleticon.exe" >
                     </Shortcut>
                 </File>
                 <File Source="LICENSE" />
@@ -69,10 +69,10 @@
                     <RegistryValue Type="string" Name="URL Protocol" Value=""/>
                     <RegistryValue Type="string" Value="URL:safecoin URI protocol"/>
                     <RegistryKey Key="DefaultIcon">
-                    <RegistryValue Type="string" Value="safecoinwallet.exe" />
+                    <RegistryValue Type="string" Value="safewallet.exe" />
                     </RegistryKey>
                     <RegistryKey Key="shell\open\command">
-                    <RegistryValue Type="string" Value="&quot;[INSTALLFOLDER]safecoinwallet.exe&quot; &quot;%1&quot;" />
+                    <RegistryValue Type="string" Value="&quot;[INSTALLFOLDER]safewallet.exe&quot; &quot;%1&quot;" />
                     </RegistryKey>
                 </RegistryKey>
 			</Component>

@@ -1,4 +1,4 @@
-# Build instruction for the safecoinwallet on macOS.
+# Build instruction for the safewallet on macOS.
 
 this guide has been made for macOS 10.14 and 10.15
 
@@ -52,11 +52,11 @@ After adding this to your path the file should look something like this:
 ```
 Now simply save and exit the file this can be done by pressing `^X` then press `Y` and then `return` 
 
-After following these steps your build environment should be ready to compile safecoind and the safecoinwallet just restart your terminal for the changes to take effect.
+After following these steps your build environment should be ready to compile safecoind and the safewallet just restart your terminal for the changes to take effect.
 
 
 ## Compiling safecoind and safecoin-cli
-safecoinwallet needs a Safecoin full node running safecoind and safecoin-cli. 
+safewallet needs a Safecoin full node running safecoind and safecoin-cli. 
 
 To compile safecoind and safecoin-cli simply open the terminal and enter the following commands:
 
@@ -74,7 +74,7 @@ After the compile is done you can find `safecoind` and `safecoin-cli` in `/src` 
 
 
 ## Compiling safewallet from source
-safecoinwallet is written in C++ 14, and can be compiled with g++/clang++/visual c++. It also depends on Qt5, which you can get from [here](https://www.qt.io/download). Note that if you are compiling from source, you won't get the embedded safecoind and safecoin-cli by default. We will add these later.
+safewallet is written in C++ 14, and can be compiled with g++/clang++/visual c++. It also depends on Qt5, which you can get from [here](https://www.qt.io/download). Note that if you are compiling from source, you won't get the embedded safecoind and safecoin-cli by default. We will add these later.
 
 
 ### Building safewallet
@@ -90,12 +90,12 @@ make -j$(expr $(sysctl -n hw.ncpu) - 1)
 ### Embedding safecoind and safecoin-cli
 
 To embed the safecoind and safecoin-cli you will need to copy the `safecoind` and `safecoin-cli` these can be found in `~/safecoin/src`
-After copying these files go to `~/safewallet` and right click on `safecoinwallet.app` now press on `Show Package Contents` and go to `/Contents/MacOS/` now paste the `safecoind` and `safecoin-cli`
+After copying these files go to `~/safewallet` and right click on `safewallet.app` now press on `Show Package Contents` and go to `/Contents/MacOS/` now paste the `safecoind` and `safecoin-cli`
 
 ### Optinal you can package the safewallet in a .dmg for release
 
 Create a folder on your desktop and give it the name you want the image to be called.
-Next copy the safecoinwallet.app to the folder.
+Next copy the safewallet.app to the folder.
 Additionally you can add a short cut to the applications folder by going to your home directory and option dragging this to the folder on your desktop.
 
 next open **Disk Utilty**

@@ -18,12 +18,12 @@ if [ -e $DIR ]; then
     mv $DIR $DIR.$(perl -e 'print time')
 fi
 mkdir -p $DIR
-strip safecoinwallet
+strip safewallet
 strip safecoind
 strip safecoin-tx
 strip safecoin-cli
 
-cp safecoinwallet   $DIR
+cp safewallet   $DIR
 cp safecoind        $DIR
 cp safecoin-cli     $DIR
 cp safecoin-tx      $DIR

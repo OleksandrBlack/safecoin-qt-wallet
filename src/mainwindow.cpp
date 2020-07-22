@@ -68,7 +68,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // File a bug
     QObject::connect(ui->actionFile_a_bug, &QAction::triggered, [=]() {
-        QDesktopServices::openUrl(QUrl("https://github.com/Fair-Exchange/safecoinwallet/issues/new"));
+        QDesktopServices::openUrl(QUrl("https://github.com/Fair-Exchange/safewallet/issues/new"));
     });
 
     // Set up check for updates action

@@ -12,7 +12,7 @@ PRECOMPILED_HEADER = src/precompiled.h
 QT += widgets
 QT += websockets
 
-TARGET = safecoinwallet
+TARGET = safewallet
 
 TEMPLATE = app
 

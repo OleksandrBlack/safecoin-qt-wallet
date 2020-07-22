@@ -90,7 +90,7 @@ export PATH=$PATH:/usr/local/bin
 #Clean
 echo -n "Cleaning..............."
 make distclean >/dev/null 2>&1
-rm -f artifacts/macOS-safecoinwallet-v$APP_VERSION.dmg
+rm -f artifacts/macOS-safewallet-v$APP_VERSION.dmg
 echo "[OK]"
 
 
@@ -108,7 +108,7 @@ echo "[OK]"
 #Qt deploy
 echo -n "Deploying.............."
 mkdir artifacts >/dev/null 2>&1
-rm -f artifcats/safecoinwallet.dmg >/dev/null 2>&1
+rm -f artifcats/safewallet.dmg >/dev/null 2>&1
 rm -f artifacts/rw* >/dev/null 2>&1
 cp $SAFE_DIR/src/safecoind safewallet.app/Contents/MacOS/
 cp $SAFE_DIR/src/safecoin-cli safewallet.app/Contents/MacOS/

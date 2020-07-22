@@ -1,5 +1,5 @@
 /* XPM */
-static char * safecoinwallet_xpm[] = {
+static char * safewallet_xpm[] = {
 /* columns rows colors chars-per-pixel */
 "388 388 250 2 ",
 "   c None",
