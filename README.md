@@ -77,6 +77,7 @@ make
 ./safewallet.app/Contents/MacOS/safewallet
 ```
 
+For a more indepth build guide please read our mac build guide [here](docs/build-mac.md)
 ### Emulating the embedded node
 
 In binary releases, safewallet will use node binaries in the current directory to sync a node from scratch.
@@ -93,4 +94,3 @@ The above assumes safewallet and safecoin git repos are in the same directory. F
 ### Support
 
 For support or other questions, Join [Discord](https://discordapp.com/invite/vQgYGJz), or tweet at [@safecoins](https://twitter.com/safecoins) or [file an issue](https://github.com/Fair-Exchange/safewallet/issues).
-
