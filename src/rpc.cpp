@@ -125,7 +125,7 @@ QJsonValue RPC::makePayload(QString method) {
 
 void RPC::getTAddresses(const std::function<void(QJsonValue)>& cb) {
     QString method = "getaddressesbyaccount";
-    QString params = "";
+    //    QString params = "";   // We're removing the params to get all addresses, similar to z_listaddresses for Z
     conn->doRPCWithDefaultErrorHandling(makePayload(method, ""), cb);
 }
 
@@ -340,8 +340,8 @@ void RPC::getAllPrivKeys(const std::function<void(QList<QPair<QString, QString>>
     QJsonObject payloadT = {
         {"jsonrpc", "1.0"},
         {"id", "someid"},
-        {"method", "getaddressesbyaccount"},
-        {"params", QJsonArray {""} }
+        {"method", "getaddressesbyaccount"}
+	//        {"params", QJsonArray {""} }    // We're removing params here in order to get addressesin all accounts, similar to z_listaddresses
     };
 
     QJsonObject payloadZ = {
