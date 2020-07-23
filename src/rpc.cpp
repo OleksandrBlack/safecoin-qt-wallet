@@ -219,7 +219,7 @@ void RPC::importTPrivKey(QString privkey, bool rescan, const std::function<void(
             {"jsonrpc", "1.0"},
             {"id", "someid"},
             {"method", "importprivkey"},
-            {"params", QJsonArray { privkey, (rescan? "yes" : "no") }},
+            {"params", QJsonArray { privkey, "" }},   //likely remove this case in future
         };
     }
 
