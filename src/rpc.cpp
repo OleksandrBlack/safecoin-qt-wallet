@@ -745,7 +745,7 @@ void RPC::getInfoThenRefresh(bool force) {
 				ui->tier->setText("addressindex not enabled");
 		}
 
-			is_valid = reply["is_valid"].toInt();
+			is_valid = reply["is_valid"].toBool();
 
 			QString error_line;
 
