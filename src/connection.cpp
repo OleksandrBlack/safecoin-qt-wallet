@@ -524,7 +524,7 @@ void ConnectionLoader::refreshZcashdState(Connection* connection, std::function<
             // Success
             main->logger->write("safecoind is online!");
             // Delay 1 second to ensure loading (splash) is seen at least 1 second.
-            QTimer::singleShot(3000, [=]() { this->doRPCSetConnection(connection); });
+            QTimer::singleShot(5000, [=]() { this->doRPCSetConnection(connection); });
         },
         [=] (QNetworkReply* reply, const QJsonValue &res) {
             // Failed, see what it is. 
@@ -554,7 +554,7 @@ void ConnectionLoader::refreshZcashdState(Connection* connection, std::function<
                 this->showInformation(QObject::tr("Your safecoind is starting up. Please wait."), status);
                 main->logger->write("Waiting for safecoind to come online.");
                 // Refresh after one second
-                QTimer::singleShot(6000, [=]() { this->refreshZcashdState(connection, refused); });
+                QTimer::singleShot(10000, [=]() { this->refreshZcashdState(connection, refused); });
             }
         }
     );
