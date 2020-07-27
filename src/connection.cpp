@@ -366,6 +366,7 @@ bool ConnectionLoader::startEmbeddedZcashd() {
     // Finally, start safecoind
 
     QDir appPath(QCoreApplication::applicationDirPath());
+    
 
 #ifdef Q_OS_WIN64
     auto safecoindProgram = appPath.absoluteFilePath("safecoind.exe");
@@ -436,18 +437,18 @@ bool ConnectionLoader::startEmbeddedZcashd() {
 
 #ifdef Q_OS_LINUX
     qDebug() << "Starting on Linux: ";
-    ezcashd->start(safecoindProgram);
+    ezcashd->start(safecoindProgram, QStringList());
 #elif defined(Q_OS_DARWIN)
     qDebug() << "Starting on Darwin: ";
-    ezcashd->start(safecoindProgram);
+    ezcashd->start(safecoindProgram, QStringList());
 #elif defined(Q_OS_WIN64)
     qDebug() << "Starting on Win64: ";
     ezcashd->setWorkingDirectory(appPath.absolutePath());
-    ezcashd->start(safecoindProgram);
+    ezcashd->start(safecoindProgram, QStringList());
 #else
     qDebug() << "Starting on Unknown OS(!): ";
     ezcashd->setWorkingDirectory(appPath.absolutePath());
-    ezcashd->start(safecoindProgram);
+    ezcashd->start(safecoindProgram, QStringList());
 #endif // Q_OS_LINUX
 
     main->logger->write("Started");
