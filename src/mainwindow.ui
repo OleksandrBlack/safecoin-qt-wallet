@@ -1414,7 +1414,7 @@
              <item row="7" column="1" colspan="4">
               <layout class="QVBoxLayout" name="verticalLayout_15">
                <item>
-                <widget class="Line" name="line_5">
+                <widget class="Line" name="line_12">
                  <property name="orientation">
                   <enum>Qt::Horizontal</enum>
                  </property>
