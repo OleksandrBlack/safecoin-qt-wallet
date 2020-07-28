@@ -59,10 +59,12 @@ QGroupBox#groupBox_3 {
     border-left: 7px solid #014d67;
 }
 
+/* fix recipient header
 QGroupBox#verticalGroupBox {
     background-color: #212121;
     border-radius: 4px;
 }
+*/
 
 QGroupBox#groupBox_3 QScrollArea {
     background-color: #212121;
