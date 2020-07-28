@@ -1718,7 +1718,7 @@
                <property name="title">
                 <string/>
                </property>
-               <layout class="QGridLayout" name="gridLayout_5">
+               <layout class="QGridLayout" name="gridLayout_10">
                 <item row="0" column="0">
                  <layout class="QVBoxLayout" name="verticalLayout_12">
                   <item>
