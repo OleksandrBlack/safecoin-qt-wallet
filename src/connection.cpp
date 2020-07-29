@@ -22,7 +22,7 @@ ConnectionLoader::ConnectionLoader(MainWindow* main, RPC* rpc) {
     QMovie *movie1 = new QMovie(":/img/res/safecoindlogo.gif");;
     QMovie *movie2 = new QMovie(":/img/res/safecoindlogo.gif");;
     auto theme = Settings::getInstance()->get_theme_name();
-    if (theme == "dark") {
+    if (theme == "dark" || "midnight") {
         movie2->setScaledSize(QSize(256,256));
         connD->topIcon->setMovie(movie2);
         movie2->start();
