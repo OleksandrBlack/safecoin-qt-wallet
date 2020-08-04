@@ -392,3 +392,7 @@ QCheckBox::indicator:indeterminate:pressed {
     image:url(':/images/blue/res/images/blue/checked');
 }
 
+QComboBox { /* default values */
+	min-height: 30px;
+	min-width: 100px;
+} 
