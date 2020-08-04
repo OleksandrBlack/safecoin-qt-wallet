@@ -1146,6 +1146,7 @@ void MainWindow::setupBalancesTab() {
     ui->unconfirmedWarning->setVisible(false);
     ui->lblSyncWarning->setVisible(false);
     ui->lblSyncWarningReceive->setVisible(false);
+	
 
     // Double click on balances table
     auto fnDoSendFrom = [=](const QString& addr, const QString& to = QString(), bool sendMax = false) {

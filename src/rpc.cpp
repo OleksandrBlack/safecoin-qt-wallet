@@ -983,8 +983,18 @@ void RPC::refreshAddresses() {
 
 // Function to create the data model and update the views, used below.
 void RPC::updateUI(bool anyUnconfirmed) {    
-    ui->unconfirmedWarning->setVisible(anyUnconfirmed);
 
+    ui->unconfirmedWarning->setVisible(anyUnconfirmed);
+	
+	// Sending button are hidden until complete synchronization or transaction confirmation
+    if (anyUnconfirmed == true) {
+		ui->sendTransactionButton->setVisible(false);
+		ui->BlocksendingWarning->setVisible(true);
+	} else {
+		ui->sendTransactionButton->setVisible(true);
+		ui->BlocksendingWarning->setVisible(false);
+	} 
+		
     // Update balances model data, which will update the table too
     balancesTableModel->setNewData(allBalances, utxos);
 
