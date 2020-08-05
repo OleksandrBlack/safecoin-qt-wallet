@@ -384,4 +384,12 @@ QCheckBox::indicator:indeterminate:pressed {
 QComboBox { /* default values */
 	min-height: 30px;
 	min-width: 100px;
-} 
+}
+
+QDialog QGroupBox QLabel#sendFrom { /* default values */
+	margin-left: 25px;
+}
+
+QDialog QGroupBox QLabel#Addr1 { /* default values */
+	margin-left: 25px;
+}
