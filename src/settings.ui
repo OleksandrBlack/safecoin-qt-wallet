@@ -252,9 +252,6 @@
            <property name="text">
             <string>Theme</string>
            </property>
-           <property name="textFormat">
-            <enum>Qt::MarkdownText</enum>
-           </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
            </property>
