@@ -11,7 +11,7 @@ QLabel {
 
 QGroupBox#groupBox {
     background-color: #014d67;
-    margin: 25px;
+    margin: -5px;
     margin-top: 10px;
     margin-bottom: 10px;
     padding: 15px;
@@ -384,12 +384,4 @@ QCheckBox::indicator:indeterminate:pressed {
 QComboBox { /* default values */
 	min-height: 30px;
 	min-width: 100px;
-}
-
-QDialog QGroupBox QLabel#sendFrom { /* default values */
-	margin-left: 25px;
-}
-
-QDialog QGroupBox QLabel#Addr1 { /* default values */
-	margin-left: 25px;
 }
