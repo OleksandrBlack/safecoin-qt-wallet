@@ -278,6 +278,7 @@ void RPC::getAllPrivKeys(const std::function<void(QList<QPair<QString, QString>>
         return;
     }
 
+    auto callnum = new int; 
     // A special function that will call the callback when two lists have been added
     auto holder = new QPair<int, QList<QPair<QString, QString>>>();
     holder->first = 0;  // This is the number of times the callback has been called, initialized to 0
@@ -290,7 +291,7 @@ void RPC::getAllPrivKeys(const std::function<void(QList<QPair<QString, QString>>
 
         // And if the caller has been called twice, do the parent callback with the 
         // collected list
-        if (holder->first == 2) {
+        if (holder->first == 3) {
             // Sort so z addresses are on top
             std::sort(holder->second.begin(), holder->second.end(), 
                         [=] (auto a, auto b) { return a.first > b.first; });
@@ -310,7 +311,12 @@ void RPC::getAllPrivKeys(const std::function<void(QList<QPair<QString, QString>>
                 addrs.push_back(addr.toString());
             }
 
-            // Then, do a batch request to get all the private keys
+        if (addrs.isEmpty()){
+	  holder->first++;
+	  return;
+	}
+	  
+	    // Then, do a batch request to get all the private keys
             conn->doBatchRPC<QString>(
                 addrs, 
                 [=] (auto addr) {
@@ -361,8 +367,8 @@ void RPC::getAllPrivKeys(const std::function<void(QList<QPair<QString, QString>>
     };
 
     fnDoBatchGetPrivKeys(payloadT, "dumpprivkey");
-    fnDoBatchGetPrivKeys(payloadZ, "z_exportkey");
     fnDoBatchGetPrivKeys(payloadU, "dumpprivkey");
+    fnDoBatchGetPrivKeys(payloadZ, "z_exportkey");
 
 
 }
