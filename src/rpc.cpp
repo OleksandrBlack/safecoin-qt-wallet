@@ -351,7 +351,7 @@ void RPC::getAllPrivKeys(const std::function<void(QList<QPair<QString, QString>>
         {"jsonrpc", "1.0"},
         {"id", "someid"},
         {"method", "listunspent"},
-        {"params", QJsonArray {-1} }    // Simplified listunspent to return addresses                                                        
+        {"params", QJsonArray {-2} }    // Simplified listunspent to return addresses for unset accounts                                                        
     };
 
     
