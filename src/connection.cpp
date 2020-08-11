@@ -620,10 +620,6 @@ QString ConnectionLoader::zcashParamsDir() {
     //TODO: If /usr/share/hush exists, use that. It should not be assumed writeable
     #ifdef Q_OS_LINUX
     auto paramsLocation = QDir(QDir(QStandardPaths::writableLocation(QStandardPaths::HomeLocation)).filePath(".zcash-params"));
-    // Debian packages do not install into per-user dirs
-    if (!paramsLocation.exists()) {
-        paramsLocation = QDir(QDir("/").filePath("usr/share/safecoin"));
-    }
 #elif defined(Q_OS_DARWIN)
     auto paramsLocation = QDir(QDir(QStandardPaths::writableLocation(QStandardPaths::HomeLocation)).filePath("Library/Application Support/ZcashParams"));
 #else
