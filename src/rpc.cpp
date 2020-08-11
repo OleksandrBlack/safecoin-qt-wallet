@@ -288,9 +288,9 @@ void RPC::getAllPrivKeys(const std::function<void(QList<QPair<QString, QString>>
         // Add all
         std::copy(list.begin(), list.end(), std::back_inserter(holder->second));
 
-        // And if the caller has been called thrice, do the parent callback with the 
+        // And if the caller has been called twice, do the parent callback with the 
         // collected list
-        if (holder->first == 3) {
+        if (holder->first == 2) {
             // Sort so z addresses are on top
             std::sort(holder->second.begin(), holder->second.end(), 
                         [=] (auto a, auto b) { return a.first > b.first; });
@@ -304,7 +304,7 @@ void RPC::getAllPrivKeys(const std::function<void(QList<QPair<QString, QString>>
 
     // A utility fn to do the batch calling
     auto fnDoBatchGetPrivKeys = [=](QJsonValue getAddressPayload, QString privKeyDumpMethodName) {
-        conn->doRPCWithDefaultErrorHandling(getAddressPayload, [=] (QJsonValue resp) {
+        conn->doRPCIgnoreError(getAddressPayload, [=] (QJsonValue resp) {
             QList<QString> addrs;
             for (auto addr : resp.toArray()) {
                 addrs.push_back(addr.toString());
@@ -320,17 +320,16 @@ void RPC::getAllPrivKeys(const std::function<void(QList<QPair<QString, QString>>
                         {"method", privKeyDumpMethodName},
                         {"params", QJsonArray { addr }},
                     };
-                    return payload;
+		    return payload;
                 },
                 [=] (QMap<QString, QJsonValue>* privkeys) {
                     QList<QPair<QString, QString>> allTKeys;
-                    for (QString addr: privkeys->keys()) {
+		        for (QString addr: privkeys->keys()) {
                         allTKeys.push_back(
                             QPair<QString, QString>(
                                 addr, 
                                 privkeys->value(addr).toString()));
                     }
-
                     fnCombineTwoLists(allTKeys);
                     delete privkeys;
                 }
@@ -362,8 +361,9 @@ void RPC::getAllPrivKeys(const std::function<void(QList<QPair<QString, QString>>
     };
 
     fnDoBatchGetPrivKeys(payloadT, "dumpprivkey");
-    fnDoBatchGetPrivKeys(payloadU, "dumpprivkey");
     fnDoBatchGetPrivKeys(payloadZ, "z_exportkey");
+    fnDoBatchGetPrivKeys(payloadU, "dumpprivkey");
+
 
 }
 
