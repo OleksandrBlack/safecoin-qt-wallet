@@ -1,5 +1,8 @@
 QWidget, QMainWindow, QMenuBar, QMenu, QDialog, QTabWidget, QTableView, QTableView::item, QScrollArea, QGroupBox, QPlainTextEdit, QLineEdit, QLabel, MainWindow
 {
     /**/
-    
+}
+QComboBox { /* default values */
+	min-height: 30px;
+	min-width: 100px;
 }

@@ -22,7 +22,7 @@ ConnectionLoader::ConnectionLoader(MainWindow* main, RPC* rpc) {
     QMovie *movie1 = new QMovie(":/img/res/safecoindlogo.gif");;
     QMovie *movie2 = new QMovie(":/img/res/safecoindlogo.gif");;
     auto theme = Settings::getInstance()->get_theme_name();
-    if (theme == "dark") {
+    if (theme == "dark" || "midnight") {
         movie2->setScaledSize(QSize(256,256));
         connD->topIcon->setMovie(movie2);
         movie2->start();
@@ -366,6 +366,7 @@ bool ConnectionLoader::startEmbeddedZcashd() {
     // Finally, start safecoind
 
     QDir appPath(QCoreApplication::applicationDirPath());
+    
 
 #ifdef Q_OS_WIN64
     auto safecoindProgram = appPath.absoluteFilePath("safecoind.exe");
@@ -436,18 +437,18 @@ bool ConnectionLoader::startEmbeddedZcashd() {
 
 #ifdef Q_OS_LINUX
     qDebug() << "Starting on Linux: ";
-    ezcashd->start(safecoindProgram);
+    ezcashd->QProcess::start(safecoindProgram, QStringList());
 #elif defined(Q_OS_DARWIN)
     qDebug() << "Starting on Darwin: ";
-    ezcashd->start(safecoindProgram);
+    ezcashd->QProcess::start(safecoindProgram, QStringList());
 #elif defined(Q_OS_WIN64)
     qDebug() << "Starting on Win64: ";
     ezcashd->setWorkingDirectory(appPath.absolutePath());
-    ezcashd->start(safecoindProgram);
+    ezcashd->QProcess::start(safecoindProgram, QStringList());
 #else
     qDebug() << "Starting on Unknown OS(!): ";
     ezcashd->setWorkingDirectory(appPath.absolutePath());
-    ezcashd->start(safecoindProgram);
+    ezcashd->QProcess::start(safecoindProgram, QStringList());
 #endif // Q_OS_LINUX
 
     main->logger->write("Started");
@@ -524,7 +525,7 @@ void ConnectionLoader::refreshZcashdState(Connection* connection, std::function<
             // Success
             main->logger->write("safecoind is online!");
             // Delay 1 second to ensure loading (splash) is seen at least 1 second.
-            QTimer::singleShot(1000, [=]() { this->doRPCSetConnection(connection); });
+            QTimer::singleShot(5000, [=]() { this->doRPCSetConnection(connection); });
         },
         [=] (QNetworkReply* reply, const QJsonValue &res) {
             // Failed, see what it is. 
@@ -554,7 +555,7 @@ void ConnectionLoader::refreshZcashdState(Connection* connection, std::function<
                 this->showInformation(QObject::tr("Your safecoind is starting up. Please wait."), status);
                 main->logger->write("Waiting for safecoind to come online.");
                 // Refresh after one second
-                QTimer::singleShot(5000, [=]() { this->refreshZcashdState(connection, refused); });
+                QTimer::singleShot(10000, [=]() { this->refreshZcashdState(connection, refused); });
             }
         }
     );
@@ -619,10 +620,6 @@ QString ConnectionLoader::zcashParamsDir() {
     //TODO: If /usr/share/hush exists, use that. It should not be assumed writeable
     #ifdef Q_OS_LINUX
     auto paramsLocation = QDir(QDir(QStandardPaths::writableLocation(QStandardPaths::HomeLocation)).filePath(".zcash-params"));
-    // Debian packages do not install into per-user dirs
-    if (!paramsLocation.exists()) {
-        paramsLocation = QDir(QDir("/").filePath("usr/share/safecoin"));
-    }
 #elif defined(Q_OS_DARWIN)
     auto paramsLocation = QDir(QDir(QStandardPaths::writableLocation(QStandardPaths::HomeLocation)).filePath("Library/Application Support/ZcashParams"));
 #else

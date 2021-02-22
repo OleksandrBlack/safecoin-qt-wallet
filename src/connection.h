@@ -122,10 +122,10 @@ public:
 
         QString method = payloadGenerator(payloads[0])["method"].toString();
 
-        //if (inProgress.value(method, false)) {
-        //    qDebug() << "In progress batch, skipping";
-        //    return;
-        //}
+	//        if (inProgress.value(method, false)) {
+	//            qDebug() << "In progress batch, skipping";
+	//            return;
+	//        }
 
         for (auto item: payloads) {
             QJsonValue payload = payloadGenerator(item);

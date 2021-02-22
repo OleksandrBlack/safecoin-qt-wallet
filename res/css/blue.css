@@ -11,7 +11,7 @@ QLabel {
 
 QGroupBox#groupBox {
     background-color: #014d67;
-    margin: 25px;
+    margin: -5px;
     margin-top: 10px;
     margin-bottom: 10px;
     padding: 15px;
@@ -46,21 +46,6 @@ QGroupBox#horizontalGroupBox_3 {
     border-left: 7px solid #e6e6e6;
 }
 
-/* send to */
-QGroupBox#groupBox_3 {
-    background-color: #014d67;
-    margin: 25px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding: 15px;
-    border-radius: 4px;
-    border-left: 7px solid #e6e6e6;
-}
-
-QGroupBox#verticalGroupBox {
-    background-color: #014d67;
-    border-radius: 4px;
-}
 
 QGroupBox#groupBox_3 QScrollArea {
     background-color: #014d67;
@@ -99,16 +84,6 @@ QGroupBox#groupBox_3 QWidget#sendToWidgets QPushButton:pressed {
     border:1px solid #e6e6e6;
 }
 
-/* send from */
-QGroupBox#groupBox_4 {
-    background-color: #014d67;
-    margin: 25px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding: 15px;
-    border-radius: 4px;
-    border-left: 7px solid #e6e6e6;
-}
 
 /* Receive with section */
 QGroupBox#groupBox_6 {
@@ -406,3 +381,7 @@ QCheckBox::indicator:indeterminate:pressed {
     image:url(':/images/blue/res/images/blue/checked');
 }
 
+QComboBox { /* default values */
+	min-height: 30px;
+	min-width: 100px;
+}

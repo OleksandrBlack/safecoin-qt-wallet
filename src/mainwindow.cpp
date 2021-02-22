@@ -396,7 +396,7 @@ void MainWindow::setupSettingsModal() {
         QDir zcashdir(rpc->getConnection()->config->zcashDir);
         QFile WalletSize(zcashdir.filePath("wallet.dat"));
         if (WalletSize.open(QIODevice::ReadOnly)){
-        size = WalletSize.size() / 1000000;  //when file does open.
+        size = WalletSize.size() / 1000;  //when file does open.
         //QString size1 = QString::number(size) ;
         settings.WalletSize->setText(QString::number(size));
         WalletSize.close();
@@ -1146,6 +1146,7 @@ void MainWindow::setupBalancesTab() {
     ui->unconfirmedWarning->setVisible(false);
     ui->lblSyncWarning->setVisible(false);
     ui->lblSyncWarningReceive->setVisible(false);
+	
 
     // Double click on balances table
     auto fnDoSendFrom = [=](const QString& addr, const QString& to = QString(), bool sendMax = false) {
@@ -1259,11 +1260,11 @@ void MainWindow::SafeNodesTab() {
     QMovie *movie2 = new QMovie(":/img/res/safenodelogo.gif");;
     auto theme = Settings::getInstance()->get_theme_name();
     if (theme == "dark") {
-        movie2->setScaledSize(QSize(256,256));
+        movie2->setScaledSize(QSize(128,128));
         ui->safenodelogo->setMovie(movie2);
         movie2->start();
     } else {
-        movie1->setScaledSize(QSize(256,256));
+        movie1->setScaledSize(QSize(128,128));
         ui->safenodelogo->setMovie(movie1);
         movie1->start();
     }

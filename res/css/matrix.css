@@ -133,7 +133,7 @@ QLineEdit:disabled, QPushButton:disabled, QPlainTextEdit:disabled  {
 
 QComboBox {
     background-color: rgba(0, 16, 0, 128);
-    min-height: 28px;
+	min-height: 28px;
 	min-width: 80px;
     border: 1px solid rgb(0, 64, 0);
     border-radius: 4px;
